@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Component;
 
+import ua.org.migdal.data.ImagePlacement;
 import ua.org.migdal.data.LinkType;
 import ua.org.migdal.data.PostingModbit;
 import ua.org.migdal.data.TopicModbit;
@@ -31,7 +32,8 @@ public class Constants {
     private Map<String, Integer> linkType = new HashMap<>();
     private List<Constant<String>> langs = new ArrayList<>();
     private Map<String, Long> grp = new HashMap<>();
-
+    private Map<String, Short> imagePlacement = new HashMap<>();
+    
     public Constants() {
     }
 
@@ -106,4 +108,15 @@ public class Constants {
         return grp;
     }
 
+    public Map<String, Short> getImagePlacement() {
+        if (imagePlacement.isEmpty()) {
+            imagePlacement.put("CENTERLEFT", ImagePlacement.CENTERLEFT);
+            imagePlacement.put("CENTER", ImagePlacement.CENTER);
+            imagePlacement.put("CENTERRIGHT", ImagePlacement.CENTERRIGHT);
+            imagePlacement.put("BOTTOMLEFT", ImagePlacement.BOTTOMLEFT);
+            imagePlacement.put("BOTTOMRIGHT", ImagePlacement.BOTTOMRIGHT);
+        }
+        return imagePlacement;
+    }
+    
 }

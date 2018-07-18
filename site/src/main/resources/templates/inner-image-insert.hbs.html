@@ -1,0 +1,73 @@
+{{#*inline "place"}} {{! params: value }}
+    {{radioButton name="placement" value=innerImageForm.placement checkedValue=value}}
+{{/inline}}
+
+{{> part/preamble}}
+{{> part/top}}
+
+{{#assign "formTitle"}}Вставка картинки в статью "{{posting.subject}}"{{/assign}}
+
+<form method="post" enctype="multipart/form-data" action="/actions/inner-image/modify">
+    {{#formTable title=formTitle}}
+        {{formErrors}}
+        {{hidden name="id" value=innerImageForm.id}}
+        {{hidden name="postingId" value=innerImageForm.postingId}}
+        {{hidden name="paragraph" value=innerImageForm.paragraph}}
+        {{hidden name="x" value=innerImageForm.x}}
+        {{hidden name="y" value=innerImageForm.y}}
+        {{starInfo}}
+        {{!<error id="*ELIM_NO_EDIT" text="Вы не можете редактировать эту картинку">
+        <error id="*ELIM_NO_POSTING" text="Вышестоящего сообщения не существует">
+        <error id="*ELIM_POSTING_APPEND" text="Вы не можете редактировать этот список">
+        <error id="*ELIM_IMAGE_ABSENT" text="Картинка не указана">
+        <error id="*EIU_UNKNOWN_IMAGE" text="Неизвестный формат картинки">
+        <error id="*EIU_IMAGE_LARGE" text="Картинка слишком велика (больше 2M)">
+        <error id="*EIU_UNKNOWN_THUMBNAIL"
+	        text="Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается">
+        <error id="*EIU_INTERNAL_ERROR" text="Не удалось загрузить картинку">
+        <error id="*EVH_NO_PARENT" text="Такой темы не существует">
+        <error id="*EVH_NO_UP" text="Вышестоящего сообщения не существует">
+        <error id="*EVH_LOOP" text="Сообщение не может быть подчиненным себе">
+        <error id="*EVH_NOT_UP_UNDER_PARENT"
+	        text="Тема вышестоящего сообщения должна совпадать с этой темой">
+        <error id="*EVH_INCORRECT" text="Нарушение иерархии объектов">}}
+        {{#assign "imageLoaded"}}
+            {{#if innerImageForm.imageUuid}}
+                Загружен файл {{innerImageForm.image.large.originalFilename}}
+                ({{innerImageForm.image.large.sizeX}}x{{innerImageForm.image.large.sizeY}},
+                {{innerImageForm.imagelarge.fileSizeKb}} KiB)
+            {{/if}}
+        {{/assign}}
+        {{formUploader title="Изображение" name="imageFile" loaded=imageLoaded
+                       smallUrl=innerImageForm.image.small.url largeUrl=innerImageForm.image.large.url
+                       mandatory=true uuidName="imageUuid" uuid=innerImageForm.imageUuid}}
+        {{formCheckbox title="Вставлять в уменьшенном виде" name="thumbnail" checked=innerImageForm.thumbnail
+                       style="radio" idYes="thumbnail-yes"}}
+        {{#formLine name="thumbnail" title="Размер"}}
+            {{edit name="thumbnailX" value=innerImageForm.thumbnailX size="4" maxlength="4" id="thumbnail-x"}}
+                {{!onkeypress="$("#hlm-yes").attr("checked", true)">}}
+            x
+            {{edit name="thumbnailY" value=innerImageForm.thumbnailY size="4" maxlength="4" id="thumbnail-y"}}
+        {{/formLine}}
+        {{formEditor title="Подпись" name="title" body=innerImageForm.title rows="3"}}
+        {{formCheckbox title="Загружать в высоком разрешении" comment="Использовать только в исключительных случаях"
+                       name="noResize" style="box" checked=innerImageForm.noResize}}
+        {{#formLine name="placement" title="Размещение картинки относительно текста"}}
+            <table>
+                <tr>
+                    <td align="center">{{> place value=const.imagePlacement.CENTERLEFT}}</td>
+                    <td align="center">{{> place value=const.imagePlacement.CENTER}}</td>
+                    <td align="center">{{> place value=const.imagePlacement.CENTERRIGHT}}</td>
+                </tr>
+                <tr>
+                    <td align="center">{{> place value=const.imagePlacement.BOTTOMLEFT}}</td>
+                    <td align="center"><i>Текст</i></td>
+                    <td align="center">{{> place value=const.imagePlacement.BOTTOMRIGHT}}</td>
+                </tr>
+            </table>
+        {{/formLine}}
+        {{formButtons title=buttonTitle}} {{! TODO}}
+    {{/formTable}}
+</form>
+
+{{> part/bottom}}

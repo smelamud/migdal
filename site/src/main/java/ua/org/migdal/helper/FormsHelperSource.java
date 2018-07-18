@@ -85,11 +85,18 @@ public class FormsHelperSource {
     public CharSequence radioButton(Options options) {
         CharSequence name = HelperUtils.mandatoryHash("name", options);
         Object value = HelperUtils.mandatoryHash("value", options);
-        boolean checked = HelperUtils.boolArg(options.hash("checked", false));
+        Object checkedValue = options.hash("checkedValue");
         CharSequence id = options.hash("id");
         CharSequence klass = options.hash("class");
-
-        return radioButton(name, value, checked, id, klass);
+        if (checkedValue == null) {
+            boolean checked = HelperUtils.boolArg(options.hash("checked", false));
+            return radioButton(name, value, checked, id, klass);
+        } else {
+            if (options.hash("checked") != null) {
+                throw new AmbiguousArgumentsException("checked", "checkedValue");
+            }
+            return radioButton(name, value, checkedValue.equals(value), id, klass);
+        }
     }
 
     CharSequence radioButton(CharSequence name, Object value, boolean checked, CharSequence id, CharSequence klass) {

@@ -96,8 +96,7 @@ public class ArticleHelperSource {
         if (image != null) {
             CharSequence titleHtml = mtextConverter.toHtml(image.getTitleMtext());
             CharSequence titleLineHtml = mtextConverter.toHtml(image.getTitleLineMtext());
-            String editHref = String.format("/insert-image/?postingId=%d&paragraph=%d&imageId=%d",
-                    id, paragraph, image.getId());
+            String editHref = String.format("/insert-inner-image/?imageId=%d", image.getId());
             String rmHref = String.format("/actions/posting/image/modify?insert=1&postingId=%s&imageId=0&paragraph=%s",
                     id, paragraph);
             buf.append(postingHelperSource.entryImage(image, align, false, false, null, String.format("article-%d", id),
@@ -108,7 +107,8 @@ public class ArticleHelperSource {
                 HelperUtils.appendAttr(buf, "align", String.format("float %s; clear %s", align, align));
             }
             buf.append("><span>");
-            buf.append(String.format("<a href=\"/insert-image/?paragraph=%d\" class=\"eightpt\">", paragraph));
+            buf.append(String.format("<a href=\"/insert-inner-image/%s/?paragraph=%d\" class=\"eightpt\">",
+                    id, paragraph));
             if (!requestContext.isEnglish()) {
                 buf.append("Вставить картинку");
             } else {
