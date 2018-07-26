@@ -3,9 +3,15 @@ package ua.org.migdal.form;
 import java.beans.Transient;
 import java.io.Serializable;
 
+import ua.org.migdal.data.Image;
 import ua.org.migdal.data.ImagePlacement;
+import ua.org.migdal.data.InnerImage;
 import ua.org.migdal.imageupload.ImageUploadManager;
 import ua.org.migdal.imageupload.UploadedImage;
+import ua.org.migdal.manager.ImageFileManager;
+import ua.org.migdal.mtext.MtextFormat;
+import ua.org.migdal.text.Text;
+import ua.org.migdal.text.TextFormat;
 
 public class InnerImageForm implements Serializable {
 
@@ -154,6 +160,32 @@ public class InnerImageForm implements Serializable {
 
     public void setThumbnailY(String thumbnailY) {
         this.thumbnailY = thumbnailY;
+    }
+
+    public void toInnerImage(InnerImage innerImage) {
+        innerImage.setParagraph(getParagraph());
+        innerImage.setX(getX());
+        innerImage.setY(getY());
+        innerImage.setPlacement(getPlacement());
+    }
+
+    public void toImage(Image image, ImageFileManager imageFileManager) {
+        image.setBodyFormat(TextFormat.PLAIN);
+        image.setTitle(Text.convertLigatures(getTitle()));
+        image.setTitleXml(Text.convert(image.getTitle(), image.getBodyFormat(), MtextFormat.LINE));
+        if (getImage() != null) {
+            getImage().toEntry(image, imageFileManager);
+        } else {
+            UploadedImage.clearEntry(image);
+        }
+    }
+
+    public boolean isTrackChanged(Image image) {
+        return getId() > 0 && getPostingId() != image.getUpId();
+    }
+
+    public boolean isCatalogChanged(Image image) {
+        return getId() > 0 && getPostingId() != image.getUpId();
     }
 
 }

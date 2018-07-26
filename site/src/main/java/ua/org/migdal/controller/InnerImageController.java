@@ -18,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ua.org.migdal.Config;
 import ua.org.migdal.controller.exception.PageNotFoundException;
+import ua.org.migdal.data.Image;
+import ua.org.migdal.data.InnerImage;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.form.InnerImageForm;
 import ua.org.migdal.grp.ImageTransformFlag;
@@ -25,6 +27,9 @@ import ua.org.migdal.grp.ThumbnailTransformFlag;
 import ua.org.migdal.imageupload.ImageUploadException;
 import ua.org.migdal.imageupload.ImageUploadManager;
 import ua.org.migdal.location.LocationInfo;
+import ua.org.migdal.manager.ImageFileManager;
+import ua.org.migdal.manager.ImageManager;
+import ua.org.migdal.manager.InnerImageManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Utils;
@@ -42,10 +47,19 @@ public class InnerImageController {
     private RequestContext requestContext;
 
     @Inject
+    private InnerImageManager innerImageManager;
+
+    @Inject
+    private ImageManager imageManager;
+
+    @Inject
     private PostingManager postingManager;
 
     @Inject
     private ImageUploadManager imageUploadManager;
+
+    @Inject
+    private ImageFileManager imageFileManager;
 
     @Inject
     private PostingViewController postingViewController;
@@ -109,9 +123,45 @@ public class InnerImageController {
                         e.setFieldName("imageFile");
                         throw e;
                     }
+
                     if (posting == null) {
                         return "noPosting";
                     }
+                    if (!posting.isWritable()) {
+                        return "notWritable";
+                    }
+                    String errorCode = Image.validateHierarchy(null, posting, innerImageForm.getImageId());
+                    if (errorCode != null) {
+                        return errorCode;
+                    }
+                    if (StringUtils.isEmpty(innerImageForm.getImageUuid())) {
+                        return "imageFile.isEmpty";
+                    }
+
+                    InnerImage innerImage;
+                    Image image;
+                    if (innerImageForm.getId() > 0) {
+                        innerImage = innerImageManager.get(innerImageForm.getId());
+                        if (innerImage == null) {
+                            return "noImage";
+                        }
+                        image = imageManager.beg(innerImageForm.getImageId());
+                        if (image == null) {
+                            return "noImage";
+                        }
+                    } else {
+                        image = new Image();
+                        innerImage = new InnerImage(posting, image);
+                    }
+
+                    imageManager.store(
+                            image,
+                            im -> innerImageForm.toImage(im, imageFileManager),
+                            innerImageForm.getId() <= 0,
+                            innerImageForm.isTrackChanged(image),
+                            innerImageForm.isCatalogChanged(image));
+                    innerImageForm.toInnerImage(innerImage);
+                    innerImageManager.save(innerImage);
 
                     return null;
                 });

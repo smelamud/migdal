@@ -37,6 +37,11 @@ public class InnerImage {
     @NotNull
     private short placement;
 
+    public InnerImage(Entry entry, Image image) {
+        this.entry = entry;
+        this.image = image;
+    }
+
     public long getId() {
         return id;
     }
