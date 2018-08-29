@@ -167,7 +167,7 @@ public class InnerImageController {
                 });
 
         if (!errors.hasErrors()) {
-            return String.format("redirect:/%s#image-editing", posting.getGrpDetailsHref());
+            return String.format("redirect:%s#image-editing", posting.getGrpDetailsHref());
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("innerImageForm", innerImageForm);
