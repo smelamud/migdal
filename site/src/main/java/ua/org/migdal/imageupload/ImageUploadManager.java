@@ -283,10 +283,10 @@ public class ImageUploadManager {
         double aspect = (double) largeSizeX / largeSizeY;
 
         if (maxX == 0) {
-            maxX = (short) 65535;
+            maxX = (short) 32767;
         }
         if (maxY == 0) {
-            maxY = (short) 65535;
+            maxY = (short) 32767;
         }
 
         short smallSizeX;
