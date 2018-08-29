@@ -150,7 +150,7 @@ public class InnerImageController {
                             return "noImage";
                         }
                     } else {
-                        image = new Image();
+                        image = new Image(posting);
                         innerImage = new InnerImage(posting, image);
                     }
 

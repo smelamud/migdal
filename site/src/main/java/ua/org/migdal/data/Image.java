@@ -9,6 +9,13 @@ import org.hibernate.Hibernate;
 @DiscriminatorValue("4")
 public class Image extends Entry {
 
+    public Image() {
+    }
+
+    public Image(Posting posting) {
+        setUp(posting);
+    }
+
     public static String validateHierarchy(Entry parent, Entry up, long id) {
         String errorCode = Entry.validateHierarchy(parent, up, id);
         if (errorCode != null) {
