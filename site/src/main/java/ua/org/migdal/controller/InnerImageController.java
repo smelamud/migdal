@@ -141,7 +141,7 @@ public class InnerImageController {
                     short imageMaxY = !innerImageForm.isNoResize() ? config.getInnerImageMaxHeight() : 0;
                     try {
                         String uploadedImageUuid = imageUploadManager.uploadStandard(
-                                imageFile, thumbFlag, imageFlag,
+                                innerImageForm.getImageUuid(), imageFile, thumbFlag, imageFlag,
                                 (short) 0, (short) 0, thumbnailX, thumbnailY,
                                 (short) 0, (short) 0, imageMaxX, imageMaxY);
                         if (!StringUtils.isEmpty(uploadedImageUuid)) {

@@ -84,12 +84,21 @@ public class ImageUploadManager {
         return uuid.toString();
     }
 
-    @Transactional(REQUIRES_NEW)
     public String uploadStandard(MultipartFile imageFile,
                                  ThumbnailTransformFlag thumbFlag, ImageTransformFlag imageFlag,
                                  short thumbExactX, short thumbExactY, short thumbMaxX, short thumbMaxY,
                                  short imageExactX, short imageExactY, short imageMaxX, short imageMaxY) {
-        if (imageFile == null || imageFile.isEmpty()) {
+        return uploadStandard(null, imageFile, thumbFlag, imageFlag,
+                thumbExactX, thumbExactY, thumbMaxX, thumbMaxY,
+                imageExactX, imageExactY, imageMaxX, imageMaxY);
+    }
+
+    @Transactional(REQUIRES_NEW)
+    public String uploadStandard(String uploadedImageUuid, MultipartFile imageFile,
+                                 ThumbnailTransformFlag thumbFlag, ImageTransformFlag imageFlag,
+                                 short thumbExactX, short thumbExactY, short thumbMaxX, short thumbMaxY,
+                                 short imageExactX, short imageExactY, short imageMaxX, short imageMaxY) {
+        if ((uploadedImageUuid == null || uploadedImageUuid.isEmpty()) && (imageFile == null || imageFile.isEmpty())) {
             return "";
         }
 
@@ -122,8 +131,14 @@ public class ImageUploadManager {
                 transformX = 0;
                 transformY = 0;
         }
-        UploadedImageFile largeImageFile = uploadImageFile(imageFile, exactX, exactY, maxX, maxY,
-                transform, transformX, transformY);
+        UploadedImageFile largeImageFile;
+        if (imageFile != null && !imageFile.isEmpty()) {
+            largeImageFile = uploadImageFile(imageFile, exactX, exactY, maxX, maxY, transform, transformX, transformY);
+            largeImageFile.setFileSize(imageFile.getSize());
+            largeImageFile.setOriginalFilename(imageFile.getOriginalFilename());
+        } else {
+            largeImageFile = get(uploadedImageUuid).getLarge();
+        }
         if (largeImageFile == null) {
             return "";
         }
@@ -149,8 +164,6 @@ public class ImageUploadManager {
         if (smallImageFile == null || smallImageFile.getId() == 0) {
             smallImageFile = largeImageFile.clone();
         }
-        largeImageFile.setFileSize(imageFile.getSize());
-        largeImageFile.setOriginalFilename(imageFile.getOriginalFilename());
 
         UUID uuid = UUID.randomUUID();
         uploads.put(uuid, new UploadedImage(smallImageFile, largeImageFile));
