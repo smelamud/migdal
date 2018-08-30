@@ -17,21 +17,6 @@
         {{hidden name="x" value=innerImageForm.x}}
         {{hidden name="y" value=innerImageForm.y}}
         {{starInfo}}
-        {{!<error id="*ELIM_NO_EDIT" text="Вы не можете редактировать эту картинку">
-        <error id="*ELIM_NO_POSTING" text="Вышестоящего сообщения не существует">
-        <error id="*ELIM_POSTING_APPEND" text="Вы не можете редактировать этот список">
-        <error id="*ELIM_IMAGE_ABSENT" text="Картинка не указана">
-        <error id="*EIU_UNKNOWN_IMAGE" text="Неизвестный формат картинки">
-        <error id="*EIU_IMAGE_LARGE" text="Картинка слишком велика (больше 2M)">
-        <error id="*EIU_UNKNOWN_THUMBNAIL"
-	        text="Формат маленькой картинки, указанный при конфигурации сервера, не поддерживается">
-        <error id="*EIU_INTERNAL_ERROR" text="Не удалось загрузить картинку">
-        <error id="*EVH_NO_PARENT" text="Такой темы не существует">
-        <error id="*EVH_NO_UP" text="Вышестоящего сообщения не существует">
-        <error id="*EVH_LOOP" text="Сообщение не может быть подчиненным себе">
-        <error id="*EVH_NOT_UP_UNDER_PARENT"
-	        text="Тема вышестоящего сообщения должна совпадать с этой темой">
-        <error id="*EVH_INCORRECT" text="Нарушение иерархии объектов">}}
         {{#assign "imageLoaded"}}
             {{#if innerImageForm.imageUuid}}
                 Загружен файл {{innerImageForm.image.large.originalFilename}}
