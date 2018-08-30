@@ -51,7 +51,11 @@
                 </tr>
             </table>
         {{/formLine}}
-        {{formButtons title=buttonTitle}} {{! TODO}}
+        {{#if innerImageForm.id}}
+            {{formButtons title="Изменить"}}
+        {{else}}
+            {{formButtons title="Вставить"}}
+        {{/if}}
     {{/formTable}}
 </form>
 
