@@ -65,6 +65,10 @@ public class UploadedImage {
         lastAccessed = Instant.now();
     }
 
+    public boolean isThumbnailed() {
+        return small.getId() != large.getId();
+    }
+
     public void toEntry(Entry entry, ImageFileManager imageFileManager) {
         entry.setSmallImage(imageFileManager.get(getSmall().getId()));
         entry.setSmallImageX(getSmall().getSizeX());

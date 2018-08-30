@@ -150,7 +150,7 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
             if (image.isPlaced(ImagePlacement.RIGHT)) {
                 align = "right";
             }
-            html.append(articleHelperSource.articleImage(id, par, image.getImage(), align));
+            html.append(articleHelperSource.articleImage(id, par, image, align));
         } else {
             html.append(articleHelperSource.articleImage(id, par, null, ""));
         }

@@ -3,6 +3,7 @@ package ua.org.migdal.form;
 import java.beans.Transient;
 import java.io.Serializable;
 
+import ua.org.migdal.Config;
 import ua.org.migdal.data.Image;
 import ua.org.migdal.data.ImagePlacement;
 import ua.org.migdal.data.InnerImage;
@@ -20,8 +21,6 @@ public class InnerImageForm implements Serializable {
     private long id;
 
     private long postingId;
-
-    private long imageId;
 
     private int paragraph;
 
@@ -53,6 +52,25 @@ public class InnerImageForm implements Serializable {
         this.y = y;
     }
 
+    public InnerImageForm(InnerImage innerImage) {
+        id = innerImage.getId();
+        postingId = innerImage.getEntry().getId();
+        paragraph = innerImage.getParagraph();
+        x = innerImage.getX();
+        y = innerImage.getY();
+        placement = innerImage.getPlacement();
+        imageUuid = ImageUploadManager.getInstance().extract(innerImage.getImage());
+        title = innerImage.getImage().getTitle();
+        UploadedImage uploadedImage = ImageUploadManager.getInstance().get(imageUuid);
+        noResize = uploadedImage.getLarge().getSizeX() > Config.getInstance().getInnerImageMaxWidth()
+                || uploadedImage.getLarge().getSizeY() > Config.getInstance().getInnerImageMaxHeight();
+        thumbnail = uploadedImage.isThumbnailed();
+        if (thumbnail) {
+            thumbnailX = Short.toString(uploadedImage.getSmall().getSizeX());
+            thumbnailY = Short.toString(uploadedImage.getSmall().getSizeY());
+        }
+    }
+
     public long getId() {
         return id;
     }
@@ -67,14 +85,6 @@ public class InnerImageForm implements Serializable {
 
     public void setPostingId(long postingId) {
         this.postingId = postingId;
-    }
-
-    public long getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(long imageId) {
-        this.imageId = imageId;
     }
 
     public int getParagraph() {

@@ -92,6 +92,34 @@ public class InnerImageController {
                 .withPageTitle(String.format("Вставка картинки в статью \"%s\"", posting.getSubject()));
     }
 
+    @GetMapping("/edit-inner-image/{innerImageId}")
+    public String innerImageEdit(
+            @PathVariable long innerImageId,
+            Model model) throws PageNotFoundException {
+
+        InnerImage innerImage = innerImageManager.get(innerImageId);
+        if (innerImage == null) {
+            throw new PageNotFoundException();
+        }
+        Posting posting = postingManager.beg(innerImage.getEntry().getId());
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        innerImageEditLocationInfo(innerImage, posting, model);
+
+        model.addAttribute("posting", posting);
+        model.asMap().computeIfAbsent("innerImageForm", key -> new InnerImageForm(innerImage));
+        return "inner-image-insert";
+    }
+
+    public LocationInfo innerImageEditLocationInfo(InnerImage innerImage, Posting posting, Model model) {
+        return new LocationInfo(model)
+                .withUri("/edit-inner-image/" + innerImage.getId())
+                .withParent(postingViewController.postingViewLocationInfo(posting, model))
+                .withPageTitle(String.format("Изменение картинки в статье \"%s\"", posting.getSubject()));
+    }
+
     @PostMapping("/actions/inner-image/modify")
     public String actionInnerImageModify(
             @RequestParam(required = false) MultipartFile imageFile,
@@ -130,7 +158,7 @@ public class InnerImageController {
                     if (!posting.isWritable()) {
                         return "notWritable";
                     }
-                    String errorCode = Image.validateHierarchy(null, posting, innerImageForm.getImageId());
+                    String errorCode = Image.validateHierarchy(null, posting, 0);
                     if (errorCode != null) {
                         return errorCode;
                     }
@@ -145,7 +173,7 @@ public class InnerImageController {
                         if (innerImage == null) {
                             return "noImage";
                         }
-                        image = imageManager.beg(innerImageForm.getImageId());
+                        image = imageManager.beg(innerImage.getImage().getId());
                         if (image == null) {
                             return "noImage";
                         }

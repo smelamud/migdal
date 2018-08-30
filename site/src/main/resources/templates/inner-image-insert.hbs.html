@@ -10,6 +10,7 @@
 <form method="post" enctype="multipart/form-data" action="/actions/inner-image/modify">
     {{#formTable title=formTitle}}
         {{formErrors}}
+        {{hidden name="back" value=rc.location}}
         {{hidden name="id" value=innerImageForm.id}}
         {{hidden name="postingId" value=innerImageForm.postingId}}
         {{hidden name="paragraph" value=innerImageForm.paragraph}}

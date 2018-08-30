@@ -1,13 +1,14 @@
 package ua.org.migdal.helper;
 
 import java.util.List;
+
 import javax.inject.Inject;
+
+import org.springframework.util.StringUtils;
 
 import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
 
-import org.springframework.util.StringUtils;
-import ua.org.migdal.data.Image;
 import ua.org.migdal.data.InnerImage;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.helper.util.HelperUtils;
@@ -91,16 +92,17 @@ public class ArticleHelperSource {
         return new SafeString(buf);
     }
 
-    public CharSequence articleImage(long id, int paragraph, Image image, String align) {
+    public CharSequence articleImage(long id, int paragraph, InnerImage image, String align) {
         StringBuilder buf = new StringBuilder();
         if (image != null) {
-            CharSequence titleHtml = mtextConverter.toHtml(image.getTitleMtext());
-            CharSequence titleLineHtml = mtextConverter.toHtml(image.getTitleLineMtext());
-            String editHref = String.format("/insert-inner-image/?imageId=%d", image.getId());
+            CharSequence titleHtml = mtextConverter.toHtml(image.getImage().getTitleMtext());
+            CharSequence titleLineHtml = mtextConverter.toHtml(image.getImage().getTitleLineMtext());
+            String editHref = String.format("/edit-inner-image/%d/", image.getId());
             String rmHref = String.format("/actions/posting/image/modify?insert=1&postingId=%s&imageId=0&paragraph=%s",
                     id, paragraph);
-            buf.append(postingHelperSource.entryImage(image, align, false, false, null, String.format("article-%d", id),
-                    titleHtml, 0, titleLineHtml, 0, 0, false, null, editHref, rmHref, true, false));
+            buf.append(postingHelperSource.entryImage(image.getImage(), align, false, false, null,
+                    String.format("article-%d", id), titleHtml, 0, titleLineHtml, 0, 0, false, null, editHref, rmHref,
+                    true, false));
         } else {
             buf.append("<div class=\"insert-image\"");
             if (!StringUtils.isEmpty(align)) {
