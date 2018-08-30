@@ -82,7 +82,7 @@ public class InnerImageController {
         model.addAttribute("posting", posting);
         model.asMap().computeIfAbsent("innerImageForm",
                 key -> new InnerImageForm(postingId, paragraph, x, y));
-        return "inner-image-insert";
+        return "inner-image-edit";
     }
 
     public LocationInfo innerImageInsertLocationInfo(Posting posting, Model model) {
@@ -110,7 +110,7 @@ public class InnerImageController {
 
         model.addAttribute("posting", posting);
         model.asMap().computeIfAbsent("innerImageForm", key -> new InnerImageForm(innerImage));
-        return "inner-image-insert";
+        return "inner-image-edit";
     }
 
     public LocationInfo innerImageEditLocationInfo(InnerImage innerImage, Posting posting, Model model) {
