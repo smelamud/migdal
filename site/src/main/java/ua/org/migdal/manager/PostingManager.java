@@ -324,7 +324,7 @@ public class PostingManager implements EntryManagerBase<Posting> {
         if (newPosting || topicChanged) {
             publishPosting(posting);
         }
-        /*    if ($original->getId() == 0)
+        /*    if ($original->getId() == 0) TODO
         createCounters($posting->getId(), $posting->getGrp());*/
     }
 
