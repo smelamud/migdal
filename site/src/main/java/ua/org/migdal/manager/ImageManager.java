@@ -85,4 +85,8 @@ public class ImageManager implements EntryManagerBase<Image> {
         }
     }
 
+    public void delete(long id) {
+        imageRepository.deleteById(id);
+    }
+
 }

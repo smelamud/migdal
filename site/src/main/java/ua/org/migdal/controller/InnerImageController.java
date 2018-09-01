@@ -21,6 +21,7 @@ import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Image;
 import ua.org.migdal.data.InnerImage;
 import ua.org.migdal.data.Posting;
+import ua.org.migdal.form.InnerImageDeleteForm;
 import ua.org.migdal.form.InnerImageForm;
 import ua.org.migdal.grp.ImageTransformFlag;
 import ua.org.migdal.grp.ThumbnailTransformFlag;
@@ -197,12 +198,48 @@ public class InnerImageController {
                 });
 
         if (!errors.hasErrors()) {
-            return String.format("redirect:%s#image-editing", posting.getGrpDetailsHref());
+            return postingImagesEditingRedirect(posting);
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("innerImageForm", innerImageForm);
             return "redirect:" + requestContext.getBack();
         }
+    }
+
+    @GetMapping("/actions/inner-image/delete")  // FIXME leave only POST
+    @PostMapping("/actions/inner-image/delete")
+    public String actionInnerImageDelete(
+            @ModelAttribute @Valid InnerImageDeleteForm innerImageDeleteForm,
+            Errors errors,
+            RedirectAttributes redirectAttributes) {
+        InnerImage innerImage = innerImageManager.get(innerImageDeleteForm.getId());
+        Posting posting = innerImage != null ? postingManager.beg(innerImage.getEntry().getId()) : null;
+        new ControllerAction(EntryController.class, "actionForumDelete", errors)
+                .transactional(txManager)
+                .execute(() -> {
+                    if (innerImage == null) {
+                        return "noInnerImage";
+                    }
+                    if (!posting.isWritable()) {
+                        return "noDelete";
+                    }
+                    imageManager.delete(innerImage.getImage().getId());
+                    postingManager.updateModbits(posting);
+                    postingManager.save(posting);
+
+                    return null;
+                });
+
+        if (!errors.hasErrors()) {
+            return postingImagesEditingRedirect(posting);
+        } else {
+            redirectAttributes.addFlashAttribute("errors", errors);
+            return postingImagesEditingRedirect(posting);
+        }
+    }
+
+    private static String postingImagesEditingRedirect(Posting posting) {
+        return String.format("redirect:%s#image-editing", posting != null ? posting.getGrpDetailsHref() : "/");
     }
 
 }

@@ -92,15 +92,15 @@ public class ArticleHelperSource {
         return new SafeString(buf);
     }
 
-    public CharSequence articleImage(long id, int paragraph, InnerImage image, String align) {
+    public CharSequence articleImage(long id, int paragraph, InnerImage innerImage, String align) {
         StringBuilder buf = new StringBuilder();
-        if (image != null) {
-            CharSequence titleHtml = mtextConverter.toHtml(image.getImage().getTitleMtext());
-            CharSequence titleLineHtml = mtextConverter.toHtml(image.getImage().getTitleLineMtext());
-            String editHref = String.format("/edit-inner-image/%d/", image.getId());
-            String rmHref = String.format("/actions/posting/image/modify?insert=1&postingId=%s&imageId=0&paragraph=%s",
-                    id, paragraph);
-            buf.append(postingHelperSource.entryImage(image.getImage(), align, false, false, null,
+        if (innerImage != null) {
+            CharSequence titleHtml = mtextConverter.toHtml(innerImage.getImage().getTitleMtext());
+            CharSequence titleLineHtml = mtextConverter.toHtml(innerImage.getImage().getTitleLineMtext());
+            String editHref = String.format("/edit-inner-image/%d/", innerImage.getId());
+            SafeString rmHref = new SafeString(String.format("/actions/inner-image/delete?id=%d&amp;back=%s",
+                    innerImage.getId(), HelperUtils.ue(requestContext.getLocation())));
+            buf.append(postingHelperSource.entryImage(innerImage.getImage(), align, false, false, null,
                     String.format("article-%d", id), titleHtml, 0, titleLineHtml, 0, 0, false, null, editHref, rmHref,
                     true, false));
         } else {
