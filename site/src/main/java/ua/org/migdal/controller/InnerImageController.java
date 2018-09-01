@@ -190,6 +190,8 @@ public class InnerImageController {
                             innerImageForm.isCatalogChanged(image));
                     innerImageForm.toInnerImage(innerImage);
                     innerImageManager.save(innerImage);
+                    postingManager.updateModbits(posting);
+                    postingManager.save(posting);
 
                     return null;
                 });

@@ -69,7 +69,6 @@ public class ImageManager implements EntryManagerBase<Image> {
         if (applyChanges != null) {
             applyChanges.accept(image);
         }
-        //updateModbits(Posting posting) TODO
         saveAndFlush(image); /* We need to have the record in DB to know ID after this point */
 
         String newTrack = TrackUtils.track(image.getId(), image.getUp().getTrack());

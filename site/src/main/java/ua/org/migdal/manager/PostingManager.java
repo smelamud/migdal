@@ -328,7 +328,7 @@ public class PostingManager implements EntryManagerBase<Posting> {
         createCounters($posting->getId(), $posting->getGrp());*/
     }
 
-    private void updateModbits(Posting posting) {
+    public void updateModbits(Posting posting) {
         if (requestContext.isUserModerator()
                 || requestContext.getUser() != null && requestContext.getUser().isShames()) {
             return;
