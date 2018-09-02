@@ -1,8 +1,3 @@
-<macro name="editor">
- <ispost what="$$times">
-</macro>
-<endif name="/editor">
-
 {{#*inline "times_issue"}}
     <table width="120">
         <tr><td class="issue">
@@ -17,19 +12,18 @@
 {{/inline}}
 
 {{#*inline "batcher"}}
-    <editor>
+    {{#if editor}}
         <div class="batcher">
             <div class="adder">
-                <image src="/pics/sheet.gif">&sp;
-                <a href="/times/$$issue/add/?redirid=$_">Добавить статью</a>
-                <if what="$$issue>0">
+                {{image "/pics/sheet.gif"}} <a href="/times/{{issue}}/add/?redirid=$_">Добавить статью</a>
+                {{#if cover}}
                     &nbsp;
-                    <a href="/times/$$issue/reorder/?redirid=$_">Расставить</a>
-                </if>
+                    <a href="/times/{{issue}}/reorder/?redirid=$_">Расставить</a>
+                {{/if}}
             </div>
             <div class="clear-floats"></div>
         </div>
-    </editor>
+    {{/if}}
 {{/inline}}
 
 {{#*inline "select_issue"}}
@@ -58,9 +52,9 @@
 
 {{#*inline "announce"}}
     <div class="nframe">
-        <ifnzero what="$$cover.Id">
+        {{#if cover}}
             <table width="100%" cellspacing="0" cellpadding="5">
-                <editor>
+                {{#if editor}}
                     <tr><td colspan="2">
                         <div class="batcher">
                             <div class="adder">
@@ -69,20 +63,20 @@
                             <div class="clear-floats"></div>
                         </div>
                     </td></tr>
-                </editor>
+                {{/if}}
                 <tr><td colspan="2"><select_issue></td></tr>
                 <tr valign="top">
-                    <td class="pic" width="$$cover.ImageX">
-                        <img width="$$cover.ImageX" height="$$cover.ImageY" src="$$cover.ImageURL">
+                    <td class="pic" width="{{cover.imageX}}">
+                        <img width="{{cover.imageX}}" height="{{cover.imageY}}" src="{{cover.imageUrl}}">
                     </td>
                     <td>
-                        <vote_panel align="right" id="$$cover.Id" rating="$$cover.Rating">
-                        $$cover.BodyHTML
-                        <posting_controls posting="$$cover" showdiscuss="*true">
+                        {{votePanel align="right" id=cover.id rating=cover.rating}}
+                        {{mtext cover.bodyMtext}}
+                        {{postingControls posting=cover showDiscuss=true}}
                     </td>
                 </tr>
             </table>
-        </ifnzero>
+        {{/if}}
     </div>
 {{/inline}}
 
@@ -210,14 +204,14 @@
             {{> times_issue}}
         </td></tr></table>
         <p>
-        <announce>
+        {{> announce}}
         <p>
         <table width="100%" cellspacing="5" cellpadding="0"><tr valign="top">
             <td width="150"><div class="nframe" style="padding: 5px">
                 {{> times_info}}
             </div></td>
             <td>
-                <batcher>
+                {{> batcher}}
                 <iterate_postinglist grp="*GRP_TIMES_ARTICLES" topic_id="$`times`"
                                       recursive="*true" limit=0 sort="*SORT_INDEX0"
                                       index1!="$issue<0 ? 0 : $issue">
@@ -227,15 +221,15 @@
                         <assign name="topicname" value="$^.Comment0">
                         <ifne what="$topicname">
                             <table width="100%" class="heading"><tr>
-                                <td align=left><image src="/pics/times-bullet.gif"></td>
-                                <td align=right>$=topicname</td>
+                                <td align="left"><image src="/pics/times-bullet.gif"></td>
+                                <td align="right">$=topicname</td>
                             </tr></table>
                         </ifne>
                     </if>
                     <posting_times posting="$." showtopic="*false" showdiscuss="*true">
                 </for>
                 <ifnzero what="$;Count">
-                    <batcher>
+                    {{> batcher}}
                 </ifnzero>
             </td>
         </tr></table>

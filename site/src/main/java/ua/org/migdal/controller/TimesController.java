@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Posting;
+import ua.org.migdal.data.Topic;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
+import ua.org.migdal.manager.TopicManager;
 
 @Controller
 public class TimesController {
@@ -23,6 +25,9 @@ public class TimesController {
     private IdentManager identManager;
 
     @Inject
+    private TopicManager topicManager;
+
+    @Inject
     private PostingManager postingManager;
 
     @Inject
@@ -31,7 +36,9 @@ public class TimesController {
     @GetMapping("/times/{issue}")
     public String times(@PathVariable int issue, Model model) throws PageNotFoundException {
         long[] grps = new long[] { grpEnum.grpValue("TIMES_COVERS") };
-        Posting cover = postingManager.begByIndex1(grps, identManager.idOrIdent("times"), issue);
+
+        Topic times = topicManager.get(identManager.idOrIdent("times"));
+        Posting cover = postingManager.begByIndex1(grps, times.getId(), issue);
         if (cover == null) {
             throw new PageNotFoundException();
         }
@@ -41,6 +48,7 @@ public class TimesController {
         model.addAttribute("issue", issue);
         model.addAttribute("cover", cover);
         model.addAttribute("issues", cover.getIssues());
+        model.addAttribute("editor", times.isPostable());
         return "times";
     }
 
