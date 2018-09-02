@@ -98,6 +98,15 @@ public class PostingManager implements EntryManagerBase<Posting> {
         return null;
     }
 
+    public Posting begByIndex1(long[] grps, long topicId, long index1) {
+        List<Pair<Long, Boolean>> topicRoots = topicId <= 0 ? null : Collections.singletonList(Pair.of(topicId, false));
+        Iterable<Posting> postings = begAll(topicRoots, grps, index1, null, 0, 1);
+        for (Posting lastPosting : postings) {
+            return lastPosting;
+        }
+        return null;
+    }
+
     public Iterable<Posting> begLastDiscussions(long[] grps, long[] additionalGrps, boolean prioritize,
                                                 int offset, int limit) {
         QPosting posting = QPosting.posting;

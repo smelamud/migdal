@@ -90,4 +90,10 @@ public class StatementsHelperSource {
         return condition ? options.apply(options.fn) : options.apply(options.inverse);
     }
 
+    public CharSequence ifbtw(Object value1, Object value2, Object value3, Options options) throws IOException {
+        boolean condition = HelperUtils.intArg(0, value1) >= HelperUtils.intArg(1, value2)
+                && HelperUtils.intArg(0, value1) < HelperUtils.intArg(2, value3);
+        return condition ? options.apply(options.fn) : options.apply(options.inverse);
+    }
+
 }
