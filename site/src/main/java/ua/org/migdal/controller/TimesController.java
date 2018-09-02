@@ -2,6 +2,7 @@ package ua.org.migdal.controller;
 
 import javax.inject.Inject;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,6 +50,8 @@ public class TimesController {
         model.addAttribute("cover", cover);
         model.addAttribute("issues", cover.getIssues());
         model.addAttribute("editor", times.isPostable());
+        model.addAttribute("allCovers", postingManager.begAll(null, grps, 0, Integer.MAX_VALUE,
+                Sort.Direction.DESC, "index1"));
         return "times";
     }
 

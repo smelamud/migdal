@@ -27,27 +27,16 @@
 {{/inline}}
 
 {{#*inline "select_issue"}}
-    <form method="get" action="/actions/goto/href"><table class="ninept">
-        <tr>
-            <td>Номер</td>
-            <td>
-                <select name="okdir">
-                    <iterate_postinglist grp="*GRP_TIMES_COVERS" limit=0 sort="*SORT_RINDEX1">
-                    <for>
-                        <assign name="title" value#="№$.getIssues&nbsp;$=.Comment0">
-                        <if what="$.Index1==$$issue">
-                            <option value="/times/$.Index1/" selected>$title
-                        <else>
-                            <option value="/times/$.Index1/">$title
-                        </if>
-                    </for>
-                </select>
-            </td>
-            <td>
-                <input type=submit value="Выбрать">
-            </td>
-        </tr>
-    </tr></table></form>
+    <div class="ninept">
+        Номер
+        &nbsp;
+        <select id="select-issue">
+            {{#each allCovers}}
+                {{#assign "issueTitle"}}№{{issues}}&nbsp;{{comment0}}{{/assign}}
+                {{selectOption value=index1 selectedValue=issue title=issueTitle}}
+            {{/each}}
+        </select>
+    </div>
 {{/inline}}
 
 {{#*inline "announce"}}
@@ -64,7 +53,7 @@
                         </div>
                     </td></tr>
                 {{/if}}
-                <tr><td colspan="2"><select_issue></td></tr>
+                <tr><td colspan="2">{{> select_issue}}</td></tr>
                 <tr valign="top">
                     <td class="pic" width="{{cover.imageX}}">
                         <img width="{{cover.imageX}}" height="{{cover.imageY}}" src="{{cover.imageUrl}}">
