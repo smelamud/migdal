@@ -136,12 +136,12 @@
 {{/inline}}
 
 {{#*inline "issue_further"}} {{! params: issue, pic, title }}
-    <table><tr valign="center">
-        <td align="left">
+    <div style="display: flex; align-items: center">
+        {{image pic}}
+        <div style="flex: auto; padding-left: 10px; line-height: 10px; text-align: left">
             <a href="/times/{{issue}}/" class="eightpt">{{title}}</a>
-        </td>
-        <td>{{image pic}}</td>
-    </tr></table>
+        </div>
+    </div>
     <p>
 {{/inline}}
 
