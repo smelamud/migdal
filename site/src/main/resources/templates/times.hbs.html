@@ -212,7 +212,7 @@
                             </tr></table>
                         {{/if}}
                     {{/ifne}}
-                    <posting_times posting="$." showtopic="*false" showdiscuss="*true">
+                    {{> part/posting-times posting=. showTopic=false showDiscuss=true}}
                 {{/each}}
                 {{#if articles}}
                     {{> batcher}}

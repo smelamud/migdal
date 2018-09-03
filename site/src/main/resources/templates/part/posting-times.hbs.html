@@ -1,7 +1,7 @@
-{{#*inline "further"}} {{! params: posting }}
+{{#*inline "further"}} {{! params: posting, title }}
     <p>
         {{image "/pics/further.gif"}}
-        <a href="/times/{{posting.index1}}/">Читать журнал</a>
+        <a href="{{posting.grpDetailsHref}}">{{title}}</a>
     </p>
 {{/inline}}
 
@@ -11,21 +11,18 @@
             {{topicLink posting}}<br>
         {{/if}}
         {{votePanel align="right" id=posting.id rating=posting.rating}}
-        <a class="posting-subject"
-           href="/times/{{posting.index1}}/">&laquo;Мигдаль Times&raquo; &numero;{{posting.issues}}</a>
+        <a class="posting-subject" href="{{posting.grpDetailsHref}}">{{posting.heading}}</a>
+        {{#if posting.author}}
+            <br><span class="posting-author">{{posting.author}}</span>
+        {{/if}}
     </dt>
     <dd>
-        {{#if what=posting.hasImage}}
+        {{#if posting.hasImage}}
             {{#assign "imageTitle"}}{{mtext posting.titleMtext}}{{/assign}}
             {{#assign "imageTitleLarge"}}{{mtext posting.titleLineMtext}}{{/assign}}
             {{postingImage posting=posting title=imageTitle titleLarge=imageTitleLarge align="left"}}
         {{/if}}
         {{mtext posting.bodyMtext}}
-        {{> further posting=posting}}
-        <div class="sent" style="clear: left">
-            {{sentView date=posting.sent}}&nbsp;
-            {{senderLink posting}}
-        </div>
+        {{> further posting=posting title="Читать статью"}}
         {{postingControls posting=posting showDiscuss=showDiscuss}}
-    </dd>
 </dl>
