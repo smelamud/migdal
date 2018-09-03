@@ -50,12 +50,12 @@ public class StatementsHelperSource {
         return Long.toString(-HelperUtils.intArg(1, value));
     }
 
-    public CharSequence ifeq(String value1, String value2, Options options) throws IOException {
+    public CharSequence ifeq(Object value1, Object value2, Options options) throws IOException {
         boolean condition = value1 == null && value2 == null || value1 != null && value1.equals(value2);
         return condition ? options.apply(options.fn) : options.apply(options.inverse);
     }
 
-    public CharSequence ifne(String value1, String value2, Options options) throws IOException {
+    public CharSequence ifne(Object value1, Object value2, Options options) throws IOException {
         boolean condition = value1 == null && value2 != null || value1 != null && !value1.equals(value2);
         return condition ? options.apply(options.fn) : options.apply(options.inverse);
     }

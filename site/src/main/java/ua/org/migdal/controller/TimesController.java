@@ -35,11 +35,12 @@ public class TimesController {
     private IndexController indexController;
 
     @GetMapping("/times/{issue}")
-    public String times(@PathVariable int issue, Model model) throws PageNotFoundException {
-        long[] grps = new long[] { grpEnum.grpValue("TIMES_COVERS") };
+    public String times(@PathVariable long issue, Model model) throws PageNotFoundException {
+        long[] coverGrps = new long[] { grpEnum.grpValue("TIMES_COVERS") };
+        long[] articleGrps = new long[] { grpEnum.grpValue("TIMES_ARTICLES") };
 
         Topic times = topicManager.get(identManager.idOrIdent("times"));
-        Posting cover = postingManager.begByIndex1(grps, times.getId(), issue);
+        Posting cover = postingManager.begByIndex1(coverGrps, times.getId(), issue);
         if (cover == null) {
             throw new PageNotFoundException();
         }
@@ -50,8 +51,10 @@ public class TimesController {
         model.addAttribute("cover", cover);
         model.addAttribute("issues", cover.getIssues());
         model.addAttribute("editor", times.isPostable());
-        model.addAttribute("allCovers", postingManager.begAll(null, grps, 0, Integer.MAX_VALUE,
+        model.addAttribute("allCovers", postingManager.begAll(null, coverGrps, 0, Integer.MAX_VALUE,
                 Sort.Direction.DESC, "index1"));
+        model.addAttribute("articles", postingManager.begAll(null, articleGrps, issue, null, 0, Integer.MAX_VALUE,
+                Sort.Direction.ASC, "index0"));
         return "times";
     }
 

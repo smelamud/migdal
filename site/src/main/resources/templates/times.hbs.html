@@ -201,25 +201,22 @@
             </div></td>
             <td>
                 {{> batcher}}
-                <iterate_postinglist grp="*GRP_TIMES_ARTICLES" topic_id="$`times`"
-                                      recursive="*true" limit=0 sort="*SORT_INDEX0"
-                                      index1!="$issue<0 ? 0 : $issue">
-                <assign name="topicname" value="">
-                <for>
-                    <if what="$topicname!=$^.Comment0">
-                        <assign name="topicname" value="$^.Comment0">
-                        <ifne what="$topicname">
+                {{#assign "rubric"}}{{/assign}}
+                {{#each articles}}
+                    {{#ifne rubric (uc comment0)}}
+                        {{#assign "rubric"}}{{uc comment0}}{{/assign}}
+                        {{#if rubric}}
                             <table width="100%" class="heading"><tr>
-                                <td align="left"><image src="/pics/times-bullet.gif"></td>
-                                <td align="right">$=topicname</td>
+                                <td align="left">{{image "/pics/times-bullet.gif"}}</td>
+                                <td align="right">{{rubric}}</td>
                             </tr></table>
-                        </ifne>
-                    </if>
+                        {{/if}}
+                    {{/ifne}}
                     <posting_times posting="$." showtopic="*false" showdiscuss="*true">
-                </for>
-                <ifnzero what="$;Count">
+                {{/each}}
+                {{#if articles}}
                     {{> batcher}}
-                </ifnzero>
+                {{/if}}
             </td>
         </tr></table>
     </td>
