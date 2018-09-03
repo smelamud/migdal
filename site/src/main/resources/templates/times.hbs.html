@@ -1,14 +1,14 @@
 {{#*inline "times_issue"}}
-    <table width="120">
-        <tr><td class="issue">
+    <div style="width: 120px">
+        <div class="issue">
             №{{issues}}
-        </td></tr>
+        </div>
         {{#if cover}}
-            <tr><td class="month">
+            <div class="month">
                 {{cover.comment0}}
-            </td></tr>
+            </div>
         {{/if}}
-    </table>
+    </div>
 {{/inline}}
 
 {{#*inline "batcher"}}
@@ -40,99 +40,91 @@
 {{/inline}}
 
 {{#*inline "announce"}}
-    <div class="nframe">
-        {{#if cover}}
-            <table width="100%" cellspacing="0" cellpadding="5">
-                {{#if editor}}
-                    <tr><td colspan="2">
-                        <div class="batcher">
-                            <div class="adder">
-                                {{image "/pics/sheet.gif"}} <a href="/times/add/?redirid=$_">Добавить номер</a>
-                            </div>
-                            <div class="clear-floats"></div>
-                        </div>
-                    </td></tr>
-                {{/if}}
-                <tr><td colspan="2">{{> select_issue}}</td></tr>
-                <tr valign="top">
-                    <td class="pic" width="{{cover.imageX}}">
-                        <img width="{{cover.imageX}}" height="{{cover.imageY}}" src="{{cover.imageUrl}}">
-                    </td>
-                    <td>
-                        {{votePanel align="right" id=cover.id rating=cover.rating}}
-                        {{mtext cover.bodyMtext}}
-                        {{postingControls posting=cover showDiscuss=true}}
-                    </td>
-                </tr>
-            </table>
+    {{#if cover}}
+        {{#if editor}}
+            <div class="batcher">
+                <div class="adder">
+                    {{image "/pics/sheet.gif"}} <a href="/times/add/?redirid=$_">Добавить номер</a>
+                </div>
+                <div class="clear-floats"></div>
+            </div>
         {{/if}}
-    </div>
+        <div style="margin-bottom: 2ex">{{> select_issue}}</div>
+        <div style="display: flex">
+            <div class="pic" style="width: {{cover.imageX}}px; margin-bottom: 0; margin-right: 1em">
+                <img width="{{cover.imageX}}" height="{{cover.imageY}}" src="{{cover.imageUrl}}">
+            </div>
+            <div style="flex: auto">
+                {{votePanel align="right" id=cover.id rating=cover.rating}}
+                {{mtext cover.bodyMtext}}
+                {{postingControls posting=cover showDiscuss=true}}
+            </div>
+        </div>
+    {{/if}}
 {{/inline}}
 
 {{#*inline "times_info"}}
-    <div class="ninept">
-        <dl class="info">
-            {{#ifge issue 26}}
-                <dt>Директор издания</dt>
-                <dd>Кира Верховская</dd>
-            {{/ifge}}
-            {{#iflt issue 26}}
-                <dt>Главный редактор</dt>
-                <dd>Болеслав Капулкин</dd>
-            {{/iflt}}
-            {{#ifge issue 36}}
-                <dt>Главный редактор</dt>
-                <dd>Инна Найдис</dd>
-            {{/ifge}}
+    <dl class="info">
+        {{#ifge issue 26}}
+            <dt>Директор издания</dt>
+            <dd>Кира Верховская</dd>
+        {{/ifge}}
+        {{#iflt issue 26}}
+            <dt>Главный редактор</dt>
+            <dd>Болеслав Капулкин</dd>
+        {{/iflt}}
+        {{#ifge issue 36}}
+            <dt>Главный редактор</dt>
+            <dd>Инна Найдис</dd>
+        {{/ifge}}
 
-            {{#ifbtw issue 38 67}}
-                <dt>Редактор</dt>
-                <dd>Ольга Ксендзюк</dd>
-            {{/ifbtw}}
-            {{#ifbtw issue 67 86}}
-                <dt>Редактор</dt>
-                <dd>Людмила Клигман</dd>
-            {{/ifbtw}}
-            {{#ifbtw issue 86 99}}
-                <dt>Редактор</dt>
-                <dd>Ольга Ксендзюк</dd>
-            {{/ifbtw}}
+        {{#ifbtw issue 38 67}}
+            <dt>Редактор</dt>
+            <dd>Ольга Ксендзюк</dd>
+        {{/ifbtw}}
+        {{#ifbtw issue 67 86}}
+            <dt>Редактор</dt>
+            <dd>Людмила Клигман</dd>
+        {{/ifbtw}}
+        {{#ifbtw issue 86 99}}
+            <dt>Редактор</dt>
+            <dd>Ольга Ксендзюк</dd>
+        {{/ifbtw}}
 
-            <dt>Редколлегия</dt>
-            {{#ifge issue 26}}
-                <dd>Полина Блиндер</dd>
-            {{/ifge}}
-            {{#iflt issue 27}}
-                <dd>Елена Каракина</dd>
-            {{/iflt}}
-            <dd>Анна Мисюк</dd>
-            {{#iflt issue 36}}
-                <dd>Инна Найдис</dd>
-            {{/iflt}}
-            {{#iflt issue 99}}
-                <dd>Леонид Штекель</dd>
-            {{/iflt}}
-            {{#ifge issue 112}}
-                <dd>Ольга Ксендзюк</dd>
-            {{/ifge}}
+        <dt>Редколлегия</dt>
+        {{#ifge issue 26}}
+            <dd>Полина Блиндер</dd>
+        {{/ifge}}
+        {{#iflt issue 27}}
+            <dd>Елена Каракина</dd>
+        {{/iflt}}
+        <dd>Анна Мисюк</dd>
+        {{#iflt issue 36}}
+            <dd>Инна Найдис</dd>
+        {{/iflt}}
+        {{#iflt issue 99}}
+            <dd>Леонид Штекель</dd>
+        {{/iflt}}
+        {{#ifge issue 112}}
+            <dd>Ольга Ксендзюк</dd>
+        {{/ifge}}
 
-            <dt>Адрес редакции:</dt>
-            <dd>г. Одесса, ул. М. Арнаутская, 46-а, к.1. Тел.: 37-21-28.</dd>
+        <dt>Адрес редакции:</dt>
+        <dd>г. Одесса, ул. М. Арнаутская, 46-а, к.1. Тел.: 37-21-28.</dd>
 
-            <dt>E-mail:</dt>
-            <dd><a href="mailto:m_times@migdal.org.ua">m_times@migdal.org.ua</a></dd>
-        </dl>
-        <p>
-        <em>ДА НЕ ОСКУДЕЕТ РУКА ДАЮЩЕГО</em><br>
-        Редакция благодарит Американский распределительный комитет
-        «Джойнт», чья любезная помощь сделала возможным выход этого номера.
-        <p>
-        <em>ДА НЕ ОСКУДЕЕТ ГЛАЗ ЧИТАЮЩЕГО</em><br>
-        Редакция благодарит всех читателей, взявших на себя труд прочесть этот номер.
-        <p>
-        <em>ОСОБАЯ БЛАГОДАРНОСТЬ</em><br>
-        Вс-вышнему, благословен Он, для которого нет ничего невозможного.
-    </div>
+        <dt>E-mail:</dt>
+        <dd><a href="mailto:m_times@migdal.org.ua">m_times@migdal.org.ua</a></dd>
+    </dl>
+    <p>
+    <em>ДА НЕ ОСКУДЕЕТ РУКА ДАЮЩЕГО</em><br>
+    Редакция благодарит Американский распределительный комитет
+    «Джойнт», чья любезная помощь сделала возможным выход этого номера.
+    <p>
+    <em>ДА НЕ ОСКУДЕЕТ ГЛАЗ ЧИТАЮЩЕГО</em><br>
+    Редакция благодарит всех читателей, взявших на себя труд прочесть этот номер.
+    <p>
+    <em>ОСОБАЯ БЛАГОДАРНОСТЬ</em><br>
+    Вс-вышнему, благословен Он, для которого нет ничего невозможного.
 {{/inline}}
 
 {{#*inline "issue_further"}} {{! params: issue, pic, title }}
@@ -187,19 +179,22 @@
 
 <table class="page-layout"><tr valign="top">
     <td class="mtimes cframe">
-        <table><tr valign="bottom"><td>
-            <a href="/times/">{{image "/pics/times.gif" "Мигдаль Times" "Мигдаль Times"}}</a>
-        </td><td>
-            {{> times_issue}}
-        </td></tr></table>
-        <p>
-        {{> announce}}
-        <p>
-        <table width="100%" cellspacing="5" cellpadding="0"><tr valign="top">
-            <td width="150"><div class="nframe" style="padding: 5px">
+        <div style="display: flex; align-items: baseline; margin-left: 1em; margin-top: 1ex"">
+            <div>
+                <a href="/times/">{{image "/pics/times.gif" "Мигдаль Times" "Мигдаль Times"}}</a>
+            </div>
+            <div>
+                {{> times_issue}}
+            </div>
+        </div>
+        <div class="nframe" style="padding: 5px; margin-top: 3ex">
+            {{> announce}}
+        </div>
+        <div style="display: flex">
+            <div class="nframe ninept" style="width: 170px; padding: 5px; align-self: start">
                 {{> times_info}}
-            </div></td>
-            <td>
+            </div>
+            <div style="flex: auto; padding: 5px">
                 {{> batcher}}
                 {{#assign "rubric"}}{{/assign}}
                 {{#each articles}}
@@ -217,8 +212,8 @@
                 {{#if articles}}
                     {{> batcher}}
                 {{/if}}
-            </td>
-        </tr></table>
+            </div>
+        </div>
     </td>
     <td width="80" align="center" class="mtimes-navigator">
         {{> navigator}}
