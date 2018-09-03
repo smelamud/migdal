@@ -135,51 +135,51 @@
     </div>
 {{/inline}}
 
-{{#*inline "issue_further"}} {{! params: issue,pic,title }}
-    <ifnzero what="$issue">
-        <table><tr valign="center">
-            <td align="left">
-                <a href="/times/$issue/" class="eightpt">$title</a>
-            </td>
-            <td><image src="$pic"></td>
-        </tr></table>
-        <p>
-    </ifnzero>
+{{#*inline "issue_further"}} {{! params: issue, pic, title }}
+    <table><tr valign="center">
+        <td align="left">
+            <a href="/times/{{issue}}/" class="eightpt">{{title}}</a>
+        </td>
+        <td>{{image pic}}</td>
+    </tr></table>
+    <p>
+{{/inline}}
+
+{{#*inline "sibling"}} {{! params: posting }}
+    <div style="width: ${.SmallImageX}px">
+        {{#assign "href"}}/times/{{posting.index1}}/{{/assign}}
+        {{postingImage posting=posting href=href}}
+        <div class="issue">
+            {{#ifieq issue posting.index1}}
+                №{{posting.issues}}
+            {{else}}
+                <a href="/times/{{posting.index1}}/">№{{posting.issues}}</a>
+            {{/ifieq}}
+        </div>
+    </div>
+    <p>
 {{/inline}}
 
 {{#*inline "navigator"}}
-    <assign name="nfirst" value="$$issue">
-    <for n=2>
-        <sibling_index name="prev" grp="*GRP_TIMES_COVERS" index1="$nfirst" next="*true">
-        <ifnzero what="$prev">
-            <assign name="nfirst" value="$prev">
-        </ifnzero>
-    </for>
-    <sibling_index grp="*GRP_TIMES_COVERS" index1="$nfirst" next="*true">
-    <issue_further issue="$," pic="/pics/upper.gif" title="Новые номера">
-    <iterate_postinglist name="covers" grp="*GRP_TIMES_COVERS" limit=5
-		                 sort="*SORT_RINDEX1" index1="$nfirst" as_guest="*true">
-    <for>
-        <islast what="$covers">
-            <assign name="nlast" value="$.Index1">
-        </islast>
-        <div style="width: ${.SmallImageX}px">
-            <div class="pic-rating">
-                <rating id="$.Id" value="$.Rating">
-            </div>
-            <posting_image posting="$." href#="/times/$.Index1/">
-            <div class="issue">
-                <if what="$$issue!=$.Index1">
-                    <a href="/times/$.Index1/">№$.getIssues</a>
-                <else>
-                    №$.getIssues
-                </if>
-            </div>
-        </div>
-        <p>
-    </for>
-    <sibling_index grp="*GRP_TIMES_COVERS" index1="$nlast" next="*false">
-    <issue_further issue="$," pic="/pics/lower.gif" title="Старые номера">
+    {{#each siblings.list}}
+        {{#if @first}}
+            {{#if siblings.moreBefore}}
+                {{> issue_further issue=index1 pic="/pics/upper.gif" title="Новые номера"}}
+            {{else}}
+                {{> sibling posting=.}}
+            {{/if}}
+        {{else}}
+            {{#if @last}}
+                {{#if siblings.moreAfter}}
+                    {{> issue_further issue=index1 pic="/pics/lower.gif" title="Старые номера"}}
+                {{else}}
+                    {{> sibling posting=.}}
+                {{/if}}
+            {{else}}
+                {{> sibling posting=.}}
+            {{/if}}
+        {{/if}}
+    {{/each}}
 {{/inline}}
 
 {{> part/preamble}}
@@ -221,7 +221,7 @@
         </tr></table>
     </td>
     <td width="80" align="center" class="mtimes-navigator">
-        <navigator>
+        {{> navigator}}
     </td>
 </tr></table>
 
