@@ -206,10 +206,10 @@
                     {{#ifne rubric (uc comment0)}}
                         {{#assign "rubric"}}{{uc comment0}}{{/assign}}
                         {{#if rubric}}
-                            <table width="100%" class="heading"><tr>
-                                <td align="left">{{image "/pics/times-bullet.gif"}}</td>
-                                <td align="right">{{rubric}}</td>
-                            </tr></table>
+                            <div style="display: flex; border-bottom: solid 3px black; padding-bottom: 3px; font-weight: bold">
+                                <div style="width: 25px; text-align: left">{{image "/pics/times-bullet.gif"}}</div>
+                                <div style="flex: auto; text-align: right">{{rubric}}</div>
+                            </div>
                         {{/if}}
                     {{/ifne}}
                     {{> part/posting-times posting=. showTopic=false showDiscuss=true}}
