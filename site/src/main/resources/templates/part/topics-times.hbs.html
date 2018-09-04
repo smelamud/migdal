@@ -1,0 +1,9 @@
+{{upperLevel name="Мигдаль Times" href="/times/"}}
+{{#assign "currentIssue"}}В номере №{{cover.issues}}{{/assign}}
+{{#topicsTable title=currentIssue}}
+    {{#assign "href"}}/times/{{cover.index1}}/{{/assign}}
+    {{topicsLine text="Обложка" href=href index=cover.id class="topics-item ninept"}}
+    {{#each allArticles}}
+        {{topicsLine text=subject href=grpDetailsHref index=id class="topics-item ninept"}}
+    {{/each}}
+{{/topicsTable}}

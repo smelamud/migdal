@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
@@ -38,6 +39,12 @@ public class TimesController {
 
     @Inject
     private IndexController indexController;
+
+    @Inject
+    private PostingViewController postingViewController;
+
+    @Inject
+    private EarController earController;
 
     @GetMapping("/times")
     public String times() {
@@ -109,6 +116,48 @@ public class TimesController {
         end = end > list.size() ? list.size() : end;
 
         return new Siblings<>(new ArrayList<>(list.subList(start, end)), moreBefore, moreAfter);
+    }
+
+    @GetMapping("/times/{issue}/{id}")
+    public String timesArticle(
+            @PathVariable long issue,
+            Model model,
+            @RequestParam(defaultValue = "0") Integer offset,
+            @RequestParam(defaultValue = "0") Long tid) throws PageNotFoundException {
+        long id = identManager.postingIdFromRequestPath();
+        Posting posting = postingManager.beg(id);
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+        if (posting.getGrp() != grpEnum.grpValue("TIMES_ARTICLES") || posting.getIndex1() != issue) {
+            throw new PageNotFoundException();
+        }
+        long[] coverGrps = new long[] { grpEnum.grpValue("TIMES_COVERS") };
+        Posting cover = postingManager.begByIndex1(coverGrps, 0, issue);
+        if (cover == null) {
+            throw new PageNotFoundException();
+        }
+
+        timesArticleLocationInfo(cover, posting, model);
+
+        postingViewController.addPostingView(model, posting, offset, tid);
+        model.addAttribute("cover", cover);
+        long[] articleGrps = new long[] { grpEnum.grpValue("TIMES_ARTICLES") };
+        model.addAttribute("allArticles", postingManager.begAll(null, articleGrps, issue, null, 0, Integer.MAX_VALUE,
+                Sort.Direction.ASC, "index0"));
+        earController.addEars(model);
+
+        return "article-times";
+    }
+
+    public LocationInfo timesArticleLocationInfo(Posting cover, Posting posting, Model model) {
+        return new LocationInfo(model)
+                .withUri(String.format("/times/%d/%d", posting.getIndex1(), posting.getId()))
+                .withTopics("topics-times")
+                .withTopicsIndex(Long.toString(posting.getId()))
+                .withParent(timesIssueLocationInfo(cover, null))
+                .withMenuMain("times")
+                .withPageTitle(posting.getHeading());
     }
 
 }

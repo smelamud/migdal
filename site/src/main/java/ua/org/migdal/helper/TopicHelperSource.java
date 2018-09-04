@@ -68,9 +68,10 @@ public class TopicHelperSource {
     public CharSequence upperLevel(Options options) {
         CharSequence href = HelperUtils.mandatoryHash("href", options);
         CharSequence title = options.hash("title");
+        CharSequence name = options.hash("name");
 
         if (StringUtils.isEmpty(title)) {
-            title = "К разделу «name»";
+            title = "К разделу «" + name + "»";
         }
 
         StringBuilder buf = new StringBuilder();

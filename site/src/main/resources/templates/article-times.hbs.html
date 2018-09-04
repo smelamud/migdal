@@ -1,3 +1,10 @@
+{{#*inline "timesMark"}}
+    <div class="timesnfo">
+        <a href="/times/{{cover.index1}}/">{{image "/pics/times-small.gif"}}</a>
+        <a href="/times/{{cover.index1}}/">№{{cover.issues}}</a>
+    </div>
+{{/inline}}
+
 {{> part/preamble}}
 {{> part/top}}
 
@@ -10,14 +17,11 @@
         </td>
         {{/notPrint}}
         <td class="article cframe">
-            <div class="sent">
-                {{sentView date=posting.sent}}<br>
-                {{senderLink posting}}
-            </div>
             {{articleControls posting=posting}}
             <div class="clear-floats"></div>
             {{votePanel align="right" id=posting.id rating=posting.rating}}
             <h1>
+                {{> timesMark }}
                 {{topicLink posting}}<br>
                 {{posting.subject}}
                 {{#if posting.author}}

@@ -61,6 +61,14 @@ public class PostingViewController {
 
         postingViewLocationInfo(posting, model);
 
+        addPostingView(model, posting, offset, tid);
+        indexController.addMajors(model);
+        earController.addEars(model);
+
+        return posting.getGrpDetailsTemplate();
+    }
+
+    public void addPostingView(Model model, Posting posting, Integer offset, Long tid) {
         if (posting.isHasImage()) {
             requestContext.addOgImage(posting.getImageUrl());
         }
@@ -79,10 +87,6 @@ public class PostingViewController {
         model.addAttribute("topic", posting.getTopic());
         model.addAttribute("comments", forumManager.begAll(posting.getId(), offset, 20));
         model.addAttribute("forumForm", new ForumForm(posting, requestContext));
-        indexController.addMajors(model);
-        earController.addEars(model);
-
-        return posting.getGrpDetailsTemplate();
     }
 
     public LocationInfo postingViewLocationInfo(Posting posting, Model model) {

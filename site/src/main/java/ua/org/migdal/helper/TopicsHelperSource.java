@@ -70,7 +70,7 @@ public class TopicsHelperSource {
             if (options.hash("arrow") != null) {
                 throw new AmbiguousArgumentsException("arrow", "index");
             }
-            arrow = index.equals(options.get("topicsIndex"));
+            arrow = index.toString().equals(options.get("topicsIndex").toString());
         }
         LocalDateTime time = HelperUtils.timestampArg("time", options.hash("time"), false);
         Object text = options.hash("text", "");
