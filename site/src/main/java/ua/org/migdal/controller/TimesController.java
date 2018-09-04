@@ -44,6 +44,9 @@ public class TimesController {
     private PostingViewController postingViewController;
 
     @Inject
+    private PostingEditingController postingEditingController;
+
+    @Inject
     private EarController earController;
 
     @GetMapping("/times")
@@ -118,12 +121,22 @@ public class TimesController {
         return new Siblings<>(new ArrayList<>(list.subList(start, end)), moreBefore, moreAfter);
     }
 
+    private Posting begCover(long issue) throws PageNotFoundException {
+        long[] coverGrps = new long[]{ grpEnum.grpValue("TIMES_COVERS") };
+        Posting cover = postingManager.begByIndex1(coverGrps, 0, issue);
+        if (cover == null) {
+            throw new PageNotFoundException();
+        }
+        return cover;
+    }
+
     @GetMapping("/times/{issue}/{id}")
     public String timesArticle(
             @PathVariable long issue,
             Model model,
             @RequestParam(defaultValue = "0") Integer offset,
             @RequestParam(defaultValue = "0") Long tid) throws PageNotFoundException {
+
         long id = identManager.postingIdFromRequestPath();
         Posting posting = postingManager.beg(id);
         if (posting == null) {
@@ -132,11 +145,7 @@ public class TimesController {
         if (posting.getGrp() != grpEnum.grpValue("TIMES_ARTICLES") || posting.getIndex1() != issue) {
             throw new PageNotFoundException();
         }
-        long[] coverGrps = new long[] { grpEnum.grpValue("TIMES_COVERS") };
-        Posting cover = postingManager.begByIndex1(coverGrps, 0, issue);
-        if (cover == null) {
-            throw new PageNotFoundException();
-        }
+        Posting cover = begCover(issue);
 
         timesArticleLocationInfo(cover, posting, model);
 
@@ -158,6 +167,108 @@ public class TimesController {
                 .withParent(timesIssueLocationInfo(cover, null))
                 .withMenuMain("times")
                 .withPageTitle(posting.getHeading());
+    }
+
+    @GetMapping("/times/add")
+    public String timesAdd(@RequestParam(required = false) boolean full, Model model) throws PageNotFoundException {
+        timesAddLocationInfo(model);
+
+        return postingEditingController.postingAdd(
+                "TIMES_COVERS",
+                identManager.idOrIdent("times"),
+                null,
+                full,
+                model);
+    }
+
+    public LocationInfo timesAddLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/times/add")
+                .withParent(timesLocationInfo(null))
+                .withPageTitle("Мигдаль Times - Добавление номера")
+                .withPageTitleRelative("Добавление номера");
+    }
+
+    @GetMapping("/times/{issue}/edit")
+    public String timesEdit(
+            @PathVariable long issue,
+            @RequestParam(required = false) boolean full,
+            Model model) throws PageNotFoundException {
+
+        Posting cover = begCover(issue);
+
+        timesEditLocationInfo(issue, model);
+
+        return postingEditingController.postingAddOrEdit(
+                cover.getId(),
+                "TIMES_COVERS",
+                identManager.idOrIdent("times"),
+                null,
+                full,
+                model);
+    }
+
+    public LocationInfo timesEditLocationInfo(long issue, Model model) {
+        return new LocationInfo(model)
+                .withUri(String.format("/times/%d/edit", issue))
+                .withParent(timesLocationInfo(null))
+                .withPageTitle("Редактирование номера");
+    }
+
+    @GetMapping("/times/{issue}/add")
+    public String timesIssueAdd(
+            @PathVariable long issue,
+            @RequestParam(required = false) boolean full,
+            Model model) throws PageNotFoundException {
+
+        timesIssueAddLocationInfo(begCover(issue), model);
+
+        return postingEditingController.postingAdd(
+                "TIMES_ARTICLES",
+                identManager.idOrIdent("times"),
+                p -> {
+                    p.setIndex1(issue);
+                    return p;
+                },
+                full,
+                model);
+    }
+
+    public LocationInfo timesIssueAddLocationInfo(Posting cover, Model model) {
+        return new LocationInfo(model)
+                .withUri("/times/add")
+                .withParent(timesIssueLocationInfo(cover, null))
+                .withPageTitle("Мигдаль Times №" + cover.getIndex1() + " - Добавление статьи")
+                .withPageTitleRelative("Добавление статьи");
+    }
+
+    @GetMapping("/times/{issue}/{id}/edit")
+    public String timesIssueEdit(
+            @PathVariable long issue,
+            @PathVariable long id,
+            @RequestParam(required = false) boolean full,
+            Model model) throws PageNotFoundException {
+
+        timesIssueEditLocationInfo(begCover(issue), id, model);
+
+        return postingEditingController.postingAddOrEdit(
+                id,
+                "TIMES_ARTICLES",
+                identManager.idOrIdent("times"),
+                p -> {
+                    p.setIndex1(issue);
+                    return p;
+                },
+                full,
+                model);
+    }
+
+    public LocationInfo timesIssueEditLocationInfo(Posting cover, long id, Model model) {
+        return new LocationInfo(model)
+                .withUri(String.format("/times/%d/%d/edit", cover.getIndex1(), id))
+                .withParent(timesIssueLocationInfo(cover, null))
+                .withPageTitle("Мигдаль Times №" + cover.getIndex1() + " - Редактирование статьи")
+                .withPageTitleRelative("Редактирование статьи");
     }
 
 }

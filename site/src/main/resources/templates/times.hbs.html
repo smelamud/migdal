@@ -13,10 +13,10 @@
     {{#if editor}}
         <div class="batcher">
             <div class="adder">
-                {{image "/pics/sheet.gif"}} <a href="/times/{{issue}}/add/?redirid=$_">Добавить статью</a>
+                {{image "/pics/sheet.gif"}} <a href="/times/{{issue}}/add/?back={{ue rc.location}}">Добавить статью</a>
                 {{#if cover}}
                     &nbsp;
-                    <a href="/times/{{issue}}/reorder/?redirid=$_">Расставить</a>
+                    <a href="/times/{{issue}}/reorder/?back={{ue rc.location}}">Расставить</a>
                 {{/if}}
             </div>
             <div class="clear-floats"></div>
@@ -42,7 +42,7 @@
         {{#if editor}}
             <div class="batcher">
                 <div class="adder">
-                    {{image "/pics/sheet.gif"}} <a href="/times/add/?redirid=$_">Добавить номер</a>
+                    {{image "/pics/sheet.gif"}} <a href="/times/add/?back={{ue rc.location}}">Добавить номер</a>
                 </div>
                 <div class="clear-floats"></div>
             </div>
