@@ -574,6 +574,11 @@ public class Entry implements TreeElement {
         this.authorXml = authorXml;
     }
 
+    @Transient
+    public Mtext getAuthorMtext() {
+        return new Mtext(getAuthorXml(), MtextFormat.LINE, getId());
+    }
+
     public String getSource() {
         return source;
     }
