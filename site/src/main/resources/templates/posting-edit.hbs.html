@@ -118,12 +118,12 @@
 
     {{#ifeq editor.field "index2"}}
         {{#if visible}}
-            {{#ifeq editor.style "issue-length"}}
+            {{#ifeq editor.style "issue-length"}} {{! using string values here, because postingForm.index2 is string }}
                 {{#formSelect title=editor.title comment=editor.comment name="index2" mandatory=editor.mandatory}}
-                    {{formOption title="Обычный номер" value=0 selectedValue=postingForm.index2}}
-                    {{formOption title="Сдвоенный номер" value=1 selectedValue=postingForm.index2}}
-                    {{formOption title="Строенный номер" value=2 selectedValue=postingForm.index2}}
-                    {{formOption title="Счетверенный номер" value=3 selectedValue=postingForm.index2}}
+                    {{formOption title="Обычный номер" value="0" selectedValue=postingForm.index2}}
+                    {{formOption title="Сдвоенный номер" value="1" selectedValue=postingForm.index2}}
+                    {{formOption title="Строенный номер" value="2" selectedValue=postingForm.index2}}
+                    {{formOption title="Счетверенный номер" value="3" selectedValue=postingForm.index2}}
                 {{/formSelect}}
             {{else}}
                 {{formEdit title=editor.title comment=editor.comment value=postingForm.index2 name="index2" size="3"
