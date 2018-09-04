@@ -1,5 +1,6 @@
 package ua.org.migdal.controller;
 
+import java.util.function.Function;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
@@ -99,7 +100,7 @@ public class PostingEditingController {
         postingAddLocationInfo(grpName, model);
 
         long topicId = identManager.topicIdFromRequestPath(0, -1);
-        return postingAdd(grpName, topicId, full, model);
+        return postingAdd(grpName, topicId, null, full, model);
     }
 
     public LocationInfo postingAddLocationInfo(String grpName, Model model) {
@@ -122,7 +123,7 @@ public class PostingEditingController {
 
         postingEditLocationInfo(posting, model);
 
-        return postingAddOrEdit(posting, posting.getGrpName(), posting.getTopicId(), full, model);
+        return postingAddOrEdit(posting, posting.getGrpName(), posting.getTopicId(), null, full, model);
     }
 
     public LocationInfo postingEditLocationInfo(Posting posting, Model model) {
@@ -132,13 +133,17 @@ public class PostingEditingController {
                 .withPageTitle("Редактирование " + posting.getGrpWhatA());
     }
 
-    private Posting createPosting(String grpName, long topicId) {
+    private Posting createPosting(String grpName, long topicId, Function<Posting, Posting> initializer) {
         GrpDescriptor grpDescriptor = grpEnum.grp(grpName);
         Topic topic = topicId > 0 ? topicManager.beg(topicId) : null;
         if (topic == null && !StringUtils.isEmpty(grpDescriptor.getRootIdent())) {
             topic = topicManager.beg(identManager.idOrIdent(grpDescriptor.getRootIdent()));
         }
-        return new Posting(grpDescriptor.getValue(), topic, topic, 0, requestContext);
+        Posting posting = new Posting(grpDescriptor.getValue(), topic, topic, 0, requestContext);
+        if (initializer != null) {
+            posting = initializer.apply(posting);
+        }
+        return posting;
     }
 
     private Posting openPosting(Long id) throws PageNotFoundException {
@@ -153,16 +158,19 @@ public class PostingEditingController {
         return posting;
     }
 
-    String postingAdd(String grpName, long topicId, boolean full, Model model) throws PageNotFoundException {
-        return postingAddOrEdit((Posting) null, grpName, topicId, full, model);
-    }
-
-    String postingAddOrEdit(Long id, String grpName, long topicId, boolean full, Model model)
+    String postingAdd(String grpName, long topicId, Function<Posting, Posting> initializer, boolean full, Model model)
             throws PageNotFoundException {
-        return postingAddOrEdit(openPosting(id), grpName, topicId, full, model);
+        return postingAddOrEdit((Posting) null, grpName, topicId, initializer, full, model);
     }
 
-    String postingAddOrEdit(Posting posting, String grpName, long topicId, boolean full, Model model)
+    String postingAddOrEdit(Long id, String grpName, long topicId, Function<Posting, Posting> initializer,
+                            boolean full, Model model)
+            throws PageNotFoundException {
+        return postingAddOrEdit(openPosting(id), grpName, topicId, initializer, full, model);
+    }
+
+    String postingAddOrEdit(Posting posting, String grpName, long topicId, Function<Posting, Posting> initializer,
+                            boolean full, Model model)
             throws PageNotFoundException {
 
         if (full && !requestContext.isUserModerator()) {
@@ -176,7 +184,7 @@ public class PostingEditingController {
         model.addAttribute("noGuests", true);
         model.addAttribute("xmlid", posting != null && full ? posting.getId() : 0);
         model.asMap().computeIfAbsent("postingForm", key -> {
-            Posting p = posting != null ? posting : createPosting(grpName, topicId);
+            Posting p = posting != null ? posting : createPosting(grpName, topicId, initializer);
             return new PostingForm(p, full, requestContext);
         });
         PostingForm postingForm = (PostingForm) model.asMap().get("postingForm");

@@ -71,7 +71,7 @@ public class ForumController {
         forumAddLocationInfo(model);
 
         long topicId = identManager.idOrIdent("forum");
-        return postingEditingController.postingAdd("FORUMS", topicId, full, model);
+        return postingEditingController.postingAdd("FORUMS", topicId, null, full, model);
     }
 
     public LocationInfo forumAddLocationInfo(Model model) {

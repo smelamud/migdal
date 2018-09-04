@@ -64,7 +64,7 @@ public class TextEarController {
     public String textEarAdd(@RequestParam(required = false) boolean full, Model model) throws PageNotFoundException {
         textEarAddLocationInfo(model);
 
-        return postingEditingController.postingAdd("TEXTEARS", 0, full, model);
+        return postingEditingController.postingAdd("TEXTEARS", 0, null, full, model);
     }
 
     public LocationInfo textEarAddLocationInfo(Model model) {
@@ -79,7 +79,7 @@ public class TextEarController {
             throws PageNotFoundException {
         textEarEditLocationInfo(id, model);
 
-        return postingEditingController.postingAddOrEdit(id, "TEXTEARS", 0, full, model);
+        return postingEditingController.postingAddOrEdit(id, "TEXTEARS", 0, null, full, model);
     }
 
     public LocationInfo textEarEditLocationInfo(long id, Model model) {

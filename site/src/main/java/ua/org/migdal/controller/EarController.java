@@ -76,7 +76,7 @@ public class EarController {
     public String earAdd(@RequestParam(required = false) boolean full, Model model) throws PageNotFoundException {
         earAddLocationInfo(model);
 
-        return postingEditingController.postingAdd("EARS", 0, full, model);
+        return postingEditingController.postingAdd("EARS", 0, null, full, model);
     }
 
     public LocationInfo earAddLocationInfo(Model model) {
@@ -91,7 +91,7 @@ public class EarController {
             throws PageNotFoundException {
         earEditLocationInfo(id, model);
 
-        return postingEditingController.postingAddOrEdit(id, "EARS", 0, full, model);
+        return postingEditingController.postingAddOrEdit(id, "EARS", 0, null, full, model);
     }
 
     public LocationInfo earEditLocationInfo(long id, Model model) {
