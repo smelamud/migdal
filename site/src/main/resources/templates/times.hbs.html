@@ -1,4 +1,4 @@
-{{#*inline "times_issue"}}
+{{#*inline "timesIssue"}}
     <div class="issue">
         №{{issues}}
     </div>
@@ -24,7 +24,7 @@
     {{/if}}
 {{/inline}}
 
-{{#*inline "select_issue"}}
+{{#*inline "selectIssue"}}
     <div class="ninept">
         Номер
         &nbsp;
@@ -47,7 +47,7 @@
                 <div class="clear-floats"></div>
             </div>
         {{/if}}
-        <div style="margin-bottom: 2ex">{{> select_issue}}</div>
+        <div style="margin-bottom: 2ex">{{> selectIssue}}</div>
         <div style="display: flex">
             <div class="pic" style="width: {{cover.imageX}}px; margin-right: 1em">
                 <img width="{{cover.imageX}}" height="{{cover.imageY}}" src="{{cover.imageUrl}}">
@@ -61,7 +61,7 @@
     {{/if}}
 {{/inline}}
 
-{{#*inline "times_info"}}
+{{#*inline "timesInfo"}}
     <dl class="info">
         {{#ifge issue 26}}
             <dt>Директор издания</dt>
@@ -181,7 +181,7 @@
                 <a href="/times/">{{image "/pics/times.gif" "Мигдаль Times" "Мигдаль Times"}}</a>
             </div>
             <div style="width: 120px">
-                {{> times_issue}}
+                {{> timesIssue}}
             </div>
         </div>
         <div class="nframe" style="padding: 5px; margin-top: 3ex">
@@ -189,7 +189,7 @@
         </div>
         <div style="display: flex">
             <div class="nframe ninept" style="width: 170px; padding: 5px; align-self: start">
-                {{> times_info}}
+                {{> timesInfo}}
             </div>
             <div style="flex: auto; padding: 5px">
                 {{> batcher}}
