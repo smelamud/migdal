@@ -68,7 +68,7 @@ public class PostingViewController {
         return posting.getGrpDetailsTemplate();
     }
 
-    public void addPostingView(Model model, Posting posting, Integer offset, Long tid) {
+    void addPostingView(Model model, Posting posting, Integer offset, Long tid) {
         if (posting.isHasImage()) {
             requestContext.addOgImage(posting.getImageUrl());
         }
