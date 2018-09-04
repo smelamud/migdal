@@ -39,8 +39,23 @@ public class TimesController {
     @Inject
     private IndexController indexController;
 
+    @GetMapping("/times")
+    public String times() {
+        long[] coverGrps = new long[] { grpEnum.grpValue("TIMES_COVERS") };
+        Posting cover = postingManager.begLastByIndex1(coverGrps, 0);
+        return "redirect:/times/" + cover.getIndex1();
+    }
+
+    public LocationInfo timesLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/times")
+                .withParent(indexController.indexLocationInfo(null))
+                .withMenuMain("times")
+                .withPageTitle("Мигдаль Times");
+    }
+
     @GetMapping("/times/{issue}")
-    public String times(@PathVariable long issue, Model model) throws PageNotFoundException {
+    public String timesIssue(@PathVariable long issue, Model model) throws PageNotFoundException {
         long[] coverGrps = new long[] { grpEnum.grpValue("TIMES_COVERS") };
         long[] articleGrps = new long[] { grpEnum.grpValue("TIMES_ARTICLES") };
 
@@ -50,7 +65,7 @@ public class TimesController {
             throw new PageNotFoundException();
         }
 
-        timesLocationInfo(cover, model);
+        timesIssueLocationInfo(cover, model);
 
         model.addAttribute("issue", issue);
         model.addAttribute("cover", cover);
@@ -65,10 +80,10 @@ public class TimesController {
         return "times";
     }
 
-    public LocationInfo timesLocationInfo(Posting cover, Model model) {
+    public LocationInfo timesIssueLocationInfo(Posting cover, Model model) {
         return new LocationInfo(model)
                 .withUri("/times/" + cover.getIndex1())
-                .withParent(indexController.indexLocationInfo(null)) //FIXME
+                .withParent(timesLocationInfo(null))
                 .withMenuMain("times")
                 .withPageTitle("Мигдаль Times №" + cover.getIssues())
                 .withPageTitleRelative("№" + cover.getIssues());
