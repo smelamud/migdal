@@ -10,6 +10,23 @@
         text-align: center;
     }
 
+    .rubric {
+        display: flex;
+        border-bottom: solid 3px black;
+        padding-bottom: 3px;
+        font-weight: bold;
+
+        &-bullet {
+            width: 25px;
+            text-align: left;
+        }
+
+        &-title {
+            flex: auto;
+            text-align: right;
+        }
+    }
+
     .posting .subject A {
         font-size: 12pt;
     }
@@ -35,6 +52,20 @@
 }
 
 .mtimes-navigator {
+
+    .issue-further {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2ex;
+        margin-top: 1ex;
+
+        &-title {
+            flex: auto;
+            padding-left: 10px;
+            line-height: 10px;
+            text-align: left;
+        }
+    }
 
     .pic {
         margin-bottom: 0;

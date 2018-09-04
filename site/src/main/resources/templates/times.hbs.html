@@ -1,14 +1,12 @@
 {{#*inline "times_issue"}}
-    <div style="width: 120px">
-        <div class="issue">
-            №{{issues}}
-        </div>
-        {{#if cover}}
-            <div class="month">
-                {{cover.comment0}}
-            </div>
-        {{/if}}
+    <div class="issue">
+        №{{issues}}
     </div>
+    {{#if cover}}
+        <div class="month">
+            {{cover.comment0}}
+        </div>
+    {{/if}}
 {{/inline}}
 
 {{#*inline "batcher"}}
@@ -128,13 +126,12 @@
 {{/inline}}
 
 {{#*inline "issue_further"}} {{! params: issue, pic, title }}
-    <div style="display: flex; align-items: center">
+    <div class="issue-further">
         {{image pic}}
-        <div style="flex: auto; padding-left: 10px; line-height: 10px; text-align: left">
+        <div class="issue-further-title">
             <a href="/times/{{issue}}/" class="eightpt">{{title}}</a>
         </div>
     </div>
-    <p>
 {{/inline}}
 
 {{#*inline "sibling"}} {{! params: posting }}
@@ -179,11 +176,11 @@
 
 <table class="page-layout"><tr valign="top">
     <td class="mtimes cframe">
-        <div style="display: flex; align-items: baseline; margin-left: 1em; margin-top: 1ex"">
+        <div style="display: flex; align-items: baseline; margin-left: 1em; margin-top: 1ex">
             <div>
                 <a href="/times/">{{image "/pics/times.gif" "Мигдаль Times" "Мигдаль Times"}}</a>
             </div>
-            <div>
+            <div style="width: 120px">
                 {{> times_issue}}
             </div>
         </div>
@@ -201,9 +198,9 @@
                     {{#ifne rubric (uc comment0)}}
                         {{#assign "rubric"}}{{uc comment0}}{{/assign}}
                         {{#if rubric}}
-                            <div style="display: flex; border-bottom: solid 3px black; padding-bottom: 3px; font-weight: bold">
-                                <div style="width: 25px; text-align: left">{{image "/pics/times-bullet.gif"}}</div>
-                                <div style="flex: auto; text-align: right">{{rubric}}</div>
+                            <div class="rubric">
+                                <div class="rubric-bullet">{{image "/pics/times-bullet.gif"}}</div>
+                                <div class="rubric-title">{{rubric}}</div>
                             </div>
                         {{/if}}
                     {{/ifne}}
