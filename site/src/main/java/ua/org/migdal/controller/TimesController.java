@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.org.migdal.controller.exception.PageNotFoundException;
+import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.util.Siblings;
@@ -45,6 +46,9 @@ public class TimesController {
 
     @Inject
     private PostingEditingController postingEditingController;
+
+    @Inject
+    private EntryController entryController;
 
     @Inject
     private EarController earController;
@@ -269,6 +273,24 @@ public class TimesController {
                 .withParent(timesIssueLocationInfo(cover, null))
                 .withPageTitle("Мигдаль Times №" + cover.getIndex1() + " - Редактирование статьи")
                 .withPageTitleRelative("Редактирование статьи");
+    }
+
+    @GetMapping("/times/{issue}/reorder")
+    public String timesIssueReorder(@PathVariable long issue, Model model) throws PageNotFoundException {
+        timesIssueReorderLocationInfo(begCover(issue), model);
+
+        long[] articleGrps = new long[] { grpEnum.grpValue("TIMES_ARTICLES") };
+        Iterable<Posting> articles = postingManager.begAll(null, articleGrps, issue, null, 0, Integer.MAX_VALUE,
+                Sort.Direction.ASC, "index0");
+        return entryController.entryReorder(articles, EntryType.POSTING, model);
+    }
+
+    public LocationInfo timesIssueReorderLocationInfo(Posting cover, Model model) {
+        return new LocationInfo(model)
+                .withUri(String.format("/times/%d/reorder", cover.getIndex1()))
+                .withParent(timesIssueLocationInfo(cover, null))
+                .withPageTitle("Мигдаль Times №" + cover.getIndex1() + " - Расстановка статей")
+                .withPageTitleRelative("Расстановка статей");
     }
 
 }

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
+import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.util.Tree;
@@ -352,7 +353,7 @@ public class TopicController {
 
         topicReorderLocationInfo(topic, model);
 
-        return entryController.entryReorder(topicManager.begAll(id, false, "index0"), model);
+        return entryController.entryReorder(topicManager.begAll(id, false, "index0"), EntryType.TOPIC, model);
     }
 
     public LocationInfo topicReorderLocationInfo(Topic topic, Model model) {

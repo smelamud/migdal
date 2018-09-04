@@ -249,8 +249,8 @@ public class EntryController {
         }
     }
 
-    public <T extends Entry> String entryReorder(Iterable<T> entries, Model model) {
-        model.asMap().computeIfAbsent("reorderForm", key -> new ReorderForm(EntryType.TOPIC));
+    public <T extends Entry> String entryReorder(Iterable<T> entries, EntryType entryType, Model model) {
+        model.asMap().computeIfAbsent("reorderForm", key -> new ReorderForm(entryType));
         ((ReorderForm) model.asMap().get("reorderForm")).setEntries(entries);
         return "reorder";
     }
@@ -268,7 +268,6 @@ public class EntryController {
                 manager = topicManager;
                 break;
             case POSTING:
-                // TODO Fetch posting and maybe do this via manager
                 manager = postingManager;
                 break;
             default:
@@ -292,6 +291,9 @@ public class EntryController {
                         processedIds.add(id);
 
                         Entry entry = manager.beg(id);
+                        if (entry == null) {
+                            return "noEntry";
+                        }
                         if (!entry.isWritable()) {
                             return "noWrite";
                         }
