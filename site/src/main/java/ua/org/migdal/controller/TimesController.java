@@ -246,35 +246,6 @@ public class TimesController {
                 .withPageTitleRelative("Добавление статьи");
     }
 
-    @GetMapping("/times/{issue}/{id}/edit")
-    public String timesIssueEdit(
-            @PathVariable long issue,
-            @PathVariable long id,
-            @RequestParam(required = false) boolean full,
-            Model model) throws PageNotFoundException {
-
-        timesIssueEditLocationInfo(begCover(issue), id, model);
-
-        return postingEditingController.postingAddOrEdit(
-                id,
-                "TIMES_ARTICLES",
-                identManager.idOrIdent("times"),
-                p -> {
-                    p.setIndex1(issue);
-                    return p;
-                },
-                full,
-                model);
-    }
-
-    public LocationInfo timesIssueEditLocationInfo(Posting cover, long id, Model model) {
-        return new LocationInfo(model)
-                .withUri(String.format("/times/%d/%d/edit", cover.getIndex1(), id))
-                .withParent(timesIssueLocationInfo(cover, null))
-                .withPageTitle("Мигдаль Times №" + cover.getIndex1() + " - Редактирование статьи")
-                .withPageTitleRelative("Редактирование статьи");
-    }
-
     @GetMapping("/times/{issue}/reorder")
     public String timesIssueReorder(@PathVariable long issue, Model model) throws PageNotFoundException {
         timesIssueReorderLocationInfo(begCover(issue), model);

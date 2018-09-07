@@ -89,7 +89,7 @@ public class PostingEditingController {
         return postingAdd(grpPathName, full, model);
     }
 
-    @GetMapping("/**/add-{grpPathName}")
+    // @GetMapping("/**/add-{grpPathName}")
     public String postingAdd(
             @PathVariable String grpPathName,
             @RequestParam(required = false) boolean full,
@@ -111,7 +111,7 @@ public class PostingEditingController {
                 .withPageTitle("Добавление " + desc.getWhatA());
     }
 
-    @GetMapping("/**/{edit:edit$}") // Regex is needed to match against the extension too
+    // @GetMapping("/**/edit")
     public String postingEdit(
             @RequestParam(required = false) boolean full,
             Model model) throws PageNotFoundException {

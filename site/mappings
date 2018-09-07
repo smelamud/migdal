@@ -14,8 +14,8 @@ sub scan {
     my $line = 1;
     my @patterns = ();
     while (<FD>) {
-        push @patterns, $2.' '.uc($1) if /^\s*@(Get|Post)Mapping\("([^"]+)"/;
-        if (/^\s*@(Get|Post)Mapping\(path=\{(.+)\}[^}]*$/) {
+        push @patterns, $2.' '.uc($1) if /^\s*(?:\/\/\s)?@(Get|Post)Mapping\("([^"]+)"/;
+        if (/^\s*(?:\/\/\s)?@(Get|Post)Mapping\(path=\{(.+)\}[^}]*$/) {
             my $proto = uc($1);
             for (split(/\s*,\s*/, $2)) {
                 push @patterns, $1.' '.$proto if /^\s*"([^"]+)"/;

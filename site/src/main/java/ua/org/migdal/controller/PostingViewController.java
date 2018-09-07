@@ -48,7 +48,8 @@ public class PostingViewController {
     @Inject
     private EarController earController;
 
-    @GetMapping(path={"/**/{id:\\d+}", "/**/{ident:[^.]+}"})
+    @GetMapping("/**/{id:\\d+}")
+    // @GetMapping("/**/{ident}")
     public String postingView(
             Model model,
             @RequestParam(defaultValue = "0") Integer offset,
