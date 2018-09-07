@@ -174,8 +174,10 @@ public class TimesController {
     }
 
     @GetMapping("/times/add")
-    public String timesAdd(@RequestParam(required = false) boolean full, Model model) throws PageNotFoundException {
-        timesAddLocationInfo(model);
+    public String timesIssueAdd(@RequestParam(required = false) boolean full, Model model)
+            throws PageNotFoundException {
+
+        timesIssueAddLocationInfo(model);
 
         return postingEditingController.postingAdd(
                 "TIMES_COVERS",
@@ -185,7 +187,7 @@ public class TimesController {
                 model);
     }
 
-    public LocationInfo timesAddLocationInfo(Model model) {
+    public LocationInfo timesIssueAddLocationInfo(Model model) {
         return new LocationInfo(model)
                 .withUri("/times/add")
                 .withParent(timesLocationInfo(null))
@@ -194,14 +196,14 @@ public class TimesController {
     }
 
     @GetMapping("/times/{issue}/edit")
-    public String timesEdit(
+    public String timesIssueEdit(
             @PathVariable long issue,
             @RequestParam(required = false) boolean full,
             Model model) throws PageNotFoundException {
 
         Posting cover = begCover(issue);
 
-        timesEditLocationInfo(issue, model);
+        timesIssueEditLocationInfo(issue, model);
 
         return postingEditingController.postingAddOrEdit(
                 cover.getId(),
@@ -212,7 +214,7 @@ public class TimesController {
                 model);
     }
 
-    public LocationInfo timesEditLocationInfo(long issue, Model model) {
+    public LocationInfo timesIssueEditLocationInfo(long issue, Model model) {
         return new LocationInfo(model)
                 .withUri(String.format("/times/%d/edit", issue))
                 .withParent(timesLocationInfo(null))
@@ -220,12 +222,12 @@ public class TimesController {
     }
 
     @GetMapping("/times/{issue}/add")
-    public String timesIssueAdd(
+    public String timesArticleAdd(
             @PathVariable long issue,
             @RequestParam(required = false) boolean full,
             Model model) throws PageNotFoundException {
 
-        timesIssueAddLocationInfo(begCover(issue), model);
+        timesArticleAddLocationInfo(begCover(issue), model);
 
         return postingEditingController.postingAdd(
                 "TIMES_ARTICLES",
@@ -238,7 +240,7 @@ public class TimesController {
                 model);
     }
 
-    public LocationInfo timesIssueAddLocationInfo(Posting cover, Model model) {
+    public LocationInfo timesArticleAddLocationInfo(Posting cover, Model model) {
         return new LocationInfo(model)
                 .withUri("/times/add")
                 .withParent(timesIssueLocationInfo(cover, null))
@@ -247,8 +249,8 @@ public class TimesController {
     }
 
     @GetMapping("/times/{issue}/reorder")
-    public String timesIssueReorder(@PathVariable long issue, Model model) throws PageNotFoundException {
-        timesIssueReorderLocationInfo(begCover(issue), model);
+    public String timesArticlesReorder(@PathVariable long issue, Model model) throws PageNotFoundException {
+        timesArticlesReorderLocationInfo(begCover(issue), model);
 
         long[] articleGrps = new long[] { grpEnum.grpValue("TIMES_ARTICLES") };
         Iterable<Posting> articles = postingManager.begAll(null, articleGrps, issue, null, 0, Integer.MAX_VALUE,
@@ -256,7 +258,7 @@ public class TimesController {
         return entryController.entryReorder(articles, EntryType.POSTING, model);
     }
 
-    public LocationInfo timesIssueReorderLocationInfo(Posting cover, Model model) {
+    public LocationInfo timesArticlesReorderLocationInfo(Posting cover, Model model) {
         return new LocationInfo(model)
                 .withUri(String.format("/times/%d/reorder", cover.getIndex1()))
                 .withParent(timesIssueLocationInfo(cover, null))
