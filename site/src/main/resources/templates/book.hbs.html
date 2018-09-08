@@ -1,0 +1,91 @@
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        {{#notPrint}}
+            <td width="150" class="eframe">
+                {{> (topicsPartial)}}
+                {{> part/ears}}
+            </td>
+        {{/notPrint}}
+        <td class="article cframe">
+            <div class="sent">
+                {{sentView date=posting.sent}}<br>
+                {{senderLink posting}}
+            </div>
+            {{articleControls posting=posting}}
+            <div class="clear-floats"></div>
+            {{votePanel align="right" id=posting.id rating=posting.rating}}
+            <table width="100%" cellspacing="0" cellpadding="0" style="clear: both">
+                <tr valign="top">
+                    <td width="100">&nbsp;</td>
+                    <td>
+                        {{#if posting.hasImage}}
+                            {{postingImage posting=posting}}
+                        {{/if}}
+                        {{topicLink posting}}
+                        {{#if posting.author}}
+                            <p class="posting-author">{{mtext posting.authorMtext}}</p>
+                        {{/if}}
+                        <p><h1 style="margin: 0">{{posting.subject}}</h1></p>
+                        {{#if posting.comment0}}
+                            <p class="posting-source">{{mtext posting.comment0Mtext}}</p>
+                        {{/if}}
+                        <p style="clear: left">{{mtext posting.bodyMtext}}</p>
+                        {{#notPrint}}
+                            <zone>
+                                <sibling_id up="$,OrigId" index0="*SIBLING_EDGE" next="*true">
+                                <if what="$,>0">
+                                    <p>
+                                        <table class="ring" cellpadding="0">
+                                            <tr valign="center">
+                                                <td align="right">{{image "/pics/further.gif"}}</td>
+                                                <td>&nbsp;</td>
+                                                <td><a href="${book.GrpDetailsHref}$,/">Читать книгу</a></td>
+                                            </tr>
+                                            <tr valign="center">
+                                                <td align="right">{{image "/pics/print.gif"}}</td>
+                                                <td>&nbsp;</td>
+                                                <td>
+                                                    <a href="${book.GrpDetailsHref}print/">Вся книга для печати</a>
+                                                </td>
+                                            </tr>
+                                            {{! <iterate_packages posting_id="$postid">
+                                            <for>
+                                                <tr valign="center">
+                                                    <td align="right"><image src="/pics/package.gif"></td>
+                                                    <td>&nbsp;</td>
+                                                    <td>
+                                                        <if what="$.Type==*PT_BOOK_ONEFILE">
+                                                            <assign name="title" value="Вся книга одним файлом в архиве">
+                                                        <else>
+                                                            <assign name="title" value="Вся книга по главам в архиве">
+                                                        </if>
+                                                        <a href="$.Href">$title</a>
+                                                    </td>
+                                                </tr>
+                                                <tr valign="center">
+                                                    <td colspan="2">&nbsp;</td>
+                                                    <td><i>(ZIP, ${.SizeKB}KB)</i></td>
+                                                </tr>
+                                            </for> }}
+                                        </table>
+                                    </p>
+                                </if>
+                            </zone>
+                        {{/notPrint}}
+                    </td>
+                    <td width="100">&nbsp;</td>
+                </tr>
+            </table>
+            {{postingShare}}
+            {{articleControls posting=posting}}
+            <div class="clear-floats"></div>
+            <br>
+            {{> part/forums forums=comments posting=posting}}
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}

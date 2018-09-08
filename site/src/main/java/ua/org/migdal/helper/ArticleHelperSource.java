@@ -60,8 +60,10 @@ public class ArticleHelperSource {
         if (posting.isWritable()) {
             buf.append(" &nbsp;&nbsp; ");
             buf.append(postingHelperSource.editLink(posting));
-            buf.append(" &nbsp;&nbsp; ");
-            buf.append(imagesLink(posting));
+            if (posting.isGrpInnerImages()) {
+                buf.append(" &nbsp;&nbsp; ");
+                buf.append(imagesLink(posting));
+            }
         }
         buf.append("</div></div>");
         return new SafeString(buf);

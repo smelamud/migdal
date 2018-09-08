@@ -649,6 +649,11 @@ public class Entry implements TreeElement {
         this.comment0Xml = comment0Xml;
     }
 
+    @Transient
+    public Mtext getComment0Mtext() {
+        return new Mtext(getComment0Xml(), MtextFormat.SHORT, getId());
+    }
+
     public String getComment1() {
         return comment1;
     }
@@ -663,6 +668,11 @@ public class Entry implements TreeElement {
 
     public void setComment1Xml(String comment1Xml) {
         this.comment1Xml = comment1Xml;
+    }
+
+    @Transient
+    public Mtext getComment1Mtext() {
+        return new Mtext(getComment1Xml(), MtextFormat.SHORT, getId());
     }
 
     public String getUrl() {
