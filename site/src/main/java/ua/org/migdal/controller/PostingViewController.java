@@ -13,6 +13,7 @@ import ua.org.migdal.data.Image;
 import ua.org.migdal.data.InnerImage;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.form.ForumForm;
+import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.GeneralViewFinder;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.ForumManager;
@@ -23,6 +24,9 @@ import ua.org.migdal.session.RequestContext;
 
 @Controller
 public class PostingViewController {
+
+    @Inject
+    private GrpEnum grpEnum;
 
     @Inject
     private RequestContext requestContext;
@@ -46,6 +50,9 @@ public class PostingViewController {
     private IndexController indexController;
 
     @Inject
+    private BookController bookController;
+
+    @Inject
     private EarController earController;
 
     // @GetMapping("/**/{id or ident}")
@@ -53,13 +60,27 @@ public class PostingViewController {
             Model model,
             @RequestParam(defaultValue = "0") Integer offset,
             @RequestParam(defaultValue = "0") Long tid) throws PageNotFoundException {
+
         long id = identManager.postingIdFromRequestPath();
         Posting posting = postingManager.beg(id);
         if (posting == null) {
             throw new PageNotFoundException();
         }
 
-        postingViewLocationInfo(posting, model);
+        if (posting.getGrp() == grpEnum.grpValue("BOOKS")) {
+            return bookController.bookView(posting, model, offset, tid);
+        } else {
+            return generalPostingView(posting, model, offset, tid);
+        }
+    }
+
+    private String generalPostingView(
+            Posting posting,
+            Model model,
+            Integer offset,
+            Long tid) {
+
+        generalPostingViewLocationInfo(posting, model);
 
         addPostingView(model, posting, offset, tid);
         indexController.addMajors(model);
@@ -89,7 +110,7 @@ public class PostingViewController {
         model.addAttribute("forumForm", new ForumForm(posting, requestContext));
     }
 
-    public LocationInfo postingViewLocationInfo(Posting posting, Model model) {
+    public LocationInfo generalPostingViewLocationInfo(Posting posting, Model model) {
         LocationInfo generalView = generalViewFinder.findFor(posting);
         return new LocationInfo(model)
                 .withUri(posting.getGrpDetailsHref())

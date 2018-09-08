@@ -34,46 +34,33 @@
                         {{/if}}
                         <p style="clear: left">{{mtext posting.bodyMtext}}</p>
                         {{#notPrint}}
-                            <zone>
-                                <sibling_id up="$,OrigId" index0="*SIBLING_EDGE" next="*true">
-                                <if what="$,>0">
-                                    <p>
-                                        <table class="ring" cellpadding="0">
-                                            <tr valign="center">
-                                                <td align="right">{{image "/pics/further.gif"}}</td>
-                                                <td>&nbsp;</td>
-                                                <td><a href="${book.GrpDetailsHref}$,/">Читать книгу</a></td>
-                                            </tr>
-                                            <tr valign="center">
-                                                <td align="right">{{image "/pics/print.gif"}}</td>
-                                                <td>&nbsp;</td>
-                                                <td>
-                                                    <a href="${book.GrpDetailsHref}print/">Вся книга для печати</a>
-                                                </td>
-                                            </tr>
-                                            {{! <iterate_packages posting_id="$postid">
-                                            <for>
-                                                <tr valign="center">
-                                                    <td align="right"><image src="/pics/package.gif"></td>
-                                                    <td>&nbsp;</td>
-                                                    <td>
-                                                        <if what="$.Type==*PT_BOOK_ONEFILE">
-                                                            <assign name="title" value="Вся книга одним файлом в архиве">
-                                                        <else>
-                                                            <assign name="title" value="Вся книга по главам в архиве">
-                                                        </if>
-                                                        <a href="$.Href">$title</a>
-                                                    </td>
-                                                </tr>
-                                                <tr valign="center">
-                                                    <td colspan="2">&nbsp;</td>
-                                                    <td><i>(ZIP, ${.SizeKB}KB)</i></td>
-                                                </tr>
-                                            </for> }}
-                                        </table>
-                                    </p>
-                                </if>
-                            </zone>
+                            {{#if firstChapter}}
+                                <p>
+                                    {{image "/pics/further.gif"}}
+                                    <a href="{{firstChapter.grpDetailsHref}}">Читать книгу</a><br>
+                                    {{image "/pics/print.gif"}}
+                                    <a href="{{posting.grpDetailsHref}}print/">Вся книга для печати</a><br>
+                                    {{! <iterate_packages posting_id="$postid">
+                                    <for>
+                                        <tr valign="center">
+                                            <td align="right"><image src="/pics/package.gif"></td>
+                                            <td>&nbsp;</td>
+                                            <td>
+                                                <if what="$.Type==*PT_BOOK_ONEFILE">
+                                                    <assign name="title" value="Вся книга одним файлом в архиве">
+                                                <else>
+                                                    <assign name="title" value="Вся книга по главам в архиве">
+                                                </if>
+                                                <a href="$.Href">$title</a>
+                                            </td>
+                                        </tr>
+                                        <tr valign="center">
+                                            <td colspan="2">&nbsp;</td>
+                                            <td><i>(ZIP, ${.SizeKB}KB)</i></td>
+                                        </tr>
+                                    </for> }}
+                                </p>
+                            {{/if}}
                         {{/notPrint}}
                     </td>
                     <td width="100">&nbsp;</td>

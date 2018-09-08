@@ -89,7 +89,7 @@ public class InnerImageController {
     public LocationInfo innerImageInsertLocationInfo(Posting posting, Model model) {
         return new LocationInfo(model)
                 .withUri("/insert-inner-image/" + posting.getId())
-                .withParent(postingViewController.postingViewLocationInfo(posting, model))
+                .withParent(postingViewController.generalPostingViewLocationInfo(posting, model))
                 .withPageTitle(String.format("Вставка картинки в статью \"%s\"", posting.getSubject()));
     }
 
@@ -117,7 +117,7 @@ public class InnerImageController {
     public LocationInfo innerImageEditLocationInfo(InnerImage innerImage, Posting posting, Model model) {
         return new LocationInfo(model)
                 .withUri("/edit-inner-image/" + innerImage.getId())
-                .withParent(postingViewController.postingViewLocationInfo(posting, model))
+                .withParent(postingViewController.generalPostingViewLocationInfo(posting, model))
                 .withPageTitle(String.format("Изменение картинки в статье \"%s\"", posting.getSubject()));
     }
 

@@ -116,12 +116,25 @@ public class PostingManager implements EntryManagerBase<Posting> {
         return null;
     }
 
+    public Posting begFirstByIndex0(long upId) {
+        return begNextByIndex0(upId, -1, true);
+    }
+
+    public Posting begNextByIndex0(long upId, long index0, boolean afterIndex0) {
+        Iterable<Posting> postings = begAll(null, null, upId, index0, afterIndex0, null, null, false, null, false,
+                                            0, 1, Sort.Direction.ASC, "index0");
+        for (Posting lastPosting : postings) {
+            return lastPosting;
+        }
+        return null;
+    }
+
     public Iterable<Posting> begLastDiscussions(long[] grps, long[] additionalGrps, boolean prioritize,
                                                 int offset, int limit) {
         QPosting posting = QPosting.posting;
         BooleanBuilder where = new BooleanBuilder();
-        where.or(getWhere(posting, null, grps, null, null, null, true, null, true));
-        where.or(getWhere(posting, null, additionalGrps, null, null, null, true, null, false));
+        where.or(getWhere(posting, null, grps, null, null, false, null, null, null, true, null, true));
+        where.or(getWhere(posting, null, additionalGrps, null, null, false, null, null, null, true, null, false));
         Sort sort;
         if (prioritize) {
             sort = Sort.by(
@@ -135,46 +148,54 @@ public class PostingManager implements EntryManagerBase<Posting> {
     }
 
     public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, int offset, int limit) {
-        return begAll(topicRoots, grps, null, null, false, null, false, offset, limit, Sort.Direction.DESC, "sent");
+        return begAll(topicRoots, grps, null, null, false, null, null, false, null, false, offset, limit,
+                      Sort.Direction.DESC, "sent");
     }
 
     public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, boolean asGuest,
                                     int offset, int limit) {
-        return begAll(topicRoots, grps, null, null, asGuest, null, false, offset, limit, Sort.Direction.DESC, "sent");
+        return begAll(topicRoots, grps, null, null, false, null, null, asGuest, null, false, offset, limit,
+                      Sort.Direction.DESC, "sent");
     }
 
     public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, int offset, int limit,
                                     Sort.Direction sortDirection, String... sortFields) {
-        return begAll(topicRoots, grps, null, null, false, null, false, offset, limit, sortDirection, sortFields);
+        return begAll(topicRoots, grps, null, null, false, null, null, false, null, false, offset, limit,
+                      sortDirection, sortFields);
     }
 
     public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1, Long userId,
                                     int offset, int limit) {
-        return begAll(topicRoots, grps, index1, userId, false, null, false, offset, limit, Sort.Direction.DESC, "sent");
+        return begAll(topicRoots, grps, null, null, false, index1, userId, false, null, false, offset, limit,
+                      Sort.Direction.DESC, "sent");
     }
 
     public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1, Long userId,
                                     int offset, int limit, Sort.Direction sortDirection, String... sortFields) {
-        return begAll(topicRoots, grps, index1, userId, false, null, false, offset, limit, sortDirection, sortFields);
+        return begAll(topicRoots, grps, null, null, false, index1, userId, false, null, false, offset, limit,
+                      sortDirection, sortFields);
     }
 
-    public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1, Long userId,
-                                    boolean asGuest, Timestamp laterThan, boolean withAnswers, int offset, int limit,
+    public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long upId,
+                                    Long index0, boolean afterIndex0, Long index1, Long userId, boolean asGuest,
+                                    Timestamp laterThan, boolean withAnswers, int offset, int limit,
                                     Sort.Direction sortDirection, String... sortFields) {
         QPosting posting = QPosting.posting;
-        return postingRepository.findAll(getWhere(posting, topicRoots, grps, index1, userId, null, asGuest, laterThan,
-                                                  withAnswers),
+        return postingRepository.findAll(getWhere(posting, topicRoots, grps, upId, index0, afterIndex0, index1, userId,
+                                                  null, asGuest, laterThan, withAnswers),
                 PageRequest.of(offset / limit, limit, sortDirection, sortFields));
     }
 
     public long countAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1, Long userId) {
         QPosting posting = QPosting.posting;
-        return postingRepository.count(getWhere(posting, topicRoots, grps, index1, userId, null, false, null, false));
+        return postingRepository.count(
+                getWhere(posting, topicRoots, grps, null, null, false, index1, userId, null, false, null, false));
     }
 
     public Iterable<Posting> begAllByModbit(PostingModbit modbit, int offset, int limit, boolean asc) {
         QPosting posting = QPosting.posting;
-        return postingRepository.findAll(getWhere(posting, null, null, null, null, modbit, false, null, false),
+        return postingRepository.findAll(
+                getWhere(posting, null, null, null, null, false, null, null, modbit, false, null, false),
                 PageRequest.of(offset / limit, limit, asc ? Sort.Direction.ASC : Sort.Direction.DESC, "sent"));
     }
 
@@ -182,7 +203,7 @@ public class PostingManager implements EntryManagerBase<Posting> {
     public Set<Posting> begRandom(List<Pair<Long, Boolean>> topicRoots, long[] grps, int limit) {
         QPosting posting = QPosting.posting;
         Iterable<Posting> postings = postingRepository.findAll(
-                getWhere(posting, topicRoots, grps, null, null, null, true, null, false),
+                getWhere(posting, topicRoots, grps, null, null, false, null, null, null, true, null, false),
                 Sort.by(Sort.Direction.DESC, "sent"));
 
         List<Posting> postingList = new ArrayList<>();
@@ -201,9 +222,9 @@ public class PostingManager implements EntryManagerBase<Posting> {
         return selected;
     }
 
-    private Predicate getWhere(QPosting posting, List<Pair<Long, Boolean>> topicRoots, long[] grps, Long index1,
-                               Long userId, PostingModbit modbit, boolean asGuest, Timestamp laterThan,
-                               boolean withAnswers) {
+    private Predicate getWhere(QPosting posting, List<Pair<Long, Boolean>> topicRoots, long[] grps, Long upId,
+                               Long index0, boolean afterIndex0, Long index1, Long userId, PostingModbit modbit,
+                               boolean asGuest, Timestamp laterThan, boolean withAnswers) {
         BooleanBuilder where = new BooleanBuilder();
         if (topicRoots != null) {
             BooleanBuilder byTopic = new BooleanBuilder();
@@ -222,6 +243,12 @@ public class PostingManager implements EntryManagerBase<Posting> {
                 byGrp.or(posting.grp.eq(grp));
             }
             where.and(byGrp);
+        }
+        if (upId != null) {
+            where.and(posting.up.id.eq(upId));
+        }
+        if (index0 != null) {
+            where.and(afterIndex0 ? posting.index0.gt(index0) : posting.index0.lt(index0));
         }
         if (index1 != null) {
             where.and(posting.index1.eq(index1));
