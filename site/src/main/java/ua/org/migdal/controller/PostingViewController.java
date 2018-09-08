@@ -1,13 +1,13 @@
 package ua.org.migdal.controller;
 
 import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.RequestParam;
+
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Image;
 import ua.org.migdal.data.InnerImage;
@@ -48,8 +48,7 @@ public class PostingViewController {
     @Inject
     private EarController earController;
 
-    @GetMapping("/**/{id:\\d+}")
-    // @GetMapping("/**/{ident}")
+    // @GetMapping("/**/{id or ident}")
     public String postingView(
             Model model,
             @RequestParam(defaultValue = "0") Integer offset,
