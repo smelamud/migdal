@@ -94,8 +94,6 @@ public class PostingViewController {
             requestContext.addOgImage(posting.getImageUrl());
         }
 
-        offset = forumManager.jumpToComment(posting.getId(), tid, offset, 20);
-
         model.addAttribute("posting", posting);
         if (posting.isGrpInnerImages()) {
             List<InnerImage> innerImages = innerImageManager.getAll(posting.getId());
@@ -106,6 +104,12 @@ public class PostingViewController {
             model.addAttribute("innerImages", innerImages);
         }
         model.addAttribute("topic", posting.getTopic());
+        addPostingComments(model, posting, offset, tid);
+    }
+
+    void addPostingComments(Model model, Posting posting, Integer offset, Long tid) {
+        offset = forumManager.jumpToComment(posting.getId(), tid, offset, 20);
+
         model.addAttribute("comments", forumManager.begAll(posting.getId(), offset, 20));
         model.addAttribute("forumForm", new ForumForm(posting, requestContext));
     }

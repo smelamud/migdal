@@ -40,6 +40,25 @@ function replyInit() {
     })
 }
 
-$(function() {
+function commentsSectionInit() {
+    commentsHashChanged();
+    $(window).on("hashchange", commentsHashChanged);
+}
+
+function commentsHashChanged() {
+    var threadRegex = /^#t\d+$/;
+    if (location.hash == "#comments" || location.hash == "#comment-add" || location.hash.match(threadRegex)) {
+        $("#comments-section").show();
+        var name = location.hash.substring(1);
+        $("a[name=" + name + "]")[0].scrollIntoView(true);
+    }
+}
+
+function commentsInit() {
     replyInit();
+    commentsSectionInit();
+}
+
+$(function() {
+    commentsInit();
 });

@@ -69,7 +69,12 @@ public class TimesController {
     }
 
     @GetMapping("/times/{issue}")
-    public String timesIssue(@PathVariable long issue, Model model) throws PageNotFoundException {
+    public String timesIssue(
+            @PathVariable long issue,
+            Model model,
+            @RequestParam(defaultValue = "0") Integer offset,
+            @RequestParam(defaultValue = "0") Long tid) throws PageNotFoundException {
+
         long[] coverGrps = new long[] { grpEnum.grpValue("TIMES_COVERS") };
         long[] articleGrps = new long[] { grpEnum.grpValue("TIMES_ARTICLES") };
 
@@ -83,6 +88,7 @@ public class TimesController {
 
         model.addAttribute("issue", issue);
         model.addAttribute("cover", cover);
+        postingViewController.addPostingComments(model, cover, offset, tid);
         model.addAttribute("issues", cover.getIssues());
         model.addAttribute("editor", times.isPostable());
         Iterable<Posting> allCovers = postingManager.begAll(null, coverGrps, 0, Integer.MAX_VALUE,
