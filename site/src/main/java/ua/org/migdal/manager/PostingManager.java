@@ -176,6 +176,13 @@ public class PostingManager implements EntryManagerBase<Posting> {
                       sortDirection, sortFields);
     }
 
+    public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long upId, Long index1,
+                                    Long userId, int offset, int limit,
+                                    Sort.Direction sortDirection, String... sortFields) {
+        return begAll(topicRoots, grps, upId, null, false, index1, userId, false, null, false, offset, limit,
+                sortDirection, sortFields);
+    }
+
     public Iterable<Posting> begAll(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long upId,
                                     Long index0, boolean afterIndex0, Long index1, Long userId, boolean asGuest,
                                     Timestamp laterThan, boolean withAnswers, int offset, int limit,

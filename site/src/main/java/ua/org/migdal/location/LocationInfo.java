@@ -115,6 +115,8 @@ public class LocationInfo {
         this.parent = parent;
 
         if (model != null && parent != null) {
+            model.addAttribute("parentLocation", parent);
+
             Deque<LocationInfo> locations = new ArrayDeque<>();
             LocationInfo current = this;
             while (current != null) {

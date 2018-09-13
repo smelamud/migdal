@@ -1,0 +1,26 @@
+{{#if parentLocation.uri}}
+    {{upperLevel href=parentLocation.uri name=parentLocation.pageTitleFull}}
+{{/if}}
+{{#topicsTable title="Оглавление"}}
+    {{#appendable book}}
+        <li class="topics-nobullet">
+            <a href="{{book.grpDetailsHref}}add/?back={{ue rc.location}}" class="edit">Добавить</a><br>
+            <a href="{{book.grpDetailsHref}}reorder/?back={{ue rc.location}}" class="edit">Расставить</a>
+        </li>
+    {{/appendable}}
+    {{topicsLine text="Обложка" href=book.grpDetailsHref index=book.id class="topics-item ninept"}}
+    {{#each bookChapters}}
+        {{#assign "href"}}{{book.grpDetailsHref}}{{id}}/{{/assign}}
+        {{topicsLine text=subject href=href index=id class="topics-item ninept"}}
+    {{/each}}
+    {{topicsSplitter}}
+    {{! <iterate_packages posting_id="$book.Id">
+    <for>
+        <if what="$.Type==*PT_BOOK_ONEFILE">
+            <assign name="title" value="Вся книга одним файлом в архиве">
+        <else>
+            <assign name="title" value="Вся книга по главам в архиве">
+        </if>
+        <topics_line text="$title" class="topics-item ninept" nobullet="*true" href="$.Href" count#="${.SizeKB}KB">
+    </for> }}
+{{/topicsTable}}
