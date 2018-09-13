@@ -122,7 +122,7 @@ public class PostingManager implements EntryManagerBase<Posting> {
 
     public Posting begNextByIndex0(long upId, long index0, boolean afterIndex0) {
         Iterable<Posting> postings = begAll(null, null, upId, index0, afterIndex0, null, null, false, null, false,
-                                            0, 1, Sort.Direction.ASC, "index0");
+                                            0, 1, afterIndex0 ? Sort.Direction.ASC : Sort.Direction.DESC, "index0");
         for (Posting lastPosting : postings) {
             return lastPosting;
         }

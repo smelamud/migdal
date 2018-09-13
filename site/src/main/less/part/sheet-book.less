@@ -1,8 +1,38 @@
 .ring {
+    display: flex;
+    clear: both;
+    margin: 2em;
 	font-family: @verdana;
 	font-size: 9pt;
 
-    B {
-        font-size: 10pt;
+    DIV {
+        flex: 1;
+        text-align: center;
+
+        &.chapter-prev {
+            padding-top: 2.5ex;
+            text-align: right;
+
+            IMG {
+                position: relative;
+                top: -1px;
+                margin-right: -20px;
+            }
+        }
+
+        &.chapter-next {
+            padding-top: 2.5ex;
+            text-align: left;
+
+            IMG {
+                position: relative;
+                top: -1px;
+                margin-left: -20px;
+            }
+        }
+
+        B {
+            font-size: 10pt;
+        }
     }
 }

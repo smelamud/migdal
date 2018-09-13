@@ -69,6 +69,8 @@ public class PostingViewController {
 
         if (posting.getGrp() == grpEnum.grpValue("BOOKS")) {
             return bookController.bookView(posting, model, offset, tid);
+        } else if (posting.getGrp() == grpEnum.grpValue("BOOK_CHAPTERS")) {
+            return bookController.bookChapterView(posting, model, offset, tid);
         } else {
             return generalPostingView(posting, model, offset, tid);
         }
