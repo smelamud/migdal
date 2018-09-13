@@ -201,7 +201,7 @@ public class IndexController {
         model.addAttribute("discussions",
                 postingManager.begLastDiscussions(
                         grpEnum.group("DISCUSS"),
-                        new long[]{grpEnum.grpValue("FORUMS")},
+                        grpEnum.group("FORUMS"),
                         false,
                         0,
                         7));

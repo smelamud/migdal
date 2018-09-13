@@ -55,8 +55,7 @@ public class TimesController {
 
     @GetMapping("/times")
     public String times() {
-        long[] coverGrps = new long[] { grpEnum.grpValue("TIMES_COVERS") };
-        Posting cover = postingManager.begLastByIndex1(coverGrps, 0);
+        Posting cover = postingManager.begLastByIndex1(grpEnum.group("TIMES_COVERS"), 0);
         return "redirect:/times/" + cover.getIndex1();
     }
 
@@ -75,11 +74,8 @@ public class TimesController {
             @RequestParam(defaultValue = "0") Integer offset,
             @RequestParam(defaultValue = "0") Long tid) throws PageNotFoundException {
 
-        long[] coverGrps = new long[] { grpEnum.grpValue("TIMES_COVERS") };
-        long[] articleGrps = new long[] { grpEnum.grpValue("TIMES_ARTICLES") };
-
         Topic times = topicManager.get(identManager.idOrIdent("times"));
-        Posting cover = postingManager.begByIndex1(coverGrps, times.getId(), issue);
+        Posting cover = postingManager.begByIndex1(grpEnum.group("TIMES_COVERS"), times.getId(), issue);
         if (cover == null) {
             throw new PageNotFoundException();
         }
@@ -91,12 +87,12 @@ public class TimesController {
         postingViewController.addPostingComments(model, cover, offset, tid);
         model.addAttribute("issues", cover.getIssues());
         model.addAttribute("editor", times.isPostable());
-        Iterable<Posting> allCovers = postingManager.begAll(null, coverGrps, 0, Integer.MAX_VALUE,
+        Iterable<Posting> allCovers = postingManager.begAll(null, grpEnum.group("TIMES_COVERS"), 0, Integer.MAX_VALUE,
                 Sort.Direction.DESC, "index1");
         model.addAttribute("allCovers", allCovers);
         model.addAttribute("siblings", siblings(allCovers, 9, issue));
-        model.addAttribute("articles", postingManager.begAll(null, articleGrps, issue, null, 0, Integer.MAX_VALUE,
-                Sort.Direction.ASC, "index0"));
+        model.addAttribute("articles", postingManager.begAll(null,  grpEnum.group("TIMES_ARTICLES"), issue, null,
+                0, Integer.MAX_VALUE, Sort.Direction.ASC, "index0"));
         return "times";
     }
 
@@ -132,8 +128,7 @@ public class TimesController {
     }
 
     private Posting begCover(long issue) throws PageNotFoundException {
-        long[] coverGrps = new long[]{ grpEnum.grpValue("TIMES_COVERS") };
-        Posting cover = postingManager.begByIndex1(coverGrps, 0, issue);
+        Posting cover = postingManager.begByIndex1(grpEnum.group("TIMES_COVERS"), 0, issue);
         if (cover == null) {
             throw new PageNotFoundException();
         }
@@ -161,9 +156,8 @@ public class TimesController {
 
         postingViewController.addPostingView(model, posting, offset, tid);
         model.addAttribute("cover", cover);
-        long[] articleGrps = new long[] { grpEnum.grpValue("TIMES_ARTICLES") };
-        model.addAttribute("allArticles", postingManager.begAll(null, articleGrps, issue, null, 0, Integer.MAX_VALUE,
-                Sort.Direction.ASC, "index0"));
+        model.addAttribute("allArticles", postingManager.begAll(null, grpEnum.group("TIMES_ARTICLES"), issue, null,
+                0, Integer.MAX_VALUE, Sort.Direction.ASC, "index0"));
         earController.addEars(model);
 
         return "article-times";
@@ -258,9 +252,8 @@ public class TimesController {
     public String timesArticlesReorder(@PathVariable long issue, Model model) throws PageNotFoundException {
         timesArticlesReorderLocationInfo(begCover(issue), model);
 
-        long[] articleGrps = new long[] { grpEnum.grpValue("TIMES_ARTICLES") };
-        Iterable<Posting> articles = postingManager.begAll(null, articleGrps, issue, null, 0, Integer.MAX_VALUE,
-                Sort.Direction.ASC, "index0");
+        Iterable<Posting> articles = postingManager.begAll(null, grpEnum.group("TIMES_ARTICLES"), issue, null,
+                0, Integer.MAX_VALUE, Sort.Direction.ASC, "index0");
         return entryController.entryReorder(articles, EntryType.POSTING, model);
     }
 

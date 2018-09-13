@@ -43,7 +43,7 @@ public class ForumController {
         model.addAttribute("discussions",
                 postingManager.begLastDiscussions(
                         grpEnum.group("DISCUSS"),
-                        new long[]{grpEnum.grpValue("FORUMS")},
+                        grpEnum.group("FORUMS"),
                         true,
                         offset,
                         20));

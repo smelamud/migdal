@@ -36,7 +36,7 @@ public class GrpEnum {
      */
     public long all;
     /**
-     * Mapping from name of a compound group to its grp mask
+     * Mapping from name of a grp or a compound group to its grp mask
      */
     private Map<String, Long> groups = new HashMap<>();
 
