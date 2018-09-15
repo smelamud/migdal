@@ -100,7 +100,31 @@ public class PostingEditingController {
         postingAddLocationInfo(grpName, model);
 
         long topicId = identManager.topicIdFromRequestPath(0, -1);
-        return postingAdd(grpName, topicId, null, full, model);
+        Topic topic = topicManager.beg(topicId); // TODO ineffective, no need to fetch the whole entry
+        if (topic != null) {
+            return postingAdd(
+                    grpName,
+                    topicId,
+                    null,
+                    full,
+                    model);
+        } else {
+            long postingId = identManager.postingIdFromRequestPath(0, -1);
+            Posting posting = postingManager.beg(postingId);
+            if (posting != null) {
+                return postingAdd(
+                        grpName,
+                        posting.getTopicId(),
+                        p -> {
+                            p.setUp(posting);
+                            return p;
+                        },
+                        full,
+                        model);
+            } else {
+                throw new PageNotFoundException();
+            }
+        }
     }
 
     public LocationInfo postingAddLocationInfo(String grpName, Model model) {
