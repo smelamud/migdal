@@ -152,6 +152,7 @@
   title: "Темы для обсуждения"
   what: "тему"
   whatA: "темы"
+  whatGs: "тем"
   enWhat: "topic"
 
   editors:
@@ -191,6 +192,7 @@
   title: "Новости"
   what: "новость"
   whatA: "новости"
+  whatGs: "новостей"
   enWhat: "news"
 
   editors:
@@ -279,6 +281,7 @@
   title: "Галерея"
   what: "фотографию"
   whatA: "фотографии"
+  whatGs: "фотографий"
   enWhat: "photo"
 
   editors:
@@ -335,6 +338,7 @@
   title: "Статьи"
   what: "статью"
   whatA: "статьи"
+  whatGs: "статей"
   enWhat: "article"
 
   innerImages: true
@@ -431,6 +435,7 @@
   title: "Книги"
   what: "книгу"
   whatA: "книги"
+  whatGs: "книг"
   enWhat: "book"
 
   editors:
@@ -496,6 +501,7 @@
   title: "Обложки М.Т."
   what: "обложку"
   whatA: "обложки"
+  whatGs: "обложек"
   enWhat: "cover"
 
   editors:
@@ -561,6 +567,7 @@
   title: "Личные мнения"
   what: "мнение"
   whatA: "мнения"
+  whatGs: "мнений"
   enWhat: "opinion"
 
   editors:
@@ -615,6 +622,7 @@
   title: "Статьи М.Т."
   what: "статью"
   whatA: "статьи"
+  whatGs: "статей"
   enWhat: "article"
 
   innerImages: true
@@ -712,6 +720,7 @@
   title: "Ушки"
   what: "ушко"
   whatA: "ушка"
+  whatGs: "ушек"
   enWhat: "ear"
 
   editors:
@@ -766,6 +775,7 @@
   title: "Ежедневные репортажи"
   what: "репортаж"
   whatA: "репортажа"
+  whatGs: "репортажей"
   enWhat: "report"
 
   editors:
@@ -815,6 +825,7 @@
   title: "Ежедневная галерея"
   what: "фотографию"
   whatA: "фотографии"
+  whatGs: "фотографий"
   enWhat: "photo"
 
   editors:
@@ -870,6 +881,7 @@
   title: "Советы"
   what: "совет"
   whatA: "совета"
+  whatGs: "советов"
   enWhat: "hint"
 
   editors:
@@ -908,6 +920,7 @@
   title: "Обновления галереи"
   what: "обновление"
   whatA: "обновления"
+  whatGs: "обновлений"
   enWhat: "update"
 
   editors:
@@ -941,6 +954,7 @@
   title: "Главы книги"
   what: "главу"
   whatA: "главы"
+  whatGs: "глав"
   enWhat: "chapter"
 
   innerImages: true
@@ -992,6 +1006,7 @@
   title: "Обзорные статьи"
   what: "статью"
   whatA: "статьи"
+  whatGs: "статей"
   enWhat: "article"
 
   innerImages: true
@@ -1049,6 +1064,7 @@
   title: "Печатные издания"
   what: "издание"
   whatA: "издания"
+  whatGs: "изданий"
   enWhat: "book"
 
   editors:
@@ -1106,6 +1122,7 @@
   title: "Текстовые ушки"
   what: "ушко"
   whatA: "ушка"
+  whatGs: "ушек"
   enWhat: "ear"
 
   editors:

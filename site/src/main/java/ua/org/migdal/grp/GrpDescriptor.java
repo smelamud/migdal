@@ -75,6 +75,11 @@ public class GrpDescriptor {
      */
     private String whatA = "сообщения";
 
+    /**
+     * Расстановка {}
+     */
+    private String whatGs = "сообщений";
+
     private String enWhat = "message";
 
     private boolean innerImages;
@@ -218,6 +223,14 @@ public class GrpDescriptor {
 
     public void setWhatA(String whatA) {
         this.whatA = whatA;
+    }
+
+    public String getWhatGs() {
+        return whatGs;
+    }
+
+    public void setWhatGs(String whatGs) {
+        this.whatGs = whatGs;
     }
 
     public String getEnWhat() {

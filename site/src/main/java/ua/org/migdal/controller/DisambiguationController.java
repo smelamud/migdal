@@ -33,6 +33,9 @@ public class DisambiguationController {
         if (smth.startsWith("add-")) {
             return postingEditingController.postingAdd(smth.substring(4), full, model);
         }
+        if (smth.startsWith("reorder-")) {
+            return postingEditingController.postingsReorder(smth.substring(8), model);
+        }
         return postingViewController.postingView(model, offset, tid);
     }
 

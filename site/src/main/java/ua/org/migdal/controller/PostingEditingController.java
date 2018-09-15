@@ -4,6 +4,7 @@ import java.util.function.Function;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Entry;
+import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
@@ -80,6 +82,9 @@ public class PostingEditingController {
     @Inject
     private IndexController indexController;
 
+    @Inject
+    private EntryController entryController;
+
     @GetMapping("/add-{grpPathName}")
     public String rootPostingAdd(
             @PathVariable String grpPathName,
@@ -91,11 +96,14 @@ public class PostingEditingController {
 
     // @GetMapping("/**/add-{grpPathName}")
     public String postingAdd(
-            @PathVariable String grpPathName,
-            @RequestParam(required = false) boolean full,
+            String grpPathName,
+            boolean full,
             Model model) throws PageNotFoundException {
 
         String grpName = Utils.toConstName(grpPathName);
+        if (!grpEnum.exists(grpName)) {
+            throw new PageNotFoundException();
+        }
 
         postingAddLocationInfo(grpName, model);
 
@@ -136,9 +144,7 @@ public class PostingEditingController {
     }
 
     // @GetMapping("/**/edit")
-    public String postingEdit(
-            @RequestParam(required = false) boolean full,
-            Model model) throws PageNotFoundException {
+    public String postingEdit(boolean full, Model model) throws PageNotFoundException {
 
         Posting posting = postingManager.beg(identManager.postingIdFromRequestPath(0, -1));
         if (posting == null) {
@@ -412,6 +418,35 @@ public class PostingEditingController {
             redirectAttributes.addFlashAttribute("errors", errors);
             return "redirect:" + requestContext.getBack();
         }
+    }
+
+    // @GetMapping("/**/reorder-{grpPathName}")
+    public String postingsReorder(String grpPathName, Model model) throws PageNotFoundException {
+        String grpName = Utils.toConstName(grpPathName);
+        if (!grpEnum.exists(grpName)) {
+            throw new PageNotFoundException();
+        }
+
+        long upId = identManager.postingIdFromRequestPath(0, -1);
+        Posting up = postingManager.beg(upId);
+        if (up == null) {
+            throw new PageNotFoundException();
+        }
+
+        postingsReorderLocationInfo(grpName, up, model);
+
+        Iterable<Posting> postings = postingManager.begAll(null, grpEnum.group(grpName), upId, null, null,
+                0, Integer.MAX_VALUE, Sort.Direction.ASC, "index0");
+        return entryController.entryReorder(postings, EntryType.POSTING, model);
+    }
+
+    public LocationInfo postingsReorderLocationInfo(String grpName, Posting up, Model model) {
+        String whatGs = grpEnum.grp(grpName).getWhatGs();
+        return new LocationInfo(model)
+                .withUri("/" + up.getCatalog() + "reorder-" + Utils.toPathName(grpName))
+                .withParent(indexController.indexLocationInfo(null))
+                .withPageTitle(up.getHeading() + " - Расстановка " + whatGs)
+                .withPageTitleRelative("Расстановка " + whatGs);
     }
 
 }
