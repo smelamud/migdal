@@ -1,6 +1,8 @@
 package ua.org.migdal.data.util;
 
-public class Siblings<T> {
+import java.util.Iterator;
+
+public class Siblings<T> implements Iterable<T> {
 
     private Iterable<T> list;
     private boolean moreBefore;
@@ -12,16 +14,17 @@ public class Siblings<T> {
         this.moreAfter = moreAfter;
     }
 
-    public Iterable<T> getList() {
-        return list;
-    }
-
     public boolean isMoreBefore() {
         return moreBefore;
     }
 
     public boolean isMoreAfter() {
         return moreAfter;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return list.iterator();
     }
 
 }
