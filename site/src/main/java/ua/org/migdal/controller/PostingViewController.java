@@ -14,7 +14,6 @@ import ua.org.migdal.data.InnerImage;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.form.ForumForm;
 import ua.org.migdal.grp.GrpEnum;
-import ua.org.migdal.location.GeneralViewFinder;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.ForumManager;
 import ua.org.migdal.manager.IdentManager;
@@ -44,7 +43,7 @@ public class PostingViewController {
     private ForumManager forumManager;
 
     @Inject
-    private GeneralViewFinder generalViewFinder;
+    private DisambiguationController disambiguationController;
 
     @Inject
     private IndexController indexController;
@@ -117,7 +116,7 @@ public class PostingViewController {
     }
 
     public LocationInfo generalPostingViewLocationInfo(Posting posting, Model model) {
-        LocationInfo generalView = generalViewFinder.findFor(posting);
+        LocationInfo generalView = disambiguationController.generalViewLocationInfo(posting, null);
         return new LocationInfo(model)
                 .withUri(posting.getGrpDetailsHref())
                 .withMenuMain(generalView.getMenuMain())

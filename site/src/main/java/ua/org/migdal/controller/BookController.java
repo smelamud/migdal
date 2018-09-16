@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.grp.GrpEnum;
-import ua.org.migdal.location.GeneralViewFinder;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.PostingManager;
 
@@ -23,7 +22,7 @@ public class BookController {
     private PostingManager postingManager;
 
     @Inject
-    private GeneralViewFinder generalViewFinder;
+    private DisambiguationController disambiguationController;
 
     @Inject
     private PostingViewController postingViewController;
@@ -50,7 +49,7 @@ public class BookController {
     }
 
     public LocationInfo bookViewLocationInfo(Posting book, Model model) {
-        LocationInfo generalView = generalViewFinder.findFor(book);
+        LocationInfo generalView = disambiguationController.generalViewLocationInfo(book, null);
         return new LocationInfo(model)
                 .withUri(book.getGrpDetailsHref())
                 .withMenuMain(generalView.getMenuMain())
@@ -85,7 +84,7 @@ public class BookController {
     }
 
     public LocationInfo bookChapterViewLocationInfo(Posting chapter, Posting book, Model model) {
-        LocationInfo generalView = generalViewFinder.findFor(book);
+        LocationInfo generalView = disambiguationController.generalViewLocationInfo(book, null);
         return new LocationInfo(model)
                 .withUri(chapter.getGrpDetailsHref())
                 .withMenuMain(generalView.getMenuMain())

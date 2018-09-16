@@ -24,8 +24,6 @@ import ua.org.migdal.data.LinkType;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEnum;
-import ua.org.migdal.location.GeneralViewFor;
-import ua.org.migdal.location.GeneralViewPriority;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.CrossEntryManager;
 import ua.org.migdal.manager.IdentManager;
@@ -109,7 +107,6 @@ public class IndexController {
         return "index-www";
     }
 
-    @GeneralViewFor(priority = GeneralViewPriority.MAJORS)
     public LocationInfo majorLocationInfo(Topic topic, Model model) {
         boolean withGallery = grpEnum.inGroup("GALLERY", topic.getGrp());
         return new LocationInfo(model)
