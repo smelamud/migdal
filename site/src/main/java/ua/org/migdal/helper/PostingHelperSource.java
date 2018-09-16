@@ -177,6 +177,25 @@ public class PostingHelperSource {
                 fixedWidth, fixedHeight, enlargeAlways, href, editHref, rmHref, controls, hollow);
     }
 
+    public CharSequence picture(Options options) {
+        Posting posting = HelperUtils.mandatoryHash("posting", options);
+        CharSequence align = options.hash("align");
+        boolean noClear = HelperUtils.boolArg(options.hash("noClear"));
+        boolean noMargin = HelperUtils.boolArg(options.hash("noMargin"));
+        CharSequence rel = options.hash("rel");
+        Object title = options.hash("title");
+        String titleLarge = String.format("picture-controls-%d", posting.getId());
+        long fixedWidth = HelperUtils.intArg("fixedWidth", options.hash("fixedWidth"));
+        long fixedHeight = HelperUtils.intArg("fixedHeight", options.hash("fixedHeight"));
+        String editHref = posting.isHasSmallImage() && posting.isWritable() ? "auto" : "";
+        boolean hollow = HelperUtils.boolArg(options.hash("hollow"));
+
+        StringBuilder buf = new StringBuilder();
+        buf.append(entryImage(posting, align, noClear, noMargin, null, rel, title, 0, titleLarge,
+                fixedWidth, fixedHeight, true, null, editHref, null, false, hollow));
+        return new SafeString(buf);
+    }
+
     CharSequence entryImage(
             Entry entry,
             CharSequence align,

@@ -243,21 +243,25 @@ public class IndexController {
         addMajors(model);
         earController.addEars(model);
         addSeeAlso(topic.getId(), model);
-        addGallery("GALLERY", topic, true, offset, sort, model);
+        addGallery("GALLERY", topic, true, offset, 20, sort, model);
         return "gallery";
     }
 
-    private void addGallery(String grpName, Topic topic, boolean addVisible, Integer offset, String sort, Model model) {
+    private void addGallery(String grpName, Topic topic, boolean addVisible, int offset, int limit, String sort,
+                            Model model) {
+
         model.addAttribute("galleryAddVisible", addVisible);
         model.addAttribute("galleryAddCatalog", topic.getCatalog());
         model.addAttribute("gallerySort", sort);
+        model.addAttribute("galleryBegin", offset);
+        model.addAttribute("galleryEnd", offset + limit);
         List<Pair<Long, Boolean>> topicRoots = Collections.singletonList(Pair.of(topic.getId(), true));
         model.addAttribute("postings",
                 postingManager.begAll(
                         topicRoots,
                         grpEnum.group(grpName),
-                        offset,
-                        20,
+                        0,
+                        Integer.MAX_VALUE,
                         Sort.Direction.DESC,
                         sort));
     }

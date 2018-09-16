@@ -34,6 +34,13 @@ public class StatementsHelperSource {
         return "";
     }
 
+    public CharSequence assignDivisive(String variableName, Object value1, Object value2, Options options)
+            throws IOException {
+        boolean condition = HelperUtils.intArg(0, value1) % HelperUtils.intArg(1, value2) == 0;
+        options.data(variableName, condition);
+        return "";
+    }
+
     public CharSequence not(Object value) {
         return HelperUtils.boolResult(!HelperUtils.boolArg(value));
     }

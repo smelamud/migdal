@@ -17,35 +17,32 @@
     </div>
 {{/inline}}
 
-{{!<assign name="limit" value!="$rows * $cols">
-<iterate_postinglist name="list" grp="*GRP_GRAPHICS" topic_id="$topic_id"
-                     limit=0 sort="$sort" subdomain="$subdomain"
-                     user="$user_id">
-<iterate_rows cols="$cols">
-<pager_new name="pager" size="$list.Size" limit="$limit" offset="$offset">}}
 {{> batcher list=postings}}
 {{#if postings}}
- {{!<div style="display: none">
-  <for>
-   <if what="$list.Position == $offset">
-    <div class="clear-floats"></div>
-    </div>
-    <div class="pictures">
-   </if>
-   <if what="$list.Position == $offset + $limit">
-    <div class="clear-floats"></div>
-    </div>
     <div style="display: none">
-   </if>
-   <assign name="hollow"
-           value!="$list.Position < $offset
-                   || $list.Position >= $offset + $limit">
-   <picture picture="$." showtopic!="$topic_id<0" showdiscuss="*true"
+        {{#assign "hollow"}}true{{/assign}}
+        {{#each postings}}
+            {{#ifieq @index galleryBegin}}
+                <div class="clear-floats"></div>
+                </div>
+                <div class="pictures">
+                {{#assign "hollow"}}false{{/assign}}
+            {{/ifieq}}
+            {{#ifieq @index galleryEnd}}
+                <div class="clear-floats"></div>
+                </div>
+                <div style="display: none">
+                {{#assign "hollow"}}true{{/assign}}
+            {{/ifieq}}
+   {{!<picture picture="$." showtopic!="$topic_id<0" showdiscuss="*true"
             rel#="gallery-$topic_id" list_index!="$list.Position + 1"
             list_size="$list.Size" hollow="$hollow" align="left"
-            noclear!="!$;isBol" nomargin="*true">
-  </for>
-  <div class="clear-floats"></div>
- </div>}}
+            noclear!="!$;isBol" nomargin="*true">}}
+            {{#assign "rel"}}gallery-{{topic.id}}{{/assign}}
+            {{assignDivisive "lineBreak" @index 5}}
+            {{picture posting=this rel=rel hollow=hollow align="left" noClear=(not lineBreak) noMargin=true}}
+        {{/each}}
+        <div class="clear-floats"></div>
+    </div>
     {{> batcher list=postings}}
 {{/if}}
