@@ -15,6 +15,7 @@ import ua.org.migdal.data.Posting;
 import ua.org.migdal.helper.calendar.CalendarType;
 import ua.org.migdal.helper.calendar.Formatter;
 import ua.org.migdal.helper.util.HelperUtils;
+import ua.org.migdal.mtext.MtextConverter;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Utils;
 
@@ -23,6 +24,9 @@ public class PostingHelperSource {
 
     @Inject
     private RequestContext requestContext;
+
+    @Inject
+    private MtextConverter mtextConverter;
 
     @Inject
     private ImagesHelperSource imagesHelperSource;
@@ -35,10 +39,15 @@ public class PostingHelperSource {
 
     public CharSequence sentView(Options options) {
         LocalDateTime timestamp = HelperUtils.timestampArg("date", options.hash("date"));
+
+        return sentView(timestamp);
+    }
+
+    CharSequence sentView(LocalDateTime timestamp) {
         return new SafeString(Formatter.format(CalendarType.GREGORIAN_EN, "dd.MM.yyyy'&nbsp;'HH:mm", timestamp));
     }
 
-    public CharSequence senderLink(Entry entry, Options options) {
+    public CharSequence senderLink(Entry entry) {
         if (requestContext.isEnglish()) {
             return "";
         }
@@ -52,6 +61,16 @@ public class PostingHelperSource {
         HelperUtils.appendAttr(buf, "href", posting.getGrpGeneralHref());
         buf.append('>');
         HelperUtils.safeAppend(buf, posting.getGrpGeneralTitle());
+        buf.append("</a>");
+        return new SafeString(buf);
+    }
+
+    public CharSequence selfLink(Posting posting) {
+        StringBuilder buf = new StringBuilder();
+        buf.append("<a ");
+        HelperUtils.appendAttr(buf, "href", posting.getGrpDetailsHref());
+        buf.append('>');
+        buf.append(imagesHelperSource.image("/pics/self.gif"));
         buf.append("</a>");
         return new SafeString(buf);
     }
@@ -162,7 +181,7 @@ public class PostingHelperSource {
         Object imageTitle = options.hash("imageTitle");
         CharSequence rel = options.hash("rel");
         Object title = options.hash("title");
-        long titleLargeId = HelperUtils.intArg("titleLargeId", options.hash("titleLargeId"));
+        CharSequence titleLargeId = options.hash("titleLargeId");
         CharSequence titleLarge = options.hash("titleLarge");
         long fixedWidth = HelperUtils.intArg("fixedWidth", options.hash("fixedWidth"));
         long fixedHeight = HelperUtils.intArg("fixedHeight", options.hash("fixedHeight"));
@@ -184,15 +203,44 @@ public class PostingHelperSource {
         boolean noMargin = HelperUtils.boolArg(options.hash("noMargin"));
         CharSequence rel = options.hash("rel");
         Object title = options.hash("title");
-        String titleLarge = String.format("picture-controls-%d", posting.getId());
+        String titleLargeId = String.format("picture-controls-%d", posting.getId());
         long fixedWidth = HelperUtils.intArg("fixedWidth", options.hash("fixedWidth"));
         long fixedHeight = HelperUtils.intArg("fixedHeight", options.hash("fixedHeight"));
         String editHref = posting.isHasSmallImage() && posting.isWritable() ? "auto" : "";
         boolean hollow = HelperUtils.boolArg(options.hash("hollow"));
+        long listSize = HelperUtils.intArg("listSize", options.hash("listSize"));
+        long listIndex = HelperUtils.intArg("listIndex", options.hash("listIndex"));
 
         StringBuilder buf = new StringBuilder();
-        buf.append(entryImage(posting, align, noClear, noMargin, null, rel, title, 0, titleLarge,
+        buf.append(entryImage(posting, align, noClear, noMargin, null, rel, title, titleLargeId, null,
                 fixedWidth, fixedHeight, true, null, editHref, null, false, hollow));
+        buf.append(String.format("<div id=\"picture-controls-%d\" class=\"picture-controls\">", posting.getId()));
+        buf.append(voteHelperSource.votePanel(posting.getId(), (long) posting.getRating(), "left"));
+        if (listSize > 0) {
+            buf.append("<div class=\"n-of\">");
+            buf.append(String.format("%d из %d", listIndex, listSize));
+            buf.append("</div>");
+        }
+        buf.append("<span class=\"picture-title\">");
+        buf.append(mtextConverter.toHtml(posting.getTitleMtext()));
+        buf.append("</span>");
+        if (!StringUtils.isEmpty(posting.getSource())) {
+            buf.append(mtextConverter.toHtml(posting.getSourceMtext()));
+        }
+        buf.append("<br />");
+        buf.append("<div class=\"sent\" style=\"clear: left\">");
+        buf.append(sentView(posting.getSent().toLocalDateTime()));
+        buf.append("&nbsp;");
+        buf.append(senderLink(posting));
+        buf.append("</div>");
+        buf.append("<div class=\"picture-bottom\">");
+        buf.append(selfLink(posting));
+        buf.append("&nbsp;");
+        buf.append(editLink(posting));
+        buf.append("&nbsp;");
+        buf.append(discussLink(posting));
+        buf.append("</div>");
+        buf.append("</div>");
         return new SafeString(buf);
     }
 
@@ -204,7 +252,7 @@ public class PostingHelperSource {
             Object imageTitle,
             CharSequence rel,
             Object title,
-            long titleLargeId,
+            CharSequence titleLargeId,
             CharSequence titleLarge,
             long fixedWidth,
             long fixedHeight,
@@ -227,12 +275,12 @@ public class PostingHelperSource {
             if (StringUtils.isEmpty(href)) {
                 buf.append("<a class=\"enlargeable\"");
                 HelperUtils.appendAttr(buf, "href", entry.getLargeImageUrl());
-                if (titleLargeId > 0) {
+                if (!StringUtils.isEmpty(titleLargeId)) {
                     HelperUtils.appendAttr(buf, "data-title-large-id", titleLargeId);
                 } else if (!StringUtils.isEmpty(titleLarge)) {
                     HelperUtils.appendAttr(buf, "data-title-large", titleLarge);
                 }
-                HelperUtils.appendAttr(buf, "rel", rel);
+                HelperUtils.appendAttr(buf, "data-fancybox", rel);
                 buf.append('>');
             } else {
                 buf.append("<a");

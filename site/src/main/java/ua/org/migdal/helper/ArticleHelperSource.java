@@ -103,8 +103,8 @@ public class ArticleHelperSource {
             SafeString rmHref = new SafeString(String.format("/actions/inner-image/delete?id=%d&amp;back=%s",
                     innerImage.getId(), HelperUtils.ue(requestContext.getLocation())));
             buf.append(postingHelperSource.entryImage(innerImage.getImage(), align, false, false, null,
-                    String.format("article-%d", id), titleHtml, 0, titleLineHtml, 0, 0, false, null, editHref, rmHref,
-                    true, false));
+                    String.format("article-%d", id), titleHtml, null, titleLineHtml, 0, 0, false, null,
+                    editHref, rmHref, true, false));
         } else {
             buf.append("<div class=\"insert-image\"");
             if (!StringUtils.isEmpty(align)) {

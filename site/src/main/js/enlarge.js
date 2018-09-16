@@ -1,9 +1,7 @@
 function enlargeInit() {
     $(".enlargeable").fancybox({
-        openEffect: 'elastic',
-        closeEffect: 'elastic',
-        nextEffect: 'fade',
-        prevEffect: 'fade',
+        animationEffect: "elastic",
+        transitionEffect: "fade",
         padding: 0,
 
         helpers: {
@@ -12,18 +10,18 @@ function enlargeInit() {
             }
         },
 
-        beforeLoad: function() {
-            var title_id = $(this.element).attr('data-title-large-id');
+        caption: function() {
+            var title_id = $(this).attr('data-title-large-id');
             if (title_id) {
-                this.title = $("#" + title_id).html();
+                return $("#" + title_id).html();
             } else {
-                this.title = $(this.element).attr('data-title-large');
+                return $(this).attr('data-title-large');
             }
         },
 
         afterShow: function() {
-            userInfoInit(".fancybox-title");
-            voteInit(".fancybox-title");
+            userInfoInit(".fancybox-caption");
+            voteInit(".fancybox-caption");
         }
     });
 }

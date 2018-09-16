@@ -2,9 +2,11 @@ package ua.org.migdal.helper;
 
 import javax.inject.Inject;
 
+import org.springframework.util.StringUtils;
+
 import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
-import org.springframework.util.StringUtils;
+
 import ua.org.migdal.data.Vote;
 import ua.org.migdal.data.VoteType;
 import ua.org.migdal.helper.util.HelperUtils;
@@ -63,13 +65,17 @@ public class VoteHelperSource {
     }
 
     public CharSequence votePanel(Options options) {
-        if (requestContext.isPrintMode() || requestContext.isEnglish()) {
-            return "";
-        }
-
         long id = HelperUtils.intArg("id", HelperUtils.mandatoryHash("id", options));
         long rating = HelperUtils.intArg("rating", HelperUtils.mandatoryHash("rating", options));
         CharSequence align = options.hash("align");
+
+        return votePanel(id, rating, align);
+    }
+
+    CharSequence votePanel(long id, long rating, CharSequence align) {
+        if (requestContext.isPrintMode() || requestContext.isEnglish()) {
+            return "";
+        }
 
         Vote vote = voteManager.findVote(VoteType.VOTE, id);
 
