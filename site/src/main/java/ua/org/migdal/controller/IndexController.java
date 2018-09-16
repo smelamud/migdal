@@ -256,6 +256,9 @@ public class IndexController {
         model.addAttribute("galleryBegin", offset);
         model.addAttribute("galleryEnd", offset + limit);
         List<Pair<Long, Boolean>> topicRoots = Collections.singletonList(Pair.of(topic.getId(), true));
+        if (!sort.equals("sent") && !sort.equals("rating")) { // The value comes from client, needs validation
+            sort = "sent";
+        }
         model.addAttribute("postings",
                 postingManager.begAll(
                         topicRoots,
