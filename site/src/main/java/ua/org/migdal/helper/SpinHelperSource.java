@@ -78,4 +78,24 @@ public class SpinHelperSource {
         return new SafeString(buf);
     }
 
+    public CharSequence naviSort(Options options) {
+        CharSequence sort = HelperUtils.mandatoryHash("sort", options);
+        CharSequence value = HelperUtils.mandatoryHash("value", options);
+        CharSequence title = HelperUtils.mandatoryHash("title", options);
+
+        StringBuilder buf = new StringBuilder();
+        if (!sort.toString().equals(value.toString())) {
+            buf.append("<a ");
+            HelperUtils.appendAttr(buf, "href", "?sort=" + HelperUtils.ue(value));
+            buf.append('>');
+            HelperUtils.safeAppend(buf, title);
+            buf.append("</a>");
+        } else {
+            buf.append("<b>");
+            HelperUtils.safeAppend(buf, title);
+            buf.append("</b>");
+        }
+        return new SafeString(buf);
+    }
+
 }

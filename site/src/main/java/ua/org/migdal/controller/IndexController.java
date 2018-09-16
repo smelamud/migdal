@@ -221,4 +221,57 @@ public class IndexController {
                 .withPageTitle("Основные темы");
     }
 
+    @GetMapping("/{ident}/gallery")
+    public String majorGallery(
+            @PathVariable String ident,
+            @RequestParam(defaultValue = "0") Integer offset,
+            @RequestParam(defaultValue = "sent") String sort,
+            Model model) throws PageNotFoundException {
+
+        long id = identManager.idOrIdent(ident);
+        if (id <= 0) {
+            throw new PageNotFoundException();
+        }
+        Topic topic = topicManager.beg(id);
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        majorGalleryLocationInfo(topic, model);
+
+        model.addAttribute("topic", topic);
+        addMajors(model);
+        earController.addEars(model);
+        addSeeAlso(topic.getId(), model);
+        addGallery("GALLERY", topic, true, offset, sort, model);
+        return "gallery";
+    }
+
+    private void addGallery(String grpName, Topic topic, boolean addVisible, Integer offset, String sort, Model model) {
+        model.addAttribute("galleryAddVisible", addVisible);
+        model.addAttribute("galleryAddCatalog", topic.getCatalog());
+        model.addAttribute("gallerySort", sort);
+        List<Pair<Long, Boolean>> topicRoots = Collections.singletonList(Pair.of(topic.getId(), true));
+        model.addAttribute("postings",
+                postingManager.begAll(
+                        topicRoots,
+                        grpEnum.group(grpName),
+                        offset,
+                        20,
+                        Sort.Direction.DESC,
+                        sort));
+    }
+
+    public LocationInfo majorGalleryLocationInfo(Topic topic, Model model) {
+        boolean withGallery = grpEnum.inGroup("GALLERY", topic.getGrp());
+        return new LocationInfo(model)
+                .withUri("/" + topic.getIdent() + "/gallery")
+                .withRssHref("/rss/")
+                .withTopics("topics-major-sub")
+                .withTopicsIndex("gallery")
+                .withParent(majorLocationInfo(topic, null))
+                .withPageTitle(topic.getSubject() + " - Галерея")
+                .withPageTitleRelative("Галерея");
+    }
+
 }
