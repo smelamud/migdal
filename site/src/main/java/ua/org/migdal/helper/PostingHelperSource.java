@@ -215,12 +215,7 @@ public class PostingHelperSource {
         buf.append(entryImage(posting, align, noClear, noMargin, null, rel, title, titleLargeId, null,
                 fixedWidth, fixedHeight, true, null, editHref, null, false, hollow));
         buf.append(String.format("<div id=\"picture-controls-%d\" class=\"picture-controls\">", posting.getId()));
-        buf.append(voteHelperSource.votePanel(posting.getId(), (long) posting.getRating(), "left"));
-        if (listSize > 0) {
-            buf.append("<div class=\"n-of\">");
-            buf.append(String.format("%d из %d", listIndex, listSize));
-            buf.append("</div>");
-        }
+        buf.append(voteHelperSource.votePanel(posting.getId(), (long) posting.getRating(), "right"));
         buf.append("<span class=\"picture-title\">");
         buf.append(mtextConverter.toHtml(posting.getTitleMtext()));
         buf.append("</span>");
