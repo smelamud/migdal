@@ -67,10 +67,12 @@ public class PostingHelperSource {
 
     public CharSequence selfLink(Posting posting) {
         StringBuilder buf = new StringBuilder();
+        buf.append(imagesHelperSource.image("/pics/self.gif"));
+        buf.append("&nbsp;");
         buf.append("<a ");
         HelperUtils.appendAttr(buf, "href", posting.getGrpDetailsHref());
         buf.append('>');
-        buf.append(imagesHelperSource.image("/pics/self.gif"));
+        buf.append(!requestContext.isEnglish() ? "Ссылка" : "Link");
         buf.append("</a>");
         return new SafeString(buf);
     }
@@ -225,15 +227,19 @@ public class PostingHelperSource {
         buf.append("<br />");
         buf.append("<div class=\"sent\" style=\"clear: left\">");
         buf.append(sentView(posting.getSent().toLocalDateTime()));
-        buf.append("&nbsp;");
+        buf.append(" &nbsp; ");
         buf.append(senderLink(posting));
         buf.append("</div>");
         buf.append("<div class=\"picture-bottom\">");
         buf.append(selfLink(posting));
-        buf.append("&nbsp;");
-        buf.append(editLink(posting));
-        buf.append("&nbsp;");
-        buf.append(discussLink(posting));
+        if (posting.isWritable()) {
+            buf.append(" &nbsp; ");
+            buf.append(editLink(posting));
+        }
+        if (posting.isPostable()) {
+            buf.append(" &nbsp; ");
+            buf.append(discussLink(posting));
+        }
         buf.append("</div>");
         buf.append("</div>");
         return new SafeString(buf);
