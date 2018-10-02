@@ -348,18 +348,20 @@ public class ImageUploadManager {
             smallSizeY = largeSizeY;
         }
 
-        short smallX = (short) ((smallSizeX - clipX) / 2);
-        short smallY = (short) ((smallSizeY - clipY) / 2);
+        short smallClipX = clipX > 0 ? clipX : smallSizeX;
+        short smallClipY = clipY > 0 ? clipY : smallSizeY;
+        short smallX = (short) ((smallSizeX - smallClipX) / 2);
+        short smallY = (short) ((smallSizeY - smallClipY) / 2);
         double scale = (double) largeSizeX / smallSizeX;
         short largeX = (short) (smallX * scale);
         short largeY = (short) (smallY * scale);
-        short largeClipX = (short) (clipX * scale);
-        short largeClipY = (short) (clipY * scale);
+        short largeClipX = (short) (smallClipX * scale);
+        short largeClipY = (short) (smallClipY * scale);
 
         // Resize the image
-        BufferedImage smallImage = new BufferedImage(smallSizeX, smallSizeY, BufferedImage.TYPE_INT_RGB);
+        BufferedImage smallImage = new BufferedImage(smallClipX, smallClipY, BufferedImage.TYPE_INT_RGB);
         smallImage.createGraphics().drawImage(image,
-                0, 0, clipX, clipY,
+                0, 0, smallClipX, smallClipY,
                 largeX, largeY, largeClipX, largeClipY, null);
 
         return smallImage;

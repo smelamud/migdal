@@ -1224,7 +1224,9 @@ public class Entry implements TreeElement {
 
     @PreRemove
     public void preRemove() {
-        if (getParent() != null && getParent().getLastAnswer().getId() == getId()) {
+        if (getParent() != null
+                && getParent().getLastAnswer() != null
+                && getParent().getLastAnswer().getId() == getId()) {
             getParent().setLastAnswer(null);
         }
     }
