@@ -17,7 +17,7 @@
     </div>
 {{/inline}}
 
-{{> batcher list=postings}}
+{{> batcher list=postingsPage}}
 {{#if postings}}
     <div style="display: none">
         {{#assign "hollow"}}true{{/assign}}
@@ -41,9 +41,9 @@
             {{#assign "rel"}}gallery-{{topic.id}}{{/assign}}
             {{assignDivisive "lineBreak" @index 5}}
             {{picture posting=this rel=rel hollow=hollow align="left" noClear=(not lineBreak) noMargin=true
-                      listIndex=@index listSize=postings.totalElements}}
+                      listIndex=@index listSize=postingsPage.totalElements}}
         {{/each}}
         <div class="clear-floats"></div>
     </div>
-    {{> batcher list=postings}}
+    {{> batcher list=postingsPage}}
 {{/if}}

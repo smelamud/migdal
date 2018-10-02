@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.CrossEntry;
 import ua.org.migdal.data.LinkType;
+import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEnum;
@@ -253,20 +256,31 @@ public class IndexController {
         model.addAttribute("galleryAddVisible", addVisible);
         model.addAttribute("galleryAddCatalog", topic.getCatalog());
         model.addAttribute("gallerySort", sort);
-        model.addAttribute("galleryBegin", offset);
-        model.addAttribute("galleryEnd", offset + limit);
+
         List<Pair<Long, Boolean>> topicRoots = Collections.singletonList(Pair.of(topic.getId(), true));
         if (!sort.equals("sent") && !sort.equals("rating")) { // The value comes from client, needs validation
             sort = "sent";
         }
-        model.addAttribute("postings",
-                postingManager.begAll(
-                        topicRoots,
-                        grpEnum.group(grpName),
-                        0,
-                        Integer.MAX_VALUE,
-                        Sort.Direction.DESC,
-                        sort));
+        List<Posting> postings = new ArrayList<>();
+        postingManager.begAll(
+                topicRoots,
+                grpEnum.group(grpName),
+                0,
+                Integer.MAX_VALUE,
+                Sort.Direction.DESC,
+                sort).forEach(postings::add);
+
+        int galleryBegin = offset < 0 ? 0 : offset / limit * limit;
+        int galleryEnd = offset + limit;
+        galleryEnd = galleryEnd > postings.size() ? postings.size() : galleryEnd;
+        model.addAttribute("galleryBegin", galleryBegin);
+        model.addAttribute("galleryEnd", galleryEnd);
+        model.addAttribute("postings", postings);
+        model.addAttribute("postingsPage",
+                new PageImpl<>(
+                        postings.subList(galleryBegin, galleryEnd),
+                        PageRequest.of(galleryBegin / limit, limit),
+                        postings.size()));
     }
 
     public LocationInfo majorGalleryLocationInfo(Topic topic, Model model) {
