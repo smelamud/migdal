@@ -10,13 +10,7 @@
         <td class="cframe">
             {{subtitle}}
             {{> part/see-also}}
-               {{!<perms id="$topic_id">
-               <assign name="noguests" value!="!$,isGuestPostable">
-               <entry_grps id="$topic_id">
-               <assign name="noadd" value!="!in_array(*GRP_GALLERY,$,)">
-               <gallery topic_id="$topic_id" rows="4" cols="5" offset="$offset"
-                        sort="$sort" user_id="$user_id" noguests="$noguests" noadd="$noadd">}}
-               {{> part/gallery}}
+            {{> part/gallery}}
             {{postingShare}}
         </td>
     </tr>
