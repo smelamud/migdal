@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ua.org.migdal.Config;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.CrossEntry;
 import ua.org.migdal.data.LinkType;
@@ -36,6 +37,9 @@ import ua.org.migdal.session.RequestContext;
 
 @Controller
 public class IndexController {
+
+    @Inject
+    private Config config;
 
     @Inject
     private RequestContext requestContext;
@@ -246,13 +250,13 @@ public class IndexController {
         addMajors(model);
         earController.addEars(model);
         addSeeAlso(topic.getId(), model);
-        addGallery("GALLERY", topic, true, offset, 20, sort, model);
+        addGallery("GALLERY", topic, offset, 20, sort, model);
         return "gallery";
     }
 
-    private void addGallery(String grpName, Topic topic, boolean addVisible, int offset, int limit, String sort,
-                            Model model) {
-
+    private void addGallery(String grpName, Topic topic, int offset, int limit, String sort, Model model) {
+        boolean addVisible = topic.accepts(grpEnum.grpValue(grpName))
+                && (requestContext.isLogged() || config.isAllowGuests() && topic.isGuestPostable());
         model.addAttribute("galleryAddVisible", addVisible);
         model.addAttribute("galleryAddCatalog", topic.getCatalog());
         model.addAttribute("gallerySort", sort);
