@@ -12,15 +12,15 @@
         {{votePanel align="right" id=posting.id rating=posting.rating}}
     </dt>
     <dd>
-    {{#if posting.hasImage}}
-        {{#assign "imageTitleLarge"}}{{mtext posting.titleLineMtext}}{{/assign}}
-        {{postingImage posting=posting titleLarge=imageTitleLarge align="left"}}
-    {{/if}}
-    {{mtext posting.titleMtext}}
-    {{> source posting=posting}}
-    <div class="sent" style="clear: left">
-        {{sentView date=posting.sent}}&nbsp;
-        {{senderLink posting}}
-    </div>
-    {{postingControls posting=posting showDiscuss=showDiscuss}}
+        {{#if posting.hasImage}}
+            {{#assign "imageTitleLarge"}}{{mtext posting.titleLineMtext}}{{/assign}}
+            {{postingImage posting=posting titleLarge=imageTitleLarge align="left"}}
+        {{/if}}
+        {{mtext posting.titleMtext}}
+        {{> source posting=posting}}
+        <div class="sent" style="clear: left">
+            {{sentView date=posting.sent}}&nbsp;
+            {{senderLink posting}}
+        </div>
+        {{postingControls posting=posting showDiscuss=showDiscuss}}
 </dl>

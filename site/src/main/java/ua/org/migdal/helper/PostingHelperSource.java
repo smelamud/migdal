@@ -56,9 +56,15 @@ public class PostingHelperSource {
     }
 
     public CharSequence topicLink(Posting posting, Options options) {
+        CharSequence suffix = options.hash("suffix");
+
         StringBuilder buf = new StringBuilder();
         buf.append("<a class=\"posting-topic\"");
-        HelperUtils.appendAttr(buf, "href", posting.getGrpGeneralHref());
+        String href = posting.getGrpGeneralHref();
+        if (suffix != null) {
+            href = href + suffix;
+        }
+        HelperUtils.appendAttr(buf, "href", href);
         buf.append('>');
         HelperUtils.safeAppend(buf, posting.getGrpGeneralTitle());
         buf.append("</a>");
