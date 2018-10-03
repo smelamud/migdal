@@ -215,7 +215,7 @@ public class PostingHelperSource {
 
         StringBuilder buf = new StringBuilder();
         buf.append(entryImage(posting, align, noClear, noMargin, null, rel, title, titleLargeId, null,
-                fixedWidth, fixedHeight, true, null, editHref, null, false, hollow));
+                fixedWidth, fixedHeight, true, null, editHref, null, true, hollow));
         buf.append(String.format("<div id=\"picture-controls-%d\" class=\"picture-controls\">", posting.getId()));
         buf.append(voteHelperSource.votePanel(posting.getId(), (long) posting.getRating(), "right"));
         buf.append("<span class=\"picture-title\">");
