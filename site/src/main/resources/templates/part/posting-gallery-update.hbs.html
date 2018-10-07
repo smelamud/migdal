@@ -10,7 +10,7 @@
                         {{#assign "hollow"}}true{{/assign}}
                     {{/ifeq}}
                 {{/if}}
-                {{#assign "rel"}}gallery-{{posting.topicId}}{{/assign}}
+                {{#assign "rel"}}gallery-{{posting.topicId}}-{{posting.id}}{{/assign}}
                 {{assignDivisive "lineBreak" @index 5}}
                 {{picture posting=this showDiscuss=true rel=rel listIndex=@index listSize=posting.publishedEntries.size
                           hollow=hollow align="left" noClear=(not lineBreak) noMargin=true
