@@ -55,6 +55,9 @@ public class DisambiguationController {
         if (posting.getGrp() == grpEnum.grpValue("FORUMS")) {
             return forumController.forumLocationInfo(model);
         }
+        if (posting.getGrp() == grpEnum.grpValue("GALLERY")) {
+            return indexController.majorGalleryLocationInfo(posting.getTopic(), model);
+        }
         return indexController.majorLocationInfo(posting.getTopic(), model);
     }
 
