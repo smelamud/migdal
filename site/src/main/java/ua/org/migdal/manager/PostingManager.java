@@ -423,8 +423,8 @@ public class PostingManager implements EntryManagerBase<Posting> {
         }
         long[] grps = new long[] { grpValue };
         Posting publish = begLast(grps, posting.getTopicId(), posting.getUser().getId());
-        if (publish == null || publish.getModified().after(
-                Timestamp.from(Instant.now().plus(config.getPublishingInterval(), ChronoUnit.HOURS)))) {
+        if (publish == null || publish.getModified().before(
+                Timestamp.from(Instant.now().minus(config.getPublishingInterval(), ChronoUnit.HOURS)))) {
             publish = new Posting(grpValue, posting.getTopic(), posting.getTopic(), 0, requestContext);
         }
         publish.setIndex1(publish.getIndex1() + 1);
