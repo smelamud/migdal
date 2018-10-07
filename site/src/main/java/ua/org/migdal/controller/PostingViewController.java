@@ -1,6 +1,7 @@
 package ua.org.migdal.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -9,12 +10,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
+import ua.org.migdal.data.CrossEntry;
 import ua.org.migdal.data.Image;
 import ua.org.migdal.data.InnerImage;
+import ua.org.migdal.data.LinkType;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.form.ForumForm;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
+import ua.org.migdal.manager.CrossEntryManager;
 import ua.org.migdal.manager.ForumManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.InnerImageManager;
@@ -41,6 +45,9 @@ public class PostingViewController {
 
     @Inject
     private ForumManager forumManager;
+
+    @Inject
+    private CrossEntryManager crossEntryManager;
 
     @Inject
     private DisambiguationController disambiguationController;
@@ -96,6 +103,12 @@ public class PostingViewController {
         }
 
         model.addAttribute("posting", posting);
+        if (posting.isGrpPublisher()) {
+            posting.setPublishedEntries(
+                    crossEntryManager.getAll(LinkType.PUBLISH, posting.getId()).stream()
+                            .map(CrossEntry::getPeer)
+                            .collect(Collectors.toList()));
+        }
         if (posting.isGrpInnerImages()) {
             List<InnerImage> innerImages = innerImageManager.getAll(posting.getId());
             innerImages.stream()

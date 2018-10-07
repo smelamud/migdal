@@ -33,6 +33,9 @@ public class Posting extends Entry {
     @Transient
     private List<Topic> ancestors;
 
+    @Transient
+    private List<Entry> publishedEntries;
+
     public Posting() {
     }
 
@@ -118,6 +121,11 @@ public class Posting extends Entry {
     }
 
     @Transient
+    public boolean isGrpPublisher() {
+        return getGrpDescriptor().isPublisher();
+    }
+
+    @Transient
     public Topic getTopic() {
         return (Topic) getParent();
     }
@@ -166,6 +174,14 @@ public class Posting extends Entry {
 
     public void setAncestors(List<Topic> ancestors) {
         this.ancestors = ancestors;
+    }
+
+    public List<Entry> getPublishedEntries() {
+        return publishedEntries;
+    }
+
+    public void setPublishedEntries(List<Entry> publishedEntries) {
+        this.publishedEntries = publishedEntries;
     }
 
     @Override

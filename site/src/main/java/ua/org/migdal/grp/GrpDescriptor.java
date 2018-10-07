@@ -84,6 +84,8 @@ public class GrpDescriptor {
 
     private boolean innerImages;
 
+    private boolean publisher;
+
     private List<GrpEditor> editors = Collections.emptyList();
     private Map<String, GrpEditor> fieldEditors;
     private List<GrpEditor> hiddenEditors;
@@ -247,6 +249,14 @@ public class GrpDescriptor {
 
     public void setInnerImages(boolean innerImages) {
         this.innerImages = innerImages;
+    }
+
+    public boolean isPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(boolean publisher) {
+        this.publisher = publisher;
     }
 
     public List<GrpEditor> getEditors() {

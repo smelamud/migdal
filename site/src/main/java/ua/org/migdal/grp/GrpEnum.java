@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -98,6 +99,11 @@ public class GrpEnum {
             }
         }
         grps.forEach(grp -> grp.fillHiddenEditors(grpNone));
+        grps.stream()
+                .map(GrpDescriptor::getPublishGrp)
+                .map(grpNameMap::get)
+                .filter(Objects::nonNull)
+                .forEach(d -> d.setPublisher(true));
     }
 
     public static GrpEnum getInstance() {

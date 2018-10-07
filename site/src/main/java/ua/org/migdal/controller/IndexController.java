@@ -153,7 +153,7 @@ public class IndexController {
         if (topic != null) {
             topicRoots = Collections.singletonList(Pair.of(topic.getId(), true));
         }
-        model.addAttribute("postings",
+        Iterable<Posting> postings =
                 postingManager.begAll(
                         topicRoots,
                         grpEnum.group(groupName),
@@ -161,7 +161,16 @@ public class IndexController {
                         20,
                         Sort.Direction.DESC,
                         "priority",
-                        "sent"));
+                        "sent");
+        for (Posting posting : postings) {
+            if (posting.isGrpPublisher()) {
+                posting.setPublishedEntries(
+                        crossEntryManager.getAll(LinkType.PUBLISH, posting.getId()).stream()
+                            .map(CrossEntry::getPeer)
+                            .collect(Collectors.toList()));
+            }
+        }
+        model.addAttribute("postings", postings);
         List<GrpDescriptor> addGrps = new ArrayList<>();
         if (addGrpNames != null) {
             for (String addGrpName : addGrpNames) {
