@@ -88,7 +88,20 @@
                 {{> intro}}
             </div>
             {{> batcher}}
-            <peruser topic_id="$topic_id">
+            <div class="pictures-per-user">
+                {{#each users}}
+                    <div class="picture-per-user">
+                        {{#assign "href"}}/{{topic.catalog}}{{folder}}{{/assign}}
+                        {{#if preview}}
+                            {{#assign "imageUrl"}}{{preview.smallImageUrl}}{{/assign}}
+                        {{else}}
+                            {{#assign "imageUrl"}}/pics/placeholder-boy.png{{/assign}}
+                        {{/if}}
+                        <a href="{{href}}"><img src="{{imageUrl}}" width="200" height="200"></a><br>
+                        <a href="{{href}}">{{fullName}}</a>
+                    </div>
+                {{/each}}
+            </div>
         </td>
     </tr>
 </table>

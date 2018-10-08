@@ -127,6 +127,9 @@ public class User implements Editable {
     @ManyToMany(mappedBy = "groups")
     private Set<User> users;
 
+    @Transient
+    private Posting preview;
+
     public User() {
     }
 
@@ -542,6 +545,14 @@ public class User implements Editable {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public Posting getPreview() {
+        return preview;
+    }
+
+    public void setPreview(Posting preview) {
+        this.preview = preview;
     }
 
 }

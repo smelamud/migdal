@@ -244,6 +244,11 @@ public class PostingManager implements EntryManagerBase<Posting> {
         return selected;
     }
 
+    public Posting begRandom(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long userId) {
+        Set<Posting> postings = begRandom(topicRoots, grps, userId, 1);
+        return !postings.isEmpty() ? postings.iterator().next() : null;
+    }
+
     public List<User> getOwners(long topicId) {
         return postingRepository.findOwnersByParentId(topicId);
     }
