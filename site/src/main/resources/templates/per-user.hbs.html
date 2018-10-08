@@ -1,0 +1,96 @@
+{{#*inline "intro"}}
+    {{#ifeq topic.ident "taglit"}}
+    <p>
+        &laquo;Таглит-Birthright&raquo; &mdash; это программа, позволяющая еврейской
+        молодежи со всего мира один раз бесплатно побывать в Израиле. Подробнее об
+        этом вы можете узнать на <a href="http://www.birthrightisrael.com/">официальном сайте
+        &laquo;Таглит-Birthright&raquo;</a>. Здесь же мы хотим собрать подлинные
+        впечатления тех, кто уже ездил в Израиль по этой программе. Вы можете
+        прочитать рассказы и посмотреть фотографии из поездок, а если вы сами были
+        участником программы &mdash; поделитесь впечатлениями с другими.
+    </p>
+    <p>
+        На сайте &laquo;Таглит-Birthright&raquo; есть похожий раздел под названием
+        &laquo;Питомцы Таглита&raquo; но, даже если вы хорошо владеете английским и
+        помните номер группы и фамилию гида, стать &laquo;питомцем&raquo;
+        практически нереально. На нашем же сайте вам достаточно
+        {{#notLogged}}
+            <a href="/register/?back={{ue rc.location}}">зарегистрироваться</a> &mdash; и можете
+            свободно добавлять свои рассказы и фотографии.
+        {{else}}
+            нажать на ссылку
+            <a href="/taglit/add-message?back={{ue rc.location}}">
+                &laquo;Добавить сообщение&raquo;</a> или
+            <a href="/taglit/add-photo?back={{ue rc.location}}">
+                &laquo;Добавить фотографию&raquo;</a>.
+        {{/notLogged}}
+        Для каждого пользователя автоматически создается отдельный раздел.
+    </p>
+    {{/ifeq}}
+
+    {{#ifeq topic.ident "veterans"}}
+    <p>
+        Судьба разбросала мигдалевцев по разным городам и странам. Много лет прошло с
+        тех пор и много поколений сменилось. Но годы, прожитые в
+        &laquo;Мигдале&raquo;, не забываются. Поэтому мы решили создать раздел, где
+        нынешние мигдалевские пенсионеры могли бы встречаться и вспоминать былые
+        времена.
+    </p>
+    <p>
+        Если вы хотите поделиться с другими мигдалевскими ветеранами своими
+        фотографиями, историями, впечатлениями или просто поболтать, вам достаточно
+        {{#notLogged}}
+            <a href="/register/?back={{ue rc.location}}">зарегистрироваться</a> &mdash; и можете
+            свободно добавлять свои рассказы и фотографии.
+        {{else}}
+                нажать на ссылку
+                <a href="/veterans/add-message?back={{ue rc.location}}">
+                    &laquo;Добавить сообщение&raquo;</a> или
+                <a href="/veterans/add-photo?back={{ue rc.location}}">
+                    &laquo;Добавить фотографию&raquo;</a>.
+        {{/notLogged}}
+        Для каждого пользователя автоматически создается отдельный раздел.
+    </p>
+    {{/ifeq}}
+    <p>
+        Чтобы открыть соответствующий раздел, нажмите на имя пользователя.
+    </p>
+{{/inline}}
+
+{{#*inline "batcher"}}
+    {{#logged}}
+        <div class="batcher">
+            <div class="adder">
+                {{image "/pics/sheet.gif"}}
+                <a href="/{{topic.catalog}}add-message?back={{ue rc.location}}">Добавить сообщение</a>
+            </div>
+            <div class="adder">
+                {{image "/pics/sheet.gif"}}
+                <a href="/{{topic.catalog}}add-photo?back={{ue rc.location}}">Добавить фотографию</a>
+            </div>
+            <div class="clear-floats"></div>
+        </div>
+    {{/logged}}
+{{/inline}}
+
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        <td width="150" class="eframe">
+            {{> (topicsPartial)}}
+            {{> part/ears}}
+        </td>
+        <td>
+            <div class="ninept cframe" style="padding: 5px">
+                {{subtitle}}
+                {{> intro}}
+            </div>
+            {{> batcher}}
+            <peruser topic_id="$topic_id">
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}
