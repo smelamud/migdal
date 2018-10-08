@@ -16,7 +16,7 @@ public interface PostingRepository extends JpaRepository<Posting, Long>, Queryds
     <S extends Posting> S save(S s);
 
     @Query("select count(*) from Posting p where p.parent.id=?1")
-    int countByParentId(long upId);
+    int countByParentId(long parentId);
 
     @Modifying
     @Query("update Posting p set p.up.id=?2 where p.up.id=?1")
@@ -25,5 +25,9 @@ public interface PostingRepository extends JpaRepository<Posting, Long>, Queryds
     @Cacheable("postings-modbitsall")
     @Query("select distinct p.modbits from Posting p")
     List<Long> modbitsVariety();
+
+    @Query("select distinct p.user from Posting p where p.parent.id=?1"
+            + " order by p.user.surname, p.user.jewishName, p.user.name")
+    List<User> findOwnersByParentId(long parentId);
 
 }

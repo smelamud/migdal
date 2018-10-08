@@ -32,6 +32,7 @@ import ua.org.migdal.data.PostingRepository;
 import ua.org.migdal.data.QPosting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.TopicModbit;
+import ua.org.migdal.data.User;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.CatalogUtils;
@@ -207,10 +208,9 @@ public class PostingManager implements EntryManagerBase<Posting> {
     }
 
     // TODO ineffective
-    public Set<Posting> begRandom(List<Pair<Long, Boolean>> topicRoots, long[] grps, int limit) {
-        QPosting posting = QPosting.posting;
+    public Set<Posting> begRandomWithPriorities(List<Pair<Long, Boolean>> topicRoots, long[] grps, int limit) {
         Iterable<Posting> postings = postingRepository.findAll(
-                getWhere(posting, topicRoots, grps, null, null, false, null, null, null, true, null, false),
+                getWhere(QPosting.posting, topicRoots, grps, null, null, false, null, null, null, true, null, false),
                 Sort.by(Sort.Direction.DESC, "sent"));
 
         List<Posting> postingList = new ArrayList<>();
@@ -227,6 +227,25 @@ public class PostingManager implements EntryManagerBase<Posting> {
         }
 
         return selected;
+    }
+
+    public Set<Posting> begRandom(List<Pair<Long, Boolean>> topicRoots, long[] grps, Long userId, int limit) {
+        Predicate where = getWhere(QPosting.posting, topicRoots, grps, null, null, false, null, userId, null, true,
+                                   null, false);
+        int size = (int) postingRepository.count(where);
+
+        Set<Posting> selected = new HashSet<>();
+        Random random = new Random();
+        while (selected.size() < limit && selected.size() < size) {
+            postingRepository.findAll(where, PageRequest.of(random.nextInt(size), 1, Sort.Direction.DESC, "sent"))
+                    .forEach(selected::add);
+        }
+
+        return selected;
+    }
+
+    public List<User> getOwners(long topicId) {
+        return postingRepository.findOwnersByParentId(topicId);
     }
 
     private Predicate getWhere(QPosting posting, List<Pair<Long, Boolean>> topicRoots, long[] grps, Long upId,

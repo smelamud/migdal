@@ -9,6 +9,7 @@ import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.IdentManager;
+import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
 
 @Controller
@@ -19,6 +20,9 @@ public class PerUserController {
 
     @Inject
     private TopicManager topicManager;
+
+    @Inject
+    private PostingManager postingManager;
 
     @Inject
     private IndexController indexController;
@@ -36,6 +40,7 @@ public class PerUserController {
         taglitLocationInfo(model);
 
         model.addAttribute("topic", topic);
+        model.addAttribute("users", postingManager.getOwners(topic.getId()));
         earController.addEars(model);
         return "per-user";
     }

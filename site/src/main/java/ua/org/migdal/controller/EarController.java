@@ -113,7 +113,7 @@ public class EarController {
     }
 
     public void addEars(Model model) {
-        Set<Posting> ears = postingManager.begRandom(null, grpEnum.group("EARS"), 3);
+        Set<Posting> ears = postingManager.begRandomWithPriorities(null, grpEnum.group("EARS"), 3);
         ears.forEach(posting -> {
             voteManager.vote(posting, VoteType.VIEW, 1);
             postingManager.save(posting);
