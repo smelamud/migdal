@@ -2,14 +2,14 @@ package ua.org.migdal.controller;
 
 import java.util.Collections;
 import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
@@ -71,12 +71,8 @@ public class PerUserController {
                 .withPageTitleRelative("Таглит");
     }
 
-    @GetMapping("/taglit/{folder}")
-    public String taglitUser(
-            @PathVariable String folder,
-            @RequestParam(defaultValue = "0") Integer offset,
-            @RequestParam(defaultValue = "sent") String sort,
-            Model model) throws PageNotFoundException {
+    // @GetMapping("/taglit/{folder}")
+    public String taglitUser(String folder, Integer offset, String sort, Model model) throws PageNotFoundException {
 
         Topic topic = topicManager.beg(identManager.idOrIdent("taglit"));
         if (topic == null) {
@@ -125,12 +121,8 @@ public class PerUserController {
                 .withPageTitle("Уголок ветерана");
     }
 
-    @GetMapping("/veterans/{folder}")
-    public String veteransUser(
-            @PathVariable String folder,
-            @RequestParam(defaultValue = "0") Integer offset,
-            @RequestParam(defaultValue = "sent") String sort,
-            Model model) throws PageNotFoundException {
+    // @GetMapping("/veterans/{folder}")
+    public String veteransUser(String folder, Integer offset, String sort, Model model) throws PageNotFoundException {
 
         Topic topic = topicManager.beg(identManager.idOrIdent("veterans"));
         if (topic == null) {

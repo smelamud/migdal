@@ -12,12 +12,16 @@ import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
+import ua.org.migdal.session.RequestContext;
 
 @Controller
 public class DisambiguationController {
 
     @Inject
     private GrpEnum grpEnum;
+
+    @Inject
+    private RequestContext requestContext;
 
     @Inject
     private PostingViewController postingViewController;
@@ -40,7 +44,8 @@ public class DisambiguationController {
             Model model,
             @RequestParam(defaultValue = "0") Integer offset,
             @RequestParam(defaultValue = "0") Long tid,
-            @RequestParam(required = false) boolean full) throws PageNotFoundException {
+            @RequestParam(required = false) boolean full,
+            @RequestParam(defaultValue = "sent") String sort) throws PageNotFoundException {
 
         if (smth.equals("edit")) {
             return postingEditingController.postingEdit(full, model);
@@ -50,6 +55,12 @@ public class DisambiguationController {
         }
         if (smth.startsWith("reorder-")) {
             return postingEditingController.postingsReorder(smth.substring(8), model);
+        }
+        if (requestContext.getCatalog().startsWith("taglit/")) {
+            return perUserController.taglitUser(smth, offset, sort, model);
+        }
+        if (requestContext.getCatalog().startsWith("veterans/")) {
+            return perUserController.veteransUser(smth, offset, sort, model);
         }
         return postingViewController.postingView(model, offset, tid);
     }
