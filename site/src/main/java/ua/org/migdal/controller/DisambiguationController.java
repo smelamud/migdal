@@ -31,6 +31,9 @@ public class DisambiguationController {
     @Inject
     private ForumController forumController;
 
+    @Inject
+    private PerUserController perUserController;
+
     @GetMapping("/**/{smth:[^.]+$}") // $ in the regex is needed to match against the extension too
     public String disambiguate(
             @PathVariable String smth,
@@ -52,6 +55,12 @@ public class DisambiguationController {
     }
 
     public LocationInfo generalViewLocationInfo(Posting posting, Model model) {
+        if (posting.getCatalog().startsWith("taglit/")) {
+            return perUserController.taglitUserLocationInfo(posting.getUser(), model);
+        }
+        if (posting.getCatalog().startsWith("veterans/")) {
+            return perUserController.veteransUserLocationInfo(posting.getUser(), model);
+        }
         if (posting.getGrp() == grpEnum.grpValue("FORUMS")) {
             return forumController.forumLocationInfo(model);
         }

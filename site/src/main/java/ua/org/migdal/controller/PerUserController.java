@@ -164,7 +164,7 @@ public class PerUserController {
         return "per-user";
     }
 
-    private void addOwners(Topic topic, Model model) {
+    void addOwners(Topic topic, Model model) {
         List<User> users = postingManager.getOwners(topic.getId());
         List<Pair<Long, Boolean>> topicRoots = Collections.singletonList(Pair.of(topic.getId(), false));
         long[] grps = grpEnum.group("GALLERY");

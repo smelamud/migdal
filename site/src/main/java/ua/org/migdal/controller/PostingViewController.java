@@ -61,6 +61,9 @@ public class PostingViewController {
     @Inject
     private EarController earController;
 
+    @Inject
+    private PerUserController perUserController;
+
     // @GetMapping("/**/{id or ident}")
     public String postingView(
             Model model,
@@ -88,9 +91,12 @@ public class PostingViewController {
             Integer offset,
             Long tid) {
 
-        generalPostingViewLocationInfo(posting, model);
+        LocationInfo locationInfo = generalPostingViewLocationInfo(posting, model);
 
         addPostingView(model, posting, offset, tid);
+        if (locationInfo.getTopics().equals("topics-per-user")) {
+            perUserController.addOwners(posting.getTopic(), model);
+        }
         indexController.addMajors(model);
         earController.addEars(model);
 
