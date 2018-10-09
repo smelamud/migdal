@@ -19,9 +19,9 @@
             свободно добавлять свои рассказы и фотографии.
         {{else}}
             нажать на ссылку
-            <a href="/taglit/add-message?back={{ue rc.location}}">
-                &laquo;Добавить сообщение&raquo;</a> или
-            <a href="/taglit/add-photo?back={{ue rc.location}}">
+            <a href="/taglit/add-peruser-forums?back={{ue rc.location}}">
+                &laquo;Добавить заметку&raquo;</a> или
+            <a href="/taglit/add-gallery?back={{ue rc.location}}">
                 &laquo;Добавить фотографию&raquo;</a>.
         {{/notLogged}}
         Для каждого пользователя автоматически создается отдельный раздел.
@@ -44,9 +44,9 @@
             свободно добавлять свои рассказы и фотографии.
         {{else}}
                 нажать на ссылку
-                <a href="/veterans/add-message?back={{ue rc.location}}">
-                    &laquo;Добавить сообщение&raquo;</a> или
-                <a href="/veterans/add-photo?back={{ue rc.location}}">
+                <a href="/veterans/add-peruser-forums?back={{ue rc.location}}">
+                    &laquo;Добавить заметку&raquo;</a> или
+                <a href="/veterans/add-gallery?back={{ue rc.location}}">
                     &laquo;Добавить фотографию&raquo;</a>.
         {{/notLogged}}
         Для каждого пользователя автоматически создается отдельный раздел.
@@ -62,11 +62,11 @@
         <div class="batcher">
             <div class="adder">
                 {{image "/pics/sheet.gif"}}
-                <a href="/{{topic.catalog}}add-message?back={{ue rc.location}}">Добавить сообщение</a>
+                <a href="/{{topic.catalog}}add-peruser-forums?back={{ue rc.location}}">Добавить заметку</a>
             </div>
             <div class="adder">
                 {{image "/pics/sheet.gif"}}
-                <a href="/{{topic.catalog}}add-photo?back={{ue rc.location}}">Добавить фотографию</a>
+                <a href="/{{topic.catalog}}add-gallery?back={{ue rc.location}}">Добавить фотографию</a>
             </div>
             <div class="clear-floats"></div>
         </div>
@@ -83,7 +83,7 @@
             {{> part/ears}}
         </td>
         <td>
-            <div class="ninept cframe" style="padding: 5px">
+            <div class="ninept cframe" style="padding: 5px; margin-bottom: 2ex">
                 {{subtitle}}
                 {{> intro}}
             </div>

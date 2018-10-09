@@ -8,18 +8,16 @@
             {{> part/ears}}
         </td>
         <td>
-            <div class="cframe" style="padding: 5px">
+            <div class="cframe" style="padding: 5px; margin-bottom: 2ex">
                 {{subtitle}}
-                <div class="ninept">
+                <div class="ninept" style="margin-bottom: 4ex">
                     <a href="/users/{{user.folder}}/?back={{ue rc.location}}">О пользователе {{user.login}}</a>
                 </div>
                 {{#unless galleryBegin}}
-                    <p>
-                        {{> part/postings}}
+                    {{> part/postings}}
                 {{/unless}}
             </div>
-            <p>
-                {{> part/gallery}}
+            {{> part/gallery}}
         </td>
     </tr>
 </table>
