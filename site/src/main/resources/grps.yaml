@@ -560,15 +560,15 @@
   detailsHref:
     - href: "/${getCatalog(0,-1)}${userFolder}/${getCatalog(-1)}"
 
-  partial: posting-peruser
+  partial: posting-per-user
 
   heading: "${bodyTiny}"
 
-  title: "Личные мнения"
-  what: "мнение"
-  whatA: "мнения"
-  whatGs: "мнений"
-  enWhat: "opinion"
+  title: "Заметки"
+  what: "заметку"
+  whatA: "заметки"
+  whatGs: "заметок"
+  enWhat: "note"
 
   editors:
     - field: topic

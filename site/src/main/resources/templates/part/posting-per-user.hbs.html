@@ -1,0 +1,34 @@
+{{#*inline "further"}} {{! params: posting }}
+    <p>
+        {{image "/pics/further.gif"}} <a href="{{posting.grpDetailsHref}}">Читать дальше</a>
+    </p>
+{{/inline}}
+
+<dl class="posting">
+    <dt>
+        {{#if showTopic}}
+            {{topicLink posting}}<br>
+        {{/if}}
+        {{votePanel align="right" id=posting.id rating=posting.rating}}
+    </dt>
+    <dd>
+        {{#if posting.hasImage}}
+            {{#assign "imageTitle"}}{{mtext posting.titleMtext}}{{/assign}}
+            {{#assign "imageTitleLarge"}}{{mtext posting.titleLineMtext}}{{/assign}}
+            {{postingImage posting=posting title=imageTitle titleLarge=imageTitleLarge align="left"}}
+        {{/if}}
+        {{#if shorten}}
+            {{mtext posting.bodyMediumMtext}}
+            {{#unless posting.isBodyMedium}}
+                {{#notEnglish var="furtherTitle"}}Читать дальше{{else}}Read more{{/notEnglish}}
+                {{> further posting=posting title=furtherTitle}}
+            {{/unless}}
+        {{else}}
+            {{mtext posting.bodyMtext}}
+        {{/if}}
+        <div class="sent" style="clear: left">
+            {{sentView date=posting.sent}}&nbsp;
+            {{senderLink posting}}
+        </div>
+        {{postingControls posting=posting showDiscuss=showDiscuss}}
+</dl>

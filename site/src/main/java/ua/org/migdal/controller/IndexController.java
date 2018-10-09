@@ -72,7 +72,7 @@ public class IndexController {
         addMajors(model);
         earController.addEars(model);
         addTextEars(model);
-        addPostings("TAPE", null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, true, offset, model);
+        addPostings("TAPE", null, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, true, offset, 20, model);
         addHitParade(null, model);
         addDiscussions(model);
         return "index-www";
@@ -109,7 +109,7 @@ public class IndexController {
         addMajors(model);
         earController.addEars(model);
         addSeeAlso(topic.getId(), model);
-        addPostings("TAPE", topic, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, true, offset, model);
+        addPostings("TAPE", topic, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, true, offset, 20, model);
         addHitParade(topic.getId(), model);
         return "index-www";
     }
@@ -144,8 +144,8 @@ public class IndexController {
         model.addAttribute("textears", postingManager.begAll(null, grpEnum.group("TEXTEARS"), true, 0, 3));
     }
 
-    private void addPostings(String groupName, Topic topic, String[] addGrpNames, boolean addVisible, Integer offset,
-                             Model model) {
+    void addPostings(String groupName, Topic topic, Long userId, String[] addGrpNames, boolean addVisible,
+                     int offset, int limit, Model model) {
         model.addAttribute("postingsShowTopic", topic == null);
         model.addAttribute("postingsAddVisible", addVisible);
         model.addAttribute("postingsAddCatalog", topic != null ? topic.getCatalog() : "");
@@ -157,8 +157,10 @@ public class IndexController {
                 postingManager.begAll(
                         topicRoots,
                         grpEnum.group(groupName),
+                        null,
+                        userId,
                         offset,
-                        20,
+                        limit,
                         Sort.Direction.DESC,
                         "priority",
                         "sent");
@@ -259,13 +261,14 @@ public class IndexController {
         addMajors(model);
         earController.addEars(model);
         addSeeAlso(topic.getId(), model);
-        addGallery("GALLERY", topic, offset, 20, sort, model);
+        addGallery("GALLERY", topic, null, offset, 20, sort, model);
         return "gallery";
     }
 
-    private void addGallery(String grpName, Topic topic, int offset, int limit, String sort, Model model) {
+    void addGallery(String grpName, Topic topic, Long userId, int offset, int limit, String sort, Model model) {
         boolean addVisible = topic.accepts(grpEnum.grpValue(grpName))
-                && (requestContext.isLogged() || config.isAllowGuests() && topic.isGuestPostable());
+                && (requestContext.isLogged() || config.isAllowGuests() && topic.isGuestPostable())
+                && (userId == null || requestContext.getUserId() == userId || requestContext.isUserModerator());
         model.addAttribute("galleryAddVisible", addVisible);
         model.addAttribute("galleryAddCatalog", topic.getCatalog());
         model.addAttribute("gallerySort", sort);
@@ -278,6 +281,8 @@ public class IndexController {
         postingManager.begAll(
                 topicRoots,
                 grpEnum.group(grpName),
+                null,
+                userId,
                 0,
                 Integer.MAX_VALUE,
                 Sort.Direction.DESC,

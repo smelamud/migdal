@@ -1,0 +1,27 @@
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        <td width="150" class="eframe">
+            {{> (topicsPartial)}}
+            {{> part/ears}}
+        </td>
+        <td>
+            <div class="cframe" style="padding: 5px">
+                {{subtitle}}
+                <div class="ninept">
+                    <a href="/users/{{user.folder}}/?back={{ue rc.location}}">О пользователе {{user.login}}</a>
+                </div>
+                {{#unless galleryBegin}}
+                    <p>
+                        {{> part/postings}}
+                {{/unless}}
+            </div>
+            <p>
+                {{> part/gallery}}
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}
