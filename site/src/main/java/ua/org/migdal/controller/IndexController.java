@@ -288,8 +288,8 @@ public class IndexController {
         galleryEnd = galleryEnd > postings.size() ? postings.size() : galleryEnd;
         model.addAttribute("galleryBegin", galleryBegin);
         model.addAttribute("galleryEnd", galleryEnd);
-        model.addAttribute("postings", postings);
-        model.addAttribute("postingsPage",
+        model.addAttribute("gallery", postings);
+        model.addAttribute("galleryPage",
                 new PageImpl<>(
                         postings.subList(galleryBegin, galleryEnd),
                         PageRequest.of(galleryBegin / limit, limit),
