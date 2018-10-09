@@ -57,18 +57,7 @@ public class PerUserController {
 
         taglitLocationInfo(model);
 
-        model.addAttribute("topic", topic);
-        addOwners(topic, model);
-        earController.addEars(model);
-        return "per-user";
-    }
-
-    private void addOwners(Topic topic, Model model) {
-        List<User> users = postingManager.getOwners(topic.getId());
-        List<Pair<Long, Boolean>> topicRoots = Collections.singletonList(Pair.of(topic.getId(), false));
-        long[] grps = grpEnum.group("GALLERY");
-        users.forEach(u -> u.setPreview(postingManager.begRandom(topicRoots, grps, u.getId())));
-        model.addAttribute("users", users);
+        return perUser(model, topic);
     }
 
     public LocationInfo taglitLocationInfo(Model model) {
@@ -100,6 +89,90 @@ public class PerUserController {
 
         taglitUserLocationInfo(user, model);
 
+        return perUserUser(topic, user, offset, sort, model);
+    }
+
+    public LocationInfo taglitUserLocationInfo(User user, Model model) {
+        return new LocationInfo(model)
+                .withUri("/taglit/" + user.getFolder())
+                .withRssHref("/rss/")
+                .withTopics("topics-per-user")
+                .withTopicsIndex(Long.toString(user.getId()))
+                .withParent(taglitLocationInfo(null))
+                .withPageTitle("Таглит - " + user.getFullName())
+                .withPageTitleRelative(user.getFullName().toString());
+    }
+
+    @GetMapping("/veterans")
+    public String veterans(Model model) throws PageNotFoundException {
+        Topic topic = topicManager.beg(identManager.idOrIdent("veterans"));
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        veteransLocationInfo(model);
+
+        return perUser(model, topic);
+    }
+
+    public LocationInfo veteransLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/veterans")
+                .withRssHref("/rss/")
+                .withTopics("topics-per-user")
+                .withTopicsIndex("0")
+                .withParent(indexController.indexLocationInfo(null))
+                .withPageTitle("Уголок ветерана");
+    }
+
+    @GetMapping("/veterans/{folder}")
+    public String veteransUser(
+            @PathVariable String folder,
+            @RequestParam(defaultValue = "0") Integer offset,
+            @RequestParam(defaultValue = "sent") String sort,
+            Model model) throws PageNotFoundException {
+
+        Topic topic = topicManager.beg(identManager.idOrIdent("veterans"));
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+        User user = userManager.beg(userManager.idOrLogin(folder));
+        if (user == null) {
+            throw new PageNotFoundException();
+        }
+
+        veteransUserLocationInfo(user, model);
+
+        return perUserUser(topic, user, offset, sort, model);
+    }
+
+    public LocationInfo veteransUserLocationInfo(User user, Model model) {
+        return new LocationInfo(model)
+                .withUri("/veterans/" + user.getFolder())
+                .withRssHref("/rss/")
+                .withTopics("topics-per-user")
+                .withTopicsIndex(Long.toString(user.getId()))
+                .withParent(veteransLocationInfo(null))
+                .withPageTitle("Уголок ветерана - " + user.getFullName())
+                .withPageTitleRelative(user.getFullName().toString());
+    }
+
+    private String perUser(Model model, Topic topic) {
+        model.addAttribute("topic", topic);
+        addOwners(topic, model);
+        earController.addEars(model);
+        return "per-user";
+    }
+
+    private void addOwners(Topic topic, Model model) {
+        List<User> users = postingManager.getOwners(topic.getId());
+        List<Pair<Long, Boolean>> topicRoots = Collections.singletonList(Pair.of(topic.getId(), false));
+        long[] grps = grpEnum.group("GALLERY");
+        users.forEach(u -> u.setPreview(postingManager.begRandom(topicRoots, grps, u.getId())));
+        model.addAttribute("users", users);
+    }
+
+    private String perUserUser(Topic topic, User user, Integer offset, String sort, Model model) {
         model.addAttribute("topic", topic);
         model.addAttribute("user", user);
         addOwners(topic, model);
@@ -115,17 +188,6 @@ public class PerUserController {
         indexController.addGallery("GALLERY", topic, user.getId(), offset, 20, sort, model);
         earController.addEars(model);
         return "per-user-user";
-    }
-
-    public LocationInfo taglitUserLocationInfo(User user, Model model) {
-        return new LocationInfo(model)
-                .withUri("/taglit/" + user.getFolder())
-                .withRssHref("/rss/")
-                .withTopics("topics-per-user")
-                .withTopicsIndex(Long.toString(user.getId()))
-                .withParent(taglitLocationInfo(null))
-                .withPageTitle("Таглит - " + user.getFullName())
-                .withPageTitleRelative(user.getFullName().toString());
     }
 
 }
