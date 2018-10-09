@@ -153,6 +153,7 @@ public class PostingHelperSource {
         }
 
         Posting posting = HelperUtils.mandatoryHash("posting", options);
+        boolean showSelf = HelperUtils.boolArg(options.hash("showSelf"));
         boolean showPrint = HelperUtils.boolArg(options.hash("showPrint", "true"));
         boolean showEdit = HelperUtils.boolArg(options.hash("showEdit", "true"));
         boolean showDiscuss = HelperUtils.boolArg(options.hash("showDiscuss"));
@@ -163,13 +164,17 @@ public class PostingHelperSource {
 
         StringBuilder buf = new StringBuilder();
         buf.append("<div class=\"posting-bottom\">");
+        if (showSelf) {
+            buf.append(selfLink(posting));
+            buf.append("&nbsp;&nbsp;&nbsp;");
+        }
         if (showPrint) {
             buf.append(printLink(posting));
-            buf.append("&nbsp;&nbsp;");
+            buf.append("&nbsp;&nbsp;&nbsp;");
         }
         if (showEdit && posting.isWritable()) {
             buf.append(editLink(posting));
-            buf.append("&nbsp;&nbsp;");
+            buf.append("&nbsp;&nbsp;&nbsp;");
         }
         if (showDiscuss) {
             buf.append("<div class=\"right\">");
