@@ -35,7 +35,7 @@
         {{/if}}
         {{#if (and shorten (not posting.hasLargeBody))}}
             {{mtext posting.bodyMediumMtext}}
-            {{#unless posting.isBodyMedium}}
+            {{#unless posting.bodyMedium}}
                 {{#notEnglish var="furtherTitle"}}Читать дальше{{else}}Read more{{/notEnglish}}
                 {{> further posting=posting title=furtherTitle}}
             {{else}}
