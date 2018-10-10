@@ -8,15 +8,12 @@ import org.springframework.ui.Model;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Posting;
-import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.PostingManager;
+import ua.org.migdal.manager.Postings;
 
 @Controller
 public class BookController {
-
-    @Inject
-    private GrpEnum grpEnum;
 
     @Inject
     private PostingManager postingManager;
@@ -40,8 +37,11 @@ public class BookController {
 
         postingViewController.addPostingView(model, book, offset, tid);
         model.addAttribute("book", book);
-        model.addAttribute("bookChapters", postingManager.begAll(null, grpEnum.group("BOOK_CHAPTERS"), book.getId(),
-                null, null, 0, Integer.MAX_VALUE, Sort.Direction.ASC, "index0"));
+        Postings p = Postings.all()
+                             .grp("BOOK_CHAPTERS")
+                             .up(book.getId())
+                             .sort(Sort.Direction.ASC, "index0");
+        model.addAttribute("bookChapters", postingManager.begAll(p));
         model.addAttribute("firstChapter", postingManager.begFirstByIndex0(book.getId()));
         earController.addEars(model);
 
@@ -74,8 +74,11 @@ public class BookController {
 
         postingViewController.addPostingView(model, chapter, offset, tid);
         model.addAttribute("book", book);
-        model.addAttribute("bookChapters", postingManager.begAll(null, grpEnum.group("BOOK_CHAPTERS"), book.getId(),
-                null, null, 0, Integer.MAX_VALUE, Sort.Direction.ASC, "index0"));
+        Postings p = Postings.all()
+                             .grp("BOOK_CHAPTERS")
+                             .up(book.getId())
+                             .sort(Sort.Direction.ASC, "index0");
+        model.addAttribute("bookChapters", postingManager.begAll(p));
         model.addAttribute("prevChapter", postingManager.begNextByIndex0(book.getId(), chapter.getIndex0(), false));
         model.addAttribute("nextChapter", postingManager.begNextByIndex0(book.getId(), chapter.getIndex0(), true));
         earController.addEars(model);

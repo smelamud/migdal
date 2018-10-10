@@ -27,6 +27,7 @@ import ua.org.migdal.form.AdminPostingsForm;
 import ua.org.migdal.form.ModbitForm;
 import ua.org.migdal.form.ModerateMassForm;
 import ua.org.migdal.manager.PostingManager;
+import ua.org.migdal.manager.Postings;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.location.LocationInfo;
@@ -70,21 +71,13 @@ public class PostingController {
 
         model.addAttribute("topicNames", topicManager.begNames(0, -1, false, false));
         model.addAttribute("adminPostingsForm", adminPostingsForm);
-        model.addAttribute("postings",
-                fetchAncestors(
-                        postingManager.begAll(
-                                adminPostingsForm.getTopicRoots(),
-                                adminPostingsForm.getGrps(),
-                                index1,
-                                null,
-                                offset,
-                                20)));
-        model.addAttribute("postingsTotal",
-                postingManager.countAll(
-                        adminPostingsForm.getTopicRoots(),
-                        adminPostingsForm.getGrps(),
-                        index1,
-                        null));
+        Postings p = Postings.all()
+                             .topics(adminPostingsForm.getTopicRoots())
+                             .grp(adminPostingsForm.getGrps())
+                             .index1(index1)
+                             .page(offset, 20);
+        model.addAttribute("postings", fetchAncestors(postingManager.begAll(p)));
+        model.addAttribute("postingsTotal", postingManager.countAll(p));
         return "admin-postings";
     }
 
@@ -218,12 +211,11 @@ public class PostingController {
         adminModeratorLocationInfo(model);
 
         model.addAttribute("adminModeratorForm", adminModeratorForm);
-        model.addAttribute("postings",
-                        postingManager.begAllByModbit(
-                                PostingModbit.valueOf(adminModeratorForm.getBit()),
-                                offset,
-                                20,
-                                adminModeratorForm.isAsc()));
+        Postings p = Postings.all()
+                             .modbit(PostingModbit.valueOf(adminModeratorForm.getBit()))
+                             .page(offset, 20)
+                             .sort(adminModeratorForm.isAsc(), "sent");
+        model.addAttribute("postings", postingManager.begAll(p));
         return "admin-moderator";
     }
 

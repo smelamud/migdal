@@ -32,6 +32,7 @@ import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.CrossEntryManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
+import ua.org.migdal.manager.Postings;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.session.RequestContext;
 
@@ -141,7 +142,7 @@ public class IndexController {
     }
 
     private void addTextEars(Model model) {
-        model.addAttribute("textears", postingManager.begAll(null, grpEnum.group("TEXTEARS"), true, 0, 3));
+        model.addAttribute("textears", postingManager.begAll(Postings.all().grp("TEXTEARS").asGuest().limit(3)));
     }
 
     void addPostings(String groupName, Topic topic, Long userId, String[] addGrpNames, boolean addVisible,
@@ -149,21 +150,13 @@ public class IndexController {
         model.addAttribute("postingsShowTopic", topic == null);
         model.addAttribute("postingsAddVisible", addVisible);
         model.addAttribute("postingsAddCatalog", topic != null ? topic.getCatalog() : "");
-        List<Pair<Long, Boolean>> topicRoots = null;
-        if (topic != null) {
-            topicRoots = Collections.singletonList(Pair.of(topic.getId(), true));
-        }
-        Iterable<Posting> postings =
-                postingManager.begAll(
-                        topicRoots,
-                        grpEnum.group(groupName),
-                        null,
-                        userId,
-                        offset,
-                        limit,
-                        Sort.Direction.DESC,
-                        "priority",
-                        "sent");
+        Postings p = Postings.all()
+                             .topic(topic != null ? topic.getId() : null, true)
+                             .grp(groupName)
+                             .user(userId)
+                             .page(offset, limit)
+                             .sort(Sort.Direction.DESC, "priority", "sent");
+        Iterable<Posting> postings = postingManager.begAll(p);
         for (Posting posting : postings) {
             if (posting.isGrpPublisher()) {
                 posting.setPublishedEntries(
@@ -194,22 +187,14 @@ public class IndexController {
         if (topicId != null) {
             topicRoots = Collections.singletonList(Pair.of(topicId, true));
         }
-        model.addAttribute("hitParade",
-                postingManager.begAll(
-                        topicRoots,
-                        grpEnum.group("WRITINGS"),
-                        null,
-                        null,
-                        false,
-                        null,
-                        null,
-                        true,
-                        Timestamp.from(Instant.now().minus(31, ChronoUnit.DAYS)),
-                        false,
-                        0,
-                        10,
-                        Sort.Direction.DESC,
-                        "rating"));
+        Postings p = Postings.all()
+                             .topic(topicId, true)
+                             .grp("WRITINGS")
+                             .laterThan(Timestamp.from(Instant.now().minus(31, ChronoUnit.DAYS)))
+                             .asGuest()
+                             .limit(10)
+                             .sort(Sort.Direction.DESC, "rating");
+        model.addAttribute("hitParade", postingManager.begAll(p));
     }
 
     private void addDiscussions(Model model) {
@@ -273,20 +258,16 @@ public class IndexController {
         model.addAttribute("galleryAddCatalog", topic.getCatalog());
         model.addAttribute("gallerySort", sort);
 
-        List<Pair<Long, Boolean>> topicRoots = Collections.singletonList(Pair.of(topic.getId(), true));
         if (!sort.equals("sent") && !sort.equals("rating")) { // The value comes from client, needs validation
             sort = "sent";
         }
+        Postings p = Postings.all()
+                             .topic(topic.getId(), true)
+                             .grp(grpName)
+                             .user(userId)
+                             .sort(Sort.Direction.DESC, sort);
         List<Posting> postings = new ArrayList<>();
-        postingManager.begAll(
-                topicRoots,
-                grpEnum.group(grpName),
-                null,
-                userId,
-                0,
-                Integer.MAX_VALUE,
-                Sort.Direction.DESC,
-                sort).forEach(postings::add);
+        postingManager.begAll(p).forEach(postings::add);
 
         int galleryBegin = offset < 0 ? 0 : offset / limit * limit;
         int galleryEnd = offset + limit;

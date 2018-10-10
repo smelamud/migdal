@@ -1,12 +1,10 @@
 package ua.org.migdal.controller;
 
-import java.util.Collections;
 import java.util.Set;
 
 import javax.inject.Inject;
 
 import org.springframework.data.domain.Sort;
-import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,17 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.VoteType;
-import ua.org.migdal.grp.GrpEnum;
+import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
+import ua.org.migdal.manager.Postings;
 import ua.org.migdal.manager.VoteManager;
-import ua.org.migdal.location.LocationInfo;
 
 @Controller
 public class EarController {
-
-    @Inject
-    private GrpEnum grpEnum;
 
     @Inject
     private PostingManager postingManager;
@@ -50,16 +45,12 @@ public class EarController {
         adminEarsLocationInfo(model);
 
         long topicId = identManager.idOrIdent("ears");
-        model.addAttribute("postings",
-                        postingManager.begAll(
-                                Collections.singletonList(Pair.of(topicId, true)),
-                                grpEnum.group("EARS"),
-                                offset,
-                                20,
-                                Sort.Direction.DESC,
-                                "ratio",
-                                "counter0",
-                                "sent"));
+        Postings p = Postings.all()
+                             .topic(topicId, true)
+                             .grp("EARS")
+                             .page(offset, 20)
+                             .sort(Sort.Direction.DESC, "ratio", "counter0", "sent");
+        model.addAttribute("postings", postingManager.begAll(p));
         return "admin-ears";
     }
 
@@ -113,7 +104,7 @@ public class EarController {
     }
 
     public void addEars(Model model) {
-        Set<Posting> ears = postingManager.begRandomWithPriorities(null, grpEnum.group("EARS"), 3);
+        Set<Posting> ears = postingManager.begRandomWithPriorities(Postings.all().grp("EARS").limit(3));
         ears.forEach(posting -> {
             voteManager.vote(posting, VoteType.VIEW, 1);
             postingManager.save(posting);

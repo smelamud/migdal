@@ -1,11 +1,9 @@
 package ua.org.migdal.controller;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,19 +11,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
-import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
+import ua.org.migdal.manager.Postings;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.session.RequestContext;
 
 @Controller
 public class PerUserController {
-
-    @Inject
-    private GrpEnum grpEnum;
 
     @Inject
     private RequestContext requestContext;
@@ -158,9 +153,10 @@ public class PerUserController {
 
     void addOwners(Topic topic, Model model) {
         List<User> users = postingManager.getOwners(topic.getId());
-        List<Pair<Long, Boolean>> topicRoots = Collections.singletonList(Pair.of(topic.getId(), false));
-        long[] grps = grpEnum.group("GALLERY");
-        users.forEach(u -> u.setPreview(postingManager.begRandom(topicRoots, grps, u.getId())));
+        users.forEach(u -> {
+            Postings p = Postings.all().topic(topic.getId()).grp("GALLERY").user(u.getId());
+            u.setPreview(postingManager.begRandomOne(p));
+        });
         model.addAttribute("users", users);
     }
 

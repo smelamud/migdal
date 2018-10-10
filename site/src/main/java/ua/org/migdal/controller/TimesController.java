@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import org.springframework.web.bind.annotation.RequestParam;
+
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Posting;
@@ -21,6 +21,7 @@ import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
+import ua.org.migdal.manager.Postings;
 import ua.org.migdal.manager.TopicManager;
 
 @Controller
@@ -55,7 +56,7 @@ public class TimesController {
 
     @GetMapping("/times")
     public String times() {
-        Posting cover = postingManager.begLastByIndex1(grpEnum.group("TIMES_COVERS"), 0);
+        Posting cover = postingManager.begFirst(Postings.all().grp("TIMES_COVERS"));
         return "redirect:/times/" + cover.getIndex1();
     }
 
@@ -75,10 +76,7 @@ public class TimesController {
             @RequestParam(defaultValue = "0") Long tid) throws PageNotFoundException {
 
         Topic times = topicManager.get(identManager.idOrIdent("times"));
-        Posting cover = postingManager.begByIndex1(grpEnum.group("TIMES_COVERS"), times.getId(), issue);
-        if (cover == null) {
-            throw new PageNotFoundException();
-        }
+        Posting cover = begCover(issue);
 
         timesIssueLocationInfo(cover, model);
 
@@ -87,12 +85,17 @@ public class TimesController {
         postingViewController.addPostingComments(model, cover, offset, tid);
         model.addAttribute("issues", cover.getIssues());
         model.addAttribute("editor", times.isPostable());
-        Iterable<Posting> allCovers = postingManager.begAll(null, grpEnum.group("TIMES_COVERS"), 0, Integer.MAX_VALUE,
-                Sort.Direction.DESC, "index1");
+        Postings p = Postings.all()
+                             .grp("TIMES_COVERS")
+                             .sort(Sort.Direction.DESC, "index1");
+        Iterable<Posting> allCovers = postingManager.begAll(p);
         model.addAttribute("allCovers", allCovers);
         model.addAttribute("siblings", siblings(allCovers, 9, issue));
-        model.addAttribute("articles", postingManager.begAll(null,  grpEnum.group("TIMES_ARTICLES"), issue, null,
-                0, Integer.MAX_VALUE, Sort.Direction.ASC, "index0"));
+        p = Postings.all()
+                    .grp("TIMES_ARTICLES")
+                    .index1(issue)
+                    .sort(Sort.Direction.ASC, "index0");
+        model.addAttribute("articles", postingManager.begAll(p));
         return "times";
     }
 
@@ -128,7 +131,7 @@ public class TimesController {
     }
 
     private Posting begCover(long issue) throws PageNotFoundException {
-        Posting cover = postingManager.begByIndex1(grpEnum.group("TIMES_COVERS"), 0, issue);
+        Posting cover = postingManager.begFirst(Postings.all().grp("TIMES_COVERS").index1(issue));
         if (cover == null) {
             throw new PageNotFoundException();
         }
@@ -156,8 +159,11 @@ public class TimesController {
 
         postingViewController.addPostingView(model, posting, offset, tid);
         model.addAttribute("cover", cover);
-        model.addAttribute("allArticles", postingManager.begAll(null, grpEnum.group("TIMES_ARTICLES"), issue, null,
-                0, Integer.MAX_VALUE, Sort.Direction.ASC, "index0"));
+        Postings p = Postings.all()
+                             .grp("TIMES_ARTICLES")
+                             .index1(issue)
+                             .sort(Sort.Direction.ASC, "index0");
+        model.addAttribute("allArticles", postingManager.begAll(p));
         earController.addEars(model);
 
         return "article-times";
@@ -252,8 +258,11 @@ public class TimesController {
     public String timesArticlesReorder(@PathVariable long issue, Model model) throws PageNotFoundException {
         timesArticlesReorderLocationInfo(begCover(issue), model);
 
-        Iterable<Posting> articles = postingManager.begAll(null, grpEnum.group("TIMES_ARTICLES"), issue, null,
-                0, Integer.MAX_VALUE, Sort.Direction.ASC, "index0");
+        Postings p = Postings.all()
+                             .grp("TIMES_ARTICLES")
+                             .index1(issue)
+                             .sort(Sort.Direction.ASC, "index0");
+        Iterable<Posting> articles = postingManager.begAll(p);
         return entryController.entryReorder(articles, EntryType.POSTING, model);
     }
 

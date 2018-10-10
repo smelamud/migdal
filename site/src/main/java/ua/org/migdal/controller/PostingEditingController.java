@@ -35,6 +35,7 @@ import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.ImageFileManager;
 import ua.org.migdal.manager.LoginManager;
 import ua.org.migdal.manager.PostingManager;
+import ua.org.migdal.manager.Postings;
 import ua.org.migdal.manager.ReloginVariant;
 import ua.org.migdal.manager.SpamManager;
 import ua.org.migdal.manager.TopicManager;
@@ -435,8 +436,11 @@ public class PostingEditingController {
 
         postingsReorderLocationInfo(grpName, up, model);
 
-        Iterable<Posting> postings = postingManager.begAll(null, grpEnum.group(grpName), upId, null, null,
-                0, Integer.MAX_VALUE, Sort.Direction.ASC, "index0");
+        Postings p = Postings.all()
+                             .grp(grpName)
+                             .up(upId)
+                             .sort(Sort.Direction.ASC, "index0");
+        Iterable<Posting> postings = postingManager.begAll(p);
         return entryController.entryReorder(postings, EntryType.POSTING, model);
     }
 
