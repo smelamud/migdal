@@ -128,6 +128,10 @@ public class PostingViewController {
     }
 
     void addPostingComments(Model model, Posting posting, Integer offset, Long tid) {
+        if (offset == null || tid == null) {
+            return;
+        }
+
         offset = forumManager.jumpToComment(posting.getId(), tid, offset, 20);
 
         model.addAttribute("comments", forumManager.begAll(posting.getId(), offset, 20));
