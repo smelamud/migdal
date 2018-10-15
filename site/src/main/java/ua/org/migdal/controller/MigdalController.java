@@ -81,9 +81,10 @@ public class MigdalController {
         migdalNewsLocationInfo(topic, model);
 
         model.addAttribute("topic", topic);
-        indexController.addSeeAlso(topic.getId(), model);
         indexController.addPostings("TAPE", topic, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"},
                                     topic.isPostable(), topic.getIdent().equals("migdal"), offset, 20, model);
+        model.addAttribute("events", topicManager.begGrandchildren(identManager.idOrIdent("migdal.events")));
+        indexController.addSeeAlso(topic.getId(), model);
         indexController.addMajors(model);
         earController.addEars(model);
 

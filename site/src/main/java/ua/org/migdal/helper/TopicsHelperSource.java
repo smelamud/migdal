@@ -22,7 +22,7 @@ public class TopicsHelperSource {
 
     public CharSequence topicsTable(Options options) throws IOException {
         CharSequence title = options.hash("title");
-        CharSequence cls = options.hash("class");
+        CharSequence klass = options.hash("class");
 
         StringBuilder buf = new StringBuilder();
         if (title != null && title.length() > 0) {
@@ -31,9 +31,9 @@ public class TopicsHelperSource {
             buf.append("</div>");
         }
         buf.append("<ul class=\"topics");
-        if (cls != null && cls.length() > 0) {
+        if (klass != null && klass.length() > 0) {
             buf.append(' ');
-            HelperUtils.safeAppend(buf, cls);
+            HelperUtils.safeAppend(buf, klass);
         }
         buf.append("\">");
         buf.append(options.apply(options.fn));
@@ -42,9 +42,9 @@ public class TopicsHelperSource {
     }
 
     public CharSequence topicsSubtable(Options options) throws IOException {
-        CharSequence cls = options.hash("class");
+        CharSequence klass = options.hash("class");
 
-        String tableClass = StringUtils.isEmpty(cls) ? "topics" : "topics " + cls;
+        String tableClass = StringUtils.isEmpty(klass) ? "topics" : "topics " + klass;
 
         StringBuilder buf = new StringBuilder();
         buf.append("<li class=\"topics-subtable\">");
@@ -116,15 +116,31 @@ public class TopicsHelperSource {
     }
 
     public CharSequence topicsSplitter(Options options) {
-        CharSequence cls = options.hash("class");
+        CharSequence klass = options.hash("class");
 
         StringBuilder buf = new StringBuilder();
         buf.append("<li class=\"topics-nobullet");
-        if (cls != null) {
+        if (klass != null) {
             buf.append(' ');
-            HelperUtils.safeAppend(buf, cls);
+            HelperUtils.safeAppend(buf, klass);
         }
         buf.append("\">&nbsp;</li>");
+        return new SafeString(buf);
+    }
+
+    public CharSequence topicsSection(Options options) {
+        CharSequence title = HelperUtils.mandatoryHash("title", options);
+        CharSequence klass = options.hash("class");
+
+        StringBuilder buf = new StringBuilder();
+        buf.append("<li class=\"topics-section");
+        if (klass != null) {
+            buf.append(' ');
+            HelperUtils.safeAppend(buf, klass);
+        }
+        buf.append("\">");
+        HelperUtils.safeAppend(buf, title);
+        buf.append("</li>");
         return new SafeString(buf);
     }
 

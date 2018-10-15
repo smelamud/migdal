@@ -1,3 +1,25 @@
+{{#*inline "migdalNews"}}
+    {{#topicsTable class="ninept" title="Новости"}}
+        {{topicsLine text="Музей истории евреев Одессы" href="/migdal/museum/news/" class="none"}}
+        {{topicsLine text="Мазл Тов" href="/migdal/mazltov/news/" class="none"}}
+        {{topicsLine text="Бейтену" href="/migdal/beitenu/news/" class="none"}}
+    {{/topicsTable}}
+{{/inline}}
+
+{{#*inline "events"}}
+    {{#topicsTable class="eightpt" title="События"}}
+        {{#assign "year"}}{{/assign}}
+        {{#each events}}
+            {{#ifne year yearName}}
+                {{topicsSection title=yearName}}
+                {{#assign "year"}}{{yearName}}{{/assign}}
+            {{/ifne}}
+            {{#assign "href"}}/{{catalog}}{{/assign}}
+            {{topicsLine text=comment0 title=bodyNormal href=href class="none"}}
+        {{/each}}
+    {{/topicsTable}}
+{{/inline}}
+
 {{> part/preamble}}
 {{> part/top}}
 
@@ -7,7 +29,7 @@
             {{> (topicsPartial)}}
             {{> part/ears}}
         </td>
-        <td class="cframe" style="display: flex">
+        <td class="cframe" style="display: flex; align-items: start">
             <div style="margin: 5px; flex: auto">
                 {{subtitle}}
                 {{> part/see-also}}
@@ -15,8 +37,8 @@
             </div>
             {{#ifeq topic.ident "migdal"}}
                 <div class="nframe" style="width: 130px; margin: 5px; padding: 5px; flex: none">
-                    {{> part/migdal-news}}
-                    {{!<events grp="*GRP_NONE">}}
+                    {{> migdalNews}}
+                    {{> events}}
                 </div>
             {{/ifeq}}
         </td>

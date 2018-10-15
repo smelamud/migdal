@@ -2,6 +2,7 @@ package ua.org.migdal.data;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import org.hibernate.Hibernate;
 import ua.org.migdal.session.RequestContext;
@@ -27,6 +28,11 @@ public class Topic extends Entry {
         setUser(requestContext.getUser());
         setGroup(up.getGroup());
         setPerms(up.getPerms());
+    }
+
+    @Transient
+    public String getYearName() {
+        return String.format("%d/%d-%d г.", getIndex2(), getIndex2() - 3761, getIndex2() - 3760);
     }
 
     public boolean accepts(long grp) {

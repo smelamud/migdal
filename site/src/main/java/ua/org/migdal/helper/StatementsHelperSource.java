@@ -58,11 +58,15 @@ public class StatementsHelperSource {
     }
 
     public CharSequence ifeq(Object value1, Object value2, Options options) throws IOException {
+        value1 = value1 instanceof SafeString ? value1.toString() : value1;
+        value2 = value2 instanceof SafeString ? value2.toString() : value2;
         boolean condition = value1 == null && value2 == null || value1 != null && value1.equals(value2);
         return condition ? options.apply(options.fn) : options.apply(options.inverse);
     }
 
     public CharSequence ifne(Object value1, Object value2, Options options) throws IOException {
+        value1 = value1 instanceof SafeString ? value1.toString() : value1;
+        value2 = value2 instanceof SafeString ? value2.toString() : value2;
         boolean condition = value1 == null && value2 != null || value1 != null && !value1.equals(value2);
         return condition ? options.apply(options.fn) : options.apply(options.inverse);
     }

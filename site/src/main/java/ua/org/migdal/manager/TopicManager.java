@@ -158,6 +158,15 @@ public class TopicManager implements EntryManagerBase<Topic> {
         return permManager.getFilter(topic.user.id, topic.group.id, topic.perms, right, asGuest);
     }
 
+    public Iterable<Topic> begGrandchildren(long upId) {
+        QTopic topic = QTopic.topic;
+        BooleanBuilder where = new BooleanBuilder();
+        where.and(getWhere(topic, upId, true));
+        where.and(topic.up.id.ne(upId));
+        where.and(topic.id.ne(upId));
+        return topicRepository.findAll(where, new Sort(Sort.Direction.DESC, "index2", "index0"));
+    }
+
     public List<Topic> begAncestors(long id) {
         LinkedList<Topic> ancestors = new LinkedList<>();
         Topic topic = beg(id);
