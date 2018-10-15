@@ -1,0 +1,26 @@
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        <td width="150" class="eframe">
+            {{> (topicsPartial)}}
+            {{> part/ears}}
+        </td>
+        <td class="cframe" style="display: flex">
+            <div style="margin: 5px; flex: auto">
+                {{subtitle}}
+                {{> part/see-also}}
+                {{> part/postings}}
+            </div>
+            <div class="nframe" style="width: 130px; margin: 5px; flex: none">
+                {{!<if what="$topic_id==$`migdal`">
+                    <migdal_news>
+                    <events grp="*GRP_NONE">
+                </if>}}
+            </div>
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}

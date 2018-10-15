@@ -147,7 +147,13 @@ public class IndexController {
 
     void addPostings(String groupName, Topic topic, Long userId, String[] addGrpNames, boolean addVisible,
                      int offset, int limit, Model model) {
-        model.addAttribute("postingsShowTopic", topic == null);
+        boolean showTopic = topic == null;
+        addPostings(groupName, topic, userId, addGrpNames, addVisible, showTopic, offset, limit, model);
+    }
+
+    void addPostings(String groupName, Topic topic, Long userId, String[] addGrpNames, boolean addVisible,
+                     boolean showTopic, int offset, int limit, Model model) {
+        model.addAttribute("postingsShowTopic", showTopic);
         model.addAttribute("postingsAddVisible", addVisible);
         model.addAttribute("postingsAddCatalog", topic != null ? topic.getCatalog() : "");
         Postings p = Postings.all()
