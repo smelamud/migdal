@@ -13,12 +13,12 @@
                 {{> part/see-also}}
                 {{> part/postings}}
             </div>
-            <div class="nframe" style="width: 130px; margin: 5px; flex: none">
-                {{!<if what="$topic_id==$`migdal`">
-                    <migdal_news>
-                    <events grp="*GRP_NONE">
-                </if>}}
-            </div>
+            {{#ifeq topic.ident "migdal"}}
+                <div class="nframe" style="width: 130px; margin: 5px; padding: 5px; flex: none">
+                    {{> part/migdal-news}}
+                    {{!<events grp="*GRP_NONE">}}
+                </div>
+            {{/ifeq}}
         </td>
     </tr>
 </table>
