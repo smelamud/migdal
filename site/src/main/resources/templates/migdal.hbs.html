@@ -10,12 +10,6 @@
             </td>
         {{/notPrint}}
         <td class="article cframe">
-   {{!<if what="!$archive">
-    <assign name="title" value="$,Subject">
-   <else>
-    <assign name="title"
-            value#="$,Subject (архив от $,Sent@Rj $,Sent@Rk $,Sent@RY)">
-   </ifzero>}}
             {{subtitle}}
             {{article posting innerImages=innerImages}}
             {{postingShare}}

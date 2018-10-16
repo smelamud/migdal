@@ -1,17 +1,21 @@
 package ua.org.migdal.controller;
 
+import java.sql.Timestamp;
 import javax.inject.Inject;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
+import ua.org.migdal.helper.calendar.CalendarType;
+import ua.org.migdal.helper.calendar.Formatter;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
@@ -181,8 +185,7 @@ public class MigdalController {
 
         postingViewController.addPostingView(model, posting, null, null);
         earController.addEars(model);
-        Postings p = Postings.all().grp("REVIEWS").topic(posting.getTopicId()).asGuest();
-        model.addAttribute("history", postingManager.begAll(p));
+        addHistory(posting.getTopicId(), model);
 
         return "migdal";
     }
@@ -195,6 +198,48 @@ public class MigdalController {
                 .withParent(jccLocationInfo(null))
                 .withPageTitle(posting.getHeading())
                 .withPageTitleFull("Мигдаль :: " + posting.getHeading());
+    }
+
+    public LocationInfo choirLocationInfo(Model model) {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.jcc.choir"));
+        return choirLocationInfo(posting, model);
+    }
+
+    @GetMapping("/migdal/jcc/choir/{id}")
+    public String choirHistory(@PathVariable long id, Model model) throws PageNotFoundException {
+        Posting posting = postingManager.beg(id);
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        choirHistoryLocationInfo(posting, model);
+
+        postingViewController.addPostingView(model, posting, null, null);
+        earController.addEars(model);
+        addHistory(posting.getTopicId(), model);
+
+        return "migdal";
+    }
+
+    public LocationInfo choirHistoryLocationInfo(Posting posting, Model model) {
+        String historyDate = historyDate(posting.getSent());
+        return new LocationInfo(model)
+                .withUri("/migdal/jcc/choir")
+                .withTopics("topics-choir")
+                .withTopicsIndex(Long.toString(posting.getId()))
+                .withParent(choirLocationInfo(null))
+                .withPageTitle(String.format("%s (архив от %s)", posting.getHeading(), historyDate))
+                .withPageTitleRelative(String.format("Архив от %s", historyDate))
+                .withPageTitleFull("Мигдаль :: " + posting.getHeading());
+    }
+
+    private void addHistory(long topicId, Model model) {
+        Postings p = Postings.all().grp("REVIEWS").topic(topicId).asGuest();
+        model.addAttribute("history", postingManager.begAll(p));
+    }
+
+    private String historyDate(Timestamp timestamp) {
+        return Formatter.format(CalendarType.GREGORIAN_RU_GEN_LC, "d MMMM yyyy", timestamp.toLocalDateTime());
     }
 
     /* TODO
