@@ -233,6 +233,65 @@ public class MigdalController {
                 .withPageTitleFull("Мигдаль :: " + posting.getHeading());
     }
 
+    @GetMapping("/migdal/jcc/dances")
+    public String dances(Model model) throws PageNotFoundException {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.jcc.dances"));
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        dancesLocationInfo(posting, model);
+
+        postingViewController.addPostingView(model, posting, null, null);
+        earController.addEars(model);
+        addHistory(posting.getTopicId(), model);
+
+        return "migdal";
+    }
+
+    public LocationInfo dancesLocationInfo(Posting posting, Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/jcc/dances")
+                .withTopics("topics-dances")
+                .withTopicsIndex("migdal.jcc.dances")
+                .withParent(jccLocationInfo(null))
+                .withPageTitle(posting.getHeading())
+                .withPageTitleFull("Мигдаль :: " + posting.getHeading());
+    }
+
+    public LocationInfo dancesLocationInfo(Model model) {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.jcc.dances"));
+        return dancesLocationInfo(posting, model);
+    }
+
+    @GetMapping("/migdal/jcc/dances/{id}")
+    public String dancesHistory(@PathVariable long id, Model model) throws PageNotFoundException {
+        Posting posting = postingManager.beg(id);
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        dancesHistoryLocationInfo(posting, model);
+
+        postingViewController.addPostingView(model, posting, null, null);
+        earController.addEars(model);
+        addHistory(posting.getTopicId(), model);
+
+        return "migdal";
+    }
+
+    public LocationInfo dancesHistoryLocationInfo(Posting posting, Model model) {
+        String historyDate = historyDate(posting.getSent());
+        return new LocationInfo(model)
+                .withUri("/migdal/jcc/dances")
+                .withTopics("topics-dances")
+                .withTopicsIndex(Long.toString(posting.getId()))
+                .withParent(dancesLocationInfo(null))
+                .withPageTitle(String.format("%s (архив от %s)", posting.getHeading(), historyDate))
+                .withPageTitleRelative(String.format("Архив от %s", historyDate))
+                .withPageTitleFull("Мигдаль :: " + posting.getHeading());
+    }
+
     private void addHistory(long topicId, Model model) {
         Postings p = Postings.all().grp("REVIEWS").topic(topicId).asGuest();
         model.addAttribute("history", postingManager.begAll(p));
