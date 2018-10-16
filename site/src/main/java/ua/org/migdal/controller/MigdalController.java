@@ -125,7 +125,6 @@ public class MigdalController {
         addEvents("kaitanot", "kaitanotEvents", "migdal.events.kaitanot", model);
         addEvents("halom", "halomEvents", "migdal.events.halom", model);
         postingViewController.addPostingView(model, posting, null, null);
-        indexController.addMajors(model);
         earController.addEars(model);
 
         return "migdal";
@@ -169,6 +168,33 @@ public class MigdalController {
                 .withUri("/migdal/jcc/reorder")
                 .withParent(jccLocationInfo(null))
                 .withPageTitle("Расстановка статей");
+    }
+
+    @GetMapping("/migdal/jcc/choir")
+    public String choir(Model model) throws PageNotFoundException {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.jcc.choir"));
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        choirLocationInfo(posting, model);
+
+        postingViewController.addPostingView(model, posting, null, null);
+        earController.addEars(model);
+        Postings p = Postings.all().grp("REVIEWS").topic(posting.getTopicId()).asGuest();
+        model.addAttribute("history", postingManager.begAll(p));
+
+        return "migdal";
+    }
+
+    public LocationInfo choirLocationInfo(Posting posting, Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/jcc/choir")
+                .withTopics("topics-choir")
+                .withTopicsIndex("migdal.jcc.choir")
+                .withParent(jccLocationInfo(null))
+                .withPageTitle(posting.getHeading())
+                .withPageTitleFull("Мигдаль :: " + posting.getHeading());
     }
 
     /* TODO

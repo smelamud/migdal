@@ -130,6 +130,12 @@ public class PostingManager implements EntryManagerBase<Posting> {
                 PageRequest.of(p.offset / p.limit, p.limit, p.sortDirection, p.sortFields));
     }
 
+    public List<Posting> begAllAsList(Postings p) {
+        List<Posting> list = new ArrayList<>();
+        begAll(p).forEach(list::add);
+        return list;
+    }
+
     public long countAll(Postings p) {
         return postingRepository.count(getWhere(QPosting.posting, p));
     }

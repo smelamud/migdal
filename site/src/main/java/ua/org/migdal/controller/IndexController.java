@@ -272,8 +272,7 @@ public class IndexController {
                              .grp(grpName)
                              .user(userId)
                              .sort(Sort.Direction.DESC, sort);
-        List<Posting> postings = new ArrayList<>();
-        postingManager.begAll(p).forEach(postings::add);
+        List<Posting> postings = postingManager.begAllAsList(p);
 
         int galleryBegin = offset < 0 ? 0 : offset / limit * limit;
         int galleryEnd = offset + limit;
