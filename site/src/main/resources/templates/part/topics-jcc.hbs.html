@@ -1,0 +1,23 @@
+{{#topicsTable title=jcc.subject}}
+    {{topicsLine text="Об общинном центре" href="/migdal/jcc/" index="migdal.jcc" class="topics-item ninept"}}
+    {{topicsLine text="Хоровые коллективы" href="/migdal/jcc/choir/" index="migdal.jcc.choir"
+                 class="topics-item eightpt"}}
+    {{topicsLine text="Танцевальные коллективы" href="/migdal/jcc/dances/" index="migdal.jcc.dances"
+                 class="topics-item eightpt"}}
+    {{#postable jcc}}
+        <li class="topics-nobullet">
+            <a href="/migdal/jcc/add-reviews/?back={{ue rc.location}}" class="edit">Добавить</a><br>
+            <a href="/migdal/jcc/reorder/?back={{ue rc.location}}" class="edit">Расставить</a>
+        </li>
+    {{/postable}}
+    {{#each jccReviews}}
+        {{#ifne ident "post.migdal.jcc"}}
+            {{#assign "href"}}/{{catalog}}{{/assign}}
+            {{topicsLine text=subject href=href index=id class="topics-item eightpt"}}
+        {{/ifne}}
+    {{/each}}
+    {{topicsLine text="Клуб Еврейского Студента" href="/migdal/jcc/student/" index="migdal.jcc.student"
+                 class="topics-item eightpt"}}
+{{/topicsTable}}
+{{> part/topics-common-events topic=kaitanot list=kaitanotEvents}}
+{{> part/topics-common-events topic=halom list=halomEvents}}
