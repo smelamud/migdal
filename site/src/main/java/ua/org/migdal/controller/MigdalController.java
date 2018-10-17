@@ -122,16 +122,20 @@ public class MigdalController {
 
         jccLocationInfo(posting, model);
 
+        addJcc(model);
+        postingViewController.addPostingView(model, posting, null, null);
+        earController.addEars(model);
+
+        return "migdal";
+    }
+
+    private void addJcc(Model model) {
         long jccId = identManager.idOrIdent("migdal.jcc");
         model.addAttribute("jcc", topicManager.beg(jccId));
         Postings p = Postings.all().grp("REVIEWS").topic(jccId).asGuest().sort(Sort.Direction.ASC, "index0");
         model.addAttribute("jccReviews", postingManager.begAll(p));
         addEvents("kaitanot", "kaitanotEvents", "migdal.events.kaitanot", model);
         addEvents("halom", "halomEvents", "migdal.events.halom", model);
-        postingViewController.addPostingView(model, posting, null, null);
-        earController.addEars(model);
-
-        return "migdal";
     }
 
     private void addEvents(String topicVar, String listVar, String ident, Model model) {
@@ -299,6 +303,32 @@ public class MigdalController {
 
     private String historyDate(Timestamp timestamp) {
         return Formatter.format(CalendarType.GREGORIAN_RU_GEN_LC, "d MMMM yyyy", timestamp.toLocalDateTime());
+    }
+
+    @GetMapping("/migdal/jcc/{id}")
+    public String jccArticle(@PathVariable String id, Model model) throws PageNotFoundException {
+        Posting posting = postingManager.beg(identManager.postingIdFromRequestPath());
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        jccArticleLocationInfo(posting, model);
+
+        addJcc(model);
+        postingViewController.addPostingView(model, posting, null, null);
+        earController.addEars(model);
+
+        return "migdal";
+    }
+
+    public LocationInfo jccArticleLocationInfo(Posting posting, Model model) {
+        return new LocationInfo(model)
+                .withUri(posting.getGrpDetailsHref())
+                .withTopics("topics-jcc")
+                .withTopicsIndex(Long.toString(posting.getId()))
+                .withParent(jccLocationInfo(null))
+                .withPageTitle(posting.getHeading())
+                .withPageTitleFull("Мигдаль :: " + posting.getHeading());
     }
 
     /* TODO
