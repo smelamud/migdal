@@ -305,6 +305,74 @@ public class MigdalController {
         return Formatter.format(CalendarType.GREGORIAN_RU_GEN_LC, "d MMMM yyyy", timestamp.toLocalDateTime());
     }
 
+    @GetMapping("/migdal/jcc/student")
+    public String student(Model model) throws PageNotFoundException {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.jcc.student"));
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        studentLocationInfo(posting, model);
+
+        postingViewController.addPostingView(model, posting, null, null);
+        earController.addEars(model);
+        addStudent(model);
+
+        return "migdal";
+    }
+
+    public LocationInfo studentLocationInfo(Posting posting, Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/jcc/student")
+                .withTopics("topics-student")
+                .withTopicsIndex("migdal.jcc.student")
+                .withParent(jccLocationInfo(null))
+                .withPageTitle(posting.getHeading())
+                .withPageTitleFull("Мигдаль :: " + posting.getHeading());
+    }
+
+    public LocationInfo studentLocationInfo(Model model) {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.jcc.student"));
+        return studentLocationInfo(posting, model);
+    }
+
+    @GetMapping("/migdal/jcc/student/gallery")
+    public String studentGallery(
+            @RequestParam(defaultValue = "0") Integer offset,
+            @RequestParam(defaultValue = "sent") String sort,
+            Model model) throws PageNotFoundException {
+
+        Topic topic = topicManager.beg(identManager.idOrIdent("migdal.jcc.student"));
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        studentGalleryLocationInfo(topic, model);
+
+        indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
+        earController.addEars(model);
+        addStudent(model);
+
+        return "gallery";
+    }
+
+    public LocationInfo studentGalleryLocationInfo(Topic topic, Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/jcc/student/gallery")
+                .withTopics("topics-student")
+                .withTopicsIndex("migdal.jcc.student.gallery")
+                .withParent(studentLocationInfo(null))
+                .withPageTitle(topic.getSubject() + " - Галерея")
+                .withPageTitleRelative("Галерея")
+                .withPageTitleFull("Мигдаль :: " + topic.getSubject() + " - Галерея");
+    }
+
+    private void addStudent(Model model) {
+        addEvents("confs", "confsEvents", "migdal.events.youth-confs", model);
+        addEvents("kvorim", "kvorimEvents", "migdal.events.kvorim", model);
+        addEvents("other", "otherEvents", "migdal.events.other", model);
+    }
+
     @GetMapping("/migdal/jcc/{id}")
     public String jccArticle(@PathVariable String id, Model model) throws PageNotFoundException {
         Posting posting = postingManager.beg(identManager.postingIdFromRequestPath());
