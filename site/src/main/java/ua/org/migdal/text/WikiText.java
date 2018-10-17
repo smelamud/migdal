@@ -203,7 +203,8 @@ public class WikiText {
                 // Reverse ligature
                 String next = lines[i + 1]
                                 .replace("&#8212;", "---")
-                                .replace("&#x2014;", "---");
+                                .replace("&#x2014;", "---")
+                                .replace("\u2014", "---");
                 if (isRuler(next, c) && !SPACES.matcher(lines[i]).matches()) {
                     out.append("<h");
                     out.append(level);

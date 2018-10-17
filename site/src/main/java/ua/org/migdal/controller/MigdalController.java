@@ -160,7 +160,7 @@ public class MigdalController {
     }
 
     @GetMapping("/migdal/jcc/reorder")
-    public String jccReorder(Model model) throws PageNotFoundException {
+    public String jccReorder(Model model) {
         jccReorderLocationInfo(model);
 
         Postings p = Postings.all()
@@ -397,6 +397,78 @@ public class MigdalController {
                 .withParent(jccLocationInfo(null))
                 .withPageTitle(posting.getHeading())
                 .withPageTitleFull("Мигдаль :: " + posting.getHeading());
+    }
+
+    @GetMapping("/migdal/library")
+    public String library(Model model) throws PageNotFoundException {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.library"));
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        libraryLocationInfo(posting, model);
+
+        addLibrary(model);
+        postingViewController.addPostingView(model, posting, null, null);
+        earController.addEars(model);
+        Postings p = Postings.all()
+                             .grp("PRINTINGS")
+                             .topic(identManager.idOrIdent("migdal.library"))
+                             .limit(10)
+                             .asGuest();
+        model.addAttribute("printings", postingManager.begAll(p));
+
+        return "migdal-library";
+    }
+
+    private void addLibrary(Model model) {
+        addEvents("aboker", "abokerEvents", "migdal.events.ad-or-aboker", model);
+        addEvents("ofek", "ofekEvents", "migdal.events.ofek", model);
+    }
+
+    public LocationInfo libraryLocationInfo(Posting posting, Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/library")
+                .withTopics("topics-migdal-library")
+                .withTopicsIndex("migdal.library")
+                .withParent(migdalLocationInfo(null))
+                .withPageTitle(posting.getHeading())
+                .withPageTitleFull("Мигдаль :: " + posting.getHeading());
+    }
+
+    public LocationInfo libraryLocationInfo(Model model) {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.library"));
+        return libraryLocationInfo(posting, model);
+    }
+
+    @GetMapping("/migdal/library/novelties")
+    public String libraryNovelties(
+            @RequestParam(defaultValue = "0") Integer offset,
+            Model model) throws PageNotFoundException {
+
+        Topic topic = topicManager.beg(identManager.idOrIdent("migdal.library"));
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        libraryNoveltiesLocationInfo(model);
+
+        addLibrary(model);
+        earController.addEars(model);
+        indexController.addPostings("PRINTINGS", topic, null, new String[] {"PRINTINGS"}, topic.isPostable(),
+                                    offset, 20, model);
+
+        return "migdal-library-novelties";
+    }
+
+    public LocationInfo libraryNoveltiesLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/library/novelties")
+                .withTopics("topics-migdal-library")
+                .withTopicsIndex("migdal.library.novelties")
+                .withParent(libraryLocationInfo(null))
+                .withPageTitle("Новинки библиотеки")
+                .withPageTitleFull("Мигдаль :: Новинки библиотеки");
     }
 
     /* TODO

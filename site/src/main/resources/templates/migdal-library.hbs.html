@@ -1,0 +1,44 @@
+{{#*inline "novelties"}}
+    {{#notPrint}}
+        {{#if printings}}
+            <div class="right-column">
+                {{#topicsTable title="Новинки"}}
+                    {{#each printings}}
+                        {{topicsLine href=grpDetailsHref text=heading class="eightpt"}}
+                    {{/each}}
+                    {{topicsSplitter}}
+                    <li class="topics-view-all">
+                        <a href="/migdal/library/novelties/">Все новинки</a>
+                    </li>
+                {{/topicsTable}}
+            </div>
+        {{/if}}
+    {{/notPrint}}
+{{/inline}}
+
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        {{#notPrint}}
+            <td width="150" class="eframe">
+                {{> (topicsPartial)}}
+                {{> part/ears}}
+            </td>
+        {{/notPrint}}
+        <td class="center-column">
+            <div class="center-column-content article">
+                {{#if posting}}
+                    {{subtitle}}
+                    {{article posting innerImages=innerImages}}
+                    {{postingShare}}
+                    {{articleControls posting=posting}}
+                {{/if}}
+            </div>
+            {{> novelties}}
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}

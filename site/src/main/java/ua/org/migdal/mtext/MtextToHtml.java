@@ -33,7 +33,6 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
     private MtextFormat format;
     private boolean ignoreWrongFormat;
     private long id;
-    private Stack<Character> listFonts = new Stack<>();
     private Stack<Character> listStyles = new Stack<>();
     private int noteNo = 1;
     private Map<Integer, InnerImageBlock> imageBlocks;
@@ -54,7 +53,6 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
         this.imageBlocks = imageBlocks;
 
         html = htmlBody;
-        listFonts.push('i');
     }
 
     @Override
@@ -266,15 +264,15 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
                 }
                 if (attributes.getIndex("title") >= 0) {
                     if (listStyles.peek() != 'd') {
-                        html.append(XmlUtils.makeTag(listFonts.peek().toString()));
+                        html.append(XmlUtils.makeTag("i"));
                         html.append(XmlUtils.makeText(attributes.getValue("title")));
-                        html.append(XmlUtils.makeTag("/" + listFonts.peek()));
+                        html.append(XmlUtils.makeTag("/i"));
                         html.append(' ');
                     } else {
                         html.append(XmlUtils.makeTag("dt"));
-                        html.append(XmlUtils.makeTag(listFonts.peek().toString()));
+                        html.append(XmlUtils.makeTag("i"));
                         html.append(XmlUtils.makeText(attributes.getValue("title")));
-                        html.append(XmlUtils.makeTag("/" + listFonts.peek()));
+                        html.append(XmlUtils.makeTag("/i"));
                         html.append(XmlUtils.makeTag("/dt"));
                     }
                 }
@@ -388,8 +386,13 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
             case "ul":
             case "ol":
             case "dl":
+                if (listStyles.empty()) {
+                    html.append("<b>&lt;/");
+                    html.append(qName.toUpperCase());
+                    html.append("?&gt;</b>");
+                    break;
+                }
                 listStyles.pop();
-                listFonts.pop();
                 html.append(XmlUtils.makeTag("/" + qName));
                 break;
 

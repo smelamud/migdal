@@ -1,0 +1,22 @@
+<dl class="posting">
+    <dt>
+        {{#if showTopic}}
+            {{topicLink posting}}<br>
+        {{/if}}
+        {{votePanel align="right" id=posting.id rating=posting.rating}}
+        <a class="posting-subject" href="{{posting.grpDetailsHref}}">{{posting.heading}}</a><br>
+        {{posting.subject}}
+    </dt>
+    <dd>
+        {{#if posting.hasImage}}
+            {{#assign "imageTitle"}}{{mtext posting.titleMtext}}{{/assign}}
+            {{#assign "imageTitleLarge"}}{{mtext posting.titleLineMtext}}{{/assign}}
+            {{postingImage posting=posting title=imageTitle titleLarge=imageTitleLarge align="left"}}
+        {{/if}}
+        {{mtext posting.bodyMtext}}
+        <div class="sent" style="clear: left">
+            {{sentView date=posting.sent}}&nbsp;
+            {{senderLink posting}}
+        </div>
+        {{postingControls posting=posting showDiscuss=showDiscuss}}
+</dl>
