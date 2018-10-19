@@ -124,12 +124,12 @@ public class TopicManager implements EntryManagerBase<Topic> {
     }
 
     public Iterable<Topic> begAll(long upId, boolean recursive) {
-        return begAll(upId, recursive, "subject");
+        return begAll(upId, recursive, Sort.Direction.ASC, "subject");
     }
 
-    public Iterable<Topic> begAll(long upId, boolean recursive, String sortField) {
+    public Iterable<Topic> begAll(long upId, boolean recursive, Sort.Direction sortDirection, String... sortField) {
         QTopic topic = QTopic.topic;
-        return topicRepository.findAll(getWhere(topic, upId, recursive), new Sort(Sort.Direction.ASC, sortField));
+        return topicRepository.findAll(getWhere(topic, upId, recursive), new Sort(sortDirection, sortField));
     }
 
     private Predicate getWhere(QTopic topic, long upId, boolean recursive) {

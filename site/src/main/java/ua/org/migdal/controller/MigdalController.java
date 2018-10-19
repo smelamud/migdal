@@ -141,7 +141,7 @@ public class MigdalController {
     private void addEvents(String topicVar, String listVar, String ident, Model model) {
         Topic topic = topicManager.beg(identManager.idOrIdent(ident));
         model.addAttribute(topicVar, topic);
-        model.addAttribute(listVar, topicManager.begAll(topic.getId(), false, "index0"));
+        model.addAttribute(listVar, topicManager.begAll(topic.getId(), false, Sort.Direction.DESC, "index2", "index0"));
     }
 
     public LocationInfo jccLocationInfo(Posting posting, Model model) {
@@ -469,6 +469,37 @@ public class MigdalController {
                 .withParent(libraryLocationInfo(null))
                 .withPageTitle("Новинки библиотеки")
                 .withPageTitleFull("Мигдаль :: Новинки библиотеки");
+    }
+
+    @GetMapping("/migdal/museum")
+    public String museum(Model model) throws PageNotFoundException {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.museum"));
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        museumLocationInfo(posting, model);
+
+        addMuseum(posting.getTopicId(), model);
+        postingViewController.addPostingView(model, posting, null, null);
+        earController.addEars(model);
+
+        return "migdal";
+    }
+
+    private void addMuseum(long museumTopicId, Model model) {
+        addEvents("confs", "confsEvents", "migdal.events.science-confs", model);
+        addHistory(museumTopicId, model);
+    }
+
+    public LocationInfo museumLocationInfo(Posting posting, Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/museum")
+                .withTopics("topics-museum")
+                .withTopicsIndex("migdal.museum")
+                .withParent(migdalLocationInfo(null))
+                .withPageTitle(posting.getHeading())
+                .withPageTitleFull("Мигдаль :: " + posting.getHeading());
     }
 
     /* TODO

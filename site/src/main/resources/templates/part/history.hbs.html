@@ -1,6 +1,6 @@
 {{!params today}}
 
-{{#ifgt history.size 1}}
+{{#ifgt history.totalElements 1}}
     {{#topicsTable title="Страницы истории"}}
         {{#each history}}
             {{#ifne ident today}}

@@ -3,6 +3,7 @@ package ua.org.migdal.controller;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.ui.Model;
@@ -353,7 +354,8 @@ public class TopicController {
 
         topicReorderLocationInfo(topic, model);
 
-        return entryController.entryReorder(topicManager.begAll(id, false, "index0"), EntryType.TOPIC, model);
+        return entryController.entryReorder(
+                topicManager.begAll(id, false, Sort.Direction.ASC, "index0"), EntryType.TOPIC, model);
     }
 
     public LocationInfo topicReorderLocationInfo(Topic topic, Model model) {
