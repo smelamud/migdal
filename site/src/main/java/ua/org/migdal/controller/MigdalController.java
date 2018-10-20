@@ -540,6 +540,37 @@ public class MigdalController {
                 .withPageTitleRelative("Новости");
     }
 
+    @GetMapping("/migdal/museum/gallery")
+    public String museumGallery(
+            @RequestParam(defaultValue = "0") Integer offset,
+            @RequestParam(defaultValue = "sent") String sort,
+            Model model) throws PageNotFoundException {
+
+        Topic topic = topicManager.beg(identManager.idOrIdent("migdal.museum"));
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        museumGalleryLocationInfo(topic, model);
+
+        indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
+        earController.addEars(model);
+        addMuseum(topic.getId(), model);
+
+        return "gallery";
+    }
+
+    public LocationInfo museumGalleryLocationInfo(Topic topic, Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/museum/gallery")
+                .withTopics("topics-museum")
+                .withTopicsIndex("migdal.museum.gallery")
+                .withParent(museumLocationInfo(null))
+                .withPageTitle(topic.getSubject() + " - Галерея")
+                .withPageTitleRelative("Галерея")
+                .withPageTitleFull("Мигдаль :: " + topic.getSubject() + " - Галерея");
+    }
+
     /* TODO
      <elif what='$,Id==$`post.migdal.museum`'>
       <assign name='transref' value#='http://english.$siteDomain/museum/'>
