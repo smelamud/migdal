@@ -91,15 +91,11 @@ public class MigdalController {
 
         migdalNewsLocationInfo(topic, model);
 
-        model.addAttribute("topic", topic);
-        indexController.addPostings("TAPE", topic, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"},
-                                    topic.isPostable(), topic.getIdent().equals("migdal"), offset, 20, model);
         model.addAttribute("events", topicManager.begGrandchildren(identManager.idOrIdent("migdal.events")));
-        indexController.addSeeAlso(topic.getId(), model);
         indexController.addMajors(model);
         earController.addEars(model);
 
-        return "migdal-news";
+        return migdalNews(topic, offset, model);
     }
 
     public LocationInfo migdalNewsLocationInfo(Topic topic, Model model) {
@@ -111,6 +107,15 @@ public class MigdalController {
                 .withPageTitle(topic.getSubject())
                 .withPageTitleRelative("Новости")
                 .withTranslationHref("/events");
+    }
+
+    private String migdalNews(Topic topic, Integer offset, Model model) {
+        model.addAttribute("topic", topic);
+        indexController.addPostings("TAPE", topic, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"},
+                topic.isPostable(), topic.getIdent().equals("migdal"), offset, 20, model);
+        indexController.addSeeAlso(topic.getId(), model);
+
+        return "migdal-news";
     }
 
     @GetMapping("/migdal/jcc")
@@ -487,11 +492,6 @@ public class MigdalController {
         return "migdal";
     }
 
-    private void addMuseum(long museumTopicId, Model model) {
-        addEvents("confs", "confsEvents", "migdal.events.science-confs", model);
-        addHistory(museumTopicId, model);
-    }
-
     public LocationInfo museumLocationInfo(Posting posting, Model model) {
         return new LocationInfo(model)
                 .withUri("/migdal/museum")
@@ -500,6 +500,44 @@ public class MigdalController {
                 .withParent(migdalLocationInfo(null))
                 .withPageTitle(posting.getHeading())
                 .withPageTitleFull("Мигдаль :: " + posting.getHeading());
+    }
+
+    public LocationInfo museumLocationInfo(Model model) {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.museum"));
+        return museumLocationInfo(posting, model);
+    }
+
+    private void addMuseum(long museumTopicId, Model model) {
+        addEvents("confs", "confsEvents", "migdal.events.science-confs", model);
+        addHistory(museumTopicId, model);
+    }
+
+    @GetMapping("/migdal/museum/news")
+    public String museumNews(
+            @RequestParam(defaultValue = "0") Integer offset,
+            Model model) throws PageNotFoundException {
+
+        Topic topic = topicManager.beg(identManager.idOrIdent("migdal.museum"));
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        museumNewsLocationInfo(topic, model);
+
+        addMuseum(topic.getId(), model);
+        earController.addEars(model);
+
+        return migdalNews(topic, offset, model);
+    }
+
+    public LocationInfo museumNewsLocationInfo(Topic topic, Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/museum/news")
+                .withTopics("topics-museum")
+                .withTopicsIndex("migdal.museum.news")
+                .withParent(museumLocationInfo(null))
+                .withPageTitle(topic.getSubject() + " - Новости")
+                .withPageTitleRelative("Новости");
     }
 
     /* TODO
