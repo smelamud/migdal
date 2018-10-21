@@ -1,0 +1,83 @@
+{{#*inline "navigator"}}
+    <div class="nframe" style="padding-top: 5px">
+        {{subtitle}}
+        <p>
+            <form method="get" action="{{rc.location}}">
+                <select name="sort" style="margin-left: 5px">
+                    {{#each sorts}}
+                        {{selectOption value=value title=title selectedValue=sort}}
+                    {{/each}}
+                </select>
+                {{edit name="prefix" value=prefix maxlength="255"}}
+                <input type="submit" value="Поиск">
+            </form>
+        </p>
+        <p class="ninept" style="margin-left: 5px">
+            Всего найдено <em>{{prisoners.totalElements}}</em>
+            {{plural prisoners.totalElements "запись,записи,записей"}}
+        </p>
+    </div>
+{{/inline}}
+
+{{#*inline "batcher"}} {{! params: list }}
+    <div class="batcher">
+        {{spin list}}
+        <div class="clear-floats"></div>
+    </div>
+{{/inline}}
+
+{{#*inline "sortTitle"}}
+    {{#ifeq sort field}}
+        {{title}}&nbsp;&nbsp;&#x25be;
+    {{else}}
+        <a href="?sort={{field}}">{{title}}</a>
+    {{/ifeq}}
+{{/inline}}
+
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        {{#notPrint}}
+            <td width="150" class="eframe">
+                {{> (topicsPartial)}}
+                {{> part/ears}}
+            </td>
+        {{/notPrint}}
+        <td>
+            {{> navigator}}
+            {{> batcher list=prisoners}}
+            {{#catalogTable}}
+                <tr valign="top">
+                    <th class="catalog-cell">{{> sortTitle field="name" title="Имя"}}</th>
+                    <th class="catalog-cell">{{> sortTitle field="nameRussian" title="Русское имя"}}</th>
+                    <th class="catalog-cell">{{> sortTitle field="location" title="Место"}}</th>
+                    <th class="catalog-cell">{{> sortTitle field="ghettoName" title="Гетто"}}</th>
+                    <th class="catalog-cell">{{> sortTitle field="senderName" title="Сообщил"}}</th>
+                    <th class="catalog-cell">Сумма</th>
+                    <th class="catalog-cell">Поисковые данные</th>
+                </tr>
+                {{#each prisoners}}
+                    {{#if @odd}}
+                        {{#assign "class"}}catalog-cell-odd{{/assign}}
+                    {{else}}
+                        {{#assign "class"}}catalog-cell{{/assign}}
+                    {{/if}}
+                    <tr>
+                        <td class="{{class}} ninept">{{name}}</td>
+                        <td class="{{class}} ninept">{{nameRussian}}</td>
+                        <td class="{{class}} ninept">{{this.location}}</td>
+                        <td class="{{class}} ninept">{{ghettoName}}</td>
+                        <td class="{{class}} ninept">{{senderName}}</td>
+                        <td class="{{class}} ninept">{{sum}}</td>
+                        <td class="{{class}} eightpt">{{searchData}}</td>
+                    </tr>
+                {{/each}}
+            {{/catalogTable}}
+            {{> batcher list=prisoners}}
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}

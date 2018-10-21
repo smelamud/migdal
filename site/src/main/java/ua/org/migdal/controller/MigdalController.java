@@ -512,6 +512,11 @@ public class MigdalController {
         addHistory(museumTopicId, model);
     }
 
+    void addMuseum(Model model) {
+        Topic topic = topicManager.beg(identManager.idOrIdent("migdal.museum"));
+        addMuseum(topic.getId(), model);
+    }
+
     @GetMapping("/migdal/museum/news")
     public String museumNews(
             @RequestParam(defaultValue = "0") Integer offset,

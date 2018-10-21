@@ -1,5 +1,5 @@
 {{#*inline "navigator"}}
-    <div class="nframe">
+    <div class="nframe" style="padding-top: 5px">
         {{subtitle}}
         <p>
             <form method="get" action="{{rc.location}}">
@@ -23,9 +23,9 @@
 {{/inline}}
 
 {{#*inline "batcher"}} {{! params: list }}
-    <div class='batcher'>
+    <div class="batcher">
         {{spin list}}
-        <div class='clear-floats'></div>
+        <div class="clear-floats"></div>
     </div>
 {{/inline}}
 
