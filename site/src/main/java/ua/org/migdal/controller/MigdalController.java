@@ -499,7 +499,8 @@ public class MigdalController {
                 .withTopicsIndex("migdal.museum")
                 .withParent(migdalLocationInfo(null))
                 .withPageTitle(posting.getHeading())
-                .withPageTitleFull("Мигдаль :: " + posting.getHeading());
+                .withPageTitleFull("Мигдаль :: " + posting.getHeading())
+                .withTranslationHref("/museum");
     }
 
     public LocationInfo museumLocationInfo(Model model) {
@@ -576,17 +577,77 @@ public class MigdalController {
                 .withPageTitleFull("Мигдаль :: " + topic.getSubject() + " - Галерея");
     }
 
+    @GetMapping("/migdal/migdal-or")
+    public String migdalOr(Model model) throws PageNotFoundException {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.migdal-or"));
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        migdalOrLocationInfo(posting, model);
+
+        addMigdalOr(posting.getTopicId(), model);
+        postingViewController.addPostingView(model, posting, null, null);
+        earController.addEars(model);
+
+        return "migdal";
+    }
+
+    public LocationInfo migdalOrLocationInfo(Posting posting, Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/migdal-or")
+                .withTopics("topics-migdal-or")
+                .withTopicsIndex("migdal.migdal-or")
+                .withParent(migdalLocationInfo(null))
+                .withPageTitle(posting.getHeading())
+                .withPageTitleFull("Мигдаль :: " + posting.getHeading())
+                .withTranslationHref("/migdal-or");
+    }
+
+    public LocationInfo migdalOrLocationInfo(Model model) {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.migdal-or"));
+        return migdalOrLocationInfo(posting, model);
+    }
+
+    private void addMigdalOr(long migdalOrTopicId, Model model) {
+        addEvents("tours", "toursEvents", "migdal.events.migdal-or-tours", model);
+    }
+
+    @GetMapping("/migdal/migdal-or/gallery")
+    public String migdalOrGallery(
+            @RequestParam(defaultValue = "0") Integer offset,
+            @RequestParam(defaultValue = "sent") String sort,
+            Model model) throws PageNotFoundException {
+
+        Topic topic = topicManager.beg(identManager.idOrIdent("migdal.migdal-or"));
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        migdalOrGalleryLocationInfo(topic, model);
+
+        indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
+        earController.addEars(model);
+        addMigdalOr(topic.getId(), model);
+
+        return "gallery";
+    }
+
+    public LocationInfo migdalOrGalleryLocationInfo(Topic topic, Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/migdal-or/gallery")
+                .withTopics("topics-migdal-or")
+                .withTopicsIndex("migdal.migdal-or.gallery")
+                .withParent(migdalOrLocationInfo(null))
+                .withPageTitle(topic.getSubject() + " - Галерея")
+                .withPageTitleRelative("Галерея")
+                .withPageTitleFull("Мигдаль :: " + topic.getSubject() + " - Галерея");
+    }
+
     /* TODO
-     <elif what='$,Id==$`post.migdal.museum`'>
-      <assign name='transref' value#='http://english.$siteDomain/museum/'>
      <elif what='$,Id==$`post.museum,e`'>
       <assign name='transref' value#='http://www.$siteDomain/migdal/museum/'>
-     <elif what='$,Id==$`post.migdal.migdal-or`'>
-      <assign name='transref' value#='http://english.$siteDomain/migdal-or/'>
      <elif what='$,Id==$`post.migdal-or,e`'>
       <assign name='transref' value#='http://www.$siteDomain/migdal/migdal-or/'>
-     <else>
-      <assign name='transref' value=''>
-     </if>
      */
 }
