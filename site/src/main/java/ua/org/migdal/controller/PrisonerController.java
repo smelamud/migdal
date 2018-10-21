@@ -35,6 +35,7 @@ public class PrisonerController {
 
     @GetMapping("/migdal/museum/prisoners")
     public String prisoners(
+            @RequestParam(defaultValue="name") String search,
             @RequestParam(defaultValue="") String prefix,
             @RequestParam(defaultValue="name") String sort,
             @RequestParam(defaultValue="0") Integer offset,
@@ -42,14 +43,16 @@ public class PrisonerController {
 
         prisonersLocationInfo(model);
 
-        if (!StringUtils.isEmpty(sort) && !Constant.hasValue(SORTS, sort)) {
+        if (!StringUtils.isEmpty(search) && !Constant.hasValue(SORTS, search)
+                || !StringUtils.isEmpty(sort) && !Constant.hasValue(SORTS, sort)) {
             throw new PageNotFoundException();
         }
 
+        model.addAttribute("search", search);
         model.addAttribute("prefix", prefix);
         model.addAttribute("sort", sort);
         model.addAttribute("sorts", SORTS);
-        model.addAttribute("prisoners", prisonerManager.begAll(prefix, sort, offset, 50));
+        model.addAttribute("prisoners", prisonerManager.begAll(search, prefix, sort, offset, 50));
         earController.addEars(model);
         migdalController.addMuseum(model);
 

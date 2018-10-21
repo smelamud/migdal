@@ -3,12 +3,13 @@
         {{subtitle}}
         <p>
             <form method="get" action="{{rc.location}}">
-                <select name="sort" style="margin-left: 5px">
+                <select name="search" style="margin-left: 5px">
                     {{#each sorts}}
-                        {{selectOption value=value title=title selectedValue=sort}}
+                        {{selectOption value=value title=title selectedValue=search}}
                     {{/each}}
                 </select>
                 {{edit name="prefix" value=prefix maxlength="255"}}
+                {{hidden name="sort" value=sort}}
                 <input type="submit" value="Поиск">
             </form>
         </p>
@@ -30,7 +31,7 @@
     {{#ifeq sort field}}
         {{title}}&nbsp;&nbsp;&#x25be;
     {{else}}
-        <a href="?sort={{field}}">{{title}}</a>
+        <a href="?sort={{field}}&amp;search={{search}}&amp;prefix={{ue prefix}}">{{title}}</a>
     {{/ifeq}}
 {{/inline}}
 

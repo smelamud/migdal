@@ -19,13 +19,14 @@ public class PrisonerManager {
     @Inject
     private PrisonerRepository prisonerRepository;
 
-    public Page<Prisoner> begAll(String prefix, String sortField, int offset, int limit) {
-        sortField = !StringUtils.isEmpty(sortField) ? sortField : "name";
+    public Page<Prisoner> begAll(String searchField, String prefix, String sortField, int offset, int limit) {
+        searchField = !StringUtils.isEmpty(searchField) ? searchField : "name";
+        sortField = !StringUtils.isEmpty(sortField) ? sortField : searchField;
 
         QPrisoner prisoner = QPrisoner.prisoner;
         BooleanBuilder builder = new BooleanBuilder();
         if (!StringUtils.isEmpty(prefix)) {
-            switch (sortField) {
+            switch (searchField) {
                 case "name":
                     builder.and(prisoner.name.likeIgnoreCase(LikeUtils.startsWith(prefix), LikeUtils.ESCAPE_CHAR));
                     break;
