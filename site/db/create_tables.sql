@@ -567,6 +567,14 @@ ALTER TABLE ONLY public.inner_images
 
 
 --
+-- Name: prisoners prisoners_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY public.prisoners
+    ADD CONSTRAINT prisoners_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: spring_session_attributes spring_session_attributes_pk; Type: CONSTRAINT; Schema: public; Owner: migdal
 --
 
@@ -842,6 +850,41 @@ CREATE INDEX inner_images_par_idx ON public.inner_images USING btree (paragraph)
 --
 
 CREATE INDEX ip_idx ON public.votes USING btree (ip);
+
+
+--
+-- Name: prisoners_ghetto_name_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX prisoners_ghetto_name_idx ON public.prisoners USING btree (ghetto_name);
+
+
+--
+-- Name: prisoners_location_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX prisoners_location_idx ON public.prisoners USING btree (location);
+
+
+--
+-- Name: prisoners_name_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX prisoners_name_idx ON public.prisoners USING btree (name);
+
+
+--
+-- Name: prisoners_name_russian_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX prisoners_name_russian_idx ON public.prisoners USING btree (name_russian);
+
+
+--
+-- Name: prisoners_sender_name_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX prisoners_sender_name_idx ON public.prisoners USING btree (sender_name);
 
 
 --

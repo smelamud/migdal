@@ -76,7 +76,7 @@ def convert_users(row):
     else:
         jewish_name = ''
     if row['login'] in convert_users.used_logins:
-        print(row['id'],':',row['login'])
+        print('Reused login: ', row['id'], ':', row['login'])
         return None
     else:
         convert_users.used_logins[row['login']] = True
@@ -259,6 +259,20 @@ def convert_inner_images(row):
         convert_inner_images.id
     ]
 convert_inner_images.id = 0
+
+def convert_prisoners(row):
+    return [
+        row['id'],
+        row['name'],
+        row['name_russian'],
+        row['gender'],
+        row['age'],
+        row['location'],
+        row['ghetto_name'],
+        row['sender_name'],
+        row['sum'],
+        row['search_data'],
+    ]
 
 csv.field_size_limit(300000)
 read_entry_grps()
