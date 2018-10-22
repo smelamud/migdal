@@ -1,0 +1,11 @@
+{{upperLevel name="Мигдаль" href="/migdal/"}}
+{{#topicsTable title="Мазл Тов"}}
+    {{topicsLine text="О программе" href="/migdal/mazltov/" index="migdal.mazltov" class="topics-item ninept"}}
+    {{topicsLine text="Новости" href="/migdal/mazltov/news/" index="migdal.mazltov.news" class="topics-item ninept"}}
+    {{topicsLine text="Галерея" href="/migdal/mazltov/gallery/" index="migdal.mazltov.gallery"
+                 class="topics-item ninept"}}
+    {{#assign "funnyStories"}}&laquo;Веселые истории&raquo;{{/assign}}
+    {{topicsLine text=funnyStories href="/migdal/mazltov/funny-stories/" index="migdal.mazltov.funny-stories"
+                 class="topics-item ninept"}}
+{{/topicsTable}}
+{{> part/topics-common-events topic=birth list=birthEvents}}

@@ -644,6 +644,128 @@ public class MigdalController {
                 .withPageTitleFull("Мигдаль :: " + topic.getSubject() + " - Галерея");
     }
 
+    @GetMapping("/migdal/mazltov")
+    public String mazltov(Model model) throws PageNotFoundException {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.mazltov"));
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        mazltovLocationInfo(posting, model);
+
+        addMazltov(posting.getTopicId(), model);
+        postingViewController.addPostingView(model, posting, null, null);
+        earController.addEars(model);
+
+        return "migdal";
+    }
+
+    public LocationInfo mazltovLocationInfo(Posting posting, Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/mazltov")
+                .withTopics("topics-mazltov")
+                .withTopicsIndex("migdal.mazltov")
+                .withParent(migdalLocationInfo(null))
+                .withPageTitle(posting.getHeading())
+                .withPageTitleFull("Мигдаль :: " + posting.getHeading())
+                .withTranslationHref("/mazltov");
+    }
+
+    public LocationInfo mazltovLocationInfo(Model model) {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.mazltov"));
+        return mazltovLocationInfo(posting, model);
+    }
+
+    private void addMazltov(long mazltovTopicId, Model model) {
+        addEvents("birth", "birthEvents", "migdal.events.mazltov-birth", model);
+    }
+
+    @GetMapping("/migdal/mazltov/news")
+    public String mazltovNews(
+            @RequestParam(defaultValue = "0") Integer offset,
+            Model model) throws PageNotFoundException {
+
+        Topic topic = topicManager.beg(identManager.idOrIdent("migdal.mazltov"));
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        mazltovNewsLocationInfo(topic, model);
+
+        addMazltov(topic.getId(), model);
+        earController.addEars(model);
+
+        return migdalNews(topic, offset, model);
+    }
+
+    public LocationInfo mazltovNewsLocationInfo(Topic topic, Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/mazltov/news")
+                .withTopics("topics-mazltov")
+                .withTopicsIndex("migdal.mazltov.news")
+                .withParent(mazltovLocationInfo(null))
+                .withPageTitle(topic.getSubject() + " - Новости")
+                .withPageTitleRelative("Новости");
+    }
+
+    @GetMapping("/migdal/mazltov/gallery")
+    public String mazltovGallery(
+            @RequestParam(defaultValue = "0") Integer offset,
+            @RequestParam(defaultValue = "sent") String sort,
+            Model model) throws PageNotFoundException {
+
+        Topic topic = topicManager.beg(identManager.idOrIdent("migdal.mazltov"));
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        mazltovGalleryLocationInfo(topic, model);
+
+        indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
+        earController.addEars(model);
+        addMazltov(topic.getId(), model);
+
+        return "gallery";
+    }
+
+    public LocationInfo mazltovGalleryLocationInfo(Topic topic, Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/mazltov/gallery")
+                .withTopics("topics-mazltov")
+                .withTopicsIndex("migdal.mazltov.gallery")
+                .withParent(mazltovLocationInfo(null))
+                .withPageTitle(topic.getSubject() + " - Галерея")
+                .withPageTitleRelative("Галерея")
+                .withPageTitleFull("Мигдаль :: " + topic.getSubject() + " - Галерея");
+    }
+
+    @GetMapping("/migdal/mazltov/funny-stories")
+    public String mazltovFunnyStories(Model model) throws PageNotFoundException {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.mazltov.funny-stories"));
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        mazltovFunnyStoriesLocationInfo(posting, model);
+
+        addMazltov(posting.getTopicId(), model);
+        postingViewController.addPostingView(model, posting, null, null);
+        earController.addEars(model);
+
+        return "migdal";
+    }
+
+    public LocationInfo mazltovFunnyStoriesLocationInfo(Posting posting, Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/mazltov/funny-stories")
+                .withTopics("topics-mazltov")
+                .withTopicsIndex("migdal.mazltov.funny-stories")
+                .withParent(mazltovLocationInfo(null))
+                .withPageTitle(posting.getHeading())
+                .withPageTitleFull("Мигдаль :: " + posting.getHeading())
+                .withTranslationHref("/mazltov");
+    }
+
     /* TODO
      <elif what='$,Id==$`post.museum,e`'>
       <assign name='transref' value#='http://www.$siteDomain/migdal/museum/'>
