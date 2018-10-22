@@ -667,8 +667,7 @@ public class MigdalController {
                 .withTopicsIndex("migdal.mazltov")
                 .withParent(migdalLocationInfo(null))
                 .withPageTitle(posting.getHeading())
-                .withPageTitleFull("Мигдаль :: " + posting.getHeading())
-                .withTranslationHref("/mazltov");
+                .withPageTitleFull("Мигдаль :: " + posting.getHeading());
     }
 
     public LocationInfo mazltovLocationInfo(Model model) {
@@ -762,8 +761,94 @@ public class MigdalController {
                 .withTopicsIndex("migdal.mazltov.funny-stories")
                 .withParent(mazltovLocationInfo(null))
                 .withPageTitle(posting.getHeading())
-                .withPageTitleFull("Мигдаль :: " + posting.getHeading())
-                .withTranslationHref("/mazltov");
+                .withPageTitleFull("Мигдаль :: " + posting.getHeading());
+    }
+
+    @GetMapping("/migdal/beitenu")
+    public String beitenu(Model model) throws PageNotFoundException {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.beitenu"));
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        beitenuLocationInfo(posting, model);
+
+        postingViewController.addPostingView(model, posting, null, null);
+        earController.addEars(model);
+
+        return "migdal";
+    }
+
+    public LocationInfo beitenuLocationInfo(Posting posting, Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/beitenu")
+                .withTopics("topics-beitenu")
+                .withTopicsIndex("migdal.beitenu")
+                .withParent(migdalLocationInfo(null))
+                .withPageTitle(posting.getHeading())
+                .withPageTitleFull("Мигдаль :: " + posting.getHeading());
+    }
+
+    public LocationInfo beitenuLocationInfo(Model model) {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.beitenu"));
+        return beitenuLocationInfo(posting, model);
+    }
+
+    @GetMapping("/migdal/beitenu/news")
+    public String beitenuNews(
+            @RequestParam(defaultValue = "0") Integer offset,
+            Model model) throws PageNotFoundException {
+
+        Topic topic = topicManager.beg(identManager.idOrIdent("migdal.beitenu"));
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        beitenuNewsLocationInfo(topic, model);
+
+        earController.addEars(model);
+
+        return migdalNews(topic, offset, model);
+    }
+
+    public LocationInfo beitenuNewsLocationInfo(Topic topic, Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/beitenu/news")
+                .withTopics("topics-beitenu")
+                .withTopicsIndex("migdal.beitenu.news")
+                .withParent(beitenuLocationInfo(null))
+                .withPageTitle(topic.getSubject() + " - Новости")
+                .withPageTitleRelative("Новости");
+    }
+
+    @GetMapping("/migdal/beitenu/gallery")
+    public String beitenuGallery(
+            @RequestParam(defaultValue = "0") Integer offset,
+            @RequestParam(defaultValue = "sent") String sort,
+            Model model) throws PageNotFoundException {
+
+        Topic topic = topicManager.beg(identManager.idOrIdent("migdal.beitenu"));
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        beitenuGalleryLocationInfo(topic, model);
+
+        indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
+        earController.addEars(model);
+
+        return "gallery";
+    }
+
+    public LocationInfo beitenuGalleryLocationInfo(Topic topic, Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/beitenu/gallery")
+                .withTopics("topics-beitenu")
+                .withTopicsIndex("migdal.beitenu.gallery")
+                .withParent(beitenuLocationInfo(null))
+                .withPageTitle(topic.getSubject() + " - Галерея")
+                .withPageTitleRelative("Галерея")
+                .withPageTitleFull("Мигдаль :: " + topic.getSubject() + " - Галерея");
     }
 
     /* TODO
