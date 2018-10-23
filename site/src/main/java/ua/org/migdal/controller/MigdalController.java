@@ -851,6 +851,79 @@ public class MigdalController {
                 .withPageTitleFull("Мигдаль :: " + topic.getSubject() + " - Галерея");
     }
 
+    @GetMapping("/migdal/methodology")
+    public String methodology(Model model) throws PageNotFoundException {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.methodology"));
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        methodologyLocationInfo(posting, model);
+
+        addMethodology(model);
+        indexController.addSeeAlso(posting.getTopicId(), model);
+        postingViewController.addPostingView(model, posting, null, null);
+        earController.addEars(model);
+        Postings p = Postings.all()
+                .grp("BOOKS")
+                .topic(identManager.idOrIdent("migdal.methodology"))
+                .asGuest();
+        model.addAttribute("books", postingManager.begAll(p));
+
+        return "methodic-center";
+    }
+
+    private void addMethodology(Model model) {
+        addEvents("aboker", "abokerEvents", "migdal.events.ad-or-aboker", model);
+        addEvents("halom", "halomEvents", "migdal.events.halom", model);
+        addEvents("youth", "youthEvents", "migdal.events.youth-confs", model);
+        addEvents("science", "scienceEvents", "migdal.events.science-confs", model);
+    }
+
+    public LocationInfo methodologyLocationInfo(Posting posting, Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/methodology")
+                .withTopics("topics-methodology")
+                .withTopicsIndex("migdal.methodology")
+                .withParent(migdalLocationInfo(null))
+                .withPageTitle(posting.getHeading())
+                .withPageTitleRelative("Методический центр")
+                .withPageTitleFull("Мигдаль :: " + posting.getHeading());
+    }
+
+    public LocationInfo methodologyLocationInfo(Model model) {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.methodology"));
+        return methodologyLocationInfo(posting, model);
+    }
+
+    @GetMapping("/migdal/methodology/books")
+    public String methodologyBooks(Model model) throws PageNotFoundException {
+
+        Topic topic = topicManager.beg(identManager.idOrIdent("migdal.methodology"));
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        methodologyBooksLocationInfo(model);
+
+        addMethodology(model);
+        earController.addEars(model);
+        indexController.addPostings("BOOKS", topic, null, new String[] {"BOOKS"}, topic.isPostable(),
+                0, Integer.MAX_VALUE, model);
+
+        return "migdal-news";
+    }
+
+    public LocationInfo methodologyBooksLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/methodology/books")
+                .withTopics("topics-methodology")
+                .withTopicsIndex("migdal.methodology.books")
+                .withParent(methodologyLocationInfo(null))
+                .withPageTitle("Методические пособия")
+                .withPageTitleFull("Мигдаль :: Методические пособия");
+    }
+
     /* TODO
      <elif what='$,Id==$`post.museum,e`'>
       <assign name='transref' value#='http://www.$siteDomain/migdal/museum/'>

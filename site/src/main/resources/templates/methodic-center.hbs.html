@@ -1,0 +1,41 @@
+{{#*inline "methodics"}}
+    {{#notPrint}}
+        {{#if books}}
+            <div class="right-column" style="width: 180px">
+                {{#topicsTable title="Методические пособия"}}
+                    {{#each books}}
+                        {{topicsLine href=grpDetailsHref text=heading class="ninept"}}
+                    {{/each}}
+                {{/topicsTable}}
+            </div>
+        {{/if}}
+    {{/notPrint}}
+{{/inline}}
+
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        {{#notPrint}}
+            <td width="150" class="eframe">
+                {{> (topicsPartial)}}
+                {{> part/ears}}
+            </td>
+        {{/notPrint}}
+        <td class="center-column">
+            <div class="center-column-content article">
+                {{#if posting}}
+                    {{subtitle}}
+                    {{> part/see-also}}
+                    {{article posting innerImages=innerImages}}
+                    {{postingShare}}
+                    {{articleControls posting=posting}}
+                {{/if}}
+            </div>
+            {{> methodics}}
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}
