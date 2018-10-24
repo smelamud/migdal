@@ -1,0 +1,64 @@
+{{#*inline "batcher"}}
+    {{#notPrint}}
+        <div class="batcher">
+            <div class="adder">
+                {{image "/pics/print.gif"}}
+                <a href="?print=1" target="_blank">Для печати</a>
+                &nbsp;
+                {{#postable printings}}
+                    {{image "/pics/sheet.gif"}}
+                    <a href="/migdal/printings/add-printings?back={{ue rc.location}}">Добавить книгу</a>
+                    &nbsp;
+                    <a href="/migdal/printings/reorder">Расставить подразделы</a>
+                {{/postable}}
+            </div>
+            <div class="clear-floats"></div>
+        </div>
+    {{/notPrint}}
+{{/inline}}
+
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        {{#notPrint}}
+            <td width="150" class="eframe">
+                {{> (topicsPartial)}}
+                {{> part/ears}}
+            </td>
+        {{/notPrint}}
+        <td class="cframe">
+            {{subtitle}}
+            {{> part/see-also}}
+            {{> batcher}}
+            {{#assign "prevTopicId"}}{{/assign}}
+            {{#each postings}}
+                {{#assign "nextTopicId"}}{{parent.id}}{{/assign}}
+                {{#ifne prevTopicId nextTopicId}}
+                    {{#assign "prevTopicId"}}{{nextTopicId}}{{/assign}}
+                    <div class="rubric" style="margin-top: 2ex">
+                        <div class="rubric-bullet">{{image "/pics/times-bullet.gif"}}</div>
+                        <div class="rubric-title">{{uc parent.subject}}</div>
+                    </div>
+                    {{#notPrint}}
+                        {{#postable parent}}
+                            <div class="batcher">
+                                <div class="adder">
+                                    <a href="/{{parent.catalog}}reorder?back={{ue rc.location}}">Расставить книги</a>
+                                </div>
+                                <div class="clear-floats"></div>
+                            </div>
+                        {{/postable}}
+                    {{/notPrint}}
+                {{/ifne}}
+                {{> (postingPartial this) posting=this showTopic=false shorten=false showDiscuss=true}}
+            {{/each}}
+            {{#if postings}}
+                {{> batcher}}
+            {{/if}}
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}

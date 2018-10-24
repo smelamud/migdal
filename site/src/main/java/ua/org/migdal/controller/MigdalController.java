@@ -924,6 +924,39 @@ public class MigdalController {
                 .withPageTitleFull("Мигдаль :: Методические пособия");
     }
 
+    @GetMapping("/migdal/printings")
+    public String printings(Model model) throws PageNotFoundException {
+
+        Topic topic = topicManager.beg(identManager.idOrIdent("migdal.printings"));
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        printingsLocationInfo(model);
+
+        model.addAttribute("printings", topic);
+        indexController.addMajors(model);
+        earController.addEars(model);
+        indexController.addSeeAlso(topic.getId(), model);
+        Postings p = Postings.all()
+                .topic(topic.getId(), true)
+                .grp("PRINTINGS")
+                .sort(Sort.Direction.ASC, "parent.index0", "index0");
+        model.addAttribute("postings", postingManager.begAll(p));
+
+        return "printings";
+    }
+
+    public LocationInfo printingsLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/printings")
+                .withTopics("topics-major")
+                .withTopicsIndex("migdal.printings")
+                .withParent(migdalLocationInfo(null))
+                .withPageTitle("Издательский центр")
+                .withPageTitleFull("Мигдаль :: Издательский центр");
+    }
+
     /* TODO
      <elif what='$,Id==$`post.museum,e`'>
       <assign name='transref' value#='http://www.$siteDomain/migdal/museum/'>
