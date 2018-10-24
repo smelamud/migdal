@@ -998,6 +998,32 @@ public class MigdalController {
                 .withPageTitle("Расстановка книг");
     }
 
+    @GetMapping("/migdal/tzdaka")
+    public String tzdaka(Model model) throws PageNotFoundException {
+        Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal.tzdaka"));
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        tzdakaLocationInfo(posting, model);
+
+        postingViewController.addPostingView(model, posting, null, null);
+        indexController.addMajors(model);
+        earController.addEars(model);
+
+        return "migdal";
+    }
+
+    public LocationInfo tzdakaLocationInfo(Posting posting, Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/tzdaka")
+                .withTopics("topics-major")
+                .withTopicsIndex("migdal.tzdaka")
+                .withParent(migdalLocationInfo(null))
+                .withPageTitle(posting.getHeading())
+                .withPageTitleFull("Мигдаль :: " + posting.getHeading());
+    }
+
     /* TODO
      <elif what='$,Id==$`post.museum,e`'>
       <assign name='transref' value#='http://www.$siteDomain/migdal/museum/'>

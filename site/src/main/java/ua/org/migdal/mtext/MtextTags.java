@@ -26,6 +26,7 @@ public class MtextTags {
         tags.put("strike",      MtextFormat.LINE);
         tags.put("tt",          MtextFormat.LINE);
         tags.put("sup",         MtextFormat.LINE);
+        tags.put("span",        MtextFormat.LINE);
         tags.put("mtext-short", MtextFormat.SHORT);
         tags.put("p",           MtextFormat.SHORT);
         tags.put("quote",       MtextFormat.SHORT);
@@ -48,6 +49,7 @@ public class MtextTags {
         tags.put("td",          MtextFormat.LONG);
         tags.put("th",          MtextFormat.LONG);
         tags.put("incut",       MtextFormat.LONG);
+        tags.put("div",         MtextFormat.LONG);
         TAGS = Collections.unmodifiableMap(tags);
 
         Set<String> emptyTags = new HashSet<>();
@@ -66,6 +68,7 @@ public class MtextTags {
         chapterTags.add("td");
         chapterTags.add("th");
         chapterTags.add("incut");
+        chapterTags.add("div");
         CHAPTER_TAGS = Collections.unmodifiableSet(chapterTags);
     }
 
