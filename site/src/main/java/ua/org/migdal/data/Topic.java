@@ -31,6 +31,11 @@ public class Topic extends Entry {
     }
 
     @Transient
+    public String getHeading() {
+        return getSubject();
+    }
+
+    @Transient
     public String getYearName() {
         return String.format("%d/%d-%d г.", getIndex2(), getIndex2() - 3761, getIndex2() - 3760);
     }

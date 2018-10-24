@@ -1,6 +1,7 @@
 package ua.org.migdal.controller;
 
 import java.sql.Timestamp;
+
 import javax.inject.Inject;
 
 import org.springframework.data.domain.Sort;
@@ -926,7 +927,6 @@ public class MigdalController {
 
     @GetMapping("/migdal/printings")
     public String printings(Model model) throws PageNotFoundException {
-
         Topic topic = topicManager.beg(identManager.idOrIdent("migdal.printings"));
         if (topic == null) {
             throw new PageNotFoundException();
@@ -955,6 +955,47 @@ public class MigdalController {
                 .withParent(migdalLocationInfo(null))
                 .withPageTitle("Издательский центр")
                 .withPageTitleFull("Мигдаль :: Издательский центр");
+    }
+
+    @GetMapping("/migdal/printings/reorder")
+    public String printingsReorder(Model model) {
+        printingsReorderLocationInfo(model);
+
+        Iterable<Topic> topics = topicManager.begAll(
+                identManager.idOrIdent("migdal.printings"), false,
+                Sort.Direction.ASC, "index0");
+        return entryController.entryReorder(topics, EntryType.TOPIC, model);
+    }
+
+    public LocationInfo printingsReorderLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/printings/reorder")
+                .withParent(printingsLocationInfo(null))
+                .withPageTitle("Расстановка подразделов");
+    }
+
+    @GetMapping("/migdal/printings/{id}/reorder")
+    public String printingsBooksReorder(Model model) throws PageNotFoundException {
+        Topic topic = topicManager.beg(identManager.topicIdFromRequestPath(0, -1));
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        printingsBooksReorderLocationInfo(topic, model);
+
+        Postings p = Postings.all()
+                .topic(topic.getId())
+                .grp("PRINTINGS")
+                .sort(Sort.Direction.ASC, "index0");
+        Iterable<Posting> postings = postingManager.begAll(p);
+        return entryController.entryReorder(postings, EntryType.POSTING, model);
+    }
+
+    public LocationInfo printingsBooksReorderLocationInfo(Topic topic, Model model) {
+        return new LocationInfo(model)
+                .withUri("/" + topic.getCatalog() + "reorder")
+                .withParent(printingsLocationInfo(null))
+                .withPageTitle("Расстановка книг");
     }
 
     /* TODO
