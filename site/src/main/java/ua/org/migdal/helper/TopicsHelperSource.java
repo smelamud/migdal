@@ -1,7 +1,6 @@
 package ua.org.migdal.helper;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 import javax.inject.Inject;
 
@@ -12,7 +11,6 @@ import com.github.jknack.handlebars.Options;
 
 import ua.org.migdal.helper.exception.AmbiguousArgumentsException;
 import ua.org.migdal.helper.util.HelperUtils;
-import ua.org.migdal.util.Utils;
 
 @HelperSource
 public class TopicsHelperSource {
@@ -72,7 +70,6 @@ public class TopicsHelperSource {
             }
             arrow = index.toString().equals(options.get("topicsIndex").toString());
         }
-        LocalDateTime time = HelperUtils.timestampArg("time", options.hash("time"), false);
         Object text = options.hash("text", "");
         Long count = HelperUtils.integerArg("count", options.hash("count"));
         Long rating = HelperUtils.integerArg("rating", options.hash("rating"));
@@ -80,20 +77,12 @@ public class TopicsHelperSource {
 
         StringBuilder buf = new StringBuilder();
         if (arrow) {
-            if (Utils.biff(time)) { // FIXME deprecated?
-                buf.append("<li class=\"topics-ner-arrow\">");
-            } else {
-                buf.append("<li class=\"topics-arrow\">");
-            }
+            buf.append("<li class=\"topics-arrow\">");
         } else {
-            if (Utils.biff(time)) {
-                buf.append("<li class=\"topics-ner\">");
+            if (noBullet) {
+                buf.append("<li class=\"topics-nobullet\">");
             } else {
-                if (noBullet) {
-                    buf.append("<li class=\"topics-nobullet\">");
-                } else {
-                    buf.append("<li>");
-                }
+                buf.append("<li>");
             }
         }
         buf.append("<a");
@@ -109,6 +98,7 @@ public class TopicsHelperSource {
         }
         buf.append("</a>");
         if (rating != null) {
+            buf.append("&nbsp;");
             buf.append(voteHelperSource.rating(rating));
         }
         buf.append("</li>");

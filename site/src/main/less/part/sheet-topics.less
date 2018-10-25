@@ -1,13 +1,11 @@
-UL.eightpt LI {
-    padding-top: 2px;
-    padding-bottom: 2px;
-}
-
 .topics {
-	margin: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: 0.5em;
+	margin-right: 0;
 	padding: 0;
-	list-style-type: none;
-	line-height: normal;
+    list-style-type: "\2022";
+    line-height: normal;
 
     &-header {
         width: 100%;
@@ -22,61 +20,48 @@ UL.eightpt LI {
     }
 
     LI {
-        padding-bottom: 4px;
-        padding-left: 15px;
-        background: url('/pics/bullet.gif') no-repeat top left;
+        padding-left: 0.5em;
+        margin-bottom: 3pt;
 
-        &.topics {
-            &-static {
-                background-image: url('/pics/bullet-mrd.gif');
-            }
-
-            &-arrow {
-                font-weight: bold;
-                background-image: url('/pics/arrow.gif');
-            }
-
-            &-ner-arrow {
-                font-weight: bold;
-                background-image: url('/pics/arrow-ner.gif');
-            }
-
-            &-ner {
-                background-image: url('/pics/ner-small.gif');
-            }
-
-            &-nobullet {
-                background-image: none;
-                padding-left: 0;
-            }
-
-            &-subtable {
-                display: inline-block;	// Fixes extra space in IE
-                background-image: none;
-            }
-
-            &-view-all {
-                background-image: none;
-                padding-left: 0;
-                font-weight: bold;
-                font-size: 8pt;
-                text-align: center;
-            }
-
-            &-section {
-                background-image: none;
-                padding-left: 0;
-                color: @topics_section;
-                font-weight: bold;
-                font-size: 8pt;
-                margin-top: 10px;
-            }
-
-            &-comment {
-                background-image: none;
-                color: @topics_comment;
-            }
+        &.topics-static {
+            /* background-image: url('/pics/bullet-mrd.gif'); FIXME */
         }
+
+        &.topics-arrow {
+            font-weight: bold;
+            list-style-type: "\25B8";
+        }
+
+        &.topics-nobullet {
+            list-style-type: none;
+            padding-left: 0;
+            margin-left: -0.5em;
+        }
+
+        &.topics-subtable {
+            display: inline-block;	// Fixes extra space in IE
+            list-style-type: none;
+        }
+
+        &.topics-view-all {
+            list-style-type: none;
+            padding-left: 0;
+            margin-left: -0.5em;
+            font-weight: bold;
+            font-size: 8pt;
+            text-align: center;
+        }
+
+        &.topics-section {
+            list-style-type: none;
+            padding-left: 0;
+            margin-left: -0.5em;
+            margin-top: 10px;
+            color: @topics_section;
+            font-weight: bold;
+            font-size: 8pt;
+        }
+
     }
 
     A.edit {
@@ -95,15 +80,6 @@ UL.eightpt LI {
         &:hover {
             color: @topics_names_hover;
             text-decoration: underline;
-        }
-    }
-
-    A.new { //FIXME remake
-        color: @topics_new;
-        font-style: italic;
-
-        &:hover { //FIXME remake
-            color: @topics_names_hover;
         }
     }
 
