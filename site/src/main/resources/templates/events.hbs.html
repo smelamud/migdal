@@ -1,0 +1,48 @@
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        <td width="150" class="eframe">
+            {{> (topicsPartial)}}
+            {{> part/ears}}
+        </td>
+        <td class="cframe">
+            {{subtitle}}
+            <div style="display: flex; margin-left: 4em">
+                {{#if picture}}
+                    {{#if picture.hasImage}}
+                        <div style="flex: none; width: 200px">
+                            {{#assign "href"}}/{{picture.catalog}}{{/assign}}
+                            {{postingImage posting=picture href=href title=picture.parent.subject}}
+                        </div>
+                    {{/if}}
+                {{/if}}
+                <div style="flex: auto; margin-left: 20px">
+                    <div class="textears-title">Последние события:</div>
+                    <ul class="ninept" style="padding-left: 1em; margin-top: 1ex;">
+                        {{#each lastEvents}}
+                            <li>
+                                <a href="/{{catalog}}" title="{{bodyNormal}}">{{comment0}}</a>
+                            </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap">
+                {{#each eventGroups}}
+                    <div style="flex: none; width: 180px; margin-right: 20px; margin-bottom: 2ex">
+                        {{#topicsTable class="ninept" title=element.subject}}
+                            {{#each children}}
+                                {{#assign "href"}}/{{element.catalog}}{{/assign}}
+                                {{topicsLine text=element.comment1 title=element.bodyNormal href=href class="none"}}
+                            {{/each}}
+                        {{/topicsTable}}
+                    </div>
+                {{/each}}
+            </div>
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}

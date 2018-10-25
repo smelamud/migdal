@@ -1,0 +1,19 @@
+{{upperLevel name="Мигдаль" href="/migdal/"}}
+{{#topicsTable class="ninept" title="События"}}
+    {{topicsLine text="Все события" href="/migdal/events/" index="migdal.events"}}
+    {{#assign "year"}}{{/assign}}
+    {{#each events}}
+        {{#ifne year yearName}}
+            {{topicsSection title=yearName}}
+            {{#assign "year"}}{{yearName}}{{/assign}}
+            {{#writable this}}
+                <li class="topics-nobullet eightpt">
+                    <a href="/migdal/events/reorder?year={{index2}}&amp;back={{ue rc.location}}"
+                       class="eightpt">Расставить</a>
+                </li>
+            {{/writable}}
+        {{/ifne}}
+        {{#assign "href"}}/{{catalog}}{{/assign}}
+        {{topicsLine text=comment0 title=bodyNormal href=href index=id}}
+    {{/each}}
+{{/topicsTable}}

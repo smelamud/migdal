@@ -18,6 +18,11 @@ public class TreeNode<T extends TreeElement> {
         this.id = id;
     }
 
+    public TreeNode(long id, T element) {
+        this.id = id;
+        this.element = element;
+    }
+
     public TreeNode(long id, TreeNode<T> parent) {
         this.id = id;
         this.parent = parent;
