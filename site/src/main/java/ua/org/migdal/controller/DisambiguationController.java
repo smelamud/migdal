@@ -75,11 +75,26 @@ public class DisambiguationController {
         if (posting.getCatalog().startsWith("veterans/")) {
             return perUserController.veteransUserLocationInfo(posting.getUser(), model);
         }
-        if (posting.getCatalog().startsWith("migdal/printings/")) {
-            return migdalController.printingsLocationInfo(model);
+        if (posting.getCatalog().startsWith("migdal/library/")) {
+            return migdalController.libraryNoveltiesLocationInfo(model);
+        }
+        if (posting.getCatalog().startsWith("migdal/museum/")) {
+            return migdalController.museumNewsLocationInfo(model);
+        }
+        if (posting.getCatalog().startsWith("migdal/mazltov/")) {
+            return migdalController.mazltovNewsLocationInfo(model);
+        }
+        if (posting.getCatalog().startsWith("migdal/beitenu/")) {
+            return migdalController.beitenuNewsLocationInfo(model);
         }
         if (posting.getCatalog().startsWith("migdal/methodology/")) {
             return migdalController.methodologyBooksLocationInfo(model);
+        }
+        if (posting.getCatalog().startsWith("migdal/printings/")) {
+            return migdalController.printingsLocationInfo(model);
+        }
+        if (posting.getCatalog().startsWith("migdal/")) {
+            return migdalController.migdalNewsLocationInfo(model);
         }
         if (posting.getGrp() == grpEnum.grpValue("FORUMS")) {
             return forumController.forumLocationInfo(model);

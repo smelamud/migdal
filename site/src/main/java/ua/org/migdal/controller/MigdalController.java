@@ -110,6 +110,11 @@ public class MigdalController {
                 .withTranslationHref("/events");
     }
 
+    public LocationInfo migdalNewsLocationInfo(Model model) {
+        Topic topic = topicManager.beg(identManager.idOrIdent("migdal"));
+        return migdalNewsLocationInfo(topic, model);
+    }
+
     private String migdalNews(Topic topic, Integer offset, Model model) {
         model.addAttribute("topic", topic);
         indexController.addPostings("TAPE", topic, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"},
@@ -547,6 +552,11 @@ public class MigdalController {
                 .withPageTitleRelative("Новости");
     }
 
+    public LocationInfo museumNewsLocationInfo(Model model) {
+        Topic topic = topicManager.beg(identManager.idOrIdent("migdal.museum"));
+        return museumNewsLocationInfo(topic, model);
+    }
+
     @GetMapping("/migdal/museum/gallery")
     public String museumGallery(
             @RequestParam(defaultValue = "0") Integer offset,
@@ -708,6 +718,11 @@ public class MigdalController {
                 .withPageTitleRelative("Новости");
     }
 
+    public LocationInfo mazltovNewsLocationInfo(Model model) {
+        Topic topic = topicManager.beg(identManager.idOrIdent("migdal.mazltov"));
+        return mazltovNewsLocationInfo(topic, model);
+    }
+
     @GetMapping("/migdal/mazltov/gallery")
     public String mazltovGallery(
             @RequestParam(defaultValue = "0") Integer offset,
@@ -820,6 +835,11 @@ public class MigdalController {
                 .withParent(beitenuLocationInfo(null))
                 .withPageTitle(topic.getSubject() + " - Новости")
                 .withPageTitleRelative("Новости");
+    }
+
+    public LocationInfo beitenuNewsLocationInfo(Model model) {
+        Topic topic = topicManager.beg(identManager.idOrIdent("migdal.beitenu"));
+        return beitenuNewsLocationInfo(topic, model);
     }
 
     @GetMapping("/migdal/beitenu/gallery")
