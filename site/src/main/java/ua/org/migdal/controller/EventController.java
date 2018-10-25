@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.org.migdal.controller.exception.PageNotFoundException;
+import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.util.TreeNode;
 import ua.org.migdal.location.LocationInfo;
@@ -34,6 +36,9 @@ public class EventController {
 
     @Inject
     private MigdalController migdalController;
+
+    @Inject
+    private EntryController entryController;
 
     @GetMapping("/migdal/events")
     public String events(Model model) throws PageNotFoundException {
@@ -92,4 +97,24 @@ public class EventController {
                 .withPageTitle("События")
                 .withTranslationHref("/events");
     }
+
+    @GetMapping("/migdal/events/reorder")
+    public String eventsReorder(
+            @RequestParam Long year,
+            Model model) {
+
+        eventsReorderLocationInfo(model);
+
+        Iterable<Topic> topics = topicManager.begAll(
+                identManager.idOrIdent("migdal.events"), true, year, Sort.Direction.ASC, "index0");
+        return entryController.entryReorder(topics, EntryType.TOPIC, model);
+    }
+
+    public LocationInfo eventsReorderLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/printings/reorder")
+                .withParent(eventsLocationInfo(null))
+                .withPageTitle("Расстановка событий");
+    }
+
 }

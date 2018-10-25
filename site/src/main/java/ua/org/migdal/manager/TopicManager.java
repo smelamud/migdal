@@ -128,14 +128,22 @@ public class TopicManager implements EntryManagerBase<Topic> {
     }
 
     public Iterable<Topic> begAll(long upId, boolean recursive, Sort.Direction sortDirection, String... sortField) {
-        QTopic topic = QTopic.topic;
-        return topicRepository.findAll(getWhere(topic, upId, recursive), new Sort(sortDirection, sortField));
+        return begAll(upId, recursive, null, sortDirection, sortField);
     }
 
-    private Predicate getWhere(QTopic topic, long upId, boolean recursive) {
+    public Iterable<Topic> begAll(long upId, boolean recursive, Long index2,
+                                  Sort.Direction sortDirection, String... sortField) {
+        QTopic topic = QTopic.topic;
+        return topicRepository.findAll(getWhere(topic, upId, recursive, index2), new Sort(sortDirection, sortField));
+    }
+
+    private Predicate getWhere(QTopic topic, long upId, boolean recursive, Long index2) {
         BooleanBuilder where = new BooleanBuilder();
         if (upId > 0) {
             where.and(recursive ? trackManager.subtree(topic.track, upId) : topic.up.id.eq(upId));
+        }
+        if (index2 != null) {
+            where.and(topic.index2.eq(index2));
         }
         where.and(getPermFilter(topic, Perm.READ));
         return where;
@@ -161,7 +169,7 @@ public class TopicManager implements EntryManagerBase<Topic> {
     public Iterable<Topic> begGrandchildren(long upId) {
         QTopic topic = QTopic.topic;
         BooleanBuilder where = new BooleanBuilder();
-        where.and(getWhere(topic, upId, true));
+        where.and(getWhere(topic, upId, true, null));
         where.and(topic.up.id.ne(upId));
         where.and(topic.id.ne(upId));
         return topicRepository.findAll(where, new Sort(Sort.Direction.DESC, "index2", "index0"));

@@ -2,7 +2,7 @@
 {{> part/top}}
 
 <form method="post" action="/actions/entry/reorder">
-    {{#formTable title="Расстановка" mini=true miniTitle=true}}
+    {{#formTable title=pageTitle mini=true miniTitle=true}}
         {{formErrors}}
         {{hidden name="back" value=rc.location}}
         {{hidden name="origin" value=rc.back}}
