@@ -14,12 +14,12 @@
 {{/inline}}
 
 {{#*inline "navi_forum"}}
-    {{topicsLine index="forum" href="/forum/" text="Все обсуждения" class="topics-item eightpt"}}
+    {{topicsLine index="forum" href="/forum/" text="Все обсуждения"}}
 {{/inline}}
 
 {{#*inline "navi_archive"}}
-    {{topicsLine index="archive" href="/archive/" text="Архив" class="topics-item eightpt"}}
-    {{topicsLine index="chat-archive" href="/chat-archive/" text="Архив чата" class="topics-item eightpt"}}
+    {{topicsLine index="archive" href="/archive/" text="Архив"}}
+    {{topicsLine index="chat-archive" href="/chat-archive/" text="Архив чата"}}
 {{/inline}}
 
 {{#topicsTable title="Разделы"}}
@@ -27,12 +27,13 @@
     {{> navi_migdal}}
     {{> part/topics-migdal}}
     {{> general}}
-
-    {{topicsSplitter}}
+{{/topicsTable}}
+<br>
+{{#topicsTable class="eightpt"}}
     {{> navi_forum}}
     {{> navi_archive}}
     {{#adminTopics}}
-        <li class="topics-nobullet eightpt">
+        <li class="topics-nobullet">
             <a href="/major/">Изменить</a>
         </li>
     {{/adminTopics}}
