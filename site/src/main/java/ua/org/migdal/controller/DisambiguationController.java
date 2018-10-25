@@ -78,6 +78,9 @@ public class DisambiguationController {
         if (posting.getCatalog().startsWith("migdal/printings/")) {
             return migdalController.printingsLocationInfo(model);
         }
+        if (posting.getCatalog().startsWith("migdal/methodology/")) {
+            return migdalController.methodologyBooksLocationInfo(model);
+        }
         if (posting.getGrp() == grpEnum.grpValue("FORUMS")) {
             return forumController.forumLocationInfo(model);
         }
