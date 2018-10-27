@@ -139,7 +139,7 @@ public class PostingViewController {
         return new LocationInfo(model)
                 .withUri(posting.getGrpDetailsHref())
                 .withMenuMain(generalView.getMenuMain())
-                .withTopics(generalView.getTopics())
+                .withTopics(generalView.getTopics(), posting)
                 .withTopicsIndex(generalView.getTopicsIndex())
                 .withParent(generalView)
                 .withPageTitle(posting.getHeading());

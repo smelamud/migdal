@@ -198,7 +198,6 @@ public class MigdalController {
 
         postingViewController.addPostingView(model, posting, null, null);
         earController.addEars(model);
-        addHistory(posting.getTopicId(), model);
 
         return "migdal";
     }
@@ -218,6 +217,11 @@ public class MigdalController {
         return choirLocationInfo(posting, model);
     }
 
+    @TopicsMapping("topics-choir")
+    protected void addChoir(Model model) {
+        addHistory(identManager.idOrIdent("migdal.jcc.choir"), model);
+    }
+
     @GetMapping("/migdal/jcc/choir/{id}")
     public String choirHistory(@PathVariable long id, Model model) throws PageNotFoundException {
         Posting posting = postingManager.beg(id);
@@ -229,7 +233,6 @@ public class MigdalController {
 
         postingViewController.addPostingView(model, posting, null, null);
         earController.addEars(model);
-        addHistory(posting.getTopicId(), model);
 
         return "migdal";
     }
@@ -257,7 +260,6 @@ public class MigdalController {
 
         postingViewController.addPostingView(model, posting, null, null);
         earController.addEars(model);
-        addHistory(posting.getTopicId(), model);
 
         return "migdal";
     }
@@ -277,6 +279,11 @@ public class MigdalController {
         return dancesLocationInfo(posting, model);
     }
 
+    @TopicsMapping("topics-dances")
+    protected void addDances(Model model) {
+        addHistory(identManager.idOrIdent("migdal.jcc.dances"), model);
+    }
+
     @GetMapping("/migdal/jcc/dances/{id}")
     public String dancesHistory(@PathVariable long id, Model model) throws PageNotFoundException {
         Posting posting = postingManager.beg(id);
@@ -288,7 +295,6 @@ public class MigdalController {
 
         postingViewController.addPostingView(model, posting, null, null);
         earController.addEars(model);
-        addHistory(posting.getTopicId(), model);
 
         return "migdal";
     }
@@ -495,7 +501,7 @@ public class MigdalController {
     public LocationInfo museumLocationInfo(Posting posting, Model model) {
         return new LocationInfo(model)
                 .withUri("/migdal/museum")
-                .withTopics("topics-museum", posting.getTopicId())
+                .withTopics("topics-museum")
                 .withTopicsIndex("migdal.museum")
                 .withParent(migdalLocationInfo(null))
                 .withPageTitle(posting.getHeading())
@@ -509,14 +515,10 @@ public class MigdalController {
     }
 
     @TopicsMapping("topics-museum")
-    protected void addMuseum(long museumTopicId, Model model) {
+    protected void addMuseum(Model model) {
+        long topicId = identManager.idOrIdent("migdal.museum");
         addEvents("confs", "confsEvents", "migdal.events.science-confs", model);
-        addHistory(museumTopicId, model);
-    }
-
-    void addMuseum(Model model) {
-        Topic topic = topicManager.beg(identManager.idOrIdent("migdal.museum"));
-        addMuseum(topic.getId(), model);
+        addHistory(topicId, model);
     }
 
     @GetMapping("/migdal/museum/news")
@@ -538,7 +540,7 @@ public class MigdalController {
     public LocationInfo museumNewsLocationInfo(Topic topic, Model model) {
         return new LocationInfo(model)
                 .withUri("/migdal/museum/news")
-                .withTopics("topics-museum", topic.getId())
+                .withTopics("topics-museum")
                 .withTopicsIndex("migdal.museum.news")
                 .withParent(museumLocationInfo(null))
                 .withPageTitle(topic.getSubject() + " - Новости")
@@ -572,7 +574,7 @@ public class MigdalController {
     public LocationInfo museumGalleryLocationInfo(Topic topic, Model model) {
         return new LocationInfo(model)
                 .withUri("/migdal/museum/gallery")
-                .withTopics("topics-museum", topic.getId())
+                .withTopics("topics-museum")
                 .withTopicsIndex("migdal.museum.gallery")
                 .withParent(museumLocationInfo(null))
                 .withPageTitle(topic.getSubject() + " - Галерея")

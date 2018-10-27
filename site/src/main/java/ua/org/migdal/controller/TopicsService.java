@@ -2,9 +2,9 @@ package ua.org.migdal.controller;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+
+import ua.org.migdal.data.Posting;
 
 @Service
 public class TopicsService {
@@ -39,6 +41,15 @@ public class TopicsService {
                 if (mapping == null) {
                     continue;
                 }
+                if (method.getParameterCount() != 1 && method.getParameterCount() != 2) {
+                    continue;
+                }
+                if (method.getParameterTypes()[method.getParameterCount() - 1] != Model.class) {
+                    continue;
+                }
+                if (method.getParameterCount() == 2 && method.getParameterTypes()[0] != Posting.class) {
+                    continue;
+                }
                 if (!StringUtils.isEmpty(mapping.value())) {
                     mappings.put(mapping.value(), Pair.of(controller, method));
                 }
@@ -46,23 +57,20 @@ public class TopicsService {
         }
     }
 
-    public void executeMethod(String templateName, Object[] parameters, Model model) {
+    public void executeMethod(String templateName, Posting posting, Model model) {
         Pair<Object, Method> target = mappings.get(templateName);
         if (target == null) {
             return;
         }
+        Object controller = target.getFirst();
         Method method = target.getSecond();
-        parameters = parameters != null ? parameters : new Object[0];
-        if (method.getParameterCount() != parameters.length + 1) {
-            return;
-        }
-        if (method.getParameterTypes()[parameters.length] != Model.class) {
-            return;
-        }
         try {
-            Object[] invocationParameters = Arrays.copyOf(parameters, parameters.length + 1);
-            invocationParameters[parameters.length] = model;
-            method.invoke(target.getFirst(), invocationParameters);
+            if (method.getParameterCount() == 1) {
+                method.invoke(controller, model);
+            }
+            if (method.getParameterCount() == 2) {
+                method.invoke(controller, posting, model);
+            }
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
