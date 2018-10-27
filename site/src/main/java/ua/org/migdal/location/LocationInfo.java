@@ -11,6 +11,7 @@ import java.util.Deque;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
+import ua.org.migdal.controller.TopicsService;
 
 public class LocationInfo {
 
@@ -188,9 +189,12 @@ public class LocationInfo {
         return this;
     }
 
-    public LocationInfo withTopics(String topics) {
+    public LocationInfo withTopics(String topics, Object... parameters) {
         this.topics = topics;
         addAttribute("topics", topics);
+        if (model != null) {
+            TopicsService.getInstance().executeMethod(topics, parameters, model);
+        }
         return this;
     }
 

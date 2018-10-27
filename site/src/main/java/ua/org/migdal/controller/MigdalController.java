@@ -57,7 +57,6 @@ public class MigdalController {
         migdalLocationInfo(posting, model);
 
         postingViewController.addPostingView(model, posting, null, null);
-        indexController.addMajors(model);
         earController.addEars(model);
 
         return "migdal";
@@ -93,7 +92,6 @@ public class MigdalController {
         migdalNewsLocationInfo(topic, model);
 
         model.addAttribute("events", topicManager.begGrandchildren(identManager.idOrIdent("migdal.events")));
-        indexController.addMajors(model);
         earController.addEars(model);
 
         return migdalNews(topic, offset, model);
@@ -133,14 +131,14 @@ public class MigdalController {
 
         jccLocationInfo(posting, model);
 
-        addJcc(model);
         postingViewController.addPostingView(model, posting, null, null);
         earController.addEars(model);
 
         return "migdal";
     }
 
-    private void addJcc(Model model) {
+    @TopicsMapping("topics-jcc")
+    protected void addJcc(Model model) {
         long jccId = identManager.idOrIdent("migdal.jcc");
         model.addAttribute("jcc", topicManager.beg(jccId));
         Postings p = Postings.all().grp("REVIEWS").topic(jccId).asGuest().sort(Sort.Direction.ASC, "index0");
@@ -327,7 +325,6 @@ public class MigdalController {
 
         postingViewController.addPostingView(model, posting, null, null);
         earController.addEars(model);
-        addStudent(model);
 
         return "migdal";
     }
@@ -362,7 +359,6 @@ public class MigdalController {
 
         indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
         earController.addEars(model);
-        addStudent(model);
 
         return "gallery";
     }
@@ -378,7 +374,8 @@ public class MigdalController {
                 .withPageTitleFull("Мигдаль :: " + topic.getSubject() + " - Галерея");
     }
 
-    private void addStudent(Model model) {
+    @TopicsMapping("topics-student")
+    protected void addStudent(Model model) {
         addEvents("confs", "confsEvents", "migdal.events.youth-confs", model);
         addEvents("kvorim", "kvorimEvents", "migdal.events.kvorim", model);
         addEvents("other", "otherEvents", "migdal.events.other", model);
@@ -393,7 +390,6 @@ public class MigdalController {
 
         jccArticleLocationInfo(posting, model);
 
-        addJcc(model);
         postingViewController.addPostingView(model, posting, null, null);
         earController.addEars(model);
 
@@ -419,7 +415,6 @@ public class MigdalController {
 
         libraryLocationInfo(posting, model);
 
-        addLibrary(model);
         postingViewController.addPostingView(model, posting, null, null);
         earController.addEars(model);
         Postings p = Postings.all()
@@ -432,7 +427,8 @@ public class MigdalController {
         return "migdal-library";
     }
 
-    private void addLibrary(Model model) {
+    @TopicsMapping("topics-library")
+    protected void addLibrary(Model model) {
         addEvents("aboker", "abokerEvents", "migdal.events.ad-or-aboker", model);
         addEvents("ofek", "ofekEvents", "migdal.events.ofek", model);
     }
@@ -440,7 +436,7 @@ public class MigdalController {
     public LocationInfo libraryLocationInfo(Posting posting, Model model) {
         return new LocationInfo(model)
                 .withUri("/migdal/library")
-                .withTopics("topics-migdal-library")
+                .withTopics("topics-library")
                 .withTopicsIndex("migdal.library")
                 .withParent(migdalLocationInfo(null))
                 .withPageTitle(posting.getHeading())
@@ -464,7 +460,6 @@ public class MigdalController {
 
         libraryNoveltiesLocationInfo(model);
 
-        addLibrary(model);
         earController.addEars(model);
         indexController.addPostings("PRINTINGS", topic, null, new String[] {"PRINTINGS"}, topic.isPostable(),
                                     offset, 20, model);
@@ -475,7 +470,7 @@ public class MigdalController {
     public LocationInfo libraryNoveltiesLocationInfo(Model model) {
         return new LocationInfo(model)
                 .withUri("/migdal/library/novelties")
-                .withTopics("topics-migdal-library")
+                .withTopics("topics-library")
                 .withTopicsIndex("migdal.library.novelties")
                 .withParent(libraryLocationInfo(null))
                 .withPageTitle("Новинки библиотеки")
@@ -491,7 +486,6 @@ public class MigdalController {
 
         museumLocationInfo(posting, model);
 
-        addMuseum(posting.getTopicId(), model);
         postingViewController.addPostingView(model, posting, null, null);
         earController.addEars(model);
 
@@ -501,7 +495,7 @@ public class MigdalController {
     public LocationInfo museumLocationInfo(Posting posting, Model model) {
         return new LocationInfo(model)
                 .withUri("/migdal/museum")
-                .withTopics("topics-museum")
+                .withTopics("topics-museum", posting.getTopicId())
                 .withTopicsIndex("migdal.museum")
                 .withParent(migdalLocationInfo(null))
                 .withPageTitle(posting.getHeading())
@@ -514,7 +508,8 @@ public class MigdalController {
         return museumLocationInfo(posting, model);
     }
 
-    private void addMuseum(long museumTopicId, Model model) {
+    @TopicsMapping("topics-museum")
+    protected void addMuseum(long museumTopicId, Model model) {
         addEvents("confs", "confsEvents", "migdal.events.science-confs", model);
         addHistory(museumTopicId, model);
     }
@@ -536,16 +531,14 @@ public class MigdalController {
 
         museumNewsLocationInfo(topic, model);
 
-        addMuseum(topic.getId(), model);
         earController.addEars(model);
-
         return migdalNews(topic, offset, model);
     }
 
     public LocationInfo museumNewsLocationInfo(Topic topic, Model model) {
         return new LocationInfo(model)
                 .withUri("/migdal/museum/news")
-                .withTopics("topics-museum")
+                .withTopics("topics-museum", topic.getId())
                 .withTopicsIndex("migdal.museum.news")
                 .withParent(museumLocationInfo(null))
                 .withPageTitle(topic.getSubject() + " - Новости")
@@ -572,7 +565,6 @@ public class MigdalController {
 
         indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
         earController.addEars(model);
-        addMuseum(topic.getId(), model);
 
         return "gallery";
     }
@@ -580,7 +572,7 @@ public class MigdalController {
     public LocationInfo museumGalleryLocationInfo(Topic topic, Model model) {
         return new LocationInfo(model)
                 .withUri("/migdal/museum/gallery")
-                .withTopics("topics-museum")
+                .withTopics("topics-museum", topic.getId())
                 .withTopicsIndex("migdal.museum.gallery")
                 .withParent(museumLocationInfo(null))
                 .withPageTitle(topic.getSubject() + " - Галерея")
@@ -597,7 +589,6 @@ public class MigdalController {
 
         migdalOrLocationInfo(posting, model);
 
-        addMigdalOr(posting.getTopicId(), model);
         postingViewController.addPostingView(model, posting, null, null);
         earController.addEars(model);
 
@@ -620,7 +611,8 @@ public class MigdalController {
         return migdalOrLocationInfo(posting, model);
     }
 
-    private void addMigdalOr(long migdalOrTopicId, Model model) {
+    @TopicsMapping("topics-migdal-or")
+    protected void addMigdalOr(Model model) {
         addEvents("tours", "toursEvents", "migdal.events.migdal-or-tours", model);
     }
 
@@ -639,7 +631,6 @@ public class MigdalController {
 
         indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
         earController.addEars(model);
-        addMigdalOr(topic.getId(), model);
 
         return "gallery";
     }
@@ -664,7 +655,6 @@ public class MigdalController {
 
         mazltovLocationInfo(posting, model);
 
-        addMazltov(posting.getTopicId(), model);
         postingViewController.addPostingView(model, posting, null, null);
         earController.addEars(model);
 
@@ -686,7 +676,8 @@ public class MigdalController {
         return mazltovLocationInfo(posting, model);
     }
 
-    private void addMazltov(long mazltovTopicId, Model model) {
+    @TopicsMapping("topics-mazltov")
+    protected void addMazltov(Model model) {
         addEvents("birth", "birthEvents", "migdal.events.mazltov-birth", model);
     }
 
@@ -702,7 +693,6 @@ public class MigdalController {
 
         mazltovNewsLocationInfo(topic, model);
 
-        addMazltov(topic.getId(), model);
         earController.addEars(model);
 
         return migdalNews(topic, offset, model);
@@ -738,7 +728,6 @@ public class MigdalController {
 
         indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
         earController.addEars(model);
-        addMazltov(topic.getId(), model);
 
         return "gallery";
     }
@@ -763,7 +752,6 @@ public class MigdalController {
 
         mazltovFunnyStoriesLocationInfo(posting, model);
 
-        addMazltov(posting.getTopicId(), model);
         postingViewController.addPostingView(model, posting, null, null);
         earController.addEars(model);
 
@@ -881,7 +869,6 @@ public class MigdalController {
 
         methodologyLocationInfo(posting, model);
 
-        addMethodology(model);
         indexController.addSeeAlso(posting.getTopicId(), model);
         postingViewController.addPostingView(model, posting, null, null);
         earController.addEars(model);
@@ -894,7 +881,8 @@ public class MigdalController {
         return "methodic-center";
     }
 
-    private void addMethodology(Model model) {
+    @TopicsMapping("topics-methodology")
+    protected void addMethodology(Model model) {
         addEvents("aboker", "abokerEvents", "migdal.events.ad-or-aboker", model);
         addEvents("halom", "halomEvents", "migdal.events.halom", model);
         addEvents("youth", "youthEvents", "migdal.events.youth-confs", model);
@@ -927,7 +915,6 @@ public class MigdalController {
 
         methodologyBooksLocationInfo(model);
 
-        addMethodology(model);
         earController.addEars(model);
         indexController.addPostings("BOOKS", topic, null, new String[] {"BOOKS"}, topic.isPostable(),
                 0, Integer.MAX_VALUE, model);
@@ -955,7 +942,6 @@ public class MigdalController {
         printingsLocationInfo(model);
 
         model.addAttribute("printings", topic);
-        indexController.addMajors(model);
         earController.addEars(model);
         indexController.addSeeAlso(topic.getId(), model);
         Postings p = Postings.all()
@@ -1028,7 +1014,6 @@ public class MigdalController {
         tzdakaLocationInfo(posting, model);
 
         postingViewController.addPostingView(model, posting, null, null);
-        indexController.addMajors(model);
         earController.addEars(model);
 
         return "migdal";

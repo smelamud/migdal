@@ -47,7 +47,6 @@ public class ForumController {
                         true,
                         offset,
                         20));
-        indexController.addMajors(model);
         earController.addEars(model);
 
         return "forums";

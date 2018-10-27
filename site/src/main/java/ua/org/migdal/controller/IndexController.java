@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +12,6 @@ import javax.inject.Inject;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,7 +68,6 @@ public class IndexController {
 
         indexLocationInfo(model);
 
-        addMajors(model);
         earController.addEars(model);
         addTextEars(model);
         addPostings("TAPE", null, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, true, offset, 20, model);
@@ -107,7 +104,6 @@ public class IndexController {
         majorLocationInfo(topic, model);
 
         model.addAttribute("topic", topic);
-        addMajors(model);
         earController.addEars(model);
         addSeeAlso(topic.getId(), model);
         addPostings("TAPE", topic, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, true, offset, 20, model);
@@ -126,7 +122,8 @@ public class IndexController {
                 .withPageTitle(topic.getSubject());
     }
 
-    public void addMajors(Model model) {
+    @TopicsMapping("topics-major")
+    protected void addMajors(Model model) {
         model.addAttribute("majors", crossEntryManager.getAll(LinkType.MAJOR, "major")
                                                       .stream()
                                                       .map(CrossEntry::getPeer)
@@ -189,10 +186,6 @@ public class IndexController {
     }
 
     private void addHitParade(Long topicId, Model model) {
-        List<Pair<Long, Boolean>> topicRoots = null;
-        if (topicId != null) {
-            topicRoots = Collections.singletonList(Pair.of(topicId, true));
-        }
         Postings p = Postings.all()
                              .topic(topicId, true)
                              .grp("WRITINGS")
@@ -249,7 +242,6 @@ public class IndexController {
         majorGalleryLocationInfo(topic, model);
 
         model.addAttribute("topic", topic);
-        addMajors(model);
         earController.addEars(model);
         addSeeAlso(topic.getId(), model);
         addGallery("GALLERY", topic, null, offset, 20, sort, model);
@@ -288,7 +280,6 @@ public class IndexController {
     }
 
     public LocationInfo majorGalleryLocationInfo(Topic topic, Model model) {
-        boolean withGallery = grpEnum.inGroup("GALLERY", topic.getGrp());
         return new LocationInfo(model)
                 .withUri("/" + topic.getIdent() + "/gallery")
                 .withRssHref("/rss/")

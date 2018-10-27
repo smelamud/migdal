@@ -53,9 +53,6 @@ public class PostingViewController {
     private DisambiguationController disambiguationController;
 
     @Inject
-    private IndexController indexController;
-
-    @Inject
     private BookController bookController;
 
     @Inject
@@ -97,7 +94,6 @@ public class PostingViewController {
         if (locationInfo.getTopics().equals("topics-per-user")) {
             perUserController.addOwners(posting.getTopic(), model);
         }
-        indexController.addMajors(model);
         earController.addEars(model);
 
         return posting.getGrpDetailsTemplate();
