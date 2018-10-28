@@ -53,7 +53,7 @@ public class UserManager {
     public User beg(long id) {
         short hide = requestContext.isUserAdminUsers() ? (short) 2 : 1;
         User user = get(id);
-        return user.getHidden() <  hide ? user : null;
+        return user != null && user.getHidden() <  hide ? user : null;
     }
 
     public User getByLogin(String login) {
