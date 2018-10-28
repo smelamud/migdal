@@ -57,23 +57,25 @@ public class TopicsService {
         }
     }
 
-    public void executeMethod(String templateName, Posting posting, Model model) {
+    public String callMapping(String templateName, Posting posting, Model model) {
         Pair<Object, Method> target = mappings.get(templateName);
         if (target == null) {
-            return;
+            return null;
         }
         Object controller = target.getFirst();
         Method method = target.getSecond();
+        Object returnValue = null;
         try {
             if (method.getParameterCount() == 1) {
-                method.invoke(controller, model);
+                returnValue = method.invoke(controller, model);
             }
             if (method.getParameterCount() == 2) {
-                method.invoke(controller, posting, model);
+                returnValue = method.invoke(controller, posting, model);
             }
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
+        return returnValue != null ? returnValue.toString() : null;
     }
 
 }

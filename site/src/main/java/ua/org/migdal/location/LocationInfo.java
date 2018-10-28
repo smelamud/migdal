@@ -195,11 +195,12 @@ public class LocationInfo {
     }
 
     public LocationInfo withTopics(String topics, Posting posting) {
+        if (model != null) {
+            String mappedTopics = TopicsService.getInstance().callMapping(topics, posting, model);
+            topics = mappedTopics != null ? mappedTopics : topics;
+        }
         this.topics = topics;
         addAttribute("topics", topics);
-        if (model != null) {
-            TopicsService.getInstance().executeMethod(topics, posting, model);
-        }
         return this;
     }
 

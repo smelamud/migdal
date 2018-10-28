@@ -59,7 +59,7 @@ public class PerUserController {
         return new LocationInfo(model)
                 .withUri("/taglit")
                 .withRssHref("/rss/")
-                .withTopics("topics-per-user")
+                .withTopics("topics-taglit")
                 .withTopicsIndex("0")
                 .withParent(indexController.indexLocationInfo(null))
                 .withPageTitle("Таглит - Birthright")
@@ -68,7 +68,6 @@ public class PerUserController {
 
     // @GetMapping("/taglit/{folder}")
     public String taglitUser(String folder, Integer offset, String sort, Model model) throws PageNotFoundException {
-
         Topic topic = topicManager.beg(identManager.idOrIdent("taglit"));
         if (topic == null) {
             throw new PageNotFoundException();
@@ -87,11 +86,18 @@ public class PerUserController {
         return new LocationInfo(model)
                 .withUri("/taglit/" + user.getFolder())
                 .withRssHref("/rss/")
-                .withTopics("topics-per-user")
+                .withTopics("topics-taglit")
                 .withTopicsIndex(Long.toString(user.getId()))
                 .withParent(taglitLocationInfo(null))
                 .withPageTitle("Таглит - " + user.getFullName())
                 .withPageTitleRelative(user.getFullName().toString());
+    }
+
+    @TopicsMapping("topics-taglit")
+    protected String addTaglit(Model model) {
+        List<User> users = postingManager.getOwners(identManager.idOrIdent("taglit"));
+        model.addAttribute("users", users);
+        return "topics-per-user";
     }
 
     @GetMapping("/veterans")
@@ -110,7 +116,7 @@ public class PerUserController {
         return new LocationInfo(model)
                 .withUri("/veterans")
                 .withRssHref("/rss/")
-                .withTopics("topics-per-user")
+                .withTopics("topics-veterans")
                 .withTopicsIndex("0")
                 .withParent(indexController.indexLocationInfo(null))
                 .withPageTitle("Уголок ветерана");
@@ -118,7 +124,6 @@ public class PerUserController {
 
     // @GetMapping("/veterans/{folder}")
     public String veteransUser(String folder, Integer offset, String sort, Model model) throws PageNotFoundException {
-
         Topic topic = topicManager.beg(identManager.idOrIdent("veterans"));
         if (topic == null) {
             throw new PageNotFoundException();
@@ -137,33 +142,35 @@ public class PerUserController {
         return new LocationInfo(model)
                 .withUri("/veterans/" + user.getFolder())
                 .withRssHref("/rss/")
-                .withTopics("topics-per-user")
+                .withTopics("topics-veterans")
                 .withTopicsIndex(Long.toString(user.getId()))
                 .withParent(veteransLocationInfo(null))
                 .withPageTitle("Уголок ветерана - " + user.getFullName())
                 .withPageTitleRelative(user.getFullName().toString());
     }
 
-    private String perUser(Model model, Topic topic) {
-        model.addAttribute("topic", topic);
-        addOwners(topic, model);
-        earController.addEars(model);
-        return "per-user";
+    @TopicsMapping("topics-veterans")
+    protected String addVeterans(Model model) {
+        List<User> users = postingManager.getOwners(identManager.idOrIdent("veterans"));
+        model.addAttribute("users", users);
+        return "topics-per-user";
     }
 
-    void addOwners(Topic topic, Model model) {
+    private String perUser(Model model, Topic topic) {
+        model.addAttribute("topic", topic);
         List<User> users = postingManager.getOwners(topic.getId());
         users.forEach(u -> {
             Postings p = Postings.all().topic(topic.getId()).grp("GALLERY").user(u.getId());
             u.setPreview(postingManager.begRandomOne(p));
         });
         model.addAttribute("users", users);
+        earController.addEars(model);
+        return "per-user";
     }
 
     private String perUserUser(Topic topic, User user, Integer offset, String sort, Model model) {
         model.addAttribute("topic", topic);
         model.addAttribute("user", user);
-        addOwners(topic, model);
         indexController.addPostings(
                 "PERUSER_FORUMS",
                 topic,

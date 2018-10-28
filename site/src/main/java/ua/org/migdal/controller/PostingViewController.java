@@ -91,9 +91,6 @@ public class PostingViewController {
         LocationInfo locationInfo = generalPostingViewLocationInfo(posting, model);
 
         addPostingView(model, posting, offset, tid);
-        if (locationInfo.getTopics().equals("topics-per-user")) {
-            perUserController.addOwners(posting.getTopic(), model);
-        }
         earController.addEars(model);
 
         return posting.getGrpDetailsTemplate();
