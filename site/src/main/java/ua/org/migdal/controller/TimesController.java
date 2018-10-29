@@ -159,11 +159,6 @@ public class TimesController {
 
         postingViewController.addPostingView(model, posting, offset, tid);
         model.addAttribute("cover", cover);
-        Postings p = Postings.all()
-                             .grp("TIMES_ARTICLES")
-                             .index1(issue)
-                             .sort(Sort.Direction.ASC, "index0");
-        model.addAttribute("allArticles", postingManager.begAll(p));
         earController.addEars(model);
 
         return "article-times";
@@ -172,11 +167,27 @@ public class TimesController {
     public LocationInfo timesArticleLocationInfo(Posting cover, Posting posting, Model model) {
         return new LocationInfo(model)
                 .withUri(String.format("/times/%d/%d", posting.getIndex1(), posting.getId()))
-                .withTopics("topics-times")
+                .withTopics("topics-times", posting)
                 .withTopicsIndex(Long.toString(posting.getId()))
                 .withParent(timesIssueLocationInfo(cover, null))
                 .withMenuMain("times")
                 .withPageTitle(posting.getHeading());
+    }
+
+    @TopicsMapping("topics-times")
+    protected void addTimes(Posting posting, Model model) {
+        try {
+            Posting cover = begCover(posting.getIndex1());
+            model.addAttribute("cover", cover);
+
+            Postings p = Postings.all()
+                    .grp("TIMES_ARTICLES")
+                    .index1(posting.getIndex1())
+                    .sort(Sort.Direction.ASC, "index0");
+            model.addAttribute("allArticles", postingManager.begAll(p));
+        } catch (PageNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @GetMapping("/times/add")
