@@ -8,12 +8,16 @@ import org.springframework.ui.Model;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Posting;
+import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.Postings;
 
 @Controller
 public class BookController {
+
+    @Inject
+    private GrpEnum grpEnum;
 
     @Inject
     private PostingManager postingManager;
@@ -36,12 +40,6 @@ public class BookController {
         bookViewLocationInfo(book, model);
 
         postingViewController.addPostingView(model, book, offset, tid);
-        model.addAttribute("book", book);
-        Postings p = Postings.all()
-                             .grp("BOOK_CHAPTERS")
-                             .up(book.getId())
-                             .sort(Sort.Direction.ASC, "index0");
-        model.addAttribute("bookChapters", postingManager.begAll(p));
         model.addAttribute("firstChapter", postingManager.begFirstByIndex0(book.getId()));
         earController.addEars(model);
 
@@ -53,7 +51,7 @@ public class BookController {
         return new LocationInfo(model)
                 .withUri(book.getGrpDetailsHref())
                 .withMenuMain(generalView.getMenuMain())
-                .withTopics("topics-book")
+                .withTopics("topics-book", book)
                 .withTopicsIndex(Long.toString(book.getId()))
                 .withParent(generalView)
                 .withPageTitle(book.getHeading());
@@ -74,11 +72,6 @@ public class BookController {
 
         postingViewController.addPostingView(model, chapter, offset, tid);
         model.addAttribute("book", book);
-        Postings p = Postings.all()
-                             .grp("BOOK_CHAPTERS")
-                             .up(book.getId())
-                             .sort(Sort.Direction.ASC, "index0");
-        model.addAttribute("bookChapters", postingManager.begAll(p));
         model.addAttribute("prevChapter", postingManager.begNextByIndex0(book.getId(), chapter.getIndex0(), false));
         model.addAttribute("nextChapter", postingManager.begNextByIndex0(book.getId(), chapter.getIndex0(), true));
         earController.addEars(model);
@@ -91,11 +84,27 @@ public class BookController {
         return new LocationInfo(model)
                 .withUri(chapter.getGrpDetailsHref())
                 .withMenuMain(generalView.getMenuMain())
-                .withTopics("topics-book")
+                .withTopics("topics-book", chapter)
                 .withTopicsIndex(Long.toString(chapter.getId()))
                 .withParent(bookViewLocationInfo(book, null))
                 .withPageTitle(book.getHeading() + " - " + chapter.getHeading())
                 .withPageTitleRelative(chapter.getHeading());
+    }
+
+    @TopicsMapping("topics-book")
+    protected void addBook(Posting posting, Model model) {
+        Posting book;
+        if (posting.getGrp() == grpEnum.grpValue("BOOKS")) {
+            book = posting;
+        } else {
+            book = postingManager.beg(posting.getUp().getId());
+        }
+        model.addAttribute("book", book);
+        Postings p = Postings.all()
+                .grp("BOOK_CHAPTERS")
+                .up(book.getId())
+                .sort(Sort.Direction.ASC, "index0");
+        model.addAttribute("bookChapters", postingManager.begAll(p));
     }
 
 }
