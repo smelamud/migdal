@@ -44,6 +44,20 @@ public class CatalogUtils {
         }
     }
 
+    public static int length(String catalog) {
+        if (catalog == null) {
+            return 0;
+        }
+
+        int len = 0;
+        for (int i = 0; i < catalog.length(); i++) {
+            if (catalog.charAt(i) == '/') {
+                len++;
+            }
+        }
+        return len;
+    }
+
     public static String normalize(String catalog) {
         return !StringUtils.isEmpty(catalog) ? UriUtils.normalizePath(catalog, true, Slash.NO, Slash.YES) : "";
     }
