@@ -92,7 +92,7 @@ public class BookController {
     }
 
     @TopicsMapping("topics-book")
-    protected void addBook(Posting posting, Model model) {
+    protected void topicsBook(Posting posting, Model model) {
         Posting book;
         if (posting.getGrp() == grpEnum.grpValue("BOOKS")) {
             book = posting;

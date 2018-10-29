@@ -98,7 +98,7 @@ public class EventController {
     }
 
     @TopicsMapping("topics-events")
-    protected void addEvents(Model model) {
+    protected void topicsEvents(Model model) {
         model.addAttribute("events", topicManager.begAll(
                 identManager.idOrIdent("migdal.events"), true, Sort.Direction.DESC, "index2", "index0"));
     }

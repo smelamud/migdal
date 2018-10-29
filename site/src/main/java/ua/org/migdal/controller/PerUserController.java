@@ -94,7 +94,7 @@ public class PerUserController {
     }
 
     @TopicsMapping("topics-taglit")
-    protected String addTaglit(Model model) {
+    protected String topicsTaglit(Model model) {
         Topic topic = topicManager.beg(identManager.idOrIdent("taglit"));
         model.addAttribute("topic", topic);
         model.addAttribute("users", postingManager.getOwners(topic.getId()));
@@ -152,7 +152,7 @@ public class PerUserController {
     }
 
     @TopicsMapping("topics-veterans")
-    protected String addVeterans(Model model) {
+    protected String topicsVeterans(Model model) {
         Topic topic = topicManager.beg(identManager.idOrIdent("veterans"));
         model.addAttribute("topic", topic);
         model.addAttribute("users", postingManager.getOwners(topic.getId()));

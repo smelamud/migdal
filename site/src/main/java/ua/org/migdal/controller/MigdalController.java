@@ -138,7 +138,7 @@ public class MigdalController {
     }
 
     @TopicsMapping("topics-jcc")
-    protected void addJcc(Model model) {
+    protected void topicsJcc(Model model) {
         long jccId = identManager.idOrIdent("migdal.jcc");
         model.addAttribute("jcc", topicManager.beg(jccId));
         Postings p = Postings.all().grp("REVIEWS").topic(jccId).asGuest().sort(Sort.Direction.ASC, "index0");
@@ -218,7 +218,7 @@ public class MigdalController {
     }
 
     @TopicsMapping("topics-choir")
-    protected void addChoir(Model model) {
+    protected void topicsChoir(Model model) {
         addHistory(identManager.idOrIdent("migdal.jcc.choir"), model);
     }
 
@@ -280,7 +280,7 @@ public class MigdalController {
     }
 
     @TopicsMapping("topics-dances")
-    protected void addDances(Model model) {
+    protected void topicsDances(Model model) {
         addHistory(identManager.idOrIdent("migdal.jcc.dances"), model);
     }
 
@@ -381,7 +381,7 @@ public class MigdalController {
     }
 
     @TopicsMapping("topics-student")
-    protected void addStudent(Model model) {
+    protected void topicsStudent(Model model) {
         addEvents("confs", "confsEvents", "migdal.events.youth-confs", model);
         addEvents("kvorim", "kvorimEvents", "migdal.events.kvorim", model);
         addEvents("other", "otherEvents", "migdal.events.other", model);
@@ -434,7 +434,7 @@ public class MigdalController {
     }
 
     @TopicsMapping("topics-library")
-    protected void addLibrary(Model model) {
+    protected void topicsLibrary(Model model) {
         addEvents("aboker", "abokerEvents", "migdal.events.ad-or-aboker", model);
         addEvents("ofek", "ofekEvents", "migdal.events.ofek", model);
     }
@@ -515,7 +515,7 @@ public class MigdalController {
     }
 
     @TopicsMapping("topics-museum")
-    protected void addMuseum(Model model) {
+    protected void topicsMuseum(Model model) {
         long topicId = identManager.idOrIdent("migdal.museum");
         addEvents("confs", "confsEvents", "migdal.events.science-confs", model);
         addHistory(topicId, model);
@@ -614,7 +614,7 @@ public class MigdalController {
     }
 
     @TopicsMapping("topics-migdal-or")
-    protected void addMigdalOr(Model model) {
+    protected void topicsMigdalOr(Model model) {
         addEvents("tours", "toursEvents", "migdal.events.migdal-or-tours", model);
     }
 
@@ -679,7 +679,7 @@ public class MigdalController {
     }
 
     @TopicsMapping("topics-mazltov")
-    protected void addMazltov(Model model) {
+    protected void topicsMazltov(Model model) {
         addEvents("birth", "birthEvents", "migdal.events.mazltov-birth", model);
     }
 
@@ -884,7 +884,7 @@ public class MigdalController {
     }
 
     @TopicsMapping("topics-methodology")
-    protected void addMethodology(Model model) {
+    protected void topicsMethodology(Model model) {
         addEvents("aboker", "abokerEvents", "migdal.events.ad-or-aboker", model);
         addEvents("halom", "halomEvents", "migdal.events.halom", model);
         addEvents("youth", "youthEvents", "migdal.events.youth-confs", model);

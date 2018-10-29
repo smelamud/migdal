@@ -54,7 +54,7 @@ public class PrisonerController {
         model.addAttribute("sorts", SORTS);
         model.addAttribute("prisoners", prisonerManager.begAll(search, prefix, sort, offset, 50));
         earController.addEars(model);
-        migdalController.addMuseum(model);
+        migdalController.topicsMuseum(model);
 
         return "prisoners";
     }

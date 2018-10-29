@@ -124,7 +124,7 @@ public class IndexController {
     }
 
     @TopicsMapping("topics-major")
-    protected void addMajors(Model model) {
+    protected void topicsMajor(Model model) {
         model.addAttribute("majors", crossEntryManager.getAll(LinkType.MAJOR, "major")
                                                       .stream()
                                                       .map(CrossEntry::getPeer)
@@ -132,7 +132,7 @@ public class IndexController {
     }
 
     @TopicsMapping("topics-major-sub")
-    protected void addMajorSub(Posting posting, Model model) {
+    protected void topicsMajorSub(Posting posting, Model model) {
         model.addAttribute("topic", posting.getTopic());
     }
 

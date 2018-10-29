@@ -175,7 +175,7 @@ public class TimesController {
     }
 
     @TopicsMapping("topics-times")
-    protected void addTimes(Posting posting, Model model) {
+    protected void topicsTimes(Posting posting, Model model) {
         try {
             Posting cover = begCover(posting.getIndex1());
             model.addAttribute("cover", cover);
