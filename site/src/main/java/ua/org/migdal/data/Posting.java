@@ -39,6 +39,10 @@ public class Posting extends Entry {
     public Posting() {
     }
 
+    public Posting(Topic topic) { // used to create dummy postings
+        setParent(topic);
+    }
+
     public Posting(long grp, Topic topic, Entry up, long index1, RequestContext requestContext) {
         setGrp(grp);
         setParent(topic);

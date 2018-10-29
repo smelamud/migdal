@@ -1,7 +1,6 @@
 package ua.org.migdal.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -10,10 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
-import ua.org.migdal.data.CrossEntry;
 import ua.org.migdal.data.Image;
 import ua.org.migdal.data.InnerImage;
-import ua.org.migdal.data.LinkType;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.form.ForumForm;
 import ua.org.migdal.grp.GrpEnum;
@@ -102,12 +99,7 @@ public class PostingViewController {
         }
 
         model.addAttribute("posting", posting);
-        if (posting.isGrpPublisher()) {
-            posting.setPublishedEntries(
-                    crossEntryManager.getAll(LinkType.PUBLISH, posting.getId()).stream()
-                            .map(CrossEntry::getPeer)
-                            .collect(Collectors.toList()));
-        }
+        crossEntryManager.fetchPublishedEntries(posting);
         if (posting.isGrpInnerImages()) {
             List<InnerImage> innerImages = innerImageManager.getAll(posting.getId());
             innerImages.stream()
@@ -116,7 +108,6 @@ public class PostingViewController {
                     .forEach(requestContext::addOgImage);
             model.addAttribute("innerImages", innerImages);
         }
-        model.addAttribute("topic", posting.getTopic());
         addPostingComments(model, posting, offset, tid);
     }
 

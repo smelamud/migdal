@@ -1,12 +1,14 @@
 package ua.org.migdal.manager;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 import ua.org.migdal.data.CrossEntry;
 import ua.org.migdal.data.CrossEntryRepository;
 import ua.org.migdal.data.LinkType;
+import ua.org.migdal.data.Posting;
 
 @Service
 public class CrossEntryManager {
@@ -36,6 +38,15 @@ public class CrossEntryManager {
 
     public List<CrossEntry> getAll(LinkType linkType, long sourceId) {
         return crossEntryRepository.findAllByLinkTypeAndSourceIdOrderByPeerSubject(linkType, sourceId);
+    }
+
+    public void fetchPublishedEntries(Posting posting) {
+        if (posting.isGrpPublisher()) {
+            posting.setPublishedEntries(
+                    getAll(LinkType.PUBLISH, posting.getId()).stream()
+                            .map(CrossEntry::getPeer)
+                            .collect(Collectors.toList()));
+        }
     }
 
 }

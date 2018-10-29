@@ -108,6 +108,7 @@ public class IndexController {
         addSeeAlso(topic.getId(), model);
         addPostings("TAPE", topic, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, true, offset, 20, model);
         addHitParade(topic.getId(), model);
+
         return "index-www";
     }
 
@@ -116,7 +117,7 @@ public class IndexController {
         return new LocationInfo(model)
                 .withUri("/" + topic.getIdent())
                 .withRssHref("/rss/")
-                .withTopics(!withGallery ? "topics-major" : "topics-major-sub")
+                .withTopics(!withGallery ? "topics-major" : "topics-major-sub", new Posting(topic))
                 .withTopicsIndex(!withGallery ? topic.getIdent() : "news")
                 .withParent(indexLocationInfo(null))
                 .withPageTitle(topic.getSubject());
@@ -128,6 +129,11 @@ public class IndexController {
                                                       .stream()
                                                       .map(CrossEntry::getPeer)
                                                       .collect(Collectors.toList()));
+    }
+
+    @TopicsMapping("topics-major-sub")
+    protected void addMajorSub(Posting posting, Model model) {
+        model.addAttribute("topic", posting.getTopic());
     }
 
     void addSeeAlso(long id, Model model) {
@@ -245,6 +251,7 @@ public class IndexController {
         earController.addEars(model);
         addSeeAlso(topic.getId(), model);
         addGallery("GALLERY", topic, null, offset, 20, sort, model);
+
         return "gallery";
     }
 
@@ -283,7 +290,7 @@ public class IndexController {
         return new LocationInfo(model)
                 .withUri("/" + topic.getIdent() + "/gallery")
                 .withRssHref("/rss/")
-                .withTopics("topics-major-sub")
+                .withTopics("topics-major-sub", new Posting(topic))
                 .withTopicsIndex("gallery")
                 .withParent(majorLocationInfo(topic, null))
                 .withPageTitle(topic.getSubject() + " - Галерея")

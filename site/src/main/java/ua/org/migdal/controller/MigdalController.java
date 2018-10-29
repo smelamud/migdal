@@ -917,6 +917,7 @@ public class MigdalController {
 
         methodologyBooksLocationInfo(model);
 
+        model.addAttribute("topic", topic);
         earController.addEars(model);
         indexController.addPostings("BOOKS", topic, null, new String[] {"BOOKS"}, topic.isPostable(),
                 0, Integer.MAX_VALUE, model);
