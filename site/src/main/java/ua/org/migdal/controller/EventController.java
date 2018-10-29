@@ -50,7 +50,6 @@ public class EventController {
         eventsLocationInfo(model);
 
         Iterable<Topic> events = topicManager.begAll(eventsId, true, Sort.Direction.DESC, "index2", "index0");
-        model.addAttribute("events", events);
 
         List<Topic> lastEvents = new ArrayList<>();
         List<TreeNode<Topic>> eventGroups = new ArrayList<>();
@@ -96,6 +95,12 @@ public class EventController {
                 .withParent(migdalController.migdalLocationInfo(null))
                 .withPageTitle("События")
                 .withTranslationHref("/events");
+    }
+
+    @TopicsMapping("topics-events")
+    protected void addEvents(Model model) {
+        model.addAttribute("events", topicManager.begAll(
+                identManager.idOrIdent("migdal.events"), true, Sort.Direction.DESC, "index2", "index0"));
     }
 
     @GetMapping("/migdal/events/reorder")
