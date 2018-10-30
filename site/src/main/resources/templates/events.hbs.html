@@ -13,8 +13,7 @@
                 {{#if picture}}
                     {{#if picture.hasImage}}
                         <div style="flex: none; width: 200px">
-                            {{#assign "href"}}/{{picture.catalog}}{{/assign}}
-                            {{postingImage posting=picture href=href title=picture.parent.subject}}
+                            {{postingImage posting=picture href=picture.href title=picture.parent.subject}}
                         </div>
                     {{/if}}
                 {{/if}}
@@ -23,7 +22,7 @@
                     <ul class="ninept" style="padding-left: 1em; margin-top: 1ex;">
                         {{#each lastEvents}}
                             <li>
-                                <a href="/{{catalog}}" title="{{bodyNormal}}">{{comment0}}</a>
+                                <a href="{{href}}" title="{{bodyNormal}}">{{comment0}}</a>
                             </li>
                         {{/each}}
                     </ul>
@@ -34,8 +33,8 @@
                     <div style="flex: none; width: 180px; margin-right: 20px; margin-bottom: 2ex">
                         {{#topicsTable class="ninept" title=element.subject}}
                             {{#each children}}
-                                {{#assign "href"}}/{{element.catalog}}{{/assign}}
-                                {{topicsLine text=element.comment1 title=element.bodyNormal href=href class="none"}}
+                                {{topicsLine text=element.comment1 title=element.bodyNormal href=element.href
+                                             class="none"}}
                             {{/each}}
                         {{/topicsTable}}
                     </div>

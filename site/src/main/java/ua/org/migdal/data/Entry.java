@@ -369,6 +369,11 @@ public class Entry implements TreeElement {
         return CatalogUtils.sub(catalog, start, length);
     }
 
+    @Transient
+    public String getHref() {
+        return "/" + getCatalog();
+    }
+
     public Entry getParent() {
         return parent;
     }

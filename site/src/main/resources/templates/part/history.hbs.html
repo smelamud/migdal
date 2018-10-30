@@ -5,7 +5,6 @@
         {{#each history}}
             {{#ifne ident today}}
                 {{#assign "itemText"}}{{cal "gregorian-ru-gen-lc" "d MMMM yyyy" date=sent}}{{/assign}}
-                {{#assign "href"}}/{{catalog}}{{/assign}}
                 {{topicsLine text=itemText href=href index=id class="topics-item ninept"}}
             {{/ifne}}
         {{/each}}

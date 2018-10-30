@@ -12,7 +12,6 @@
     {{/postable}}
     {{#each jccReviews}}
         {{#ifne ident "post.migdal.jcc"}}
-            {{#assign "href"}}/{{catalog}}{{/assign}}
             {{topicsLine text=subject href=href index=id class="topics-item eightpt"}}
         {{/ifne}}
     {{/each}}

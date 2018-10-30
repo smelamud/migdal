@@ -62,11 +62,11 @@
         <div class="batcher">
             <div class="adder">
                 {{image "/pics/sheet.gif"}}
-                <a href="/{{topic.catalog}}add-peruser-forums?back={{ue rc.location}}">Добавить заметку</a>
+                <a href="{{topic.href}}add-peruser-forums?back={{ue rc.location}}">Добавить заметку</a>
             </div>
             <div class="adder">
                 {{image "/pics/sheet.gif"}}
-                <a href="/{{topic.catalog}}add-gallery?back={{ue rc.location}}">Добавить фотографию</a>
+                <a href="{{topic.href}}add-gallery?back={{ue rc.location}}">Добавить фотографию</a>
             </div>
             <div class="clear-floats"></div>
         </div>
@@ -91,7 +91,7 @@
             <div class="pictures-per-user">
                 {{#each users}}
                     <div class="picture-per-user">
-                        {{#assign "href"}}/{{topic.catalog}}{{folder}}{{/assign}}
+                        {{#assign "href"}}{{topic.href}}{{folder}}{{/assign}}
                         {{#if preview}}
                             {{#assign "imageUrl"}}{{preview.smallImageUrl}}{{/assign}}
                         {{else}}
