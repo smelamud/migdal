@@ -138,40 +138,14 @@ public class TimesController {
         return cover;
     }
 
-    @GetMapping("/times/{issue}/{id}")
-    public String timesArticle(
-            @PathVariable long issue,
-            Model model,
-            @RequestParam(defaultValue = "0") Integer offset,
-            @RequestParam(defaultValue = "0") Long tid) throws PageNotFoundException {
-
-        long id = identManager.postingIdFromRequestPath();
-        Posting posting = postingManager.beg(id);
-        if (posting == null) {
+    @DetailsMapping("topics-times")
+    protected void timesArticle(Posting posting, Model model) throws PageNotFoundException {
+        Posting cover = begCover(posting.getIndex1());
+        if (cover == null) {
             throw new PageNotFoundException();
         }
-        if (posting.getGrp() != grpEnum.grpValue("TIMES_ARTICLES") || posting.getIndex1() != issue) {
-            throw new PageNotFoundException();
-        }
-        Posting cover = begCover(issue);
 
-        timesArticleLocationInfo(cover, posting, model);
-
-        postingViewController.addPostingView(model, posting, offset, tid);
         model.addAttribute("cover", cover);
-        earController.addEars(model);
-
-        return "article-times";
-    }
-
-    public LocationInfo timesArticleLocationInfo(Posting cover, Posting posting, Model model) {
-        return new LocationInfo(model)
-                .withUri(String.format("/times/%d/%d", posting.getIndex1(), posting.getId()))
-                .withTopics("topics-times", posting)
-                .withTopicsIndex(Long.toString(posting.getId()))
-                .withParent(timesIssueLocationInfo(cover, null))
-                .withMenuMain("times")
-                .withPageTitle(posting.getHeading());
     }
 
     @TopicsMapping("topics-times")

@@ -620,6 +620,8 @@
   detailsHref:
     - href: "/times/${index1}/${id}/"
   detailsTemplate: article-times
+  detailsTopics: topics-times
+  detailsTopicsIndex: id
 
   title: "Статьи М.Т."
   what: "статью"
