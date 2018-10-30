@@ -47,6 +47,9 @@ public class PostingViewController {
     private CrossEntryManager crossEntryManager;
 
     @Inject
+    private DetailsService detailsService;
+
+    @Inject
     private DisambiguationController disambiguationController;
 
     @Inject
@@ -70,27 +73,22 @@ public class PostingViewController {
             throw new PageNotFoundException();
         }
 
-        if (posting.getGrp() == grpEnum.grpValue("BOOKS")) {
-            return bookController.bookView(posting, model, offset, tid);
-        } else if (posting.getGrp() == grpEnum.grpValue("BOOK_CHAPTERS")) {
-            return bookController.bookChapterView(posting, model, offset, tid);
-        } else {
-            return generalPostingView(posting, model, offset, tid);
-        }
+        return generalPostingView(posting, model, offset, tid);
     }
 
     private String generalPostingView(
             Posting posting,
             Model model,
             Integer offset,
-            Long tid) {
+            Long tid) throws PageNotFoundException {
 
-        LocationInfo locationInfo = generalPostingViewLocationInfo(posting, model);
+        generalPostingViewLocationInfo(posting, model);
 
         addPostingView(model, posting, offset, tid);
         earController.addEars(model);
 
-        return posting.getGrpDetailsTemplate();
+        String mappedTemplate = detailsService.callMapping(posting.getGrpDetailsTemplate(), posting, model);
+        return mappedTemplate != null ? mappedTemplate : posting.getGrpDetailsTemplate();
     }
 
     void addPostingView(Model model, Posting posting, Integer offset, Long tid) {
@@ -124,11 +122,25 @@ public class PostingViewController {
 
     public LocationInfo generalPostingViewLocationInfo(Posting posting, Model model) {
         LocationInfo generalView = disambiguationController.generalViewLocationInfo(posting, null);
+        String topics = posting.getGrpDetailsTopics().equals("parent")
+                                ? generalView.getTopics()
+                                : posting.getGrpDetailsTopics();
+        String topicsIndex;
+        switch (posting.getGrpDetailsTopicsIndex()) {
+            case "parent":
+                topicsIndex = generalView.getTopicsIndex();
+                break;
+            case "id":
+                topicsIndex = Long.toString(posting.getId());
+                break;
+            default:
+                topicsIndex = posting.getGrpDetailsTopicsIndex();
+        }
         return new LocationInfo(model)
                 .withUri(posting.getGrpDetailsHref())
                 .withMenuMain(generalView.getMenuMain())
-                .withTopics(generalView.getTopics(), posting)
-                .withTopicsIndex(generalView.getTopicsIndex())
+                .withTopics(topics, posting)
+                .withTopicsIndex(topicsIndex)
                 .withParent(generalView)
                 .withPageTitle(posting.getHeading());
     }

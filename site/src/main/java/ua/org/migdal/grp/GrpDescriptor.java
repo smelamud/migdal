@@ -54,6 +54,19 @@ public class GrpDescriptor {
     private String detailsTemplate = "posting";
 
     /**
+     * Topics to be shown in the detailed view of the posting.
+     * If set to "parent", the same topics as on the parent page are shown.
+     */
+    private String detailsTopics = "parent";
+
+    /**
+     * Index of the active element in the topics of the detailed view of the posting.
+     * If set to "parent", the same index as on the parent page is used.
+     * If set to "id", the posting ID is used.
+     */
+    private String detailsTopicsIndex = "parent";
+
+    /**
      * Partial to show the posting
      */
     private String partial = "posting-general";
@@ -193,6 +206,22 @@ public class GrpDescriptor {
 
     public void setDetailsTemplate(String detailsTemplate) {
         this.detailsTemplate = detailsTemplate;
+    }
+
+    public String getDetailsTopics() {
+        return detailsTopics;
+    }
+
+    public void setDetailsTopics(String detailsTopics) {
+        this.detailsTopics = detailsTopics;
+    }
+
+    public String getDetailsTopicsIndex() {
+        return detailsTopicsIndex;
+    }
+
+    public void setDetailsTopicsIndex(String detailsTopicsIndex) {
+        this.detailsTopicsIndex = detailsTopicsIndex;
     }
 
     public String getPartial() {

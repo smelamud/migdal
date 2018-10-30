@@ -100,6 +100,16 @@ public class Posting extends Entry {
     }
 
     @Transient
+    public String getGrpDetailsTopics() {
+        return getGrpDescriptor().getDetailsTopics();
+    }
+
+    @Transient
+    public String getGrpDetailsTopicsIndex() {
+        return getGrpDescriptor().getDetailsTopicsIndex();
+    }
+
+    @Transient
     public String getGrpPublish() {
         return getGrpDescriptor().getPublishGrp();
     }

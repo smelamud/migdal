@@ -429,6 +429,8 @@
   detailsHref:
     - href: "/${catalog}"
   detailsTemplate: book
+  detailsTopics: topics-book
+  detailsTopicsIndex: id
 
   partial: posting-book
 
@@ -950,6 +952,8 @@
   detailsHref:
     - href: "/${catalog}"
   detailsTemplate: book-chapter
+  detailsTopics: topics-book
+  detailsTopicsIndex: id
 
   title: "Главы книги"
   what: "главу"
