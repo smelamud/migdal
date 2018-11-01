@@ -103,8 +103,15 @@ public class PostingManager implements EntryManagerBase<Posting> {
         return begFirst(Postings.all()
                                 .up(upId)
                                 .index0(index0, afterIndex0)
-                                .page(0, 1)
                                 .sort(afterIndex0, "index0"));
+    }
+
+    public Posting begNextByIndex1(long upId, String grpName, long index1, boolean afterIndex1) {
+        return begFirst(Postings.all()
+                .up(upId)
+                .grp(grpName)
+                .index1(index1, afterIndex1)
+                .sort(afterIndex1, "index1"));
     }
 
     public Iterable<Posting> begLastDiscussions(long[] grps, long[] additionalGrps, boolean prioritize,
@@ -212,7 +219,11 @@ public class PostingManager implements EntryManagerBase<Posting> {
             where.and(p.afterIndex0 ? posting.index0.gt(p.index0) : posting.index0.lt(p.index0));
         }
         if (p.index1 != null) {
-            where.and(posting.index1.eq(p.index1));
+            if (p.atIndex1) {
+                where.and(posting.index1.eq(p.index1));
+            } else {
+                where.and(p.afterIndex1 ? posting.index1.gt(p.index1) : posting.index1.lt(p.index1));
+            }
         }
         if (p.userId != null && p.userId > 0) {
             where.and(posting.user.id.eq(p.userId));

@@ -775,6 +775,7 @@
   detailsHref:
     - href: "/${getCatalog(0,-1)}day-${index1}/"
   detailsTemplate: daily-news
+  detailsTopicsIndex: index1
 
   title: "Ежедневные репортажи"
   what: "репортаж"

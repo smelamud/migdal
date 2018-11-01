@@ -138,7 +138,7 @@ public class TimesController {
         return cover;
     }
 
-    @DetailsMapping("topics-times")
+    @DetailsMapping("article-times")
     protected void timesArticle(Posting posting, Model model) throws PageNotFoundException {
         Posting cover = begCover(posting.getIndex1());
         if (cover == null) {

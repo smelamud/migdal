@@ -77,13 +77,20 @@ public class CatalogUtils {
         return buf.toString();
     }
 
-    public static String toIdent(String catalog) {
+    public static String toIdOrIdent(String catalog) {
         if (StringUtils.isEmpty(catalog)) {
             return "0";
         }
         String last = sub(catalog, -1, 1);
         last = last.substring(0, last.length() - 1);
         return Utils.isNumber(last) ? last : catalog.substring(0, catalog.length() - 1).replace('/', '.');
+    }
+
+    public static String toIdent(String catalog) {
+        if (StringUtils.isEmpty(catalog)) {
+            return "0";
+        }
+        return catalog.substring(0, catalog.length() - 1).replace('/', '.');
     }
 
 }

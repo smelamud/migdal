@@ -19,6 +19,8 @@ public class Postings {
     Long index0;
     boolean afterIndex0;
     Long index1;
+    boolean atIndex1 = true;
+    boolean afterIndex1;
     Long userId;
     PostingModbit modbit;
     boolean asGuest;
@@ -99,6 +101,15 @@ public class Postings {
     public Postings index1(Long index1) {
         if (index1 != null) {
             this.index1 = index1;
+        }
+        return this;
+    }
+
+    public Postings index1(Long index1, boolean afterIndex1) {
+        if (index1 != null) {
+            this.index1 = index1;
+            atIndex1 = false;
+            this.afterIndex1 = afterIndex1;
         }
         return this;
     }

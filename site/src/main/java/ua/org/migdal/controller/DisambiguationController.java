@@ -112,11 +112,13 @@ public class DisambiguationController {
             return migdalController.printingsLocationInfo(model);
         }
         if (posting.getCatalog().startsWith("migdal/events/")) {
-            if (posting.getGrp() != grpEnum.grpValue("GALLERY")) {
-                return eventController.regularEventLocationInfo(posting.getTopic(), model);
-            } else {
+            if (posting.getGrp() == grpEnum.grpValue("DAILY_NEWS")) {
+                return eventController.dailyEventLocationInfo(posting.getTopic(), model);
+            }
+            if (posting.getGrp() == grpEnum.grpValue("GALLERY")) {
                 return eventController.regularEventGalleryLocationInfo(posting.getTopic(), model);
             }
+            return eventController.regularEventLocationInfo(posting.getTopic(), model);
         }
         if (posting.getCatalog().startsWith("migdal/")) {
             return migdalController.migdalNewsLocationInfo(model);

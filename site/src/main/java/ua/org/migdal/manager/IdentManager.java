@@ -28,17 +28,17 @@ public class IdentManager {
     }
 
     public long topicIdFromRequestPath(int start, int length) {
-        return idOrIdent(CatalogUtils.toIdent(requestContext.getCatalog(start, length)));
+        return idOrIdent(CatalogUtils.toIdOrIdent(requestContext.getCatalog(start, length)));
     }
 
     public long postingIdFromRequestPath() {
-        String ident = CatalogUtils.toIdent(requestContext.getCatalog());
+        String ident = CatalogUtils.toIdOrIdent(requestContext.getCatalog());
         ident = Utils.isNumber(ident) ? ident : "post." + ident;
         return idOrIdent(ident);
     }
 
     public long postingIdFromRequestPath(int start, int length) {
-        String ident = CatalogUtils.toIdent(requestContext.getCatalog(start, length));
+        String ident = CatalogUtils.toIdOrIdent(requestContext.getCatalog(start, length));
         ident = Utils.isNumber(ident) ? ident : "post." + ident;
         return idOrIdent(ident);
     }

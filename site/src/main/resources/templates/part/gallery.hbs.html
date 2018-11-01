@@ -36,8 +36,7 @@
             {{/ifieq}}
             {{#assign "rel"}}gallery-{{topic.id}}{{/assign}}
             {{assignDivisive "lineBreak" @index 5}}
-            {{picture posting=this rel=rel hollow=hollow align="left" noClear=(not lineBreak) noMargin=true
-                      listIndex=@index listSize=galleryPage.totalElements}}
+            {{picture posting=this rel=rel hollow=hollow align="left" noClear=(not lineBreak) noMargin=true}}
         {{/each}}
         <div class="clear-floats"></div>
     </div>

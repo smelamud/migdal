@@ -18,14 +18,22 @@ import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.util.TreeNode;
+import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.Postings;
 import ua.org.migdal.manager.TopicManager;
+import ua.org.migdal.session.RequestContext;
 
 @Controller
 public class EventController {
+
+    @Inject
+    private GrpEnum grpEnum;
+
+    @Inject
+    private RequestContext requestContext;
 
     @Inject
     private IdentManager identManager;
@@ -210,6 +218,10 @@ public class EventController {
     }
 
     private String regularEvent(Topic topic, Integer offset, Model model) {
+        if (topic.accepts(grpEnum.grpValue("DAILY_NEWS"))) {
+            return "redirect:" + topic.getHref() + "day-1";
+        }
+
         regularEventLocationInfo(topic, model);
 
         model.addAttribute("topic", topic);
@@ -257,5 +269,56 @@ public class EventController {
                 .withPageTitleRelative("Галерея")
                 .withPageTitleFull("События :: " + topic.getSubject() + " - Галерея");
     }
+
+    @TopicsMapping("topics-daily")
+    protected void topicsDaily(Posting posting, Model model) {
+        model.addAttribute("event", posting.getTopic());
+        Postings p = Postings.all()
+                             .topic(posting.getTopicId())
+                             .grp("ARTICLES")
+                             .asGuest()
+                             .sort(Sort.Direction.ASC, "index0");
+        model.addAttribute("allArticles", postingManager.begAll(p));
+        p = Postings.all()
+                    .topic(posting.getTopicId())
+                    .grp("DAILY_NEWS")
+                    .asGuest()
+                    .sort(Sort.Direction.ASC, "index1");
+        model.addAttribute("allDailyNews", postingManager.begAll(p));
+    }
+
+    @DetailsMapping("daily-news")
+    protected void dailyNews(Posting posting, Model model) {
+        model.addAttribute("event", posting.getTopic());
+        Postings p = Postings.all().topic(posting.getTopicId()).grp("DAILY_GALLERY").index1(posting.getIndex1());
+        Iterable<Posting> pictures = postingManager.begAll(p);
+        for (Posting picture : pictures) {
+            requestContext.addOgImage(picture.getImageUrl());
+        }
+        model.addAttribute("pictures", pictures);
+        model.addAttribute("prevDay",
+                postingManager.begNextByIndex1(posting.getTopicId(), "DAILY_NEWS", posting.getIndex1(), false));
+        model.addAttribute("nextDay",
+                postingManager.begNextByIndex1(posting.getTopicId(), "DAILY_NEWS", posting.getIndex1(), true));
+    }
+
+    public LocationInfo dailyEventLocationInfo(Topic topic, Model model) {
+        return new LocationInfo(model)
+                .withUri(topic.getHref())
+                .withTopics("topics-daily", new Posting(topic))
+                .withParent(eventsLocationInfo(null))
+                .withPageTitle(topic.getSubject())
+                .withPageTitleFull("События :: " + topic.getSubject());
+    }
+
+    /*public LocationInfo dailyEventNewsLocationInfo(Posting posting, Model model) {
+        return new LocationInfo(model)
+                .withUri(String.format("%sday-%d", posting.getTopic().getHref(), posting.getIndex1()))
+                .withTopics("topics-daily", posting)
+                .withTopicsIndex(Long.toString(posting.getIndex1()))
+                .withParent(dailyEventLocationInfo(posting.getTopic(), null))
+                .withPageTitle(posting.getTopic().getSubject() + " - " + posting.getHeading())
+                .withPageTitleRelative(posting.getHeading());
+    }*/
 
 }

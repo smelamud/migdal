@@ -1,0 +1,118 @@
+{{#*inline "batcher"}}
+    {{#postable event}}
+        <div class="batcher">
+            <div class="adder">
+                {{image "/pics/sheet.gif"}}
+                <a href="{{event.href}}add-daily-news?back={{ue rc.location}}">Добавить репортаж</a>
+            </div>
+            <div class="adder">
+                {{image "/pics/sheet.gif"}}
+                <a href="{{event.href}}day-{{day}}/add-picture?back={{ue rc.location}}">Добавить фотографию</a>
+            </div>
+            <div class="clear-floats"></div>
+        </div>
+    {{/postable}}
+{{/inline}}
+
+{{#*inline "controls"}}
+    {{#if posting.id}}
+        {{#writable posting}}
+            <div class="controls-line"><div class="controls">
+                {{editLink posting}}
+            </div></div>
+        {{else}}
+            &nbsp;
+        {{/writable}}
+    {{else}}
+        &nbsp;
+    {{/if}}
+{{/inline}}
+
+{{#*inline "dailyRing"}}
+    {{#notPrint}}
+        <div class="ring">
+            <div class="chapter-prev">
+                {{#if prevDay}}
+                    <a href="{{event.href}}day-{{prevDay.index1}}/" title="Предыдущий выпуск">{{prevDay.heading}}</a>
+                    {{image "/pics/left.gif"}}
+                {{else}}
+                    &nbsp;
+                {{/if}}
+            </div>
+            <div>&nbsp;</div>
+            <div class="chapter-next">
+                {{#if nextDay}}
+                    {{image "/pics/right.gif"}}
+                    <a href="{{event.href}}day-{{nextDay.index1}}/" title="Следующий выпуск">{{nextDay.heading}}</a>
+                {{else}}
+                    &nbsp;
+                {{/if}}
+            </div>
+        </div>
+    {{/notPrint}}
+{{/inline}}
+
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        <td width="150" class="eframe">
+            {{> (topicsPartial)}}
+            {{> part/ears}}
+        </td>
+        <td class="cframe">
+            <div class="page-title">{{event.subject}}</div>
+            {{> batcher}}
+            <div style="display: flex">
+                <div style="flex: none; width: 130px; margin-right: 10px">
+                    {{#each pictures}}
+                        {{#if @odd}}
+                            <p>
+                                {{#assign "pictureTitle"}}{{mtext titleMtext}}{{/assign}}
+                                {{#assign "rel"}}gallery-{{event.id}}{{/assign}}
+                                {{picture posting=this title=pictureTitle rel=rel}}
+                            </p>
+                        {{/if}}
+                    {{/each}}
+                </div>
+                <div class="article" style="flex: auto">
+                    {{#if posting.id}}
+                        <div class="sent">
+                            {{sentView date=posting.sent}}<br>
+                            {{senderLink posting}}
+                        </div>
+                        {{> dailyRing}}
+                        <h1>
+                            {{posting.subject}}
+                            {{#if posting.comment0}}
+                                <div class="author">{{mtext posting.comment0Mtext}}</div>
+                            {{/if}}
+                        </h1>
+                        <p>{{mtext posting.bodyMtext}}</p>
+                        {{votePanel id=posting.id rating=posting.rating}}
+                        <div class="clear-floats"></div>
+                        {{postingShare}}
+                        {{> controls}}
+                        {{> dailyRing}}
+                        <br>
+                        {{> part/forums forums=comments posting=posting}}
+                    {{/if}}
+                </div>
+                <div style="flex: none; width: 130px; margin-left: 10px">
+                    {{#each pictures}}
+                        {{#if @even}}
+                            <p>
+                                {{#assign "pictureTitle"}}{{mtext titleMtext}}{{/assign}}
+                                {{#assign "rel"}}gallery-{{event.id}}{{/assign}}
+                                {{picture posting=this title=pictureTitle rel=rel}}
+                            </p>
+                        {{/if}}
+                    {{/each}}
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}

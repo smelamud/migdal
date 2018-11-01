@@ -221,8 +221,6 @@ public class PostingHelperSource {
         long fixedHeight = HelperUtils.intArg("fixedHeight", options.hash("fixedHeight"));
         String editHref = posting.isHasSmallImage() && posting.isWritable() ? "auto" : "";
         boolean hollow = HelperUtils.boolArg(options.hash("hollow"));
-        long listSize = HelperUtils.intArg("listSize", options.hash("listSize"));
-        long listIndex = HelperUtils.intArg("listIndex", options.hash("listIndex"));
 
         StringBuilder buf = new StringBuilder();
         buf.append(entryImage(posting, align, noClear, noMargin, null, rel, title, titleLargeId, null,
