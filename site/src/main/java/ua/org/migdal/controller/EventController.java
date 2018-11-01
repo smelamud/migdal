@@ -150,30 +150,7 @@ public class EventController {
             return "redirect:/migdal/events";
         }
 
-        eventsTypeIdLocationInfo(topic, model);
-
-        model.addAttribute("topic", topic);
-        indexController.addPostings("EVENT", topic, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"},
-                topic.isPostable(), false, offset, 20, model);
-        indexController.addSeeAlso(topic.getId(), model);
-        earController.addEars(model);
-
-        return "migdal-news";
-    }
-
-    public LocationInfo eventsTypeIdLocationInfo(Topic topic, Model model) {
-        return new LocationInfo(model)
-                .withUri(topic.getHref())
-                .withTopics("topics-event", new Posting(topic))
-                .withTopicsIndex("news")
-                .withParent(eventsLocationInfo(null))
-                .withPageTitle(topic.getSubject())
-                .withPageTitleFull("События :: " + topic.getSubject());
-    }
-
-    @TopicsMapping("topics-event")
-    protected void topicsEvent(Posting posting, Model model) {
-        model.addAttribute("topic", posting.getTopic());
+        return regularEvent(topic, offset, model);
     }
 
     @GetMapping("/migdal/events/{type}/{id}/gallery")
@@ -189,7 +166,80 @@ public class EventController {
             throw new PageNotFoundException();
         }
 
-        eventsTypeIdGalleryLocationInfo(topic, model);
+        return regularEventGallery(topic, offset, sort, model);
+    }
+
+    @GetMapping("/migdal/events/{type}/{subtype}/{id}")
+    public String eventsTypeSubtypeId(
+            @PathVariable String type,
+            @PathVariable String subtype,
+            @PathVariable String id,
+            @RequestParam(defaultValue = "0") Integer offset,
+            @RequestParam(defaultValue = "0") Long tid,
+            Model model) {
+
+        Topic topic = topicManager.beg(
+                identManager.idOrIdent(String.format("migdal.events.%s.%s.%s", type, subtype, id)));
+        if (topic == null) {
+            try {
+                return postingViewController.postingView(model, offset, tid);
+            } catch (PageNotFoundException e) {
+                return "redirect:/migdal/events";
+            }
+        }
+
+        return regularEvent(topic, offset, model);
+    }
+
+    @GetMapping("/migdal/events/{type}/{subtype}/{id}/gallery")
+    public String eventsTypeIdGallery(
+            @PathVariable String type,
+            @PathVariable String subtype,
+            @PathVariable String id,
+            @RequestParam(defaultValue = "0") Integer offset,
+            @RequestParam(defaultValue = "sent") String sort,
+            Model model) throws PageNotFoundException {
+
+        Topic topic = topicManager.beg(
+                identManager.idOrIdent(String.format("migdal.events.%s.%s.%s", type, subtype, id)));
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        return regularEventGallery(topic, offset, sort, model);
+    }
+
+    private String regularEvent(Topic topic, Integer offset, Model model) {
+        regularEventLocationInfo(topic, model);
+
+        model.addAttribute("topic", topic);
+        indexController.addPostings("EVENT", topic, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"},
+                topic.isPostable(), false, offset, 20, model);
+        indexController.addSeeAlso(topic.getId(), model);
+        earController.addEars(model);
+
+        return "migdal-news";
+    }
+
+    public LocationInfo regularEventLocationInfo(Topic topic, Model model) {
+        return new LocationInfo(model)
+                .withUri(topic.getHref())
+                .withTopics("topics-event", new Posting(topic))
+                .withTopicsIndex("news")
+                .withParent(eventsLocationInfo(null))
+                .withPageTitle(topic.getSubject())
+                .withPageTitleFull("События :: " + topic.getSubject());
+    }
+
+    @TopicsMapping("topics-event")
+    protected void topicsEvent(Posting posting, Model model) {
+        model.addAttribute("topic", posting.getTopic());
+    }
+
+    private String regularEventGallery(Topic topic, Integer offset, String sort, Model model)
+            throws PageNotFoundException {
+
+        regularEventGalleryLocationInfo(topic, model);
 
         indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
         earController.addEars(model);
@@ -197,12 +247,12 @@ public class EventController {
         return "gallery";
     }
 
-    public LocationInfo eventsTypeIdGalleryLocationInfo(Topic topic, Model model) {
+    public LocationInfo regularEventGalleryLocationInfo(Topic topic, Model model) {
         return new LocationInfo(model)
                 .withUri(topic.getHref() + "gallery")
                 .withTopics("topics-event", new Posting(topic))
                 .withTopicsIndex("gallery")
-                .withParent(eventsTypeIdLocationInfo(topic, null))
+                .withParent(regularEventLocationInfo(topic, null))
                 .withPageTitle(topic.getSubject() + " - Галерея")
                 .withPageTitleRelative("Галерея")
                 .withPageTitleFull("События :: " + topic.getSubject() + " - Галерея");
