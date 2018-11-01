@@ -609,7 +609,7 @@
 
 - name: TIMES_ARTICLES
   bit: 7
-  groups: [DISCUSS, WRITINGS, ARCHIVE, EVENT]
+  groups: [DISCUSS, WRITINGS, ARCHIVE]
 
   rootIdent: times
 

@@ -1002,7 +1002,7 @@ public class MigdalController {
 
     public LocationInfo printingsBooksReorderLocationInfo(Topic topic, Model model) {
         return new LocationInfo(model)
-                .withUri("/" + topic.getCatalog() + "reorder")
+                .withUri(topic.getHref() + "reorder")
                 .withParent(printingsLocationInfo(null))
                 .withPageTitle("Расстановка книг");
     }

@@ -11,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.EntryType;
+import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.util.TreeNode;
 import ua.org.migdal.location.LocationInfo;
@@ -39,6 +41,15 @@ public class EventController {
 
     @Inject
     private EntryController entryController;
+
+    @Inject
+    private IndexController indexController;
+
+    @Inject
+    private EarController earController;
+
+    @Inject
+    private PostingViewController postingViewController;
 
     @GetMapping("/migdal/events")
     public String events(Model model) throws PageNotFoundException {
@@ -120,6 +131,81 @@ public class EventController {
                 .withUri("/migdal/printings/reorder")
                 .withParent(eventsLocationInfo(null))
                 .withPageTitle("Расстановка событий");
+    }
+
+    @GetMapping("/migdal/events/{type}")
+    public String eventsType() {
+        return "redirect:/migdal/events";
+    }
+
+    @GetMapping("/migdal/events/{type}/{id}")
+    public String eventsTypeId(
+            @PathVariable String type,
+            @PathVariable String id,
+            @RequestParam(defaultValue = "0") Integer offset,
+            Model model) {
+
+        Topic topic = topicManager.beg(identManager.idOrIdent(String.format("migdal.events.%s.%s", type, id)));
+        if (topic == null) {
+            return "redirect:/migdal/events";
+        }
+
+        eventsTypeIdLocationInfo(topic, model);
+
+        model.addAttribute("topic", topic);
+        indexController.addPostings("EVENT", topic, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"},
+                topic.isPostable(), false, offset, 20, model);
+        indexController.addSeeAlso(topic.getId(), model);
+        earController.addEars(model);
+
+        return "migdal-news";
+    }
+
+    public LocationInfo eventsTypeIdLocationInfo(Topic topic, Model model) {
+        return new LocationInfo(model)
+                .withUri(topic.getHref())
+                .withTopics("topics-event", new Posting(topic))
+                .withTopicsIndex("news")
+                .withParent(eventsLocationInfo(null))
+                .withPageTitle(topic.getSubject())
+                .withPageTitleFull("События :: " + topic.getSubject());
+    }
+
+    @TopicsMapping("topics-event")
+    protected void topicsEvent(Posting posting, Model model) {
+        model.addAttribute("topic", posting.getTopic());
+    }
+
+    @GetMapping("/migdal/events/{type}/{id}/gallery")
+    public String eventsTypeIdGallery(
+            @PathVariable String type,
+            @PathVariable String id,
+            @RequestParam(defaultValue = "0") Integer offset,
+            @RequestParam(defaultValue = "sent") String sort,
+            Model model) throws PageNotFoundException {
+
+        Topic topic = topicManager.beg(identManager.idOrIdent(String.format("migdal.events.%s.%s", type, id)));
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        eventsTypeIdGalleryLocationInfo(topic, model);
+
+        indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
+        earController.addEars(model);
+
+        return "gallery";
+    }
+
+    public LocationInfo eventsTypeIdGalleryLocationInfo(Topic topic, Model model) {
+        return new LocationInfo(model)
+                .withUri(topic.getHref() + "gallery")
+                .withTopics("topics-event", new Posting(topic))
+                .withTopicsIndex("gallery")
+                .withParent(eventsTypeIdLocationInfo(topic, null))
+                .withPageTitle(topic.getSubject() + " - Галерея")
+                .withPageTitleRelative("Галерея")
+                .withPageTitleFull("События :: " + topic.getSubject() + " - Галерея");
     }
 
 }
