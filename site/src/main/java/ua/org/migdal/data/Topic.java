@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import org.hibernate.Hibernate;
+import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.session.RequestContextImpl;
 import ua.org.migdal.util.Perm;
@@ -42,6 +43,10 @@ public class Topic extends Entry {
 
     public boolean accepts(long grp) {
         return (getGrp() & grp) != 0;
+    }
+
+    public boolean accepts(String grpName) {
+        return accepts(GrpEnum.getInstance().grpValue(grpName));
     }
 
     @Override

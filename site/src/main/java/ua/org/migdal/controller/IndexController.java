@@ -182,7 +182,7 @@ public class IndexController {
                 if (desc == null) {
                     continue;
                 }
-                if (topic != null && !topic.accepts(desc.getValue())) {
+                if (topic != null && !topic.accepts(addGrpName)) {
                     continue;
                 }
                 addGrps.add(desc);
@@ -256,7 +256,7 @@ public class IndexController {
     }
 
     void addGallery(String grpName, Topic topic, Long userId, int offset, int limit, String sort, Model model) {
-        boolean addVisible = topic.accepts(grpEnum.grpValue(grpName))
+        boolean addVisible = topic.accepts(grpName)
                 && (requestContext.isLogged() || config.isAllowGuests() && topic.isGuestPostable())
                 && (userId == null || requestContext.getUserId() == userId || requestContext.isUserModerator());
         model.addAttribute("galleryAddVisible", addVisible);

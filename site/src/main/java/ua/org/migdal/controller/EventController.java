@@ -4,21 +4,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.util.TreeNode;
-import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
@@ -28,9 +28,6 @@ import ua.org.migdal.session.RequestContext;
 
 @Controller
 public class EventController {
-
-    @Inject
-    private GrpEnum grpEnum;
 
     @Inject
     private RequestContext requestContext;
@@ -218,7 +215,7 @@ public class EventController {
     }
 
     private String regularEvent(Topic topic, Integer offset, Model model) {
-        if (topic.accepts(grpEnum.grpValue("DAILY_NEWS"))) {
+        if (topic.accepts("DAILY_NEWS")) {
             return "redirect:" + topic.getHref() + "day-1";
         }
 
@@ -302,23 +299,27 @@ public class EventController {
                 postingManager.begNextByIndex1(posting.getTopicId(), "DAILY_NEWS", posting.getIndex1(), true));
     }
 
-    public LocationInfo dailyEventLocationInfo(Topic topic, Model model) {
+    public LocationInfo dailyEventLocationInfo(Posting posting, Model model) {
         return new LocationInfo(model)
-                .withUri(topic.getHref())
-                .withTopics("topics-daily", new Posting(topic))
+                .withUri(posting.getTopic().getHref())
+                .withTopics("topics-daily", posting)
+                .withTopicsIndex(Long.toString(posting.getId()))
                 .withParent(eventsLocationInfo(null))
-                .withPageTitle(topic.getSubject())
-                .withPageTitleFull("События :: " + topic.getSubject());
+                .withPageTitle(posting.getTopic().getSubject())
+                .withPageTitleFull("События :: " + posting.getTopic().getSubject());
     }
 
-    /*public LocationInfo dailyEventNewsLocationInfo(Posting posting, Model model) {
+    public LocationInfo dailyEventNewsLocationInfo(Posting posting, Model model) {
+        Postings p = Postings.all().topic(posting.getTopicId()).grp("DAILY_NEWS").index1(posting.getIndex1());
+        Posting daily = postingManager.begFirst(p);
+        String heading = daily != null ? daily.getHeading() : String.format("День %d", posting.getIndex1());
         return new LocationInfo(model)
                 .withUri(String.format("%sday-%d", posting.getTopic().getHref(), posting.getIndex1()))
                 .withTopics("topics-daily", posting)
                 .withTopicsIndex(Long.toString(posting.getIndex1()))
-                .withParent(dailyEventLocationInfo(posting.getTopic(), null))
-                .withPageTitle(posting.getTopic().getSubject() + " - " + posting.getHeading())
-                .withPageTitleRelative(posting.getHeading());
-    }*/
+                .withParent(dailyEventLocationInfo(posting, null))
+                .withPageTitle(posting.getTopic().getSubject() + " - " + heading)
+                .withPageTitleRelative(heading);
+    }
 
 }

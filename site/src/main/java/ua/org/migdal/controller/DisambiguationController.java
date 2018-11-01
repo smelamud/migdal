@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Posting;
+import ua.org.migdal.data.Topic;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
+import ua.org.migdal.manager.IdentManager;
+import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.CatalogUtils;
 
@@ -23,6 +26,12 @@ public class DisambiguationController {
 
     @Inject
     private RequestContext requestContext;
+
+    @Inject
+    private IdentManager identManager;
+
+    @Inject
+    private TopicManager topicManager;
 
     @Inject
     private PostingViewController postingViewController;
@@ -112,8 +121,13 @@ public class DisambiguationController {
             return migdalController.printingsLocationInfo(model);
         }
         if (posting.getCatalog().startsWith("migdal/events/")) {
-            if (posting.getGrp() == grpEnum.grpValue("DAILY_NEWS")) {
-                return eventController.dailyEventLocationInfo(posting.getTopic(), model);
+            Topic topic = topicManager.beg(identManager.idOrIdent(CatalogUtils.toIdent(posting.getCatalog(0, -1))));
+            if (topic != null && topic.accepts("DAILY_NEWS")) {
+                if (posting.getGrp() == grpEnum.grpValue("DAILY_GALLERY")) {
+                    return eventController.dailyEventNewsLocationInfo(posting, model);
+                } else {
+                    return eventController.dailyEventLocationInfo(posting, model);
+                }
             }
             if (posting.getGrp() == grpEnum.grpValue("GALLERY")) {
                 return eventController.regularEventGalleryLocationInfo(posting.getTopic(), model);

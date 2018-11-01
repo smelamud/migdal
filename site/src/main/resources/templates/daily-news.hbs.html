@@ -7,7 +7,7 @@
             </div>
             <div class="adder">
                 {{image "/pics/sheet.gif"}}
-                <a href="{{event.href}}day-{{day}}/add-picture?back={{ue rc.location}}">Добавить фотографию</a>
+                <a href="{{event.href}}day-{{posting.index1}}/add-picture?back={{ue rc.location}}">Добавить фотографию</a>
             </div>
             <div class="clear-floats"></div>
         </div>
@@ -65,17 +65,19 @@
             <div class="page-title">{{event.subject}}</div>
             {{> batcher}}
             <div style="display: flex">
-                <div style="flex: none; width: 130px; margin-right: 10px">
-                    {{#each pictures}}
-                        {{#if @odd}}
-                            <p>
-                                {{#assign "pictureTitle"}}{{mtext titleMtext}}{{/assign}}
-                                {{#assign "rel"}}gallery-{{event.id}}{{/assign}}
-                                {{picture posting=this title=pictureTitle rel=rel}}
-                            </p>
-                        {{/if}}
-                    {{/each}}
-                </div>
+                {{#ifge pictures.totalElements 1}}
+                    <div style="flex: none; width: 130px; margin-right: 10px">
+                        {{#each pictures}}
+                            {{#if @odd}}
+                                <p>
+                                    {{#assign "pictureTitle"}}{{mtext titleMtext}}{{/assign}}
+                                    {{#assign "rel"}}gallery-{{event.id}}{{/assign}}
+                                    {{picture posting=this title=pictureTitle rel=rel}}
+                                </p>
+                            {{/if}}
+                        {{/each}}
+                    </div>
+                {{/ifge}}
                 <div class="article" style="flex: auto">
                     {{#if posting.id}}
                         <div class="sent">
@@ -99,17 +101,19 @@
                         {{> part/forums forums=comments posting=posting}}
                     {{/if}}
                 </div>
-                <div style="flex: none; width: 130px; margin-left: 10px">
-                    {{#each pictures}}
-                        {{#if @even}}
-                            <p>
-                                {{#assign "pictureTitle"}}{{mtext titleMtext}}{{/assign}}
-                                {{#assign "rel"}}gallery-{{event.id}}{{/assign}}
-                                {{picture posting=this title=pictureTitle rel=rel}}
-                            </p>
-                        {{/if}}
-                    {{/each}}
-                </div>
+                {{#ifge pictures.totalElements 2}}
+                    <div style="flex: none; width: 130px; margin-left: 10px">
+                        {{#each pictures}}
+                            {{#if @even}}
+                                <p>
+                                    {{#assign "pictureTitle"}}{{mtext titleMtext}}{{/assign}}
+                                    {{#assign "rel"}}gallery-{{event.id}}{{/assign}}
+                                    {{picture posting=this title=pictureTitle rel=rel}}
+                                </p>
+                            {{/if}}
+                        {{/each}}
+                    </div>
+                {{/ifge}}
             </div>
         </td>
     </tr>
