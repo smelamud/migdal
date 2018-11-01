@@ -42,6 +42,9 @@ public class DisambiguationController {
     @Inject
     private MigdalController migdalController;
 
+    @Inject
+    private EventController eventController;
+
     @GetMapping("/**/{smth:[^.]+$}") // $ in the regex is needed to match against the extension too
     public String disambiguate(
             @PathVariable String smth,
@@ -82,19 +85,38 @@ public class DisambiguationController {
             return migdalController.libraryNoveltiesLocationInfo(model);
         }
         if (posting.getCatalog().startsWith("migdal/museum/")) {
-            return migdalController.museumNewsLocationInfo(model);
+            if (posting.getGrp() != grpEnum.grpValue("GALLERY")) {
+                return migdalController.museumNewsLocationInfo(model);
+            } else {
+                return migdalController.museumGalleryLocationInfo(posting.getTopic(), model);
+            }
         }
         if (posting.getCatalog().startsWith("migdal/mazltov/")) {
-            return migdalController.mazltovNewsLocationInfo(model);
+            if (posting.getGrp() != grpEnum.grpValue("GALLERY")) {
+                return migdalController.mazltovNewsLocationInfo(model);
+            } else {
+                return migdalController.mazltovGalleryLocationInfo(posting.getTopic(), model);
+            }
         }
         if (posting.getCatalog().startsWith("migdal/beitenu/")) {
-            return migdalController.beitenuNewsLocationInfo(model);
+            if (posting.getGrp() != grpEnum.grpValue("GALLERY")) {
+                return migdalController.beitenuNewsLocationInfo(model);
+            } else {
+                return migdalController.beitenuGalleryLocationInfo(posting.getTopic(), model);
+            }
         }
         if (posting.getCatalog().startsWith("migdal/methodology/")) {
             return migdalController.methodologyBooksLocationInfo(model);
         }
         if (posting.getCatalog().startsWith("migdal/printings/")) {
             return migdalController.printingsLocationInfo(model);
+        }
+        if (posting.getCatalog().startsWith("migdal/events/")) {
+            if (posting.getGrp() != grpEnum.grpValue("GALLERY")) {
+                return eventController.regularEventLocationInfo(posting.getTopic(), model);
+            } else {
+                return eventController.regularEventGalleryLocationInfo(posting.getTopic(), model);
+            }
         }
         if (posting.getCatalog().startsWith("migdal/")) {
             return migdalController.migdalNewsLocationInfo(model);

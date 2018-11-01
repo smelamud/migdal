@@ -739,7 +739,7 @@ public class Entry implements TreeElement {
     }
 
     @Transient
-    public boolean isBodyTiny() {
+    public boolean isBodyShorterThanTiny() {
         Config config = Config.getInstance();
 
         return getBodyMtext().cleanLength() <= config.getTinySize() + config.getTinySizePlus();
@@ -760,7 +760,7 @@ public class Entry implements TreeElement {
     }
 
     @Transient
-    public boolean isBodySmall() {
+    public boolean isBodyShorterThanSmall() {
         Config config = Config.getInstance();
 
         return getBodyMtext().cleanLength() <= config.getSmallSize() + config.getSmallSizePlus();
@@ -774,7 +774,7 @@ public class Entry implements TreeElement {
     }
 
     @Transient
-    public boolean isBodyMedium() {
+    public boolean isBodyShorterThanMedium() {
         Config config = Config.getInstance();
 
         return getBodyMtext().cleanLength() <= config.getMediumSize() + config.getMediumSizePlus();
