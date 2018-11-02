@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
@@ -19,15 +21,22 @@ import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.util.TreeNode;
+import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.Postings;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.session.RequestContext;
+import ua.org.migdal.util.CatalogUtils;
 
 @Controller
 public class EventController {
+
+    private static final Pattern DAY_PATTERN = Pattern.compile("^day-(\\d+)/$");
+
+    @Inject
+    private GrpEnum grpEnum;
 
     @Inject
     private RequestContext requestContext;
@@ -265,6 +274,42 @@ public class EventController {
                 .withPageTitle(topic.getSubject() + " - Галерея")
                 .withPageTitleRelative("Галерея")
                 .withPageTitleFull("События :: " + topic.getSubject() + " - Галерея");
+    }
+
+    /**
+     * @return null, if the catalog does not represent any valid daily news posting;
+     *         dummy Posting object (with id == 0), if the catalog is valid,
+     *             but the corresponding posting does not exist;
+     *         valid Posting object, if it exists.
+     */
+    Posting begDailyNewsPosting(String catalog) {
+        String dayName = CatalogUtils.sub(catalog, -1, 1);
+        Matcher m = DAY_PATTERN.matcher(dayName);
+        if (!m.matches()) {
+            return null;
+        }
+        long day;
+        try {
+            day = Long.parseLong(m.group(1));
+        } catch (NumberFormatException e) {
+            return null;
+        }
+
+        long topicId = identManager.idOrIdent(CatalogUtils.toIdent(CatalogUtils.sub(catalog, 0, -1)));
+        Topic topic = topicManager.beg(topicId);
+        if (topic == null) {
+            return null;
+        }
+
+        Postings p = Postings.all().topic(topicId).grp("DAILY_NEWS").index1(day);
+        Posting posting = postingManager.begFirst(p);
+        if (posting == null) {
+            posting = new Posting(topic);
+            posting.setCatalog(topic.getCatalog());
+            posting.setGrp(grpEnum.grpValue("DAILY_NEWS"));
+            posting.setIndex1(day);
+        }
+        return posting;
     }
 
     @TopicsMapping("topics-daily")

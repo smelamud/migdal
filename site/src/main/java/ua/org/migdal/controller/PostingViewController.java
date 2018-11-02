@@ -1,8 +1,6 @@
 package ua.org.migdal.controller;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
@@ -14,36 +12,23 @@ import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Image;
 import ua.org.migdal.data.InnerImage;
 import ua.org.migdal.data.Posting;
-import ua.org.migdal.data.Topic;
 import ua.org.migdal.form.ForumForm;
-import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.CrossEntryManager;
 import ua.org.migdal.manager.ForumManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.InnerImageManager;
 import ua.org.migdal.manager.PostingManager;
-import ua.org.migdal.manager.Postings;
-import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.session.RequestContext;
-import ua.org.migdal.util.CatalogUtils;
 
 @Controller
 public class PostingViewController {
-
-    private static final Pattern DAY_PATTERN = Pattern.compile("^day-(\\d+)/$");
-
-    @Inject
-    private GrpEnum grpEnum;
 
     @Inject
     private RequestContext requestContext;
 
     @Inject
     private IdentManager identManager;
-
-    @Inject
-    private TopicManager topicManager;
 
     @Inject
     private PostingManager postingManager;
@@ -66,6 +51,9 @@ public class PostingViewController {
     @Inject
     private EarController earController;
 
+    @Inject
+    private EventController eventController;
+
     // @GetMapping("/**/{id or ident}")
     public String postingView(
             Model model,
@@ -77,42 +65,12 @@ public class PostingViewController {
         if (posting != null) {
             return generalPostingView(posting, model, offset, tid);
         }
-        posting = begDailyPosting();
+        posting = eventController.begDailyNewsPosting(requestContext.getCatalog());
         if (posting != null) {
             return generalPostingView(posting, model, offset, tid);
         }
 
         throw new PageNotFoundException();
-    }
-
-    private Posting begDailyPosting() {
-        String dayName = requestContext.getCatalog(-1, 1);
-        Matcher m = DAY_PATTERN.matcher(dayName);
-        if (!m.matches()) {
-            return null;
-        }
-        long day;
-        try {
-            day = Long.parseLong(m.group(1));
-        } catch (NumberFormatException e) {
-            return null;
-        }
-
-        long topicId = identManager.idOrIdent(CatalogUtils.toIdent(requestContext.getCatalog(0, -1)));
-        Topic topic = topicManager.beg(topicId);
-        if (topic == null) {
-            return null;
-        }
-
-        Postings p = Postings.all().topic(topicId).grp("DAILY_NEWS").index1(day);
-        Posting posting = postingManager.begFirst(p);
-        if (posting == null) {
-            posting = new Posting(topic);
-            posting.setCatalog(topic.getCatalog());
-            posting.setGrp(grpEnum.grpValue("DAILY_NEWS"));
-            posting.setIndex1(day);
-        }
-        return posting;
     }
 
     private String generalPostingView(

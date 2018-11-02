@@ -86,6 +86,9 @@ public class PostingEditingController {
     @Inject
     private EntryController entryController;
 
+    @Inject
+    private EventController eventController;
+
     @GetMapping("/add-{grpPathName}")
     public String rootPostingAdd(
             @PathVariable String grpPathName,
@@ -146,11 +149,7 @@ public class PostingEditingController {
 
     // @GetMapping("/**/edit")
     public String postingEdit(boolean full, Model model) throws PageNotFoundException {
-
-        Posting posting = postingManager.beg(identManager.postingIdFromRequestPath(0, -1));
-        if (posting == null) {
-            throw new PageNotFoundException();
-        }
+        Posting posting = openPosting();
 
         postingEditLocationInfo(posting, model);
 
@@ -187,6 +186,20 @@ public class PostingEditingController {
             throw new PageNotFoundException();
         }
         return posting;
+    }
+
+    private Posting openPosting() throws PageNotFoundException {
+        Posting posting = eventController.begDailyNewsPosting(requestContext.getCatalog(0, -1));
+        if (posting != null && posting.getId() > 0) {
+            return posting;
+        }
+
+        posting = postingManager.beg(identManager.postingIdFromRequestPath(0, -1));
+        if (posting != null) {
+            return posting;
+        }
+
+        throw new PageNotFoundException();
     }
 
     String postingAdd(String grpName, long topicId, Function<Posting, Posting> initializer, boolean full, Model model)
