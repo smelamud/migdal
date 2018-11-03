@@ -183,13 +183,13 @@ public class EventController {
         return regularEventGallery(topic, offset, sort, model);
     }
 
-    @GetMapping("/migdal/events/{type}/{subtype}/{id}")
+    // @GetMapping("/migdal/events/{type}/{subtype}/{id}")
     public String eventsTypeSubtypeId(
-            @PathVariable String type,
-            @PathVariable String subtype,
-            @PathVariable String id,
-            @RequestParam(defaultValue = "0") Integer offset,
-            @RequestParam(defaultValue = "0") Long tid,
+            String type,
+            String subtype,
+            String id,
+            Integer offset,
+            Long tid,
             Model model) {
 
         Topic topic = topicManager.beg(

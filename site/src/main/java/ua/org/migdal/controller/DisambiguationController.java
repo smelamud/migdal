@@ -80,6 +80,16 @@ public class DisambiguationController {
                 return perUserController.veteransUser(smth, offset, sort, model);
             }
         }
+        if (CatalogUtils.length(requestContext.getCatalog()) == 5
+                && requestContext.getCatalog().startsWith("migdal/events/")) {
+            return eventController.eventsTypeSubtypeId(
+                    requestContext.getCatalog(2, 1),
+                    requestContext.getCatalog(3, 1),
+                    requestContext.getCatalog(4, 1),
+                    offset,
+                    tid,
+                    model);
+        }
         return postingViewController.postingView(model, offset, tid);
     }
 
@@ -121,7 +131,7 @@ public class DisambiguationController {
             return migdalController.printingsLocationInfo(model);
         }
         if (posting.getCatalog().startsWith("migdal/events/")) {
-            Topic topic = topicManager.beg(identManager.idOrIdent(CatalogUtils.toIdent(posting.getCatalog(0, -1))));
+            Topic topic = topicManager.beg(identManager.topicIdFromRequestPath(0, -1));
             if (topic != null && topic.accepts("DAILY_NEWS")) {
                 if (posting.getGrp() == grpEnum.grpValue("DAILY_GALLERY")) {
                     return eventController.dailyEventNewsLocationInfo(posting, model);

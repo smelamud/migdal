@@ -28,7 +28,17 @@ public class IdentManager {
     }
 
     public long topicIdFromRequestPath(int start, int length) {
-        return idOrIdent(CatalogUtils.toIdOrIdent(requestContext.getCatalog(start, length)));
+        String catalog = requestContext.getCatalog(start, length);
+        // Historically in migdal/events/ there may be idents containing a number
+        // as one of their components. That's why we need to verify this possibility
+        // first to be backward compatible.
+        if (catalog.startsWith("migdal/events/")) {
+            long id = idOrIdent(CatalogUtils.toIdent(catalog));
+            if (id > 0) {
+                return id;
+            }
+        }
+        return idOrIdent(CatalogUtils.toIdOrIdent(catalog));
     }
 
     public long postingIdFromRequestPath() {
