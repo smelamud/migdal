@@ -1,21 +1,39 @@
-{{#*inline "textears-block"}}
+{{#*inline "textearsBlock"}}
     {{#if textears}}
-        <table style="margin: 0">
-            <tr><td class="textears-title">Коротко о важном:</td></tr>
-            <tr><td><ul class="ninept">
-                {{#each textears}}
-                    <li><a href="{{url}}">{{subject}}</a></li>
-                {{/each}}
-            </ul></td></tr>
-        </table>
-        <table width="100%" class="eightpt">
-            <tr>
-                <td rowspan="2" width="15%" height="5">&nbsp;</td>
-                <td width="70%" height="5">&nbsp;</td>
-                <td rowspan="2" width="15%" height="5">&nbsp;</td>
-            </tr>
-            <tr><td class="textears-split" height="5">&nbsp;</td></tr>
-        </table>
+        <div class="textears-title">Коротко о важном:</div>
+        <ul class="ninept" style="margin-bottom: 3ex">
+            {{#each textears}}
+                <li><a href="{{url}}">{{subject}}</a></li>
+            {{/each}}
+        </ul>
+    {{/if}}
+{{/inline}}
+
+{{#*inline "dailyAnnounce"}}
+    {{#if dailyNews}}
+        <div class="textears-title">{{dailyNewsTopic.comment0}}:</div>
+        <div style="display: flex; max-width: 700px; margin-bottom: 3ex">
+            {{#if dailyPicture}}
+                {{#if dailyPicture.hasImage}}
+                    <div style="flex: none; align-self: center; max-width: 200px">
+                        {{postingImage posting=dailyPicture href=dailyPicture.href}}
+                    </div>
+                {{/if}}
+            {{/if}}
+            <div style="flex: auto">
+                <ul class="ninept" style="margin-bottom: 0">
+                    {{#each dailyNews}}
+                        <li>
+                            <b>{{subject}}.</b>
+                            <a href="{{grpDetailsHref}}">{{mtext comment0Mtext}}</a>
+                        </li>
+                    {{/each}}
+                </ul>
+                <div style="padding-left: 3em">
+                    <a href="{{dailyNewsTopic.href}}" class="eightpt"><b>Все дни</b></a>
+                </div>
+            </div>
+        </div>
     {{/if}}
 {{/inline}}
 
@@ -34,8 +52,8 @@
                     {{subtitle}}
                     {{> part/see-also}}
                     {{#unless topic}}
-                        {{> part/daily-announce}}
-                        {{> textears-block}}
+                        {{> dailyAnnounce}}
+                        {{> textearsBlock}}
                     {{/unless}}
                     {{> part/postings}}
                 </td>
