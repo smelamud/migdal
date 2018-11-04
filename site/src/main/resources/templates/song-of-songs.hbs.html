@@ -11,8 +11,7 @@
 
 {{#*inline "selection"}}
     {{> batcher}}
-    <form method="post" action="/actions/posting/vote">
-        {{hidden name="vote" value="4"}}
+    <form method="post" action="/actions/posting/select-vote">
         {{hidden name="back" value=rc.location}}
         <table width="100%" style="margin-bottom: 1ex">
             {{#each reviews}}

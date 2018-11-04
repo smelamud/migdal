@@ -28,7 +28,9 @@ public class VoteManager {
     }
 
     public boolean vote(Entry entry, VoteType voteType, int voteAmount) {
-        Vote vote = findVote(voteType, entry.getId());
+        Entry unique = voteType.isParentUnique() ? entry.getParent() : entry;
+
+        Vote vote = findVote(voteType, unique.getId());
         if (vote != null) {
             return false;
         }
@@ -36,9 +38,9 @@ public class VoteManager {
             if (requestContext.isLogged()) {
                 // Do not store IP for registered users, because we don't want to prevent unregistered
                 // users from the same IP from voting.
-                vote = new Vote(voteType, entry, null, requestContext.getUser(), voteAmount);
+                vote = new Vote(voteType, unique, null, requestContext.getUser(), voteAmount);
             } else {
-                vote = new Vote(voteType, entry, requestContext.getIp(), null, voteAmount);
+                vote = new Vote(voteType, unique, requestContext.getIp(), null, voteAmount);
             }
             voteRepository.save(vote);
         }

@@ -2,7 +2,7 @@ package ua.org.migdal.data;
 
 public enum VoteType {
 
-    VOTE(3, 720) {
+    VOTE(false, 3, 720) {
 
         @Override
         public void castVote(Entry entry, int voteAmount, User user) {
@@ -22,7 +22,7 @@ public enum VoteType {
 
     },
 
-    CLICK(0, 0) {
+    CLICK(false, 0, 0) {
 
         @Override
         public void castVote(Entry entry, int voteAmount, User user) {
@@ -31,21 +31,38 @@ public enum VoteType {
 
     },
 
-    VIEW(0, 0) {
+    VIEW(false, 0, 0) {
 
         @Override
         public void castVote(Entry entry, int voteAmount, User user) {
             entry.setCounter2(entry.getCounter2() + voteAmount);
         }
 
+    },
+
+    SELECT(true, 3, 720) {
+
+        @Override
+        public void castVote(Entry entry, int voteAmount, User user) {
+            entry.setVote(entry.getVote() + voteAmount);
+            entry.setVoteCount(entry.getVoteCount() + 1);
+            entry.setRating(entry.getVote() - VoteSettings.VOTE_ZERO * entry.getVoteCount());
+        }
+
     };
 
+    private boolean parentUnique;
     private int guestExpirationPeriod;
     private int userExpirationPeriod;
 
-    VoteType(int guestExpirationPeriod, int userExpirationPeriod) {
+    VoteType(boolean parentUnique, int guestExpirationPeriod, int userExpirationPeriod) {
+        this.parentUnique = parentUnique;
         this.guestExpirationPeriod = guestExpirationPeriod;
         this.userExpirationPeriod = userExpirationPeriod;
+    }
+
+    public boolean isParentUnique() {
+        return parentUnique;
     }
 
     public int getGuestExpirationPeriod() {

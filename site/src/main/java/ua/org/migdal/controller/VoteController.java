@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.VoteSettings;
 import ua.org.migdal.data.VoteType;
@@ -71,6 +72,28 @@ public class VoteController {
             postingVote.setError(messages.get(0));
         }
         return postingVote;
+    }
+
+    @PostMapping("/actions/posting/select-vote")
+    public String actionPostingSelectVote(@RequestParam long id) {
+        Errors errors = new NoObjectErrors("postingSelectVote");
+        new ControllerAction(EntryController.class, "actionPostingSelectVote", errors)
+                .transactional(txManager)
+                .execute(() -> {
+                    Posting posting = postingManager.beg(id);
+                    if (posting == null) {
+                        return "noPosting";
+                    }
+                    if (posting.getParent() == null) {
+                        return "noParent";
+                    }
+                    if (!voteManager.vote(posting, VoteType.SELECT, 4)) {
+                        return "alreadyVoted";
+                    }
+                    return null;
+                });
+        // TODO This method does not return any errors
+        return "redirect:" + requestContext.getBack();
     }
 
 }
