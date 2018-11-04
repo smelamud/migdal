@@ -183,6 +183,20 @@ public class EventController {
         return regularEventGallery(topic, offset, sort, model);
     }
 
+    @GetMapping("/migdal/events/{type}/{id}/reorder")
+    public String eventsTypeIdReorder(
+            @PathVariable String type,
+            @PathVariable String id,
+            Model model) throws PageNotFoundException {
+
+        Topic topic = topicManager.beg(identManager.idOrIdent(String.format("migdal.events.%s.%s", type, id)));
+        if (topic == null || !topic.accepts("DAILY_NEWS")) {
+            throw new PageNotFoundException();
+        }
+
+        return regularEventReorder(topic, model);
+    }
+
     // @GetMapping("/migdal/events/{type}/{subtype}/{id}")
     public String eventsTypeSubtypeId(
             String type,
@@ -221,6 +235,22 @@ public class EventController {
         }
 
         return regularEventGallery(topic, offset, sort, model);
+    }
+
+    @GetMapping("/migdal/events/{type}/{subtype}/{id}/reorder")
+    public String eventsTypeIdReorder(
+            @PathVariable String type,
+            @PathVariable String subtype,
+            @PathVariable String id,
+            Model model) throws PageNotFoundException {
+
+        Topic topic = topicManager.beg(
+                identManager.idOrIdent(String.format("migdal.events.%s.%s.%s", type, subtype, id)));
+        if (topic == null || !topic.accepts("DAILY_NEWS")) {
+            throw new PageNotFoundException();
+        }
+
+        return regularEventReorder(topic, model);
     }
 
     private String regularEvent(Topic topic, Integer offset, Model model) {
@@ -274,6 +304,24 @@ public class EventController {
                 .withPageTitle(topic.getSubject() + " - Галерея")
                 .withPageTitleRelative("Галерея")
                 .withPageTitleFull("События :: " + topic.getSubject() + " - Галерея");
+    }
+
+    private String regularEventReorder(Topic topic, Model model) {
+        regularEventReorderLocationInfo(topic, model);
+
+        Postings p = Postings.all()
+                .topic(topic.getId())
+                .grp("ARTICLES")
+                .sort(Sort.Direction.ASC, "index0");
+        Iterable<Posting> postings = postingManager.begAll(p);
+        return entryController.entryReorder(postings, EntryType.POSTING, model);
+    }
+
+    public LocationInfo regularEventReorderLocationInfo(Topic topic, Model model) {
+        return new LocationInfo(model)
+                .withUri(topic.getHref() + "reorder")
+                .withParent(regularEventLocationInfo(topic, null)) // does not matter
+                .withPageTitle("Расстановка статей");
     }
 
     /**
