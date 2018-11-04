@@ -65,6 +65,9 @@ public class EventController {
     @Inject
     private PostingViewController postingViewController;
 
+    @Inject
+    private PostingEditingController postingEditingController;
+
     @GetMapping("/migdal/events")
     public String events(Model model) throws PageNotFoundException {
         long eventsId = identManager.idOrIdent("migdal.events");
@@ -413,6 +416,70 @@ public class EventController {
                 .withParent(dailyEventLocationInfo(posting, null))
                 .withPageTitle(posting.getTopic().getSubject() + " - " + heading)
                 .withPageTitleRelative(heading);
+    }
+
+    @GetMapping("/migdal/events/other/song-of-songs")
+    public String songOfSongs(Model model) throws PageNotFoundException {
+        Topic topic = topicManager.beg(identManager.idOrIdent("migdal.events.other.song-of-songs"));
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        songOfSongsLocationInfo(topic, model);
+
+        model.addAttribute("topic", topic);
+        Postings p = Postings.all().topic(topic.getId()).grp("REVIEWS").sort(Sort.Direction.ASC, "subject");
+        model.addAttribute("reviews", postingManager.begAll(p));
+
+        return "song-of-songs";
+    }
+
+    public LocationInfo songOfSongsLocationInfo(Topic topic, Model model) {
+        return new LocationInfo(model)
+                .withUri(topic.getHref())
+                .withTopics("topics-events")
+                .withTopicsIndex(Long.toString(topic.getId()))
+                .withParent(eventsLocationInfo(null))
+                .withPageTitle(topic.getSubject())
+                .withPageTitleFull("События :: " + topic.getSubject());
+    }
+
+    @GetMapping("/migdal/events/other/song-of-songs/{id}")
+    public String songOfSongsMember(
+            @PathVariable String id,
+            @RequestParam(required = false) boolean full,
+            Model model) throws PageNotFoundException {
+
+        if (id.equals("add")) {
+            return postingEditingController.postingAdd("reviews", full, model);
+        }
+
+        Posting posting;
+        try {
+            posting = postingManager.beg(Long.parseLong(id));
+        } catch (NumberFormatException e) {
+            throw new PageNotFoundException();
+        }
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        songOfSongsMemberLocationInfo(posting, model);
+
+        postingViewController.addPostingView(model, posting, null, null);
+        earController.addEars(model);
+
+        return "migdal";
+    }
+
+    public LocationInfo songOfSongsMemberLocationInfo(Posting posting, Model model) {
+        return new LocationInfo(model)
+                .withUri(posting.getGrpDetailsHref())
+                .withTopics("topics-events")
+                .withTopicsIndex(Long.toString(posting.getTopic().getId()))
+                .withParent(songOfSongsLocationInfo(posting.getTopic(), null))
+                .withPageTitle(posting.getHeading())
+                .withPageTitleFull("Песнь Песней :: " + posting.getHeading());
     }
 
 }

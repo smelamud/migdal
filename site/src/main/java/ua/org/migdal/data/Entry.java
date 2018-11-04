@@ -981,6 +981,11 @@ public class Entry implements TreeElement {
         return String.format("%1.2f", getRating());
     }
 
+    @Transient
+    public Long getRatingLong() {
+        return (long) getRating();
+    }
+
     public Timestamp getSent() {
         return sent;
     }

@@ -1,0 +1,49 @@
+{{#*inline "batcher"}}
+    {{#postable topic}}
+        <div class="batcher" style="margin: 1em">
+            <div class="adder">
+                {{image "/pics/sheet.gif"}}
+                <a href="{{topic.href}}add?back={{ue rc.location}}">Добавить участника</a>
+            </div>
+        </div>
+    {{/postable}}
+{{/inline}}
+
+{{#*inline "selection"}}
+    {{> batcher}}
+    <form method="post" action="/actions/posting/vote">
+        {{hidden name="vote" value="4"}}
+        {{hidden name="back" value=rc.location}}
+        <table width="100%" style="margin-bottom: 1ex">
+            {{#each reviews}}
+                <tr valign="center">
+                    <td style="padding-right: 10px">{{radioButton name="id" value=id checked=false}}</td>
+                    <td class="rating-plus">{{ratingLong}}</td>
+                    <td width="100%" style="padding-left: 10px">
+                        <a href="{{grpDetailsHref}}">{{heading}}</a>
+                    </td>
+                </tr>
+            {{/each}}
+        </table>
+        <input type="submit" value="Проголосовать">
+    </form>
+    {{> batcher}}
+{{/inline}}
+
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        <td width="150" class="eframe">
+            {{> (topicsPartial)}}
+            {{> part/ears}}
+        </td>
+        <td class="cframe">
+            {{subtitle}}
+            {{> selection}}
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}
