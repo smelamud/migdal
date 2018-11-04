@@ -83,9 +83,9 @@ public class DisambiguationController {
         if (CatalogUtils.length(requestContext.getCatalog()) == 5
                 && requestContext.getCatalog().startsWith("migdal/events/")) {
             return eventController.eventsTypeSubtypeId(
-                    requestContext.getCatalog(2, 1),
-                    requestContext.getCatalog(3, 1),
-                    requestContext.getCatalog(4, 1),
+                    requestContext.getCatalogElement(2),
+                    requestContext.getCatalogElement(3),
+                    requestContext.getCatalogElement(4),
                     offset,
                     tid,
                     model);

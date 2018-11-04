@@ -188,6 +188,11 @@ public class RequestContextImpl implements RequestContext {
     }
 
     @Override
+    public String getCatalogElement(int n) {
+        return CatalogUtils.element(getCatalog(), n);
+    }
+
+    @Override
     public String getSubdomain() {
         processRequest();
         return subdomain;

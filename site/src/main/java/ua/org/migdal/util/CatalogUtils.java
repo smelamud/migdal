@@ -77,6 +77,17 @@ public class CatalogUtils {
         return buf.toString();
     }
 
+    public static String element(String catalog, int n) {
+        if (StringUtils.isEmpty(catalog)) {
+            return null;
+        }
+        String[] elements = catalog.substring(0, catalog.length() - 1).split("/");
+        if (n < 0 || n >= elements.length) {
+            return null;
+        }
+        return elements[n];
+    }
+
     public static String toIdOrIdent(String catalog) {
         if (StringUtils.isEmpty(catalog)) {
             return "0";
