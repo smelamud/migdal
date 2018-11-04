@@ -70,6 +70,7 @@ public class IndexController {
 
         earController.addEars(model);
         addTextEars(model);
+        addDailyAnnounce("migdal.events.kaitanot.5762.summer", model);
         addPostings("TAPE", null, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, true, offset, 20, model);
         addHitParade(null, model);
         addDiscussions(model);
@@ -295,6 +296,26 @@ public class IndexController {
                 .withParent(majorLocationInfo(topic, null))
                 .withPageTitle(topic.getSubject() + " - Галерея")
                 .withPageTitleRelative("Галерея");
+    }
+
+    private void addDailyAnnounce(String ident, Model model) {
+        Topic topic = topicManager.beg(identManager.idOrIdent(ident));
+        model.addAttribute("dailyNewsTopic", topic);
+
+        Postings p = Postings.all()
+                             .topic(topic.getId())
+                             .grp("DAILY_NEWS")
+                             .sort(Sort.Direction.DESC, "index1")
+                             .limit(5);
+        model.addAttribute("dailyNews", postingManager.begAll(p));
+
+        p = Postings.all()
+                    .topic(topic.getId())
+                    .grp("GRAPHICS")
+                    .sort(Sort.Direction.DESC, "index1")
+                    .limit(20)
+                    .asGuest();
+        model.addAttribute("dailyPicture", postingManager.begRandomOne(p));
     }
 
 }
