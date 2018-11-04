@@ -445,21 +445,8 @@ public class EventController {
     }
 
     @GetMapping("/migdal/events/other/song-of-songs/{id}")
-    public String songOfSongsMember(
-            @PathVariable String id,
-            @RequestParam(required = false) boolean full,
-            Model model) throws PageNotFoundException {
-
-        if (id.equals("add")) {
-            return postingEditingController.postingAdd("reviews", full, model);
-        }
-
-        Posting posting;
-        try {
-            posting = postingManager.beg(Long.parseLong(id));
-        } catch (NumberFormatException e) {
-            throw new PageNotFoundException();
-        }
+    public String songOfSongsMember(@PathVariable long id, Model model) throws PageNotFoundException {
+        Posting posting = postingManager.beg(id);
         if (posting == null) {
             throw new PageNotFoundException();
         }
@@ -480,6 +467,14 @@ public class EventController {
                 .withParent(songOfSongsLocationInfo(posting.getTopic(), null))
                 .withPageTitle(posting.getHeading())
                 .withPageTitleFull("Песнь Песней :: " + posting.getHeading());
+    }
+
+    @GetMapping("/migdal/events/other/song-of-songs/add")
+    public String songOfSongsMemberAdd(
+            @RequestParam(required = false) boolean full,
+            Model model) throws PageNotFoundException {
+
+        return postingEditingController.postingAdd("reviews", full, model);
     }
 
 }
