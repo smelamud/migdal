@@ -120,23 +120,36 @@ public class PostingEditingController {
                     null,
                     full,
                     model);
-        } else {
-            long postingId = identManager.postingIdFromRequestPath(0, -1);
-            Posting posting = postingManager.beg(postingId);
-            if (posting != null) {
-                return postingAdd(
-                        grpName,
-                        posting.getTopicId(),
-                        p -> {
-                            p.setUp(posting);
-                            return p;
-                        },
-                        full,
-                        model);
-            } else {
-                throw new PageNotFoundException();
-            }
         }
+
+        long postingId = identManager.postingIdFromRequestPath(0, -1);
+        Posting posting = postingManager.beg(postingId);
+        if (posting != null) {
+            return postingAdd(
+                    grpName,
+                    posting.getTopicId(),
+                    p -> {
+                        p.setUp(posting);
+                        return p;
+                    },
+                    full,
+                    model);
+        }
+
+        Posting dailyNews = eventController.begDailyNewsPosting(requestContext.getCatalog(0, -1));
+        if (dailyNews != null) {
+            return postingAdd(
+                    grpName,
+                    dailyNews.getTopicId(),
+                    p -> {
+                        p.setIndex1(dailyNews.getIndex1());
+                        return p;
+                    },
+                    full,
+                    model);
+        }
+
+        throw new PageNotFoundException();
     }
 
     public LocationInfo postingAddLocationInfo(String grpName, Model model) {
@@ -149,7 +162,7 @@ public class PostingEditingController {
 
     // @GetMapping("/**/edit")
     public String postingEdit(boolean full, Model model) throws PageNotFoundException {
-        Posting posting = openPosting();
+        Posting posting = openPostingToEdit();
 
         postingEditLocationInfo(posting, model);
 
@@ -163,32 +176,7 @@ public class PostingEditingController {
                 .withPageTitle("Редактирование " + posting.getGrpWhatA());
     }
 
-    private Posting createPosting(String grpName, long topicId, Function<Posting, Posting> initializer) {
-        GrpDescriptor grpDescriptor = grpEnum.grp(grpName);
-        Topic topic = topicId > 0 ? topicManager.beg(topicId) : null;
-        if (topic == null && !StringUtils.isEmpty(grpDescriptor.getRootIdent())) {
-            topic = topicManager.beg(identManager.idOrIdent(grpDescriptor.getRootIdent()));
-        }
-        Posting posting = new Posting(grpDescriptor.getValue(), topic, topic, 0, requestContext);
-        if (initializer != null) {
-            posting = initializer.apply(posting);
-        }
-        return posting;
-    }
-
-    private Posting openPosting(Long id) throws PageNotFoundException {
-        if (id == null) {
-            return null;
-        }
-
-        Posting posting = postingManager.beg(id);
-        if (posting == null) {
-            throw new PageNotFoundException();
-        }
-        return posting;
-    }
-
-    private Posting openPosting() throws PageNotFoundException {
+    private Posting openPostingToEdit() throws PageNotFoundException {
         Posting posting = eventController.begDailyNewsPosting(requestContext.getCatalog(0, -1));
         if (posting != null && posting.getId() > 0) {
             return posting;
@@ -237,6 +225,31 @@ public class PostingEditingController {
         long grp = full ? -1 : grpEnum.grpValue(grpName);
         model.addAttribute("topicNames", topicManager.begNames(rootId, grp, false, !full));
         return "posting-edit";
+    }
+
+    private Posting createPosting(String grpName, long topicId, Function<Posting, Posting> initializer) {
+        GrpDescriptor grpDescriptor = grpEnum.grp(grpName);
+        Topic topic = topicId > 0 ? topicManager.beg(topicId) : null;
+        if (topic == null && !StringUtils.isEmpty(grpDescriptor.getRootIdent())) {
+            topic = topicManager.beg(identManager.idOrIdent(grpDescriptor.getRootIdent()));
+        }
+        Posting posting = new Posting(grpDescriptor.getValue(), topic, topic, 0, requestContext);
+        if (initializer != null) {
+            posting = initializer.apply(posting);
+        }
+        return posting;
+    }
+
+    private Posting openPosting(Long id) throws PageNotFoundException {
+        if (id == null) {
+            return null;
+        }
+
+        Posting posting = postingManager.beg(id);
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+        return posting;
     }
 
     @PostMapping("/actions/posting/modify")
