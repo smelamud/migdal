@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import ua.org.migdal.controller.exception.PageNotFoundException;
+import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.grp.GrpEnum;
@@ -46,6 +48,9 @@ public class EnglishController {
 
     @Inject
     private PostingEditingController postingEditingController;
+
+    @Inject
+    private EntryController entryController;
 
     // @GetMapping("/")
     String index(Model model) throws PageNotFoundException {
@@ -139,6 +144,23 @@ public class EnglishController {
             Model model) throws PageNotFoundException {
 
         return add("reviews", "migdal,e", full, model);
+    }
+
+    @GetMapping("/reorder-reviews")
+    public String reorderReviews(Model model) {
+        reorderReviewsLocationInfo(model);
+
+        long topicId = identManager.idOrIdent("migdal,e");
+        Postings p = Postings.all().topic(topicId).grp("REVIEWS").sort(Sort.Direction.ASC, "index0");
+        Iterable<Posting> postings = postingManager.begAll(p);
+        return entryController.entryReorder(postings, EntryType.POSTING, model);
+    }
+
+    public LocationInfo reorderReviewsLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/migdal/printings/reorder")
+                .withParent(indexLocationInfo(null))
+                .withPageTitle("Расстановка подразделов");
     }
 
     @GetMapping("/events")
