@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
@@ -15,9 +16,13 @@ import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.Postings;
 import ua.org.migdal.manager.TopicManager;
+import ua.org.migdal.session.RequestContext;
 
 @Controller
 public class EnglishController {
+
+    @Inject
+    private RequestContext requestContext;
 
     @Inject
     private TopicManager topicManager;
@@ -27,6 +32,9 @@ public class EnglishController {
 
     @Inject
     private IdentManager identManager;
+
+    @Inject
+    private IndexController indexController;
 
     @Inject
     private PostingViewController postingViewController;
@@ -105,6 +113,34 @@ public class EnglishController {
                 .withTopicsIndex(Long.toString(posting.getId()))
                 .withParent(indexLocationInfo(null))
                 .withPageTitle(posting.getHeading());
+    }
+
+    @GetMapping("/events")
+    public String events(
+            @RequestParam(defaultValue = "0") Integer offset,
+            Model model) throws PageNotFoundException {
+
+        Topic topic = topicManager.beg(identManager.idOrIdent("events,e"));
+        if (topic == null) {
+            throw new PageNotFoundException();
+        }
+
+        eventsLocationInfo(model);
+
+        indexController.addPostings("TAPE", topic, null, new String[] {"NEWS", "ARTICLES", "BOOKS"},
+                requestContext.isUserModerator(), offset, 20, model);
+
+        return "events-english";
+    }
+
+    public LocationInfo eventsLocationInfo(Model model) {
+        return new LocationInfo(model)
+                .withUri("/events")
+                .withTopics("topics-migdal-english")
+                .withTopicsIndex("events")
+                .withParent(indexLocationInfo(null))
+                .withPageTitle("Events")
+                .withTranslationHref("/migdal/news");
     }
 
 }

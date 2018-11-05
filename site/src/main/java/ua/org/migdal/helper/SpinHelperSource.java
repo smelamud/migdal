@@ -32,13 +32,14 @@ public class SpinHelperSource {
         buf.append("<span class=\"button\">");
         if (page.hasPrevious()) {
             long prevOffset = page.previousPageable().getOffset();
-            buf.append("<a href=\"");
-            HelperUtils.safeAppend(buf,
+            buf.append("<a");
+            HelperUtils.appendAttr(buf, "href",
                     UriComponentsBuilder.fromUriString(requestContext.getLocation())
                             .replaceQueryParam("offset", prevOffset)
                             .replaceQueryParam("tid")
                             .toUriString());
-            buf.append("\" title=\"Предыдущая страница\">");
+            HelperUtils.appendAttr(buf, "title", !requestContext.isEnglish() ? "Предыдущая страница" : "Previous page");
+            buf.append('>');
             HelperUtils.safeAppend(buf, imagesHelperSource.image("/pics/left.gif"));
             buf.append("</a>");
         } else {
@@ -46,28 +47,26 @@ public class SpinHelperSource {
         }
         buf.append("</span>");
         buf.append("<form class=\"goto-page\"");
-        buf.append(" data-page-size=\"");
-        buf.append(page.getSize());
-        buf.append('"');
-        buf.append(" data-total-pages=\"");
-        buf.append(page.getTotalPages());
-        buf.append("\">");
-        buf.append("стр. ");
+        HelperUtils.appendAttr(buf, "data-page-size", page.getSize());
+        HelperUtils.appendAttr(buf, "data-total-pages", page.getTotalPages());
+        buf.append('>');
+        buf.append(!requestContext.isEnglish() ? "стр. " : "page ");
         HelperUtils.safeAppend(buf, formsHelperSource.edit("value", Integer.toString(page.getNumber() + 1),
                                                            "3", "5", null, null));
-        buf.append(" из ");
+        buf.append(!requestContext.isEnglish() ? " из " : " of ");
         buf.append(page.getTotalPages());
         buf.append("</form>");
         buf.append("<span class=\"button\">");
         if (page.hasNext()) {
             long nextOffset = page.nextPageable().getOffset();
-            buf.append("<a href=\"");
-            HelperUtils.safeAppend(buf,
+            buf.append("<a");
+            HelperUtils.appendAttr(buf, "href",
                     UriComponentsBuilder.fromUriString(requestContext.getLocation())
                             .replaceQueryParam("offset", nextOffset)
                             .replaceQueryParam("tid")
                             .toUriString());
-            buf.append("\" title=\"Следующая страница\">");
+            HelperUtils.appendAttr(buf, "title", !requestContext.isEnglish() ? "Следующая страница" : "Next page");
+            buf.append('>');
             HelperUtils.safeAppend(buf, imagesHelperSource.image("/pics/right.gif"));
             buf.append("</a>");
         } else {
@@ -85,7 +84,7 @@ public class SpinHelperSource {
 
         StringBuilder buf = new StringBuilder();
         if (!sort.toString().equals(value.toString())) {
-            buf.append("<a ");
+            buf.append("<a");
             HelperUtils.appendAttr(buf, "href", "?sort=" + HelperUtils.ue(value));
             buf.append('>');
             HelperUtils.safeAppend(buf, title);
