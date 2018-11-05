@@ -104,12 +104,25 @@ public class EnglishController {
     }
 
     public LocationInfo migdalLocationInfo(Posting posting, Model model) {
+        String translationHref = "/migdal";
+        if (posting.getIdent() == null) {
+            translationHref = null;
+        } else if (posting.getIdent().equals("post.museum,e")) {
+            translationHref = "/migdal/museum";
+        } else if (posting.getIdent().equals("post.migdal-or,e")) {
+            translationHref = "/migdal/migdal-or";
+        } else if (posting.getIdent().equals("post.tzdaka,e")) {
+            translationHref = "/migdal/tzdaka";
+        } else if (posting.getIdent().equals("post.mazltov,e")) {
+            translationHref = "/migdal/mazltov";
+        }
         return new LocationInfo(model)
                 .withUri("/migdal/" + posting.getId())
                 .withTopics("topics-migdal-english")
                 .withTopicsIndex(Long.toString(posting.getId()))
                 .withParent(indexLocationInfo(null))
-                .withPageTitle(posting.getHeading());
+                .withPageTitle(posting.getHeading())
+                .withTranslationHref(translationHref);
     }
 
     @GetMapping("/events")

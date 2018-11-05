@@ -1029,13 +1029,8 @@ public class MigdalController {
                 .withTopicsIndex("migdal.tzdaka")
                 .withParent(migdalLocationInfo(null))
                 .withPageTitle(posting.getHeading())
-                .withPageTitleFull("Мигдаль :: " + posting.getHeading());
+                .withPageTitleFull("Мигдаль :: " + posting.getHeading())
+                .withTranslationHref("/tzdaka");
     }
 
-    /* TODO
-     <elif what='$,Id==$`post.museum,e`'>
-      <assign name='transref' value#='http://www.$siteDomain/migdal/museum/'>
-     <elif what='$,Id==$`post.migdal-or,e`'>
-      <assign name='transref' value#='http://www.$siteDomain/migdal/migdal-or/'>
-     */
 }
