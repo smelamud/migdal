@@ -11,8 +11,10 @@
         {{/notPrint}}
         <td class="cframe">
             {{> (postingPartial posting) posting=posting showTopic=true showDiscuss=false}}
-            <br>
-            {{> part/forums forums=comments posting=posting}}
+            {{#notEnglish}}
+                <br>
+                {{> part/forums forums=comments posting=posting}}
+            {{/notEnglish}}
         </td>
     </tr>
 </table>

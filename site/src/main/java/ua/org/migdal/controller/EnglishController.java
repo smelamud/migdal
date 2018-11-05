@@ -69,9 +69,6 @@ public class EnglishController {
         model.addAttribute("migdal", topic);
         Postings p = Postings.all().topic(topic.getId()).grp("REVIEWS").sort(Sort.Direction.ASC, "index0").asGuest();
         model.addAttribute("allReviews", postingManager.begAll(p));
-        long eventsId = identManager.idOrIdent("events,e");
-        p = Postings.all().topic(eventsId).grp("TAPE").asGuest();
-        model.addAttribute("allEvents", postingManager.begAll(p));
     }
 
     @GetMapping("/migdal/{id:^\\d+$}")
@@ -139,8 +136,31 @@ public class EnglishController {
                 .withTopics("topics-migdal-english")
                 .withTopicsIndex("events")
                 .withParent(indexLocationInfo(null))
-                .withPageTitle("Events")
+                .withPageTitle("News & Events")
                 .withTranslationHref("/migdal/news");
+    }
+
+    @GetMapping("/events/{id:^\\d+$}")
+    public String event(@PathVariable long id, Model model) throws PageNotFoundException {
+        Posting posting = postingManager.beg(id);
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        eventLocationInfo(posting, model);
+
+        postingViewController.addPostingView(model, posting, null, null);
+
+        return "posting";
+    }
+
+    public LocationInfo eventLocationInfo(Posting posting, Model model) {
+        return new LocationInfo(model)
+                .withUri("/events/" + posting.getId())
+                .withTopics("topics-migdal-english")
+                .withTopicsIndex("events")
+                .withParent(eventsLocationInfo(null))
+                .withPageTitle(posting.getHeading());
     }
 
 }
