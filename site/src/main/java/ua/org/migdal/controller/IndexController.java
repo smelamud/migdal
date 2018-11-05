@@ -100,6 +100,10 @@ public class IndexController {
             @RequestParam(defaultValue = "0") Integer offset,
             Model model) throws PageNotFoundException {
 
+        if (requestContext.isEnglish()) {
+            return englishController.ident(ident, model);
+        }
+
         long id = identManager.idOrIdent(ident);
         if (id <= 0) {
             throw new PageNotFoundException();

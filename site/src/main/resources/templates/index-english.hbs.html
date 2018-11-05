@@ -3,12 +3,15 @@
 
 <table class="page-layout">
     <tr valign="top">
-        <td width="150" class="eframe">
-            {{> (topicsPartial)}}
-        </td>
+        {{#notPrint}}
+            <td width="150" class="eframe">
+                {{> (topicsPartial)}}
+            </td>
+        {{/notPrint}}
         <td class="article cframe">
             {{subtitle title=posting.subject}}
             {{article posting innerImages=innerImages}}
+            {{postingShare}}
             {{articleControls posting=posting}}
         </td>
     </tr>
