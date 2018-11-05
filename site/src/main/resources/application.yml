@@ -1,7 +1,8 @@
 server:
   port: 8081  # Server port
-  session:
-    timeout: 8640000  # Session timeout (2400 hours in seconds)
+  servlet:
+    session:
+      timeout: 2400h  # Session timeout (2400 hours in seconds)
 
 spring:
   # DataSource settings
