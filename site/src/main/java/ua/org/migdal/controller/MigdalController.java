@@ -22,9 +22,13 @@ import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.Postings;
 import ua.org.migdal.manager.TopicManager;
+import ua.org.migdal.session.RequestContext;
 
 @Controller
 public class MigdalController {
+
+    @Inject
+    private RequestContext requestContext;
 
     @Inject
     private IdentManager identManager;
@@ -49,6 +53,10 @@ public class MigdalController {
 
     @GetMapping("/migdal")
     public String migdal(Model model) throws PageNotFoundException {
+        if (requestContext.isEnglish()) {
+            return "redirect:/";
+        }
+
         Posting posting = postingManager.beg(identManager.idOrIdent("post.migdal"));
         if (posting == null) {
             throw new PageNotFoundException();

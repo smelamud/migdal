@@ -57,7 +57,7 @@ public class EnglishController {
         return new LocationInfo(model)
                 .withUri("/")
                 .withRssHref("/rss/")
-                .withTranslationHref("/")
+                .withTranslationHref("/migdal")
                 .withTopics("topics-migdal-english")
                 .withTopicsIndex("index")
                 .withPageTitle("Home");
@@ -118,11 +118,11 @@ public class EnglishController {
         }
         return new LocationInfo(model)
                 .withUri("/migdal/" + posting.getId())
+                .withTranslationHref(translationHref)
                 .withTopics("topics-migdal-english")
                 .withTopicsIndex(Long.toString(posting.getId()))
                 .withParent(indexLocationInfo(null))
-                .withPageTitle(posting.getHeading())
-                .withTranslationHref(translationHref);
+                .withPageTitle(posting.getHeading());
     }
 
     @GetMapping("/events")
@@ -146,11 +146,11 @@ public class EnglishController {
     public LocationInfo eventsLocationInfo(Model model) {
         return new LocationInfo(model)
                 .withUri("/events")
+                .withTranslationHref("/migdal/news")
                 .withTopics("topics-migdal-english")
                 .withTopicsIndex("events")
                 .withParent(indexLocationInfo(null))
-                .withPageTitle("News & Events")
-                .withTranslationHref("/migdal/news");
+                .withPageTitle("News & Events");
     }
 
     @GetMapping("/events/{id:^\\d+$}")

@@ -88,7 +88,7 @@ public class IndexController {
         return new LocationInfo(model)
                 .withUri("/")
                 .withRssHref("/rss/")
-                .withTranslationHref("/migdal")
+                .withTranslationHref("/")
                 .withTopics("topics-major")
                 .withTopicsIndex("index")
                 .withPageTitle("Главная");
