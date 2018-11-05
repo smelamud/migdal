@@ -11,15 +11,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
+import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.Postings;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.session.RequestContext;
+import ua.org.migdal.util.Utils;
 
 @Controller
 public class EnglishController {
+
+    @Inject
+    private GrpEnum grpEnum;
 
     @Inject
     private RequestContext requestContext;
@@ -38,6 +43,9 @@ public class EnglishController {
 
     @Inject
     private PostingViewController postingViewController;
+
+    @Inject
+    private PostingEditingController postingEditingController;
 
     // @GetMapping("/")
     String index(Model model) throws PageNotFoundException {
@@ -125,6 +133,14 @@ public class EnglishController {
                 .withPageTitle(posting.getHeading());
     }
 
+    @GetMapping("/add-review")
+    public String addReview(
+            @RequestParam(required = false) boolean full,
+            Model model) throws PageNotFoundException {
+
+        return add("reviews", "migdal,e", full, model);
+    }
+
     @GetMapping("/events")
     public String events(
             @RequestParam(defaultValue = "0") Integer offset,
@@ -174,6 +190,24 @@ public class EnglishController {
                 .withTopicsIndex("events")
                 .withParent(eventsLocationInfo(null))
                 .withPageTitle(posting.getHeading());
+    }
+
+    @GetMapping("/events/add-{grp}")
+    public String eventAdd(
+            @PathVariable String grp,
+            @RequestParam(required = false) boolean full,
+            Model model) throws PageNotFoundException {
+
+        return add(grp, "events,e", full, model);
+    }
+
+    private String add(String grpPathName, String topicIdent, boolean full, Model model) throws PageNotFoundException {
+        String grpName = Utils.toConstName(grpPathName);
+        if (!grpEnum.exists(grpName)) {
+            throw new PageNotFoundException();
+        }
+
+        return postingEditingController.postingAdd(grpName, identManager.idOrIdent(topicIdent), null, full, model);
     }
 
 }
