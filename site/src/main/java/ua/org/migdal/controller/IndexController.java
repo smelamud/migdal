@@ -61,10 +61,17 @@ public class IndexController {
     @Inject
     private EarController earController;
 
+    @Inject
+    private EnglishController englishController;
+
     @GetMapping("/")
     public String index(
             @RequestParam(defaultValue = "0") Integer offset,
-            Model model) {
+            Model model) throws PageNotFoundException {
+
+        if (requestContext.isEnglish()) {
+            return englishController.index(model);
+        }
 
         indexLocationInfo(model);
 
@@ -81,7 +88,7 @@ public class IndexController {
         return new LocationInfo(model)
                 .withUri("/")
                 .withRssHref("/rss/")
-                .withTranslationHref("/")
+                .withTranslationHref("/migdal")
                 .withTopics("topics-major")
                 .withTopicsIndex("index")
                 .withPageTitle("Главная");

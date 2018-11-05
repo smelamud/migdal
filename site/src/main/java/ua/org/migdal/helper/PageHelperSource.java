@@ -13,7 +13,9 @@ public class PageHelperSource {
     private ImagesHelperSource imagesHelperSource;
 
     public CharSequence subtitle(Options options) {
-        String pageTitle = options.get("pageTitle");
+        String title = options.hash("title");
+        String pageTitle = title != null ? title : options.get("pageTitle");
+
         if (pageTitle != null && !pageTitle.isEmpty() && !pageTitle.equals("Главная") && !pageTitle.equals("Home")) {
             return new SafeString(String.format("<div class=\"page-title\">%s</div>", HelperUtils.he(pageTitle)));
         } else {

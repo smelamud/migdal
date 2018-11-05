@@ -1,0 +1,20 @@
+{{#topicsTable title="Migdal"}}
+    {{#postable migdal}}
+        <li class="topics-nobullet">
+            <a href="/add-review?back={{ue rc.location}}" class="edit">Add</a><br>
+            <a href="/reorder-reviews?back={{ue rc.location}}" class="edit">Reorder</a>
+        </li>
+    {{/postable}}
+    {{topicsLine text="Home" href="/" index="index"}}
+    {{#each allReviews}}
+        {{#ifne ident "post.migdal,e"}}
+            {{topicsLine text=subject href=grpDetailsHref index=id class="topics-item ninept"}}
+        {{/ifne}}
+    {{/each}}
+    {{topicsLine text="Events" href="/events/" index="events"}}
+    {{#topicsSubtable class="eightpt"}}
+        {{#each allEvents}}
+            {{topicsLine text=subject href=grpDetailsHref index=id}}
+        {{/each}}
+    {{/topicsSubtable}}
+{{/topicsTable}}

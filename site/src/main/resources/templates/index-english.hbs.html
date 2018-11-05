@@ -1,0 +1,17 @@
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        <td width="150" class="eframe">
+            {{> (topicsPartial)}}
+        </td>
+        <td class="article cframe">
+            {{subtitle title=posting.subject}}
+            {{article posting innerImages=innerImages}}
+            {{articleControls posting=posting}}
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}
