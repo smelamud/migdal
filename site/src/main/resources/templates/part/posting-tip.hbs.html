@@ -1,0 +1,14 @@
+<dl class="posting">
+    <dt>
+        {{#if showTopic}}
+            {{topicLink posting}}<br>
+        {{/if}}
+    </dt>
+    <dd>
+        {{mtext posting.bodyMtext}}
+        <div class="sent" style="clear: left">
+            {{sentView date=posting.sent}}&nbsp;
+            {{senderLink posting}}
+        </div>
+        {{postingControls posting=posting}}
+</dl>

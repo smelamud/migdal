@@ -158,7 +158,7 @@ public class PostingHelperSource {
         boolean showEdit = HelperUtils.boolArg(options.hash("showEdit", "true"));
         boolean showDiscuss = HelperUtils.boolArg(options.hash("showDiscuss"));
 
-        if (!showPrint && !showEdit && !showDiscuss) {
+        if (!showSelf && !showPrint && !showEdit && !showDiscuss) {
             return "";
         }
 
