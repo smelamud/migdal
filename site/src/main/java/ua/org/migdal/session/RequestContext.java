@@ -17,6 +17,8 @@ public interface RequestContext {
 
     String getCatalogElement(int n);
 
+    int getCatalogLength();
+
     String getSubdomain();
 
     boolean isWww();

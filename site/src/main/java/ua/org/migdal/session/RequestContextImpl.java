@@ -193,6 +193,11 @@ public class RequestContextImpl implements RequestContext {
     }
 
     @Override
+    public int getCatalogLength() {
+        return CatalogUtils.length(getCatalog());
+    }
+
+    @Override
     public String getSubdomain() {
         processRequest();
         return subdomain;

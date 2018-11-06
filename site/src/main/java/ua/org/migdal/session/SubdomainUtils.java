@@ -37,9 +37,6 @@ public class SubdomainUtils {
     }
 
     public SubdomainInfo validateSubdomain(String hostname) {
-        if (hostname.equals(config.getSiteDomain())) {
-            return new SubdomainInfo(config.getSubdomains()[0], null);
-        }
         int pos = hostname.indexOf('.');
         if (pos < 0) {
             return new SubdomainInfo(null, config.getSiteDomain());

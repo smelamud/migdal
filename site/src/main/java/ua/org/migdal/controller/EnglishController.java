@@ -22,6 +22,12 @@ import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Utils;
 
+/*
+ * Note that all paths handled here must be also be present in SubdomainInterceptor#ENGLISH_PATHS list,
+ * otherwise they will not be considered as valid for English version of the site and user will be
+ * automatically redirected to the main subdomain.
+ */
+
 @Controller
 public class EnglishController {
 
@@ -84,8 +90,8 @@ public class EnglishController {
         model.addAttribute("allReviews", postingManager.begAll(p));
     }
 
-    @GetMapping("/migdal/{id:^\\d+$}")
-    public String migdal(@PathVariable long id, Model model) throws PageNotFoundException {
+    // @GetMapping("/migdal/{id:^\\d+$}")
+    public String migdal(long id, Model model) throws PageNotFoundException {
         Posting posting = postingManager.beg(id);
         if (posting == null) {
             throw new PageNotFoundException();

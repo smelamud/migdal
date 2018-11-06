@@ -16,7 +16,7 @@ import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.session.RequestContext;
-import ua.org.migdal.util.CatalogUtils;
+import ua.org.migdal.util.Utils;
 
 @Controller
 public class DisambiguationController {
@@ -54,6 +54,9 @@ public class DisambiguationController {
     @Inject
     private EventController eventController;
 
+    @Inject
+    private EnglishController englishController;
+
     @GetMapping("/**/{smth:[^.]+$}") // $ in the regex is needed to match against the extension too
     public String disambiguate(
             @PathVariable String smth,
@@ -72,7 +75,7 @@ public class DisambiguationController {
         if (smth.startsWith("reorder-")) {
             return postingEditingController.postingsReorder(smth.substring(8), model);
         }
-        if (CatalogUtils.length(requestContext.getCatalog()) <= 2) {
+        if (requestContext.getCatalogLength() <= 2) {
             if (requestContext.getCatalog().startsWith("taglit/")) {
                 return perUserController.taglitUser(smth, offset, sort, model);
             }
@@ -80,7 +83,7 @@ public class DisambiguationController {
                 return perUserController.veteransUser(smth, offset, sort, model);
             }
         }
-        if (CatalogUtils.length(requestContext.getCatalog()) == 5
+        if (requestContext.getCatalogLength() == 5
                 && requestContext.getCatalog().startsWith("migdal/events/")) {
             return eventController.eventsTypeSubtypeId(
                     requestContext.getCatalogElement(2),
@@ -89,6 +92,12 @@ public class DisambiguationController {
                     offset,
                     tid,
                     model);
+        }
+        if (requestContext.isEnglish()
+                && requestContext.getCatalogLength() == 2
+                && requestContext.getCatalog().startsWith("migdal/")
+                && Utils.isNumber(requestContext.getCatalogElement(1))) {
+            return englishController.migdal(Long.parseLong(requestContext.getCatalogElement(1)), model);
         }
         return postingViewController.postingView(model, offset, tid);
     }
