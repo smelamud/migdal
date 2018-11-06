@@ -4,7 +4,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -140,10 +139,6 @@ public class Utils {
 
     public static Timestamp now() {
         return new Timestamp(System.currentTimeMillis());
-    }
-
-    public static boolean biff(LocalDateTime dateTime) {
-        return dateTime != null && dateTime.plusDays(1).isAfter(LocalDateTime.now());
     }
 
     public static boolean contains(long[] array, long value) {
