@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import com.google.common.collect.Lists;
 import org.springframework.stereotype.Component;
 
 import ua.org.migdal.data.ImagePlacement;
@@ -27,6 +28,7 @@ public class Constants {
     private GrpEnum grpEnum;
 
     private List<Constant<Integer>> gregorianMonthRuGenLcLong = new ArrayList<>();
+    private List<Constant<Integer>> gregorianMonthRuNomLcLong = new ArrayList<>();
     private Map<String, Long> userRight = new HashMap<>();
     private Map<String, Long> postingModbit = new HashMap<>();
     private Map<String, Integer> linkType = new HashMap<>();
@@ -35,6 +37,20 @@ public class Constants {
     private Map<String, Short> imagePlacement = new HashMap<>();
     
     public Constants() {
+    }
+
+    public List<Constant<Integer>> getGregorianMonthRuNomLcLong() {
+        if (gregorianMonthRuNomLcLong.isEmpty()) {
+            int i = 1;
+            for (String month : Tables.GREGORIAN_MONTH_RU_NOM_LC_LONG) {
+                gregorianMonthRuNomLcLong.add(new Constant<>(month, i++));
+            }
+        }
+        return gregorianMonthRuNomLcLong;
+    }
+
+    public List<Constant<Integer>> getGregorianMonthRuNomLcLongReverse() {
+        return Lists.reverse(getGregorianMonthRuNomLcLong());
     }
 
     public List<Constant<Integer>> getGregorianMonthRuGenLcLong() {

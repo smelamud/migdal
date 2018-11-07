@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
 
+import ua.org.migdal.data.ChatMessage;
 import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.helper.calendar.CalendarType;
@@ -47,12 +48,20 @@ public class PostingHelperSource {
         return new SafeString(Formatter.format(CalendarType.GREGORIAN_EN, "dd.MM.yyyy'&nbsp;'HH:mm", timestamp));
     }
 
-    public CharSequence senderLink(Entry entry) {
+    public CharSequence senderLink(Object object) {
         if (requestContext.isEnglish()) {
             return "";
         }
 
-        return usersHelperSource.userLink(entry.getUser(), entry.getGuestLogin());
+        if (object instanceof Entry) {
+            Entry entry = (Entry) object;
+            return usersHelperSource.userLink(entry.getUser(), entry.getGuestLogin());
+        }
+        if (object instanceof ChatMessage) {
+            ChatMessage message = (ChatMessage) object;
+            return usersHelperSource.userLink(message.getSender(), message.getGuestLogin());
+        }
+        return "";
     }
 
     public CharSequence topicLink(Posting posting, Options options) {

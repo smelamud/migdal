@@ -1,0 +1,75 @@
+{{#*inline "monthLink"}} {{! params: title value }}
+    &nbsp;<a href="/chat-archive/{{year}}/{{value}}/">{{title}}</a>
+{{/inline}}
+
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        <td width="150" class="eframe">
+            {{> (topicsPartial)}}
+            {{> part/ears}}
+        </td>
+        <td class="cframe">
+            {{subtitle}}
+            {{#each years}}
+                {{#ifieq year this}}
+                    &nbsp;<b>{{this}}</b>
+                {{else}}
+                    &nbsp;<a href="/chat-archive/{{this}}/">{{this}}</a>
+                {{/ifieq}}
+            {{/each}}
+            <br><br>
+            <b>Месяц:</b>
+            {{#each const.gregorianMonthRuNomLcLongReverse}}
+                {{#ifieq month value}}
+                    &nbsp;<b>{{title}}</b>
+                {{else}}
+                    {{#ifbtw year 2002 2006}}
+                        {{> monthLink title=title value=value}}
+                    {{else}}
+                        {{#ifieq year 2001}}
+                            {{#ifge value 11}}
+                                {{> monthLink title=title value=value}}
+                            {{/ifge}}
+                        {{else}}
+                            {{#ifieq year 2007}}
+                                {{#ifle value 7}}
+                                    {{> monthLink title=title value=value}}
+                                {{/ifle}}
+                            {{/ifieq}}
+                        {{/ifieq}}
+                    {{/ifbtw}}
+                {{/ifieq}}
+            {{/each}}
+            <p>&nbsp;</p>
+            <p>
+                <b>
+                    Всего <em>{{messagesTotal}}</em>
+                    {{plural messagesTotal "сообщение,сообщения,сообщений"}}
+                </b>
+            </p>
+            {{#assign "prevDate"}}{{/assign}}
+            <p>
+                {{#each messages}}
+                    {{#assign "nextDate"}}{{cal "gregorian-en" "dd.MM.yyyy" date=sent}}{{/assign}}
+                    {{#ifne nextDate prevDate}}
+                        {{#if prevDate}}</p><p>{{/if}}
+                        <b>{{nextDate}}</b><br>
+                        {{#assign "prevDate"}}{{nextDate}}{{/assign}}
+                    {{/ifne}}
+                    {{cal "gregorian-en" "HH:mm:ss" date=sent}}
+                    {{#ifeq sender.login "shames"}}
+                        <b>{{mtext textMtext}}</b>
+                    {{else}}
+                        {{senderLink this}}: {{mtext textMtext}}
+                    {{/ifeq}}
+                    <br>
+                {{/each}}
+            </p>
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}

@@ -54,9 +54,8 @@ ALTER TABLE public.captcha_keys OWNER TO migdal;
 CREATE TABLE public.chat_messages (
     id bigint NOT NULL,
     guest_login character varying(30) NOT NULL,
-    sender_id bigint DEFAULT '0'::bigint NOT NULL,
-    private_id bigint DEFAULT '0'::bigint NOT NULL,
-    sent timestamp with time zone DEFAULT now() NOT NULL,
+    sender_id bigint,
+    sent timestamp with time zone NOT NULL,
     text character varying(255) DEFAULT ''::character varying NOT NULL,
     text_xml character varying(255) DEFAULT ''::character varying NOT NULL
 );
@@ -519,6 +518,14 @@ CREATE TABLE public.votes (
 ALTER TABLE public.votes OWNER TO migdal;
 
 --
+-- Name: chat_messages chat_messages_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY public.chat_messages
+    ADD CONSTRAINT chat_messages_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: entries entries_ident_key; Type: CONSTRAINT; Schema: public; Owner: migdal
 --
 
@@ -612,6 +619,20 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.votes
     ADD CONSTRAINT votes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: chat_messages_sender_id_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX chat_messages_sender_id_idx ON public.chat_messages USING btree (sender_id);
+
+
+--
+-- Name: chat_messages_sent_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX chat_messages_sent_idx ON public.chat_messages USING btree (sent);
 
 
 --
@@ -990,6 +1011,14 @@ CREATE INDEX users_surname_idx ON public.users USING btree (surname);
 --
 
 CREATE INDEX vote_type_idx ON public.votes USING btree (vote_type);
+
+
+--
+-- Name: chat_messages chat_messages_sender_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY public.chat_messages
+    ADD CONSTRAINT chat_messages_sender_id_fkey FOREIGN KEY (sender_id) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --

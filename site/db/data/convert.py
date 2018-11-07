@@ -274,6 +274,16 @@ def convert_prisoners(row):
         row['search_data'],
     ]
 
+def convert_chat_messages(row):
+    return [
+        row['id'],
+        row['guest_login'],
+        null_id(row['sender_id']),
+        null_time(row['sent']),
+        html_entities(row['text']),
+        row['text_xml'],
+    ]
+
 csv.field_size_limit(300000)
 read_entry_grps()
 table_name = sys.argv[1]
