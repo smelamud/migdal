@@ -24,6 +24,7 @@ public class Postings {
     Long userId;
     PostingModbit modbit;
     boolean asGuest;
+    Timestamp earlierThan;
     Timestamp laterThan;
     boolean withAnswers;
     int offset;
@@ -137,6 +138,13 @@ public class Postings {
 
     public Postings asGuest() {
         return asGuest(true);
+    }
+
+    public Postings earlierThan(Timestamp earlierThan) {
+        if (earlierThan != null) {
+            this.earlierThan = earlierThan;
+        }
+        return this;
     }
 
     public Postings laterThan(Timestamp laterThan) {

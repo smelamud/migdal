@@ -1,0 +1,43 @@
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        <td width="150" class="eframe">
+            {{> (topicsPartial)}}
+            {{> part/ears}}
+        </td>
+        <td class="cframe">
+            {{subtitle}}
+            <b>Год:</b>
+            {{#each years}}
+                {{#ifieq year this}}
+                    &nbsp;<b>{{this}}</b>
+                {{else}}
+                    &nbsp;<a href="/archive/{{this}}/">{{this}}</a>
+                {{/ifieq}}
+            {{/each}}
+            <p>&nbsp;</p>
+            <p>
+                <b>
+                    Всего <em>{{postings.totalElements}}</em>
+                    {{plural postings.totalElements "сообщение,сообщения,сообщений"}}
+                </b>
+            </p>
+            {{#assign "prevDate"}}{{/assign}}
+            <dl class="ninept index">
+                {{#each postings}}
+                    {{#assign "nextDate"}}{{cal "gregorian-en" "dd.MM.yyyy" date=sent}}{{/assign}}
+                    {{#ifne nextDate prevDate}}
+                        {{#if prevDate}}<dt>&nbsp;</dt>{{/if}}
+                        <dt>{{nextDate}}</dt>
+                        {{#assign "prevDate"}}{{nextDate}}{{/assign}}
+                    {{/ifne}}
+                    <dd><a href="{{grpDetailsHref}}">{{heading}}</a></dd>
+                {{/each}}
+            </dl>
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}

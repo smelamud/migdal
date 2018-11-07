@@ -231,6 +231,9 @@ public class PostingManager implements EntryManagerBase<Posting> {
         if (p.modbit != null) {
             where.and(getModbitFilter(posting, p.modbit));
         }
+        if (p.earlierThan != null) {
+            where.and(posting.sent.before(p.earlierThan));
+        }
         if (p.laterThan != null) {
             where.and(posting.sent.after(p.laterThan));
         }
