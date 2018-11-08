@@ -90,7 +90,7 @@ public class VoteHelperSource {
             if (requestContext.isLogged()) {
                 String title = "Неинтересно, плохо написано";
                 String klass = String.format("vote-minus-%d vote-button vote-active", id);
-                buf.append(imagesHelperSource.image("/pics/vote-minus.gif", title, title, null, klass, id, 2));
+                buf.append(imagesHelperSource.image("/pics/vote-minus.gif", title, title, null, klass, id, 2, null));
             } else {
                 String title = "Чтобы ставить отрицательные оценки, нужно зарегистрироваться";
                 String klass = String.format("vote-minus-%d vote-button", id);
@@ -127,7 +127,7 @@ public class VoteHelperSource {
         if (vote == null) {
             String title = "Интересно, хорошо написано";
             String klass = String.format("vote-plus-%d vote-button vote-active", id);
-            buf.append(imagesHelperSource.image("/pics/vote-plus.gif", title, title, null, klass, id, 4));
+            buf.append(imagesHelperSource.image("/pics/vote-plus.gif", title, title, null, klass, id, 4, null));
         } else {
             if (vote.getVote() > 3) {
                 buf.append(imagesHelperSource.image("/pics/vote-plus-gray.gif", null, null, null, "vote-button"));

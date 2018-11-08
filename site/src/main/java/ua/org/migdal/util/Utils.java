@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -12,6 +13,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.xml.bind.DatatypeConverter;
+
+import com.ibm.icu.util.Calendar;
+import com.ibm.icu.util.GregorianCalendar;
+import com.ibm.icu.util.HebrewCalendar;
 
 public class Utils {
 
@@ -139,6 +144,18 @@ public class Utils {
 
     public static Timestamp now() {
         return new Timestamp(System.currentTimeMillis());
+    }
+
+    public static void copyToCalendar(LocalDateTime dateTime, Calendar calendar) {
+        calendar.set(dateTime.getYear(), dateTime.getMonthValue() - 1, dateTime.getDayOfMonth(),
+                dateTime.getHour(), dateTime.getMinute(), dateTime.getSecond());
+    }
+
+    public static HebrewCalendar toHebrew(GregorianCalendar gregorianCalendar) {
+        HebrewCalendar hebrewCalendar = new HebrewCalendar();
+        hebrewCalendar.setTime(gregorianCalendar.getTime());
+        hebrewCalendar.setTimeZone(gregorianCalendar.getTimeZone());
+        return hebrewCalendar;
     }
 
     public static boolean contains(long[] array, long value) {

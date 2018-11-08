@@ -107,8 +107,7 @@ public class Formatter {
                 throw new IllegalArgumentException("Unknown calendar type:" + calendarType);
         }
         Calendar calendar = Calendar.getInstance();
-        calendar.set(dateTime.getYear(), dateTime.getMonthValue() - 1, dateTime.getDayOfMonth(),
-                dateTime.getHour(), dateTime.getMinute(), dateTime.getSecond());
+        Utils.copyToCalendar(dateTime, calendar);
         return dateFormat.format(calendar);
     }
 

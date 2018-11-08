@@ -65,20 +65,20 @@ public class ImagesHelperSource {
     }
 
     CharSequence image(CharSequence src) {
-        return image(src, null, null, null, null, null, null);
+        return image(src, null, null, null, null, null, null, null);
     }
 
     CharSequence image(CharSequence src, CharSequence alt, CharSequence title) {
-        return image(src, alt, title, null, null, null, null);
+        return image(src, alt, title, null, null, null, null, null);
     }
 
     CharSequence image(CharSequence src, CharSequence alt, CharSequence title, CharSequence style,
                        CharSequence klass) {
-        return image(src, alt, title, style, klass, null, null);
+        return image(src, alt, title, style, klass, null, null, null);
     }
 
     CharSequence image(CharSequence src, CharSequence alt, CharSequence title, CharSequence style,
-                       CharSequence klass, Object dataId, Object dataValue) {
+                       CharSequence klass, Object dataId, Object dataValue, CharSequence id) {
         StringBuilder buf = new StringBuilder();
         buf.append("<img");
         HelperUtils.appendAttr(buf, "src", src);
@@ -93,6 +93,7 @@ public class ImagesHelperSource {
         HelperUtils.appendAttr(buf, "data-id", dataId);
         HelperUtils.appendAttr(buf, "data-value", dataValue);
         HelperUtils.appendAttr(buf, "style", style);
+        HelperUtils.appendAttr(buf, "id", id);
         buf.append('>');
         return new SafeString(buf);
     }

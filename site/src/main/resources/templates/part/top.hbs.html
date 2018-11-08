@@ -1,12 +1,12 @@
 {{#*inline "banner"}}
-    <div id='logo'>
-        <a href='/'>{{image "/pics/big-tower.gif" alt="Башня" altEn="Tower"}}</a>
+    <div id="logo">
+        <a href="/">{{image "/pics/big-tower.gif" alt="Башня" altEn="Tower"}}</a>
         {{#notEnglish}}
-            <a href='/'>{{image "/pics/migdal.jpg" alt="Мигдаль" id="migdal"}}</a>
+            <a href="/">{{image "/pics/migdal.jpg" alt="Мигдаль" id="migdal"}}</a>
         {{else}}
-            <a href='/'>{{image "/pics/migdal-english.gif" alt="Migdal" id="migdal"}}</a>
+            <a href="/">{{image "/pics/migdal-english.gif" alt="Migdal" id="migdal"}}</a>
         {{/notEnglish}}
-        {{! > hannukah}}
+        {{hannukah}}
     </div>
 {{/inline}}
 
@@ -14,20 +14,20 @@
     {{#if translationHref}}
         {{#english}}
             {{image "/pics/lang-ru.gif"}}
-            <a href='http://{{siteDomain}}{{translationHref}}' id='translation'>Русская версия</a>
+            <a href="http://{{siteDomain}}{{translationHref}}" id="translation">Русская версия</a>
         {{else}}
             {{image "/pics/lang-us.gif"}}
-            <a href='http://english.{{siteDomain}}{{translationHref}}' id='translation'>English version</a>
+            <a href="http://english.{{siteDomain}}{{translationHref}}" id="translation">English version</a>
         {{/english}}
     {{/if}}
 {{/inline}}
 
 {{#notPrint}}
-    <div id='top'>
+    <div id="top">
         {{> banner}}
         {{> part/countdown title="25-летия &laquo;Мигдаля&raquo;" date="2017-02-06"
                            image="/pics/logo-birthday.gif"}}
-        <div id='bsd-block'>
+        <div id="bsd-block">
             {{> translation}}
             {{image "/pics/bsd-main.gif" alt="БС&quot;Д" altEn="BS&quot;D" id="bsd"}}
         </div>
