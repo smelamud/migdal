@@ -21,9 +21,19 @@ public interface RequestContext {
 
     String getSubdomain();
 
+    int getPort();
+
+    String getSiteUrl();
+
+    String getSiteUrl(String subdomain);
+
     boolean isWww();
 
     boolean isEnglish();
+
+    String getWwwSiteUrl();
+
+    String getEnglishSiteUrl();
 
     String getIp();
 

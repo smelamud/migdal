@@ -14,10 +14,10 @@
     {{#if translationHref}}
         {{#english}}
             {{image "/pics/lang-ru.gif"}}
-            <a href="http://{{siteDomain}}{{translationHref}}" id="translation">Русская версия</a>
+            <a href="{{rc.wwwSiteUrl}}{{translationHref}}" id="translation">Русская версия</a>
         {{else}}
             {{image "/pics/lang-us.gif"}}
-            <a href="http://english.{{siteDomain}}{{translationHref}}" id="translation">English version</a>
+            <a href="{{rc.englishSiteUrl}}{{translationHref}}" id="translation">English version</a>
         {{/english}}
     {{/if}}
 {{/inline}}

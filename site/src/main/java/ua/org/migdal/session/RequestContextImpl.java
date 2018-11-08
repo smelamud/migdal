@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.annotation.RequestScope;
 
+import org.springframework.web.util.UriComponents;
 import ua.org.migdal.Config;
 import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRight;
@@ -54,6 +55,7 @@ public class RequestContextImpl implements RequestContext {
     private String location;
     private String catalog;
     private String subdomain;
+    private int port;
     private String ip;
     private String back;
     private String origin;
@@ -152,8 +154,9 @@ public class RequestContextImpl implements RequestContext {
 
         location = SubdomainUtils.createLocalBuilderFromRequest(request).build(true).toUriString();
         catalog = CatalogUtils.normalize(request.getRequestURI());
-        String hostname = SubdomainUtils.createBuilderFromRequest(request).build().getHost();
-        subdomain = subdomainUtils.validateSubdomain(hostname).getSubdomain();
+        UriComponents uriComponents = SubdomainUtils.createBuilderFromRequest(request).build();
+        subdomain = subdomainUtils.validateSubdomain(uriComponents.getHost()).getSubdomain();
+        port = uriComponents.getPort();
         ip = request.getRemoteAddr();
         printMode = "1".equals(request.getParameter("print"));
         back = request.getParameter("back");
@@ -204,6 +207,29 @@ public class RequestContextImpl implements RequestContext {
     }
 
     @Override
+    public int getPort() {
+        processRequest();
+        return port;
+    }
+
+    @Override
+    public String getSiteUrl() {
+        return getSiteUrl(getSubdomain());
+    }
+
+    @Override
+    public String getSiteUrl(String subdomain) {
+        switch (getPort()) {
+            case 80:
+                return String.format("http://%s.%s", subdomain, config.getSiteDomain());
+            case 443:
+                return String.format("https://%s.%s", subdomain, config.getSiteDomain());
+            default:
+                return String.format("http://%s.%s:%d", subdomain, config.getSiteDomain(), getPort());
+        }
+    }
+
+    @Override
     public boolean isWww() {
         return getSubdomain().equals("www");
     }
@@ -211,6 +237,16 @@ public class RequestContextImpl implements RequestContext {
     @Override
     public boolean isEnglish() {
         return getSubdomain().equals("english");
+    }
+
+    @Override
+    public String getWwwSiteUrl() {
+        return getSiteUrl("www");
+    }
+
+    @Override
+    public String getEnglishSiteUrl() {
+        return getSiteUrl("english");
     }
 
     @Override
@@ -338,20 +374,12 @@ public class RequestContextImpl implements RequestContext {
 
     @Override
     public List<String> getOgImages() {
-        return !ogImages.isEmpty() ? ogImages : Collections.singletonList(ogImageUrl("/pics/big-tower.gif"));
+        return !ogImages.isEmpty() ? ogImages : Collections.singletonList(getSiteUrl() + "/pics/big-tower.gif");
     }
 
     @Override
     public void addOgImage(String src) {
-        ogImages.add(ogImageUrl(src));
-    }
-
-    private String ogImageUrl(String src) {
-        if (getSubdomain() == null) { // TODO use https
-            return String.format("http://%s%s", config.getSiteDomain(), src);
-        } else {
-            return String.format("http://%s.%s%s", getSubdomain(), config.getSiteDomain(), src);
-        }
+        ogImages.add(getSiteUrl() + src);
     }
 
 }
