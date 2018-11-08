@@ -23,7 +23,30 @@ public class Utils {
     public static int random(int min, int max) {
         return (int) (Math.random() * (max - min)) + min;
     }
-    
+
+    // Only for small values of len
+    public static int[] randomArray(int len, int min, int max) {
+        if (max - min + 1 < len) {
+            throw new IllegalArgumentException("Impossible to fill the array that long with numbers in the range");
+        }
+
+        int[] n = new int[len];
+        int i = 0;
+        while (i < len) {
+            int m = Utils.random(min, max);
+            for (int j = 0; ; j++) {
+                if (j < i && n[j] == m) {
+                    break;
+                }
+                if (j == i) {
+                    n[i++] = m;
+                    break;
+                }
+            }
+        }
+        return n;
+    }
+
     public static String md5(String s) throws NoSuchAlgorithmException {
         return DatatypeConverter.printHexBinary(
                 MessageDigest.getInstance("MD5").digest(s.getBytes(StandardCharsets.UTF_8)));
