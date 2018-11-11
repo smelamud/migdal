@@ -1,19 +1,17 @@
 {{#*inline "novelties"}}
-    {{#notPrint}}
-        {{#if printings}}
-            <div class="right-column" style="width: 180px">
-                {{#topicsTable title="Новинки" class="eightpt"}}
-                    {{#each printings}}
-                        {{topicsLine href=grpDetailsHref text=heading class="none"}}
-                    {{/each}}
-                    {{topicsSplitter}}
-                    <li class="topics-view-all ninept">
-                        <a href="/migdal/library/novelties/">Все новинки</a>
-                    </li>
-                {{/topicsTable}}
-            </div>
-        {{/if}}
-    {{/notPrint}}
+    {{#if printings}}
+        <div class="right-column" style="width: 180px">
+            {{#topicsTable title="Новинки" class="eightpt"}}
+                {{#each printings}}
+                    {{topicsLine href=grpDetailsHref text=heading class="none"}}
+                {{/each}}
+                {{topicsSplitter}}
+                <li class="topics-view-all ninept">
+                    <a href="/migdal/library/novelties/">Все новинки</a>
+                </li>
+            {{/topicsTable}}
+        </div>
+    {{/if}}
 {{/inline}}
 
 {{> part/preamble}}

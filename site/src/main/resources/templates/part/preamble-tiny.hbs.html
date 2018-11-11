@@ -1,8 +1,3 @@
-{{#notPrint}}
-    <link rel="alternate" media="print" href="{{printLocation}}">
-{{else}}
-    <meta property="robots" content="noindex, nofollow">
-{{/notPrint}}
 {{#if rssHref}}
     <link rel="alternate" type="application/rss+xml" title="RSS" href="{{rc.siteUrl}}{{rssHref}}">
 {{/if}}
@@ -18,8 +13,6 @@
 <meta property="og:title" content="{{pageTitle}}">
 <title>{{#if pageTitle}}{{#ifne pageTitle "Главная"}}{{#ifne pageTitle "Home"}}{{pageTitle}} | {{/ifne}}{{/ifne}}{{/if}}{{siteName}}</title>
 
-{{#notPrint}}
-    <script type="text/javascript">
-        window.timeZoneDiff = Math.round((new Date().getTime() - {{now}}) / 3600000);
-    </script>
-{{/notPrint}}
+<script type="text/javascript">
+    window.timeZoneDiff = Math.round((new Date().getTime() - {{now}}) / 3600000);
+</script>

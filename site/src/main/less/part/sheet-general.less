@@ -12,8 +12,7 @@
 }
 
 BODY {
-	background-color: @body_back;
-	background-image: url(@body_back_pic);
+	.body-back ();
 	margin: 0;
 	font-size: 10pt;
 	font-family: @verdana;
@@ -80,17 +79,4 @@ EM {
 	color: @em;
 	font-weight: bold;
 	font-style: normal;
-}
-
-.rss {
-    text-align: right;
-    margin-top: 3px;
-    margin-bottom: 3px;
-    clear: both;
-    width: 100%;
-
-    IMG {
-        position: relative;
-        top: +3px;
-    }
 }

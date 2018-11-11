@@ -6,29 +6,27 @@
     {{/if}}
 {{/inline}}
 
-{{#notPrint}}
-    {{#if seeAlsoVisible}}
-        <div class="nframe" style="padding: 5px">
-            <div class="seealso">
-                {{> errorLines}}
-                <b>См. также:</b>
-                {{#moderator}}
-                    <br>
-                    <a href="/add-cross?sourceId={{seeAlsoSourceId}}&amp;linkType={{const.linkType.SEE_ALSO}}&amp;back={{ue rc.location}}"
-                       class="edit">Добавить</a>
-                {{/moderator}}
-                <ul>
-                    {{#each seeAlsoLinks}}
-                        <li class="seealso-{{peerIcon}}">
-                            <a href="{{peerPath}}">{{peerSubject}}</a>
-                            {{#moderator}}
-                                <a href="/actions/cross-entry/delete?id={{id}}&amp;back={{ue rc.location}}"
-                                   class="edit">Удалить</a>
-                            {{/moderator}}
-                        </li>
-                    {{/each}}
-                </ul>
-            </div>
+{{#if seeAlsoVisible}}
+    <div class="nframe not-print" style="padding: 5px">
+        <div class="seealso">
+            {{> errorLines}}
+            <b>См. также:</b>
+            {{#moderator}}
+                <br>
+                <a href="/add-cross?sourceId={{seeAlsoSourceId}}&amp;linkType={{const.linkType.SEE_ALSO}}&amp;back={{ue rc.location}}"
+                   class="edit">Добавить</a>
+            {{/moderator}}
+            <ul>
+                {{#each seeAlsoLinks}}
+                    <li class="seealso-{{peerIcon}}">
+                        <a href="{{peerPath}}">{{peerSubject}}</a>
+                        {{#moderator}}
+                            <a href="/actions/cross-entry/delete?id={{id}}&amp;back={{ue rc.location}}"
+                               class="edit">Удалить</a>
+                        {{/moderator}}
+                    </li>
+                {{/each}}
+            </ul>
         </div>
-    {{/if}}
-{{/notPrint}}
+    </div>
+{{/if}}

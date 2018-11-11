@@ -1,17 +1,10 @@
 @error_back: red;
 @error: white;
 
-.body-back (default) {
-    @body_back: @r_b;
-    @body_back_pic: "/pics/b-back.gif";
+.body-back () when (@flavour = default) {
+	background-color: @r_b;
+	background-image: url("/pics/b-back.gif");
 }
-
-.body-back (print) {
-    @body_back: white;
-    @body_back_pic: ;
-}
-
-.body-back (@flavour);
 
 @body_404_back: white;
 
@@ -26,47 +19,30 @@
 
 @sent: @mrm;
 
-.frames (default) {
-    @cframe_back: @r_l;
-    @cframe_back_pic: "/pics/l-back.jpg";
-    @cframe_border: @mrd;
+@cframe_back: @r_l;
+@cframe_back_pic: "/pics/l-back.jpg";
+@cframe_border: @mrd;
 
-    @eframe_back: @r_m;
-    @eframe_back_pic: "/pics/m-back.jpg";
-    @eframe_border: @mrl;
+@eframe_back: @r_m;
+@eframe_back_pic: "/pics/m-back.jpg";
+@eframe_border: @mrl;
 
-    @nframe_back: @r_lm;
-    @nframe_border: @mrd;
-}
+@nframe_back: @r_lm;
+@nframe_border: @mrd;
 
-.frames (print) {
-    @cframe_back_pic: ;
-    @cframe_back: white;
-    @cframe_border: ;
-
-    @eframe_back: white;
-    @eframe_back_pic: ;
-    @eframe_border: ;
-
-    @nframe_back: white;
-    @nframe_border: ;
-}
-
-.frames (@flavour);
-
-.cframe {
+.cframe when (@flavour = default) {
 	background-color: @cframe_back;
 	background-image: url(@cframe_back_pic);
 	border: solid 1px @cframe_border;
 }
 
-.eframe {
+.eframe when (@flavour = default) {
 	background-color: @eframe_back;
 	background-image: url(@eframe_back_pic);
 	border: solid 2px @eframe_border;
 }
 
-.nframe {
+.nframe when (@flavour = default) {
 	background-color: @nframe_back;
 	border: solid 1px @nframe_border;
 	margin-bottom: 0.5ex;
@@ -185,3 +161,10 @@
 @rating_minus: @rd;
 @rating_zero: @gr;
 @rating_plus: @gn;
+
+.not-print when (@flavour = default) {
+}
+
+.not-print when (@flavour = print) {
+    display: none;
+}

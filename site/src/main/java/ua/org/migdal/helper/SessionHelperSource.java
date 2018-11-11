@@ -17,12 +17,12 @@ public class SessionHelperSource {
     @Inject
     private RequestContext requestContext;
 
-    public CharSequence print(Options options) throws IOException {
-        return requestContext.isPrintMode() ? options.apply(options.fn) : options.apply(options.inverse);
-    }
-
     public CharSequence notPrint(Options options) throws IOException {
-        return !requestContext.isPrintMode() ? options.apply(options.fn) : options.apply(options.inverse);
+        StringBuilder buf = new StringBuilder();
+        buf.append("<div class=\"not-print\">");
+        buf.append(options.apply(options.fn));
+        buf.append("</div>");
+        return buf;
     }
 
     public CharSequence english(Options options) throws IOException {

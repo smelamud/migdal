@@ -29,27 +29,25 @@
 {{/inline}}
 
 {{#*inline "dailyRing"}}
-    {{#notPrint}}
-        <div class="ring">
-            <div class="chapter-prev">
-                {{#if prevDay}}
-                    <a href="{{event.href}}day-{{prevDay.index1}}/" title="Предыдущий выпуск">{{prevDay.heading}}</a>
-                    {{image "/pics/left.gif"}}
-                {{else}}
-                    &nbsp;
-                {{/if}}
-            </div>
-            <div>&nbsp;</div>
-            <div class="chapter-next">
-                {{#if nextDay}}
-                    {{image "/pics/right.gif"}}
-                    <a href="{{event.href}}day-{{nextDay.index1}}/" title="Следующий выпуск">{{nextDay.heading}}</a>
-                {{else}}
-                    &nbsp;
-                {{/if}}
-            </div>
+    <div class="ring">
+        <div class="chapter-prev">
+            {{#if prevDay}}
+                <a href="{{event.href}}day-{{prevDay.index1}}/" title="Предыдущий выпуск">{{prevDay.heading}}</a>
+                {{image "/pics/left.gif"}}
+            {{else}}
+                &nbsp;
+            {{/if}}
         </div>
-    {{/notPrint}}
+        <div>&nbsp;</div>
+        <div class="chapter-next">
+            {{#if nextDay}}
+                {{image "/pics/right.gif"}}
+                <a href="{{event.href}}day-{{nextDay.index1}}/" title="Следующий выпуск">{{nextDay.heading}}</a>
+            {{else}}
+                &nbsp;
+            {{/if}}
+        </div>
+    </div>
 {{/inline}}
 
 {{> part/preamble}}

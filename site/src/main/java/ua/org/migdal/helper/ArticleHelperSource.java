@@ -48,10 +48,6 @@ public class ArticleHelperSource {
     }
 
     public CharSequence articleControls(Options options) {
-        if (requestContext.isPrintMode()) {
-            return "";
-        }
-
         Posting posting = HelperUtils.mandatoryHash("posting", options);
 
         StringBuilder buf = new StringBuilder();

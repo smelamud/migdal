@@ -22,17 +22,15 @@
     {{/if}}
 {{/inline}}
 
-{{#notPrint}}
-    <div id="top">
-        {{> banner}}
-        {{> part/countdown title="25-летия &laquo;Мигдаля&raquo;" date="2017-02-06"
-                           image="/pics/logo-birthday.gif"}}
-        <div id="bsd-block">
-            {{> translation}}
-            {{image "/pics/bsd-main.gif" alt="БС&quot;Д" altEn="BS&quot;D" id="bsd"}}
-        </div>
-        {{> part/login}}
+<div id="top">
+    {{> banner}}
+    {{> part/countdown title="25-летия &laquo;Мигдаля&raquo;" date="2017-02-06"
+                       image="/pics/logo-birthday.gif"}}
+    <div id="bsd-block">
+        {{> translation}}
+        {{image "/pics/bsd-main.gif" alt="БС&quot;Д" altEn="BS&quot;D" id="bsd"}}
     </div>
-    {{> part/menu}}
-    {{> part/backtrace}}
-{{/notPrint}}
+    {{> part/login}}
+</div>
+{{> part/menu}}
+{{> part/backtrace}}

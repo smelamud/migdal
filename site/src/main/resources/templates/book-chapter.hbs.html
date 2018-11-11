@@ -1,30 +1,28 @@
 {{#*inline "bookRing"}}
-    {{#notPrint}}
-        <div class="ring">
-            <div class="chapter-prev">
-                {{#if prevChapter}}
-                    <a href="{{book.grpDetailsHref}}{{prevChapter.id}}/"
-                       title="Предыдущая глава">{{prevChapter.subject}}</a>
-                    {{image "/pics/left.gif"}}
-                {{else}}
-                    &nbsp;
-                {{/if}}
-            </div>
-            <div>
-                <b><a href="{{book.grpDetailsHref}}" title="К началу книги">{{book.subject}}</a></b><br>
-                {{image "/pics/up.gif"}}
-            </div>
-            <div class="chapter-next">
-                {{#if nextChapter}}
-                    {{image "/pics/right.gif"}}
-                    <a href="{{book.grpDetailsHref}}{{nextChapter.id}}/"
-                       title="Следующая глава">{{nextChapter.subject}}</a>
-                {{else}}
-                    &nbsp;
-                {{/if}}
-            </div>
+    <div class="ring">
+        <div class="chapter-prev">
+            {{#if prevChapter}}
+                <a href="{{book.grpDetailsHref}}{{prevChapter.id}}/"
+                   title="Предыдущая глава">{{prevChapter.subject}}</a>
+                {{image "/pics/left.gif"}}
+            {{else}}
+                &nbsp;
+            {{/if}}
         </div>
-    {{/notPrint}}
+        <div>
+            <b><a href="{{book.grpDetailsHref}}" title="К началу книги">{{book.subject}}</a></b><br>
+            {{image "/pics/up.gif"}}
+        </div>
+        <div class="chapter-next">
+            {{#if nextChapter}}
+                {{image "/pics/right.gif"}}
+                <a href="{{book.grpDetailsHref}}{{nextChapter.id}}/"
+                   title="Следующая глава">{{nextChapter.subject}}</a>
+            {{else}}
+                &nbsp;
+            {{/if}}
+        </div>
+    </div>
 {{/inline}}
 
 {{> part/preamble}}

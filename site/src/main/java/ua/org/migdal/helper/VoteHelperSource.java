@@ -73,7 +73,7 @@ public class VoteHelperSource {
     }
 
     CharSequence votePanel(long id, long rating, CharSequence align) {
-        if (requestContext.isPrintMode() || requestContext.isEnglish()) {
+        if (requestContext.isEnglish()) {
             return "";
         }
 

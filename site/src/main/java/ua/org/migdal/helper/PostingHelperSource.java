@@ -157,10 +157,6 @@ public class PostingHelperSource {
     }
 
     public CharSequence postingControls(Options options) {
-        if (requestContext.isPrintMode()) {
-            return "";
-        }
-
         Posting posting = HelperUtils.mandatoryHash("posting", options);
         boolean showSelf = HelperUtils.boolArg(options.hash("showSelf"));
         boolean showPrint = HelperUtils.boolArg(options.hash("showPrint", "true"));

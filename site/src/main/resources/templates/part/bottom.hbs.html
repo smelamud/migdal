@@ -91,20 +91,18 @@
     </p>
 {{/inline}}
 
-        {{#notPrint}}
-            {{> part/backtrace}}
-            <div id="bottom">
-                <div style="width: 100%">
-                    {{#notEnglish}}
-                        {{> bottomWww}}
-                    {{else}}
-                        {{> bottomEnglish}}
-                    {{/notEnglish}}
-                </div>
-                <hr>
-                <p>{{banners}}</p>
+        {{> part/backtrace}}
+        <div id="bottom">
+            <div style="width: 100%">
+                {{#notEnglish}}
+                    {{> bottomWww}}
+                {{else}}
+                    {{> bottomEnglish}}
+                {{/notEnglish}}
             </div>
-            {{> addThis}}
-        {{/notPrint}}
+            <hr>
+            <p>{{banners}}</p>
+        </div>
+        {{> addThis}}
     </body>
 </html>

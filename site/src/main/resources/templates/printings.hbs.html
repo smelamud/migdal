@@ -1,20 +1,18 @@
 {{#*inline "batcher"}}
-    {{#notPrint}}
-        <div class="batcher">
-            <div class="adder">
-                {{image "/pics/print.gif"}}
-                <a href="?print=1" target="_blank">Для печати</a>
+    <div class="batcher">
+        <div class="adder">
+            {{image "/pics/print.gif"}}
+            <a href="?print=1" target="_blank">Для печати</a>
+            &nbsp;
+            {{#postable printings}}
+                {{image "/pics/sheet.gif"}}
+                <a href="/migdal/printings/add-printings?back={{ue rc.location}}">Добавить книгу</a>
                 &nbsp;
-                {{#postable printings}}
-                    {{image "/pics/sheet.gif"}}
-                    <a href="/migdal/printings/add-printings?back={{ue rc.location}}">Добавить книгу</a>
-                    &nbsp;
-                    <a href="/migdal/printings/reorder?back={{ue rc.location}}">Расставить подразделы</a>
-                {{/postable}}
-            </div>
-            <div class="clear-floats"></div>
+                <a href="/migdal/printings/reorder?back={{ue rc.location}}">Расставить подразделы</a>
+            {{/postable}}
         </div>
-    {{/notPrint}}
+        <div class="clear-floats"></div>
+    </div>
 {{/inline}}
 
 {{> part/preamble}}
@@ -41,16 +39,14 @@
                         <div class="rubric-bullet">{{image "/pics/times-bullet.gif"}}</div>
                         <div class="rubric-title">{{uc parent.subject}}</div>
                     </div>
-                    {{#notPrint}}
-                        {{#postable parent}}
-                            <div class="batcher">
-                                <div class="adder">
-                                    <a href="{{parent.href}}reorder?back={{ue rc.location}}">Расставить книги</a>
-                                </div>
-                                <div class="clear-floats"></div>
+                    {{#postable parent}}
+                        <div class="batcher">
+                            <div class="adder">
+                                <a href="{{parent.href}}reorder?back={{ue rc.location}}">Расставить книги</a>
                             </div>
-                        {{/postable}}
-                    {{/notPrint}}
+                            <div class="clear-floats"></div>
+                        </div>
+                    {{/postable}}
                 {{/ifne}}
                 {{> (postingPartial this) posting=this showTopic=false shorten=false showDiscuss=true}}
             {{/each}}

@@ -59,7 +59,6 @@ public class RequestContextImpl implements RequestContext {
     private String ip;
     private String back;
     private String origin;
-    private Boolean printMode;
     private long userId;
     private User user;
     private long realUserId;
@@ -158,7 +157,6 @@ public class RequestContextImpl implements RequestContext {
         subdomain = subdomainUtils.validateSubdomain(uriComponents.getHost()).getSubdomain();
         port = uriComponents.getPort();
         ip = request.getRemoteAddr();
-        printMode = "1".equals(request.getParameter("print"));
         back = request.getParameter("back");
         back = back != null && LOCATION_REGEX.matcher(back).matches() ? back : null;
         origin = request.getParameter("origin");
@@ -270,12 +268,6 @@ public class RequestContextImpl implements RequestContext {
     public String getOrigin() {
         processRequest();
         return origin != null ? origin : "/";
-    }
-
-    @Override
-    public boolean isPrintMode() {
-        processRequest();
-        return printMode;
     }
 
     @Override

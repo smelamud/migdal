@@ -43,8 +43,6 @@ public interface RequestContext {
 
     String getOrigin();
 
-    boolean isPrintMode();
-
     long getUserId();
 
     User getUser();

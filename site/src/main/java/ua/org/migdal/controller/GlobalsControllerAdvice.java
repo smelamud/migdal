@@ -11,7 +11,6 @@ import ua.org.migdal.Config;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.session.Constants;
 import ua.org.migdal.session.RequestContext;
-import ua.org.migdal.session.SubdomainUtils;
 
 @ControllerAdvice
 public class GlobalsControllerAdvice {
@@ -33,12 +32,6 @@ public class GlobalsControllerAdvice {
         model.addAttribute("const", constants);
         model.addAttribute("config", config);
         model.addAttribute("rc", requestContext);
-        model.addAttribute("printLocation",
-                SubdomainUtils.createLocalBuilderFromRequest(request)
-                        .queryParam("print", 1)
-                        .build(true)
-                        .toUriString());
-        model.addAttribute("siteDomain", config.getSiteDomain());
         model.addAttribute("siteName", !requestContext.isEnglish() ? "Мигдаль" : "Migdal");
         model.addAttribute("grpNone", grpEnum.getGrpNone());
     }
