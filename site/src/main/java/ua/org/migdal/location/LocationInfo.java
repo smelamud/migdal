@@ -36,7 +36,6 @@ public class LocationInfo {
     private String pageTitle = UNTITLED;
     private String pageTitleRelative = UNTITLED;
     private String pageTitleFull = UNTITLED;
-    private boolean metaNoIndex;
     private String rssHref = "";
     private String translationHref = "";
     private String menuMain = "index";
@@ -71,10 +70,6 @@ public class LocationInfo {
 
     public String getPageTitleFull() {
         return pageTitleFull;
-    }
-
-    public boolean isMetaNoIndex() {
-        return metaNoIndex;
     }
 
     public String getRssHref() {
@@ -169,12 +164,6 @@ public class LocationInfo {
     public LocationInfo withPageTitleFull(String pageTitleFull) {
         this.pageTitleFull = pageTitleFull;
         addAttribute("pageTitleFull", pageTitleFull);
-        return this;
-    }
-
-    public LocationInfo withMetaNoIndex(boolean metaNoIndex) {
-        this.metaNoIndex = metaNoIndex;
-        addAttribute("metaNoIndex", metaNoIndex);
         return this;
     }
 
