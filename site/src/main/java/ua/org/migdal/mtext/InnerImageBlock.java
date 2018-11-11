@@ -51,12 +51,16 @@ public class InnerImageBlock {
         return images.size() > 0 ? images.get(0) : null;
     }
 
-    public static Map<Integer, InnerImageBlock> getImageBlocks(List<InnerImage> images) {
+    public static Map<Integer, InnerImageBlock> getImageBlocks(List<InnerImage> images, Long id) {
         Map<Integer, InnerImageBlock> blocks = new HashMap<>();
         if (images == null) {
             return blocks;
         }
         for (InnerImage image : images) {
+            if (id != null && id > 0 && image.getEntry().getId() != id) {
+                continue;
+            }
+
             int par = image.getParagraph();
             if (!blocks.containsKey(par)) {
                 blocks.put(par, new InnerImageBlock());

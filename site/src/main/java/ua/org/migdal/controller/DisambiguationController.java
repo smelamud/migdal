@@ -14,6 +14,7 @@ import ua.org.migdal.data.Topic;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.IdentManager;
+import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Utils;
@@ -32,6 +33,9 @@ public class DisambiguationController {
 
     @Inject
     private TopicManager topicManager;
+
+    @Inject
+    private PostingManager postingManager;
 
     @Inject
     private PostingViewController postingViewController;
@@ -57,6 +61,9 @@ public class DisambiguationController {
     @Inject
     private EnglishController englishController;
 
+    @Inject
+    private BookController bookController;
+
     @GetMapping("/**/{smth:[^.]+$}") // $ in the regex is needed to match against the extension too
     public String disambiguate(
             @PathVariable String smth,
@@ -74,6 +81,9 @@ public class DisambiguationController {
         }
         if (smth.startsWith("reorder-")) {
             return postingEditingController.postingsReorder(smth.substring(8), model);
+        }
+        if (smth.equals("print")) {
+            return bookController.bookPrint(model);
         }
         if (requestContext.getCatalogLength() <= 2) {
             if (requestContext.getCatalog().startsWith("taglit/")) {
@@ -103,6 +113,10 @@ public class DisambiguationController {
     }
 
     public LocationInfo generalViewLocationInfo(Posting posting, Model model) {
+        if (posting.getGrp() == grpEnum.grpValue("BOOK_CHAPTERS")) {
+            Posting book = postingManager.beg(posting.getUpId());
+            return postingViewController.generalPostingViewLocationInfo(book, model);
+        }
         if (posting.getCatalog().startsWith("taglit/")) {
             return perUserController.taglitUserLocationInfo(posting.getUser(), model);
         }

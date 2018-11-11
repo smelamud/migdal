@@ -1,0 +1,44 @@
+{{> part/preamble}}
+{{> part/top}}
+
+<table class="page-layout">
+    <tr valign="top">
+        {{#notPrint}}
+            <td width="150" class="eframe">
+                {{> (topicsPartial)}}
+            </td>
+        {{/notPrint}}
+        <td class="article cframe">
+            <div style="width: 50%">
+                {{#if book.hasImage}}
+                    {{postingImage posting=book}}
+                {{/if}}
+                {{#if book.author}}
+                    <p class="book-author">{{mtext book.authorMtext}}</p>
+                {{/if}}
+                <p><h1 style="margin: 0">{{book.subject}}</h1></p>
+                {{#if book.comment0}}
+                    <p class="book-source" style="text-align: left">{{mtext book.comment0Mtext}}</p>
+                {{/if}}
+                <p style="clear: left">{{mtext book.bodyMtext}}</p>
+            </div>
+            <h1>Оглавление</h1>
+            <ul>
+                {{#each bookChapters}}
+                    <li>{{subject}}</li>
+                {{/each}}
+            </ul>
+            {{#each bookChapters}}
+                <h1 style="clear: both; padding-top: 20px">
+                    {{subject}}
+                    {{#if author}}
+                        <div class="author">{{mtext authorMtext}}</div>
+                    {{/if}}
+                </h1>
+                {{article this innerImages=innerImages}}
+            {{/each}}
+        </td>
+    </tr>
+</table>
+
+{{> part/bottom}}

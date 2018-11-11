@@ -1,19 +1,21 @@
 {{#if parentLocation.uri}}
     {{upperLevel href=parentLocation.uri name=parentLocation.pageTitleFull}}
 {{/if}}
-{{#topicsTable title="Оглавление"}}
+{{#topicsTable title="Оглавление" class="ninept"}}
     {{#appendable book}}
         <li class="topics-nobullet">
             <a href="{{book.grpDetailsHref}}add-book-chapters/?back={{ue rc.location}}" class="edit">Добавить</a><br>
             <a href="{{book.grpDetailsHref}}reorder-book-chapters/?back={{ue rc.location}}" class="edit">Расставить</a>
         </li>
     {{/appendable}}
-    {{topicsLine text="Обложка" href=book.grpDetailsHref index=book.id class="topics-item ninept"}}
+    {{topicsLine text="Обложка" href=book.grpDetailsHref index=book.id}}
     {{#each bookChapters}}
         {{#assign "href"}}{{book.grpDetailsHref}}{{id}}/{{/assign}}
-        {{topicsLine text=subject href=href index=id class="topics-item ninept"}}
+        {{topicsLine text=subject href=href index=id}}
     {{/each}}
     {{topicsSplitter}}
+    {{#assign "href"}}{{book.grpDetailsHref}}print{{/assign}}
+    {{topicsLine text="Вся книга для печати" href=href index="print" class="topics-item eightpt"}}
     {{! <iterate_packages posting_id="$book.Id">
     <for>
         <if what="$.Type==*PT_BOOK_ONEFILE">

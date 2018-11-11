@@ -49,7 +49,7 @@ public class MtextConverter {
         }
 
         MtextToHtml handler = new MtextToHtml(mtext.getFormat(), mtext.isIgnoreWrongFormat(), mtext.getId(),
-                InnerImageBlock.getImageBlocks(innerImages));
+                InnerImageBlock.getImageBlocks(innerImages, mtext.getId()));
         handler.setConfig(config);
         handler.setArticleHelperSource(articleHelperSource);
         handler.setUsersHelperSource(usersHelperSource);
