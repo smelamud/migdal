@@ -51,17 +51,16 @@ public class ArticleHelperSource {
         Posting posting = HelperUtils.mandatoryHash("posting", options);
 
         StringBuilder buf = new StringBuilder();
-        buf.append("<div class=\"controls-line\"><div class=\"controls\">");
-        buf.append(postingHelperSource.printLink(posting));
         if (posting.isWritable()) {
+            buf.append("<div class=\"controls-line\"><div class=\"controls\">");
             buf.append(" &nbsp;&nbsp; ");
             buf.append(postingHelperSource.editLink(posting));
             if (posting.isGrpInnerImages()) {
                 buf.append(" &nbsp;&nbsp; ");
                 buf.append(imagesLink(posting));
             }
+            buf.append("</div></div>");
         }
-        buf.append("</div></div>");
         return new SafeString(buf);
     }
 

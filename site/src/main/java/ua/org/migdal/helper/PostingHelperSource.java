@@ -92,25 +92,6 @@ public class PostingHelperSource {
         return new SafeString(buf);
     }
 
-    public CharSequence printLink(Posting posting) {
-        StringBuilder buf = new StringBuilder();
-        buf.append("<span>");
-        buf.append(imagesHelperSource.image("/pics/print.gif"));
-        buf.append("&nbsp;");
-        buf.append("<a target=\"_blank\"");
-        String href = String.format("%s?print=1", posting.getGrpDetailsHref());
-        HelperUtils.appendAttr(buf, "href", href);
-        buf.append('>');
-        if (!requestContext.isEnglish()) {
-            buf.append("Для печати");
-        } else {
-            buf.append("Print version");
-        }
-        buf.append("</a>");
-        buf.append("</span>");
-        return new SafeString(buf);
-    }
-
     public CharSequence editLink(Posting posting) {
         StringBuilder buf = new StringBuilder();
         buf.append("<a");
@@ -159,11 +140,10 @@ public class PostingHelperSource {
     public CharSequence postingControls(Options options) {
         Posting posting = HelperUtils.mandatoryHash("posting", options);
         boolean showSelf = HelperUtils.boolArg(options.hash("showSelf"));
-        boolean showPrint = HelperUtils.boolArg(options.hash("showPrint", "true"));
         boolean showEdit = HelperUtils.boolArg(options.hash("showEdit", "true"));
         boolean showDiscuss = HelperUtils.boolArg(options.hash("showDiscuss"));
 
-        if (!showSelf && !showPrint && !showEdit && !showDiscuss) {
+        if (!showSelf && !showEdit && !showDiscuss) {
             return "";
         }
 
@@ -171,10 +151,6 @@ public class PostingHelperSource {
         buf.append("<div class=\"posting-bottom\">");
         if (showSelf) {
             buf.append(selfLink(posting));
-            buf.append("&nbsp;&nbsp;&nbsp;");
-        }
-        if (showPrint) {
-            buf.append(printLink(posting));
             buf.append("&nbsp;&nbsp;&nbsp;");
         }
         if (showEdit && posting.isWritable()) {
@@ -424,7 +400,7 @@ public class PostingHelperSource {
     }
 
     public CharSequence postingShare() {
-        return new SafeString("<div class=\"addthis_inline_share_toolbox\"></div>");
+        return new SafeString("<div class=\"addthis_inline_share_toolbox not-print\"></div>");
     }
 
     public CharSequence postingPartial(Posting posting, Options options) throws IOException {
