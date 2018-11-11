@@ -24,6 +24,7 @@ import com.rometools.rome.io.SyndFeedOutput;
 import ua.org.migdal.Config;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.helper.util.HelperUtils;
+import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.Postings;
 import ua.org.migdal.mtext.MtextConverter;
@@ -40,6 +41,9 @@ public class RssController {
     private RequestContext requestContext;
 
     @Inject
+    private IdentManager identManager;
+
+    @Inject
     private PostingManager postingManager;
 
     @Inject
@@ -47,25 +51,57 @@ public class RssController {
 
     @GetMapping("/rss")
     @ResponseBody
-    public String rss() throws FeedException {
+    public String rssMain() throws FeedException {
+        if (!requestContext.isEnglish()) {
+            return rss(null, "TAPE", "Мигдаль", "Все новости сайта");
+        } else {
+            return rss("events,e", "TAPE", "Migdal", "All events");
+        }
+    }
+
+    @GetMapping("/rss/migdal")
+    @ResponseBody
+    public String rssMigdal() throws FeedException {
+        return rss("migdal", "TAPE", "Мигдаль - Новости «Мигдаля»", "Новости «Мигдаля»");
+    }
+
+    @GetMapping("/rss/migdal/**")
+    public String rssMigdalTopics() {
+        return "redirect:/rss/migdal";
+    }
+
+    @GetMapping("/rss/times")
+    @ResponseBody
+    public String rssTimes() throws FeedException {
+        return rss(null, "TIMES_COVERS", "Мигдаль - Журнал «Migdal Times»", "Журнал «Migdal Times»");
+    }
+
+    @GetMapping("/rss/archive")
+    @ResponseBody
+    public String rssArchive() throws FeedException {
+        return rss(null, "ARCHIVE", "Мигдаль - Архив", "Все, попадающее в архив сайта");
+    }
+
+    private String rss(String topicIdent, String grpName, String title, String description) throws FeedException {
         String site = requestContext.getSiteUrl();
 
-        Postings p = Postings.all().grp("TAPE").limit(20).asGuest();
+        Long topicId = topicIdent != null ? identManager.idOrIdent(topicIdent) : null;
+        Postings p = Postings.all().topic(topicId, true).grp(grpName).limit(20).asGuest();
         List<Posting> postings = postingManager.begAllAsList(p);
 
         SyndFeed feed = new SyndFeedImpl();
         feed.setFeedType("rss_2.0");
-        feed.setTitle("Мигдаль - Главная");
+        feed.setTitle(title);
         feed.setLink(site + "/");
-        feed.setDescription("Все новости сайта");
-        feed.setLanguage("ru-ru");
+        feed.setDescription(description);
+        feed.setLanguage(!requestContext.isEnglish() ? "ru-ru" : "en-us");
         feed.setWebMaster("webmaster@migdal.org.ua (Shmuel-Leib Melamud)");
         feed.setPublishedDate(!postings.isEmpty() ? postings.get(0).getSent() : Utils.now());
         feed.setGenerator("Migdal website kernel / ROME");
 
         SyndImage feedImage = new SyndImageImpl();
         feedImage.setUrl(site + "/pics/big-tower.gif");
-        feedImage.setTitle("Мигдаль");
+        feedImage.setTitle(!requestContext.isEnglish() ? "Мигдаль" : "Migdal");
         feedImage.setLink(site + "/");
         feed.setImage(feedImage);
 

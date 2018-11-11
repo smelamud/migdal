@@ -75,7 +75,7 @@ public class EnglishController {
     public LocationInfo indexLocationInfo(Model model) {
         return new LocationInfo(model)
                 .withUri("/")
-                .withRssHref("/rss/")
+                .withRssHref("/rss")
                 .withTranslationHref("/migdal")
                 .withTopics("topics-migdal-english")
                 .withTopicsIndex("index")

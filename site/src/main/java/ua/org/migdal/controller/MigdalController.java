@@ -73,6 +73,7 @@ public class MigdalController {
     public LocationInfo migdalLocationInfo(Posting posting, Model model) {
         return new LocationInfo(model)
                 .withUri("/migdal")
+                .withRssHref("/rss/migdal")
                 .withTopics("topics-major")
                 .withTopicsIndex("migdal")
                 .withParent(indexController.indexLocationInfo(null))

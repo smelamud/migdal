@@ -44,6 +44,7 @@ public class ArchiveController {
     public LocationInfo archiveLastYearLocationInfo(Model model) {
         return new LocationInfo(model)
                 .withUri("/archive")
+                .withRssHref("/rss/archive")
                 .withTopics("topics-major")
                 .withTopicsIndex("archive")
                 .withParent(indexController.indexLocationInfo(null))

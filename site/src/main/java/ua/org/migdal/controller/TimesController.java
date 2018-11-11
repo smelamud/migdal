@@ -63,6 +63,7 @@ public class TimesController {
     public LocationInfo timesLocationInfo(Model model) {
         return new LocationInfo(model)
                 .withUri("/times")
+                .withRssHref("/rss/times")
                 .withParent(indexController.indexLocationInfo(null))
                 .withMenuMain("times")
                 .withPageTitle("Мигдаль Times");

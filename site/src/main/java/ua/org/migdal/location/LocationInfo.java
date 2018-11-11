@@ -11,6 +11,7 @@ import java.util.Deque;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import ua.org.migdal.controller.TopicsService;
 import ua.org.migdal.data.Posting;
 
@@ -116,16 +117,21 @@ public class LocationInfo {
     public LocationInfo withParent(LocationInfo parent) {
         this.parent = parent;
 
-        if (model != null && parent != null) {
-            model.addAttribute("parentLocation", parent);
+        if (parent != null) {
+            if (model != null) {
+                model.addAttribute("parentLocation", parent);
 
-            Deque<LocationInfo> locations = new ArrayDeque<>();
-            LocationInfo current = this;
-            while (current != null) {
-                locations.addFirst(current);
-                current = current.getParent();
+                Deque<LocationInfo> locations = new ArrayDeque<>();
+                LocationInfo current = this;
+                while (current != null) {
+                    locations.addFirst(current);
+                    current = current.getParent();
+                }
+                model.addAttribute("locations", locations);
             }
-            model.addAttribute("locations", locations);
+            if (!StringUtils.isEmpty(parent.getRssHref()) && StringUtils.isEmpty(getRssHref())) {
+                withRssHref(parent.getRssHref());
+            }
         }
 
         return this;

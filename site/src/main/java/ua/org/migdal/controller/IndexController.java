@@ -87,7 +87,7 @@ public class IndexController {
     public LocationInfo indexLocationInfo(Model model) {
         return new LocationInfo(model)
                 .withUri("/")
-                .withRssHref("/rss/")
+                .withRssHref("/rss")
                 .withTranslationHref("/")
                 .withTopics("topics-major")
                 .withTopicsIndex("index")
@@ -128,7 +128,6 @@ public class IndexController {
         boolean withGallery = grpEnum.inGroup("GALLERY", topic.getGrp());
         return new LocationInfo(model)
                 .withUri("/" + topic.getIdent())
-                .withRssHref("/rss/")
                 .withTopics(!withGallery ? "topics-major" : "topics-major-sub", new Posting(topic))
                 .withTopicsIndex(!withGallery ? topic.getIdent() : "news")
                 .withParent(indexLocationInfo(null))
@@ -301,7 +300,6 @@ public class IndexController {
     public LocationInfo majorGalleryLocationInfo(Topic topic, Model model) {
         return new LocationInfo(model)
                 .withUri("/" + topic.getIdent() + "/gallery")
-                .withRssHref("/rss/")
                 .withTopics("topics-major-sub", new Posting(topic))
                 .withTopicsIndex("gallery")
                 .withParent(majorLocationInfo(topic, null))

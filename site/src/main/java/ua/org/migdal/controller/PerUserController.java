@@ -58,7 +58,6 @@ public class PerUserController {
     public LocationInfo taglitLocationInfo(Model model) {
         return new LocationInfo(model)
                 .withUri("/taglit")
-                .withRssHref("/rss/")
                 .withTopics("topics-taglit")
                 .withTopicsIndex("0")
                 .withParent(indexController.indexLocationInfo(null))
@@ -85,7 +84,6 @@ public class PerUserController {
     public LocationInfo taglitUserLocationInfo(User user, Model model) {
         return new LocationInfo(model)
                 .withUri("/taglit/" + user.getFolder())
-                .withRssHref("/rss/")
                 .withTopics("topics-taglit")
                 .withTopicsIndex(Long.toString(user.getId()))
                 .withParent(taglitLocationInfo(null))
@@ -117,7 +115,6 @@ public class PerUserController {
     public LocationInfo veteransLocationInfo(Model model) {
         return new LocationInfo(model)
                 .withUri("/veterans")
-                .withRssHref("/rss/")
                 .withTopics("topics-veterans")
                 .withTopicsIndex("0")
                 .withParent(indexController.indexLocationInfo(null))
@@ -143,7 +140,6 @@ public class PerUserController {
     public LocationInfo veteransUserLocationInfo(User user, Model model) {
         return new LocationInfo(model)
                 .withUri("/veterans/" + user.getFolder())
-                .withRssHref("/rss/")
                 .withTopics("topics-veterans")
                 .withTopicsIndex(Long.toString(user.getId()))
                 .withParent(veteransLocationInfo(null))
