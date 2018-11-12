@@ -14,13 +14,13 @@
 {{> part/preamble}}
 {{> part/top}}
 
-<table class="page-layout">
-    <tr valign="top">
-        <td width="170" class="eframe">
-            {{> (topicsPartial)}}
-            {{> part/ears}}
-        </td>
-        <td class="cframe">
+<div class="page-layout">
+    <div class="left-column">
+        {{> (topicsPartial)}}
+        {{> part/ears}}
+    </div>
+    <div class="center-column">
+        <div class="center-column-content">
             {{subtitle}}
             {{> batcher list=discussions}}
             {{#catalogTable}}
@@ -79,8 +79,8 @@
             {{#if discussions}}
                 {{> batcher list=discussions}}
             {{/if}}
-        </td>
-    </tr>
-</table>
+        </div>
+    </div>
+</div>
 
 {{> part/bottom}}

@@ -1,15 +1,13 @@
 {{> part/preamble}}
 {{> part/top}}
 
-<table class="page-layout">
-    <tr valign="top">
-        {{#notPrint}}
-            <td width="150" class="eframe">
-                {{> (topicsPartial)}}
-                {{> part/ears}}
-            </td>
-        {{/notPrint}}
-        <td class="article cframe">
+<div class="page-layout">
+    <div class="left-column">
+        {{> (topicsPartial)}}
+        {{> part/ears}}
+    </div>
+    <div class="center-column">
+        <div class="center-column-content article">
             <div class="sent">
                 {{sentView date=posting.sent}}<br>
                 {{senderLink posting}}
@@ -33,8 +31,8 @@
             <div class="clear-floats"></div>
             <br>
             {{> part/forums forums=comments posting=posting}}
-        </td>
-    </tr>
-</table>
+        </div>
+    </div>
+</div>
 
 {{> part/bottom}}

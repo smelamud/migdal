@@ -140,7 +140,7 @@ public class PostingHelperSource {
     public CharSequence postingControls(Options options) {
         Posting posting = HelperUtils.mandatoryHash("posting", options);
         boolean showSelf = HelperUtils.boolArg(options.hash("showSelf"));
-        boolean showEdit = HelperUtils.boolArg(options.hash("showEdit", "true"));
+        boolean showEdit = HelperUtils.boolArg(options.hash("showEdit", "true")) && posting.isWritable();
         boolean showDiscuss = HelperUtils.boolArg(options.hash("showDiscuss"));
 
         if (!showSelf && !showEdit && !showDiscuss) {
@@ -153,7 +153,7 @@ public class PostingHelperSource {
             buf.append(selfLink(posting));
             buf.append("&nbsp;&nbsp;&nbsp;");
         }
-        if (showEdit && posting.isWritable()) {
+        if (showEdit) {
             buf.append(editLink(posting));
             buf.append("&nbsp;&nbsp;&nbsp;");
         }

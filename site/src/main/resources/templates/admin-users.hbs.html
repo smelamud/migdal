@@ -44,60 +44,58 @@
 {{> part/preamble}}
 {{> part/top}}
 
-<table class="page-layout">
-    <tr valign="top">
-        <td width="150" class="eframe">
-            {{> (topicsPartial)}}
-        </td>
-        <td style="padding: 0">
-            {{#moderator}}
-                {{> navigator}}
-                {{> batcher list=users}}
-                {{#catalogTable}}
-                    <tr valign="top">
-                        <th class="catalog-cell">Ник</th>
-                        <th class="catalog-cell">Имя</th>
-                        <th class="catalog-cell">Возраст</th>
-                        <th class="catalog-cell">Статус</th>
-                        <th class="catalog-cell">Контакты</th>
-                        <th class="catalog-cell">Последний заход</th>
-                    </tr>
-                    {{#each users.content}}
-                        {{#if @odd}}
-                            {{#assign "class"}}catalog-cell-odd{{/assign}}
-                        {{else}}
-                            {{#assign "class"}}catalog-cell{{/assign}}
-                        {{/if}}
-                        <tr>
-                            <td class="{{class}} ninept">
-                                <a href="/users/{{ue folder}}/">{{login}}</a>
+<div class="page-layout">
+    <div class="left-column">
+        {{> (topicsPartial)}}
+    </div>
+    <div style="flex: auto">
+        {{#moderator}}
+            {{> navigator}}
+            {{> batcher list=users}}
+            {{#catalogTable}}
+                <tr valign="top">
+                    <th class="catalog-cell">Ник</th>
+                    <th class="catalog-cell">Имя</th>
+                    <th class="catalog-cell">Возраст</th>
+                    <th class="catalog-cell">Статус</th>
+                    <th class="catalog-cell">Контакты</th>
+                    <th class="catalog-cell">Последний заход</th>
+                </tr>
+                {{#each users.content}}
+                    {{#if @odd}}
+                        {{#assign "class"}}catalog-cell-odd{{/assign}}
+                    {{else}}
+                        {{#assign "class"}}catalog-cell{{/assign}}
+                    {{/if}}
+                    <tr>
+                        <td class="{{class}} ninept">
+                            <a href="/users/{{ue folder}}/">{{login}}</a>
+                        </td>
+                        <td class="{{class}} eightpt">{{> fullname user=this}}</td>
+                        {{#if confirmed}}
+                            <td align="center" class="{{class}} eightpt">{{age}}</td>
+                            <td align="center" class="{{class}}">{{rank}}</td>
+                            <td class="{{class}}">
+                                <span class="email ninept">{{mailToLink this}}</span>
                             </td>
-                            <td class="{{class}} eightpt">{{> fullname user=this}}</td>
-                            {{#if confirmed}}
-                                <td align="center" class="{{class}} eightpt">{{age}}</td>
-                                <td align="center" class="{{class}}">{{rank}}</td>
-                                <td class="{{class}}">
-                                    <span class="email ninept">{{mailToLink this}}</span>
-                                </td>
-                                <td class="{{class}} eightpt">
-                                    {{lastOnline this}}
-                                </td>
-                            {{else}}
-                                <td colspan="4" class="{{class}} eightpt">
-                                    Идет регистрация ({{plural confirmDays "остался,осталось,осталось"}}
-                                    {{confirmDays}} {{plural confirmDays "день,дня,дней"}})
-                                    {{#adminUsers}}
-                                        <a href="/actions/user/confirm?id={{id}}">Подтвердить</a>
-                                    {{/adminUsers}}
-                                </td>
-                            {{/if}}
-                        </tr>
-                    {{/each}}
-                {{/catalogTable}}
-                {{> batcher list=users}}
-            {{/moderator}}
-        </td>
-    </tr>
-</table>
+                            <td class="{{class}} eightpt">
+                                {{lastOnline this}}
+                            </td>
+                        {{else}}
+                            <td colspan="4" class="{{class}} eightpt">
+                                Идет регистрация ({{plural confirmDays "остался,осталось,осталось"}}
+                                {{confirmDays}} {{plural confirmDays "день,дня,дней"}})
+                                {{#adminUsers}}
+                                    <a href="/actions/user/confirm?id={{id}}">Подтвердить</a>
+                                {{/adminUsers}}
+                            </td>
+                        {{/if}}
+                    </tr>
+                {{/each}}
+            {{/catalogTable}}
+            {{> batcher list=users}}
+        {{/moderator}}
+    </div>
+</div>
 
 {{> part/bottom}}

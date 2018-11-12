@@ -53,7 +53,6 @@ public class ArticleHelperSource {
         StringBuilder buf = new StringBuilder();
         if (posting.isWritable()) {
             buf.append("<div class=\"controls-line\"><div class=\"controls\">");
-            buf.append(" &nbsp;&nbsp; ");
             buf.append(postingHelperSource.editLink(posting));
             if (posting.isGrpInnerImages()) {
                 buf.append(" &nbsp;&nbsp; ");

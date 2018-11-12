@@ -25,7 +25,7 @@
 {{/inline}}
 
 {{#*inline "selectIssue"}}
-    <div class="ninept">
+    <div class="ninept not-print">
         Номер
         &nbsp;
         <select id="select-issue">
@@ -136,8 +136,8 @@
 
 {{#*inline "sibling"}} {{! params: posting }}
     <div style="width: ${.SmallImageX}px">
-        {{#assign "href"}}/times/{{posting.index1}}/{{/assign}}
-        {{postingImage posting=posting href=href}}
+        {{#assign "timesHref"}}/times/{{posting.index1}}/{{/assign}}
+        {{postingImage posting=posting href=timesHref}}
         <div class="issue">
             {{#ifieq issue posting.index1}}
                 №{{posting.issues}}
@@ -174,50 +174,52 @@
 {{> part/preamble}}
 {{> part/top}}
 
-<table class="page-layout"><tr valign="top">
-    <td class="mtimes cframe">
-        <div style="display: flex; align-items: baseline; margin-left: 1em; margin-top: 1ex">
-            <div>
-                <a href="/times/">{{image "/pics/times.gif" "Мигдаль Times" "Мигдаль Times"}}</a>
+<div class="page-layout">
+    <div class="center-column">
+        <div class="center-column-content mtimes">
+            <div style="display: flex; align-items: baseline; margin-left: 1em; margin-top: 1ex">
+                <div>
+                    <a href="/times/">{{image "/pics/times.gif" "Мигдаль Times" "Мигдаль Times"}}</a>
+                </div>
+                <div style="width: 120px">
+                    {{> timesIssue}}
+                </div>
             </div>
-            <div style="width: 120px">
-                {{> timesIssue}}
+            <div class="nframe" style="padding: 5px; margin-top: 3ex">
+                {{> announce}}
             </div>
-        </div>
-        <div class="nframe" style="padding: 5px; margin-top: 3ex">
-            {{> announce}}
-        </div>
-        <div style="display: flex">
-            <div class="nframe ninept" style="width: 170px; padding: 5px; align-self: start">
-                {{> timesInfo}}
-            </div>
-            <div style="flex: auto; padding: 5px">
-                {{> batcher}}
-                {{#assign "rubric"}}{{/assign}}
-                {{#each articles}}
-                    {{#ifne rubric (uc comment0)}}
-                        {{#assign "rubric"}}{{uc comment0}}{{/assign}}
-                        {{#if rubric}}
-                            <div class="rubric">
-                                <div class="rubric-bullet">{{image "/pics/times-bullet.gif"}}</div>
-                                <div class="rubric-title">{{rubric}}</div>
-                            </div>
-                        {{/if}}
-                    {{/ifne}}
-                    {{> part/posting-times posting=. showTopic=false showDiscuss=true}}
-                {{/each}}
-                {{#if articles}}
+            <div style="display: flex">
+                <div class="nframe ninept" style="width: 170px; padding: 5px; align-self: start">
+                    {{> timesInfo}}
+                </div>
+                <div style="flex: auto; padding: 5px">
                     {{> batcher}}
-                {{/if}}
+                    {{#assign "rubric"}}{{/assign}}
+                    {{#each articles}}
+                        {{#ifne rubric (uc comment0)}}
+                            {{#assign "rubric"}}{{uc comment0}}{{/assign}}
+                            {{#if rubric}}
+                                <div class="rubric">
+                                    <div class="rubric-bullet">{{image "/pics/times-bullet.gif"}}</div>
+                                    <div class="rubric-title">{{rubric}}</div>
+                                </div>
+                            {{/if}}
+                        {{/ifne}}
+                        {{> part/posting-times posting=. showTopic=false showDiscuss=true}}
+                    {{/each}}
+                    {{#if articles}}
+                        {{> batcher}}
+                    {{/if}}
+                </div>
+            </div>
+            <div id="comments-section">
+                {{> part/forums forums=comments posting=cover}}
             </div>
         </div>
-        <div id="comments-section">
-            {{> part/forums forums=comments posting=cover}}
-        </div>
-    </td>
-    <td width="80" align="center" class="mtimes-navigator">
+    </div>
+    <div class="mtimes-navigator">
         {{> navigator}}
-    </td>
-</tr></table>
+    </div>
+</div>
 
 {{> part/bottom}}

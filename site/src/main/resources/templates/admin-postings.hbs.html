@@ -102,60 +102,58 @@
         padding: 5px;
     }
 </style>
-<table class="page-layout">
-    <tr valign="top">
-        <td width="150" class="eframe">
-            {{> (topicsPartial)}}
-        </td>
-        <td style="padding: 0">
-            <form method="get" action="/admin/postings">
-                <table class="ninept nframe padded">
-                    <tr><td colspan="2">
-                        {{subtitle}}
-                    </td></tr>
-                    <tr><td align="left" colspan="2"><table>
-                        {{#assign "title"}}Тема{{/assign}}
-                        {{#each adminPostingsForm.topicChoices}}
-                            {{> topicChoice title=title n=n id=topicId recursive=recursive}}
-                            {{#assign "title"}}<i>Или</i>{{/assign}}
-                        {{/each}}
-                    </table></td></tr>
-                    <tr><td align="left" colspan="2">Тип сообщения</td></tr>
-                    <tr valign="top">
-                        <td align="left">
-                            {{grpSelect name="grps" value=adminPostingsForm.grps size="6" multiple=true}}
-                        </td>
-                        <td align="left"><table>
-                            <tr>
-                                <td>{{checkboxButton name="useIndex1" checked=adminPostingsForm.useIndex1}}</td>
-                                <td>Номер </td>
-                                <td>{{edit name="index1" value=adminPostingsForm.index1 size="8" maxlength="8"}}</td>
-                            </tr>
-                        </table></td>
-                    </tr>
-                    <tr><td align="left" colspan="2">
-                        <table cellspacing="10"><tr>
-                            <td><input type="submit" value="Просмотр"></td>
-                            <td><input type="reset" value="Очистить"></td>
-                        </tr></table>
-                    </td></tr>
-                    <tr><td class="info" colspan="2">
-                        Выбрано&nbsp;<em>{{postingsTotal}}</em>&nbsp;{{plural postingsTotal "сообщение,сообщения,сообщений"}}
-                    </td></tr>
-                </table>
-            </form>
-            <table class="ninept cframe" width="100%"><tr><td style="padding: 5px">
-                {{> errorLines}}
-                {{> batcher list=postings}}
-                {{#if postings}}
-                    {{#each postings}}
-                        {{> post posting=this}}
+<div class="page-layout">
+    <div class="left-column">
+        {{> (topicsPartial)}}
+    </div>
+    <div style="flex: auto">
+        <form method="get" action="/admin/postings">
+            <table class="ninept nframe padded">
+                <tr><td colspan="2">
+                    {{subtitle}}
+                </td></tr>
+                <tr><td align="left" colspan="2"><table>
+                    {{#assign "title"}}Тема{{/assign}}
+                    {{#each adminPostingsForm.topicChoices}}
+                        {{> topicChoice title=title n=n id=topicId recursive=recursive}}
+                        {{#assign "title"}}<i>Или</i>{{/assign}}
                     {{/each}}
-                    {{> batcher list=postings}}
-                {{/if}}
-            </td></tr></table>
-        </td>
-    </tr>
-</table>
+                </table></td></tr>
+                <tr><td align="left" colspan="2">Тип сообщения</td></tr>
+                <tr valign="top">
+                    <td align="left">
+                        {{grpSelect name="grps" value=adminPostingsForm.grps size="6" multiple=true}}
+                    </td>
+                    <td align="left"><table>
+                        <tr>
+                            <td>{{checkboxButton name="useIndex1" checked=adminPostingsForm.useIndex1}}</td>
+                            <td>Номер </td>
+                            <td>{{edit name="index1" value=adminPostingsForm.index1 size="8" maxlength="8"}}</td>
+                        </tr>
+                    </table></td>
+                </tr>
+                <tr><td align="left" colspan="2">
+                    <table cellspacing="10"><tr>
+                        <td><input type="submit" value="Просмотр"></td>
+                        <td><input type="reset" value="Очистить"></td>
+                    </tr></table>
+                </td></tr>
+                <tr><td class="info" colspan="2">
+                    Выбрано&nbsp;<em>{{postingsTotal}}</em>&nbsp;{{plural postingsTotal "сообщение,сообщения,сообщений"}}
+                </td></tr>
+            </table>
+        </form>
+        <table class="ninept cframe" width="100%"><tr><td style="padding: 5px">
+            {{> errorLines}}
+            {{> batcher list=postings}}
+            {{#if postings}}
+                {{#each postings}}
+                    {{> post posting=this}}
+                {{/each}}
+                {{> batcher list=postings}}
+            {{/if}}
+        </td></tr></table>
+    </div>
+</div>
 
 {{> part/bottom}}

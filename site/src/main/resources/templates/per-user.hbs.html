@@ -76,34 +76,32 @@
 {{> part/preamble}}
 {{> part/top}}
 
-<table class="page-layout">
-    <tr valign="top">
-        <td width="150" class="eframe">
-            {{> (topicsPartial)}}
-            {{> part/ears}}
-        </td>
-        <td>
-            <div class="ninept cframe" style="padding: 5px; margin-bottom: 2ex">
-                {{subtitle}}
-                {{> intro}}
-            </div>
-            {{> batcher}}
-            <div class="pictures-per-user">
-                {{#each users}}
-                    <div class="picture-per-user">
-                        {{#assign "href"}}{{topic.href}}{{folder}}{{/assign}}
-                        {{#if preview}}
-                            {{#assign "imageUrl"}}{{preview.smallImageUrl}}{{/assign}}
-                        {{else}}
-                            {{#assign "imageUrl"}}/pics/placeholder-boy.png{{/assign}}
-                        {{/if}}
-                        <a href="{{href}}"><img src="{{imageUrl}}" width="200" height="200"></a><br>
-                        <a href="{{href}}">{{fullName}}</a>
-                    </div>
-                {{/each}}
-            </div>
-        </td>
-    </tr>
-</table>
+<div class="page-layout">
+    <div class="left-column">
+        {{> (topicsPartial)}}
+        {{> part/ears}}
+    </div>
+    <div style="flex: auto">
+        <div class="ninept cframe" style="padding: 5px; margin-bottom: 2ex">
+            {{subtitle}}
+            {{> intro}}
+        </div>
+        {{> batcher}}
+        <div class="pictures-per-user">
+            {{#each users}}
+                <div class="picture-per-user">
+                    {{#assign "href"}}{{topic.href}}{{folder}}{{/assign}}
+                    {{#if preview}}
+                        {{#assign "imageUrl"}}{{preview.smallImageUrl}}{{/assign}}
+                    {{else}}
+                        {{#assign "imageUrl"}}/pics/placeholder-boy.png{{/assign}}
+                    {{/if}}
+                    <a href="{{href}}"><img src="{{imageUrl}}" width="200" height="200"></a><br>
+                    <a href="{{href}}">{{fullName}}</a>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
 
 {{> part/bottom}}
