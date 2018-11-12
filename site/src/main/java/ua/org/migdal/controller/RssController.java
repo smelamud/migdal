@@ -5,23 +5,20 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
-import com.rometools.rome.feed.synd.SyndContent;
-import com.rometools.rome.feed.synd.SyndContentImpl;
-import com.rometools.rome.feed.synd.SyndEntry;
-import com.rometools.rome.feed.synd.SyndEntryImpl;
-import com.rometools.rome.io.FeedException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rometools.rome.feed.synd.SyndContent;
+import com.rometools.rome.feed.synd.SyndContentImpl;
+import com.rometools.rome.feed.synd.SyndEntry;
+import com.rometools.rome.feed.synd.SyndEntryImpl;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.feed.synd.SyndFeedImpl;
 import com.rometools.rome.feed.synd.SyndImage;
 import com.rometools.rome.feed.synd.SyndImageImpl;
-import com.rometools.rome.io.SyndFeedOutput;
 
-import ua.org.migdal.Config;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.helper.util.HelperUtils;
 import ua.org.migdal.manager.IdentManager;
@@ -33,9 +30,6 @@ import ua.org.migdal.util.Utils;
 
 @RestController
 public class RssController {
-
-    @Inject
-    private Config config;
 
     @Inject
     private RequestContext requestContext;
@@ -51,7 +45,7 @@ public class RssController {
 
     @GetMapping("/rss")
     @ResponseBody
-    public String rssMain() throws FeedException {
+    public SyndFeed rssMain() {
         if (!requestContext.isEnglish()) {
             return rss(null, "TAPE", "Мигдаль", "Все новости сайта");
         } else {
@@ -61,7 +55,7 @@ public class RssController {
 
     @GetMapping("/rss/migdal")
     @ResponseBody
-    public String rssMigdal() throws FeedException {
+    public SyndFeed rssMigdal() {
         return rss("migdal", "TAPE", "Мигдаль - Новости «Мигдаля»", "Новости «Мигдаля»");
     }
 
@@ -72,17 +66,17 @@ public class RssController {
 
     @GetMapping("/rss/times")
     @ResponseBody
-    public String rssTimes() throws FeedException {
+    public SyndFeed rssTimes() {
         return rss(null, "TIMES_COVERS", "Мигдаль - Журнал «Migdal Times»", "Журнал «Migdal Times»");
     }
 
     @GetMapping("/rss/archive")
     @ResponseBody
-    public String rssArchive() throws FeedException {
+    public SyndFeed rssArchive() {
         return rss(null, "ARCHIVE", "Мигдаль - Архив", "Все, попадающее в архив сайта");
     }
 
-    private String rss(String topicIdent, String grpName, String title, String description) throws FeedException {
+    private SyndFeed rss(String topicIdent, String grpName, String title, String description) {
         String site = requestContext.getSiteUrl();
 
         Long topicId = topicIdent != null ? identManager.idOrIdent(topicIdent) : null;
@@ -107,7 +101,7 @@ public class RssController {
 
         feed.setEntries(postings.stream().map(this::buildEntry).collect(Collectors.toList()));
 
-        return new SyndFeedOutput().outputString(feed);
+        return feed;
     }
 
     private SyndEntry buildEntry(Posting posting) {

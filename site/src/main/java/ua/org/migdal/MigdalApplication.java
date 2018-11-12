@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
@@ -23,6 +24,7 @@ import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
 
 import ua.org.migdal.controller.SaveCookiesInterceptor;
 import ua.org.migdal.controller.SubdomainInterceptor;
+import ua.org.migdal.converter.SyndFeedHttpMessageConverter;
 import ua.org.migdal.helper.HelperSource;
 
 @SpringBootApplication
@@ -81,6 +83,11 @@ public class MigdalApplication implements WebMvcConfigurer {
                 .addResourceLocations("file:" + config.getImageDir() + "/")
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver());
+    }
+
+    @Bean
+    public HttpMessageConverters customMessageConverters() {
+        return new HttpMessageConverters(new SyndFeedHttpMessageConverter());
     }
 
     public static void main(String[] args) {
