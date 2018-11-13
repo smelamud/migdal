@@ -1,12 +1,18 @@
 package ua.org.migdal.controller;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Image;
@@ -19,6 +25,7 @@ import ua.org.migdal.manager.ForumManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.InnerImageManager;
 import ua.org.migdal.manager.PostingManager;
+import ua.org.migdal.mtext.Mtext;
 import ua.org.migdal.session.RequestContext;
 
 @Controller
@@ -143,6 +150,26 @@ public class PostingViewController {
                 .withTopicsIndex(topicsIndex)
                 .withParent(generalView)
                 .withPageTitle(posting.getHeading());
+    }
+
+    @GetMapping("/xml/{id}/{fieldName}")
+    @ResponseBody
+    public Mtext xml(@PathVariable long id, @PathVariable String fieldName) throws PageNotFoundException {
+        Posting posting = postingManager.beg(id);
+        if (posting == null) {
+            throw new PageNotFoundException();
+        }
+
+        String getterName = String.format("get%sMtext", StringUtils.capitalize(fieldName));
+        try {
+            Method method = posting.getClass().getMethod(getterName);
+            if (method == null) {
+                throw new PageNotFoundException();
+            }
+            return (Mtext) method.invoke(posting);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            throw new PageNotFoundException();
+        }
     }
 
 }

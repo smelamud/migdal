@@ -25,12 +25,20 @@ public class Mtext {
         if (!XmlUtils.hasMarkup(xml)) {
             return;
         }
+        xml = wrappedXml(format, xml);
+    }
+
+    private static String wrappedXml(MtextFormat format, String xml) {
         String rootTag = ("MTEXT-" + format.name()).toLowerCase();
-        xml = String.format("<%s>%s</%s>", rootTag, xml, rootTag);
+        return String.format("<%s>%s</%s>", rootTag, xml, rootTag);
     }
 
     public String getXml() {
         return xml;
+    }
+
+    public String getXmlStrict() {
+        return XmlUtils.hasMarkup(xml) ? xml : wrappedXml(format, xml);
     }
 
     public MtextFormat getFormat() {

@@ -24,6 +24,7 @@ import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
 
 import ua.org.migdal.controller.SaveCookiesInterceptor;
 import ua.org.migdal.controller.SubdomainInterceptor;
+import ua.org.migdal.converter.MtextHttpMessageConverter;
 import ua.org.migdal.converter.SyndFeedHttpMessageConverter;
 import ua.org.migdal.helper.HelperSource;
 
@@ -87,7 +88,9 @@ public class MigdalApplication implements WebMvcConfigurer {
 
     @Bean
     public HttpMessageConverters customMessageConverters() {
-        return new HttpMessageConverters(new SyndFeedHttpMessageConverter());
+        return new HttpMessageConverters(
+                new SyndFeedHttpMessageConverter(),
+                new MtextHttpMessageConverter());
     }
 
     public static void main(String[] args) {
