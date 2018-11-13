@@ -70,7 +70,8 @@ ALTER TABLE public.chat_messages OWNER TO migdal;
 CREATE TABLE public.content_versions (
     postings_version integer NOT NULL,
     forums_version integer NOT NULL,
-    topics_version integer NOT NULL
+    topics_version integer NOT NULL,
+    id bigint NOT NULL
 );
 
 
@@ -526,6 +527,14 @@ ALTER TABLE ONLY public.chat_messages
 
 
 --
+-- Name: content_versions content_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY public.content_versions
+    ADD CONSTRAINT content_versions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: entries entries_ident_key; Type: CONSTRAINT; Schema: public; Owner: migdal
 --
 
@@ -547,6 +556,14 @@ ALTER TABLE ONLY public.entries
 
 ALTER TABLE ONLY public.entries
     ADD CONSTRAINT entries_track_key UNIQUE (track);
+
+
+--
+-- Name: html_cache html_cache_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY public.html_cache
+    ADD CONSTRAINT html_cache_pkey PRIMARY KEY (ident);
 
 
 --
