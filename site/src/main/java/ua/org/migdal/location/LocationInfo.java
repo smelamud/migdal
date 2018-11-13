@@ -40,6 +40,7 @@ public class LocationInfo {
     private String translationHref = "";
     private String menuMain = "index";
     private String topics;
+    private Posting topicsPosting;
     private String topicsIndex;
     private boolean menuNoLogin;
 
@@ -190,11 +191,8 @@ public class LocationInfo {
     }
 
     public LocationInfo withTopics(String topics, Posting posting) {
-        if (model != null) {
-            String mappedTopics = TopicsService.getInstance().callMapping(topics, posting, model);
-            topics = mappedTopics != null ? mappedTopics : topics;
-        }
         this.topics = topics;
+        this.topicsPosting = posting;
         addAttribute("topics", topics);
         return this;
     }
@@ -202,6 +200,11 @@ public class LocationInfo {
     public LocationInfo withTopicsIndex(String topicsIndex) {
         this.topicsIndex = topicsIndex;
         addAttribute("topicsIndex", topicsIndex);
+        // Must be executed after setting topicsIndex, because it may be used in the TopicsMapping method
+        if (model != null) {
+            String mappedTopics = TopicsService.getInstance().callMapping(topics, topicsPosting, model);
+            topics = mappedTopics != null ? mappedTopics : topics;
+        }
         return this;
     }
 

@@ -7,9 +7,11 @@
 {{/inline}}
 
 {{#*inline "general"}}
-    {{#each majors}}
-        {{topicsLine index=ident class="topics-item ninept" href=href title=bodyNormal text=subject}}
-    {{/each}}
+    {{#cached topicsMajorCache}}
+        {{#each majors}}
+            {{topicsLine index=ident class="topics-item ninept" href=href title=bodyNormal text=subject}}
+        {{/each}}
+    {{/cached}}
 {{/inline}}
 
 {{#*inline "navi_forum"}}

@@ -1,6 +1,7 @@
 package ua.org.migdal.controller;
 
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -27,7 +28,9 @@ import ua.org.migdal.data.Topic;
 import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
+import ua.org.migdal.manager.CachedHtml;
 import ua.org.migdal.manager.CrossEntryManager;
+import ua.org.migdal.manager.HtmlCacheManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.Postings;
@@ -57,6 +60,9 @@ public class IndexController {
 
     @Inject
     private PostingManager postingManager;
+
+    @Inject
+    private HtmlCacheManager htmlCacheManager;
 
     @Inject
     private EarController earController;
@@ -136,10 +142,17 @@ public class IndexController {
 
     @TopicsMapping("topics-major")
     protected void topicsMajor(Model model) {
-        model.addAttribute("majors", crossEntryManager.getAll(LinkType.MAJOR, "major")
-                                                      .stream()
-                                                      .map(CrossEntry::getPeer)
-                                                      .collect(Collectors.toList()));
+        CachedHtml topicsMajorCache = htmlCacheManager.of("topicsMajor")
+                                                      .ofTopicsIndex(model)
+                                                      .during(Duration.ofHours(3))
+                                                      .onTopics();
+        model.addAttribute("topicsMajorCache", topicsMajorCache);
+        if (topicsMajorCache.isInvalid()) {
+            model.addAttribute("majors", crossEntryManager.getAll(LinkType.MAJOR, "major")
+                                                          .stream()
+                                                          .map(CrossEntry::getPeer)
+                                                          .collect(Collectors.toList()));
+        }
     }
 
     @TopicsMapping("topics-major-sub")
