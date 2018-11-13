@@ -1,12 +1,19 @@
 .menu {
-	margin-top: 1ex;
+	padding-top: 1ex;
+	clear: both;
 	.not-print ();
 
-    .date {
+    &-tabs {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+    }
+
+    &-date {
         background-color: @menu_back;
         background-image: url(@menu_back_pic);
-        border: solid 1px @menu_date_border;
         color: @menu_date;
         font: bold 12pt @times;
+        text-align: right;
     }
 }

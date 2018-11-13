@@ -15,20 +15,20 @@
     {{/notEnglish}}
 {{/inline}}
 
-<table class="menu" width="100%" cellspacing="0" cellpadding="0" vspace="0">
+<div class="menu">
     {{#notEnglish}}
         {{#assign "menuBar"}}
-            <tr valign="bottom">
-                <td style="line-height: 1px">
+            <div class="menu-tabs">
+                <div>
                     {{> menuitem ident="index" alt="Главная" link="/"}}
                     {{> menuitem ident="times" alt="Мигдаль Times" link="/times/"}}
-                </td>
-                <td align="right" style="line-height: 1px">
+                </div>
+                <div>
                     {{> menuitem ident="search" alt="Поиск" link="/search/"}}
-                </td>
-            </tr>
+                </div>
+            </div>
         {{/assign}}
         {{{asp menuBar}}}
     {{/notEnglish}}
-    <tr><td colspan="2" class="date" align="right">{{> today}}&nbsp;</td></tr>
-</table>
+    <div class="menu-date">{{> today}}&nbsp;</div>
+</div>
