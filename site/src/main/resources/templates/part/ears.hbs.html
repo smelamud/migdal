@@ -1,8 +1,10 @@
 {{#notEnglish}}
     <p class="ears">
-        {{#each ears}}
-            {{#assign "href"}}/actions/ear/{{id}}{{/assign}}
-            {{postingImage posting=this imageTitle=bodyNormal href=href}}
-        {{/each}}
+        {{#cached earsCache}}
+            {{#each ears}}
+                {{#assign "href"}}/actions/ear/{{id}}{{/assign}}
+                {{postingImage posting=this imageTitle=bodyNormal href=href}}
+            {{/each}}
+        {{/cached}}
     </p>
 {{/notEnglish}}

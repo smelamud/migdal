@@ -169,7 +169,11 @@ public class IndexController {
     }
 
     private void addTextEars(Model model) {
-        model.addAttribute("textears", postingManager.begAll(Postings.all().grp("TEXTEARS").asGuest().limit(3)));
+        CachedHtml textEarsCache = htmlCacheManager.of("textEars").onPostings();
+        model.addAttribute("textEarsCache", textEarsCache);
+        if (textEarsCache.isInvalid()) {
+            model.addAttribute("textears", postingManager.begAll(Postings.all().grp("TEXTEARS").asGuest().limit(3)));
+        }
     }
 
     void addPostings(String groupName, Topic topic, Long userId, String[] addGrpNames, boolean addVisible,
@@ -332,23 +336,32 @@ public class IndexController {
     }
 
     private void addDailyAnnounce(String ident, Model model) {
-        Topic topic = topicManager.beg(identManager.idOrIdent(ident));
-        model.addAttribute("dailyNewsTopic", topic);
+        long topicId = identManager.idOrIdent(ident);
+        CachedHtml dailyNewsCache = htmlCacheManager.of("dailyNews")
+                                                    .of(topicId)
+                                                    .ofRandom(10)
+                                                    .during(Duration.ofHours(3))
+                                                    .onPostings();
+        model.addAttribute("dailyNewsCache", dailyNewsCache);
+        if (dailyNewsCache.isInvalid()) {
+            Topic topic = topicManager.beg(topicId);
+            model.addAttribute("dailyNewsTopic", topic);
 
-        Postings p = Postings.all()
-                             .topic(topic.getId())
-                             .grp("DAILY_NEWS")
-                             .sort(Sort.Direction.DESC, "index1")
-                             .limit(5);
-        model.addAttribute("dailyNews", postingManager.begAll(p));
+            Postings p = Postings.all()
+                                 .topic(topicId)
+                                 .grp("DAILY_NEWS")
+                                 .sort(Sort.Direction.DESC, "index1")
+                                 .limit(5);
+            model.addAttribute("dailyNews", postingManager.begAll(p));
 
-        p = Postings.all()
-                    .topic(topic.getId())
-                    .grp("GRAPHICS")
-                    .sort(Sort.Direction.DESC, "index1")
-                    .limit(20)
-                    .asGuest();
-        model.addAttribute("dailyPicture", postingManager.begRandomOne(p));
+            p = Postings.all()
+                        .topic(topicId)
+                        .grp("GRAPHICS")
+                        .sort(Sort.Direction.DESC, "index1")
+                        .limit(20)
+                        .asGuest();
+            model.addAttribute("dailyPicture", postingManager.begRandomOne(p));
+        }
     }
 
 }

@@ -1,40 +1,44 @@
 {{#*inline "textearsBlock"}}
-    {{#if textears}}
-        <div class="textears-title">Коротко о важном:</div>
-        <ul class="ninept" style="margin-bottom: 3ex">
-            {{#each textears}}
-                <li><a href="{{url}}">{{subject}}</a></li>
-            {{/each}}
-        </ul>
-    {{/if}}
+    {{#cached textEarsCache}}
+        {{#if textears}}
+            <div class="textears-title">Коротко о важном:</div>
+            <ul class="ninept" style="margin-bottom: 3ex">
+                {{#each textears}}
+                    <li><a href="{{url}}">{{subject}}</a></li>
+                {{/each}}
+            </ul>
+        {{/if}}
+    {{/cached}}
 {{/inline}}
 
 {{#*inline "dailyAnnounce"}}
-    {{#if dailyNews}}
-        <div class="textears-title">{{dailyNewsTopic.comment0}}:</div>
-        <div style="display: flex; max-width: 700px; margin-bottom: 3ex">
-            {{#if dailyPicture}}
-                {{#if dailyPicture.hasImage}}
-                    <div style="flex: none; align-self: center; max-width: 200px">
-                        {{postingImage posting=dailyPicture href=dailyPicture.href}}
-                    </div>
+    {{#cached dailyNewsCache}}
+        {{#if dailyNews}}
+            <div class="textears-title">{{dailyNewsTopic.comment0}}:</div>
+            <div style="display: flex; max-width: 700px; margin-bottom: 3ex">
+                {{#if dailyPicture}}
+                    {{#if dailyPicture.hasImage}}
+                        <div style="flex: none; align-self: center; max-width: 200px">
+                            {{postingImage posting=dailyPicture href=dailyPicture.href}}
+                        </div>
+                    {{/if}}
                 {{/if}}
-            {{/if}}
-            <div style="flex: auto">
-                <ul class="ninept" style="margin-bottom: 0">
-                    {{#each dailyNews}}
-                        <li>
-                            <b>{{subject}}.</b>
-                            <a href="{{grpDetailsHref}}">{{mtext comment0Mtext}}</a>
-                        </li>
-                    {{/each}}
-                </ul>
-                <div style="padding-left: 3em">
-                    <a href="{{dailyNewsTopic.href}}" class="eightpt"><b>Все дни</b></a>
+                <div style="flex: auto">
+                    <ul class="ninept" style="margin-bottom: 0">
+                        {{#each dailyNews}}
+                            <li>
+                                <b>{{subject}}.</b>
+                                <a href="{{grpDetailsHref}}">{{mtext comment0Mtext}}</a>
+                            </li>
+                        {{/each}}
+                    </ul>
+                    <div style="padding-left: 3em">
+                        <a href="{{dailyNewsTopic.href}}" class="eightpt"><b>Все дни</b></a>
+                    </div>
                 </div>
             </div>
-        </div>
-    {{/if}}
+        {{/if}}
+    {{/cached}}
 {{/inline}}
 
 {{> part/preamble}}

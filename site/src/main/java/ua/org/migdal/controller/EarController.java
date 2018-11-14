@@ -1,5 +1,6 @@
 package ua.org.migdal.controller;
 
+import java.time.Duration;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -15,6 +16,8 @@ import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.VoteType;
 import ua.org.migdal.location.LocationInfo;
+import ua.org.migdal.manager.CachedHtml;
+import ua.org.migdal.manager.HtmlCacheManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.Postings;
@@ -31,6 +34,9 @@ public class EarController {
 
     @Inject
     private VoteManager voteManager;
+
+    @Inject
+    private HtmlCacheManager htmlCacheManager;
 
     @Inject
     private AdminController adminController;
@@ -104,12 +110,16 @@ public class EarController {
     }
 
     public void addEars(Model model) {
-        Set<Posting> ears = postingManager.begRandomWithPriorities(Postings.all().grp("EARS").limit(3));
-        ears.forEach(posting -> {
-            voteManager.vote(posting, VoteType.VIEW, 1);
-            postingManager.save(posting);
-        });
-        model.addAttribute("ears", ears);
+        CachedHtml earsCache = htmlCacheManager.of("ears").ofRandom(10).during(Duration.ofHours(3));
+        model.addAttribute("earsCache", earsCache);
+        if (earsCache.isInvalid()) {
+            Set<Posting> ears = postingManager.begRandomWithPriorities(Postings.all().grp("EARS").limit(3));
+            ears.forEach(posting -> {
+                voteManager.vote(posting, VoteType.VIEW, 1); // FIXME incorrect with caching
+                postingManager.save(posting);
+            });
+            model.addAttribute("ears", ears);
+        }
     }
 
 }
