@@ -216,14 +216,18 @@ public class IndexController {
     }
 
     private void addHitParade(Long topicId, Model model) {
-        Postings p = Postings.all()
-                             .topic(topicId, true)
-                             .grp("WRITINGS")
-                             .laterThan(Timestamp.from(Instant.now().minus(31, ChronoUnit.DAYS)))
-                             .asGuest()
-                             .limit(10)
-                             .sort(Sort.Direction.DESC, "rating");
-        model.addAttribute("hitParade", postingManager.begAll(p));
+        CachedHtml hitParadeCache = htmlCacheManager.of("hitParade").of(topicId).during(Duration.ofHours(1));
+        model.addAttribute("hitParadeCache", hitParadeCache);
+        if (hitParadeCache.isInvalid()) {
+            Postings p = Postings.all()
+                                 .topic(topicId, true)
+                                 .grp("WRITINGS")
+                                 .laterThan(Timestamp.from(Instant.now().minus(31, ChronoUnit.DAYS)))
+                                 .asGuest()
+                                 .limit(10)
+                                 .sort(Sort.Direction.DESC, "rating");
+            model.addAttribute("hitParade", postingManager.begAll(p));
+        }
     }
 
     private void addDiscussions(Model model) {

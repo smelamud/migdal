@@ -34,10 +34,18 @@ public class CachedHtml {
         return this;
     }
 
-    public CachedHtml of(long parameter) {
+    public CachedHtml of(Long parameter) {
         ident.append('-');
-        ident.append(parameter);
+        if (parameter != null) {
+            ident.append(parameter);
+        } else {
+            ident.append("null");
+        }
         return this;
+    }
+
+    public CachedHtml of(int parameter) {
+        return of((long) parameter);
     }
 
     public CachedHtml of(boolean parameter) {
