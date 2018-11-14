@@ -1,23 +1,25 @@
 <div class="topics-header">Последние комментарии</div>
 <div class="discussions">
-    {{#each discussions}}
-        <div class="item">
-            {{#if answers}}
-                <div class="content">
-                    {{senderLink lastAnswer}} <span class="quote">
-                        <a href="{{grpDetailsHref}}?tid={{lastAnswer.id}}#t{{lastAnswer.id}}">{{lastAnswer.bodyTiny}}</a>
-                    </span>
-                </div>
-                <span class="time fuzzy-time" data-time="{{lastAnswerTimestamp.time}}"></span>
-            {{else}}
-                <div class="content">
-                    {{senderLink this}} <span class="quote">
-                        <a href="{{grpDetailsHref}}">{{bodyTiny}}</a>
-                    </span>
-                </div>
-                <span class="time fuzzy-time" data-time="{{sent.time}}"></span>
-            {{/if}}
-        </div>
-    {{/each}}
+    {{#cached discussionsCache}}
+        {{#each discussions}}
+            <div class="item">
+                {{#if answers}}
+                    <div class="content">
+                        {{senderLink lastAnswer}} <span class="quote">
+                            <a href="{{grpDetailsHref}}?tid={{lastAnswer.id}}#t{{lastAnswer.id}}">{{lastAnswer.bodyTiny}}</a>
+                        </span>
+                    </div>
+                    <span class="time fuzzy-time" data-time="{{lastAnswerTimestamp.time}}"></span>
+                {{else}}
+                    <div class="content">
+                        {{senderLink this}} <span class="quote">
+                            <a href="{{grpDetailsHref}}">{{bodyTiny}}</a>
+                        </span>
+                    </div>
+                    <span class="time fuzzy-time" data-time="{{sent.time}}"></span>
+                {{/if}}
+            </div>
+        {{/each}}
+    {{/cached}}
     <div class="other"><a href="/forum/">Все обсуждения</a></div>
 </div>

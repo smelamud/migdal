@@ -227,13 +227,20 @@ public class IndexController {
     }
 
     private void addDiscussions(Model model) {
-        model.addAttribute("discussions",
-                postingManager.begLastDiscussions(
-                        grpEnum.group("DISCUSS"),
-                        grpEnum.group("FORUMS"),
-                        false,
-                        0,
-                        7));
+        CachedHtml discussionsCache = htmlCacheManager.of("discussions")
+                                                      .during(Duration.ofDays(1))
+                                                      .onPostings()
+                                                      .onForums();
+        model.addAttribute("discussionsCache", discussionsCache);
+        if (discussionsCache.isInvalid()) {
+            model.addAttribute("discussions",
+                    postingManager.begLastDiscussions(
+                            grpEnum.group("DISCUSS"),
+                            grpEnum.group("FORUMS"),
+                            false,
+                            0,
+                            7));
+        }
     }
 
     @GetMapping("/major")
