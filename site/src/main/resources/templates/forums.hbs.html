@@ -22,63 +22,65 @@
     <div class="center-column">
         <div class="center-column-content">
             {{subtitle}}
-            {{> batcher list=discussions}}
-            {{#catalogTable}}
-                <tr valign="top">
-                    <th class="catalog-cell">Тема</th>
-                    <th class="catalog-cell">Прислал(а)</th>
-                    <th class="catalog-cell">Ответов</th>
-                    <th class="catalog-cell">Последний ответ</th>
-                </tr>
-                {{#each discussions}}
-                    {{#if @odd}}
-                        {{#assign "class"}}catalog-cell-odd{{/assign}}
-                    {{else}}
-                        {{#assign "class"}}catalog-cell{{/assign}}
-                    {{/if}}
-                    <tr height="40">
-                        <td class="{{class}}">
-                            {{#iflt priority 0}}
-                                <b><a href="{{grpDetailsHref}}" class="ninept">{{heading}}</a></b>
-                            {{else}}
-                                <a href="{{grpDetailsHref}}" class="ninept">{{heading}}</a>
-                            {{/iflt}}
-                            {{#if answersPages}}
-                                (Страницы:
-                                {{#each answersPages}}
-                                    {{#unless skip}}
-                                        <a href="{{grpDetailsHref}}?offset={{offset}}#comments" class="ninept">{{page}}</a>
-                                    {{else}}
-                                        ...
-                                    {{/unless}}
-                                {{/each}}
-                                )
-                            {{/if}}
-                            {{#ifine grp const.grp.FORUMS}}
-                                <br>
-                                <span class="subject eightpt">(Раздел {{topicLink this}})</span>
-                            {{/ifine}}
-                        </td>
-                        <td class="{{class}}" align="center">{{senderLink this}}</td>
-                        <td class="{{class}}" align="center">
-                            <a href="{{grpDetailsHref}}#comments" class="ninept">{{answers}}</a>
-                        </td>
-                        {{#unless answers}}
-                            <td class="{{class}}" align="center">&mdash;</td>
-                        {{else}}
-                            <td class="{{class}} ninept">
-                                {{sentView date=lastAnswerTimestamp}}<br>
-                                Автор: {{senderLink lastAnswer}}&nbsp;
-                                <a href="{{grpDetailsHref}}?tid={{lastAnswer.id}}#t{{lastAnswer.id}}"
-                                   title="К последнему ответу">{{image "/pics/further-far.gif"}}</a>
-                            </td>
-                        {{/unless}}
-                    </tr>
-                {{/each}}
-            {{/catalogTable}}
-            {{#if discussions}}
+            {{#cached forumsCache}}
                 {{> batcher list=discussions}}
-            {{/if}}
+                {{#catalogTable}}
+                    <tr valign="top">
+                        <th class="catalog-cell">Тема</th>
+                        <th class="catalog-cell">Прислал(а)</th>
+                        <th class="catalog-cell">Ответов</th>
+                        <th class="catalog-cell">Последний ответ</th>
+                    </tr>
+                    {{#each discussions}}
+                        {{#if @odd}}
+                            {{#assign "class"}}catalog-cell-odd{{/assign}}
+                        {{else}}
+                            {{#assign "class"}}catalog-cell{{/assign}}
+                        {{/if}}
+                        <tr height="40">
+                            <td class="{{class}}">
+                                {{#iflt priority 0}}
+                                    <b><a href="{{grpDetailsHref}}" class="ninept">{{heading}}</a></b>
+                                {{else}}
+                                    <a href="{{grpDetailsHref}}" class="ninept">{{heading}}</a>
+                                {{/iflt}}
+                                {{#if answersPages}}
+                                    (Страницы:
+                                    {{#each answersPages}}
+                                        {{#unless skip}}
+                                            <a href="{{grpDetailsHref}}?offset={{offset}}#comments" class="ninept">{{page}}</a>
+                                        {{else}}
+                                            ...
+                                        {{/unless}}
+                                    {{/each}}
+                                    )
+                                {{/if}}
+                                {{#ifine grp const.grp.FORUMS}}
+                                    <br>
+                                    <span class="subject eightpt">(Раздел {{topicLink this}})</span>
+                                {{/ifine}}
+                            </td>
+                            <td class="{{class}}" align="center">{{senderLink this}}</td>
+                            <td class="{{class}}" align="center">
+                                <a href="{{grpDetailsHref}}#comments" class="ninept">{{answers}}</a>
+                            </td>
+                            {{#unless answers}}
+                                <td class="{{class}}" align="center">&mdash;</td>
+                            {{else}}
+                                <td class="{{class}} ninept">
+                                    {{sentView date=lastAnswerTimestamp}}<br>
+                                    Автор: {{senderLink lastAnswer}}&nbsp;
+                                    <a href="{{grpDetailsHref}}?tid={{lastAnswer.id}}#t{{lastAnswer.id}}"
+                                       title="К последнему ответу">{{image "/pics/further-far.gif"}}</a>
+                                </td>
+                            {{/unless}}
+                        </tr>
+                    {{/each}}
+                {{/catalogTable}}
+                {{#if discussions}}
+                    {{> batcher list=discussions}}
+                {{/if}}
+            {{/cached}}
         </div>
     </div>
 </div>

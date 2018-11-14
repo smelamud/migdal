@@ -1,5 +1,6 @@
 package ua.org.migdal.controller;
 
+import java.time.Duration;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
+import ua.org.migdal.manager.CachedHtml;
+import ua.org.migdal.manager.HtmlCacheManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 
@@ -26,6 +29,9 @@ public class ForumController {
     private IdentManager identManager;
 
     @Inject
+    private HtmlCacheManager htmlCacheManager;
+
+    @Inject
     private IndexController indexController;
 
     @Inject
@@ -40,13 +46,21 @@ public class ForumController {
             Model model) {
         forumLocationInfo(model);
 
-        model.addAttribute("discussions",
-                postingManager.begLastDiscussions(
-                        grpEnum.group("DISCUSS"),
-                        grpEnum.group("FORUMS"),
-                        true,
-                        offset,
-                        20));
+        CachedHtml forumsCache = htmlCacheManager.of("forums")
+                                                 .of(offset)
+                                                 .during(Duration.ofHours(3))
+                                                 .onPostings()
+                                                 .onForums();
+        model.addAttribute("forumsCache", forumsCache);
+        if (forumsCache.isInvalid()) {
+            model.addAttribute("discussions",
+                    postingManager.begLastDiscussions(
+                            grpEnum.group("DISCUSS"),
+                            grpEnum.group("FORUMS"),
+                            true,
+                            offset,
+                            20));
+        }
         earController.addEars(model);
 
         return "forums";
