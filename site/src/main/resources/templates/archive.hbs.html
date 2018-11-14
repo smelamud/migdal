@@ -18,24 +18,26 @@
                 {{/ifieq}}
             {{/each}}
             <p>&nbsp;</p>
-            <p>
-                <b>
-                    Всего <em>{{postings.totalElements}}</em>
-                    {{plural postings.totalElements "сообщение,сообщения,сообщений"}}
-                </b>
-            </p>
-            {{#assign "prevDate"}}{{/assign}}
-            <dl class="ninept index">
-                {{#each postings}}
-                    {{#assign "nextDate"}}{{cal "gregorian-en" "dd.MM.yyyy" date=sent}}{{/assign}}
-                    {{#ifne nextDate prevDate}}
-                        {{#if prevDate}}<dt>&nbsp;</dt>{{/if}}
-                        <dt>{{nextDate}}</dt>
-                        {{#assign "prevDate"}}{{nextDate}}{{/assign}}
-                    {{/ifne}}
-                    <dd><a href="{{grpDetailsHref}}">{{heading}}</a></dd>
-                {{/each}}
-            </dl>
+            {{#cached archiveCache}}
+                <p>
+                    <b>
+                        Всего <em>{{postings.totalElements}}</em>
+                        {{plural postings.totalElements "сообщение,сообщения,сообщений"}}
+                    </b>
+                </p>
+                {{#assign "prevDate"}}{{/assign}}
+                <dl class="ninept index">
+                    {{#each postings}}
+                        {{#assign "nextDate"}}{{cal "gregorian-en" "dd.MM.yyyy" date=sent}}{{/assign}}
+                        {{#ifne nextDate prevDate}}
+                            {{#if prevDate}}<dt>&nbsp;</dt>{{/if}}
+                            <dt>{{nextDate}}</dt>
+                            {{#assign "prevDate"}}{{nextDate}}{{/assign}}
+                        {{/ifne}}
+                        <dd><a href="{{grpDetailsHref}}">{{heading}}</a></dd>
+                    {{/each}}
+                </dl>
+            {{/cached}}
         </div>
     </div>
 </div>

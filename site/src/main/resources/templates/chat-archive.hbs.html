@@ -44,30 +44,32 @@
                 {{/ifieq}}
             {{/each}}
             <p>&nbsp;</p>
-            <p>
-                <b>
-                    Всего <em>{{messagesTotal}}</em>
-                    {{plural messagesTotal "сообщение,сообщения,сообщений"}}
-                </b>
-            </p>
-            {{#assign "prevDate"}}{{/assign}}
-            <p>
-                {{#each messages}}
-                    {{#assign "nextDate"}}{{cal "gregorian-en" "dd.MM.yyyy" date=sent}}{{/assign}}
-                    {{#ifne nextDate prevDate}}
-                        {{#if prevDate}}</p><p>{{/if}}
-                        <b>{{nextDate}}</b><br>
-                        {{#assign "prevDate"}}{{nextDate}}{{/assign}}
-                    {{/ifne}}
-                    {{cal "gregorian-en" "HH:mm:ss" date=sent}}
-                    {{#ifeq sender.login "shames"}}
-                        <b>{{mtext textMtext}}</b>
-                    {{else}}
-                        {{senderLink this}}: {{mtext textMtext}}
-                    {{/ifeq}}
-                    <br>
-                {{/each}}
-            </p>
+            {{#cached chatArchiveCache}}
+                <p>
+                    <b>
+                        Всего <em>{{messagesTotal}}</em>
+                        {{plural messagesTotal "сообщение,сообщения,сообщений"}}
+                    </b>
+                </p>
+                {{#assign "prevDate"}}{{/assign}}
+                <p>
+                    {{#each messages}}
+                        {{#assign "nextDate"}}{{cal "gregorian-en" "dd.MM.yyyy" date=sent}}{{/assign}}
+                        {{#ifne nextDate prevDate}}
+                            {{#if prevDate}}</p><p>{{/if}}
+                            <b>{{nextDate}}</b><br>
+                            {{#assign "prevDate"}}{{nextDate}}{{/assign}}
+                        {{/ifne}}
+                        {{cal "gregorian-en" "HH:mm:ss" date=sent}}
+                        {{#ifeq sender.login "shames"}}
+                            <b>{{mtext textMtext}}</b>
+                        {{else}}
+                            {{senderLink this}}: {{mtext textMtext}}
+                        {{/ifeq}}
+                        <br>
+                    {{/each}}
+                </p>
+            {{/cached}}
         </div>
     </div>
 </div>

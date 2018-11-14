@@ -1,6 +1,7 @@
 package ua.org.migdal.controller;
 
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneOffset;
@@ -18,7 +19,9 @@ import ua.org.migdal.data.ChatMessage;
 import ua.org.migdal.data.util.IntegerRange;
 import ua.org.migdal.helper.calendar.Tables;
 import ua.org.migdal.location.LocationInfo;
+import ua.org.migdal.manager.CachedHtml;
 import ua.org.migdal.manager.ChatManager;
+import ua.org.migdal.manager.HtmlCacheManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.Postings;
 
@@ -30,6 +33,9 @@ public class ArchiveController {
 
     @Inject
     private ChatManager chatManager;
+
+    @Inject
+    private HtmlCacheManager htmlCacheManager;
 
     @Inject
     private IndexController indexController;
@@ -69,12 +75,19 @@ public class ArchiveController {
     }
 
     private String archive(int year, Model model) {
+        int thisYear = LocalDateTime.now().getYear();
         model.addAttribute("year", year);
-        model.addAttribute("years", new IntegerRange(LocalDateTime.now().getYear(), 2000));
-        Timestamp begin = Timestamp.from(LocalDateTime.of(year, Month.JANUARY, 1, 0, 0).toInstant(ZoneOffset.UTC));
-        Timestamp end = Timestamp.from(LocalDateTime.of(year + 1, Month.JANUARY, 1, 0, 0).toInstant(ZoneOffset.UTC));
-        Postings p = Postings.all().grp("ARCHIVE").laterThan(begin).earlierThan(end).asGuest();
-        model.addAttribute("postings", postingManager.begAll(p));
+        model.addAttribute("years", new IntegerRange(thisYear, 2000));
+        CachedHtml archiveCache = htmlCacheManager.of("archive")
+                                                  .of(year)
+                                                  .during(year == thisYear ? Duration.ofHours(3) : Duration.ofDays(3));
+        model.addAttribute("archiveCache", archiveCache);
+        if (archiveCache.isInvalid()) {
+            Timestamp begin = Timestamp.from(LocalDateTime.of(year, Month.JANUARY, 1, 0, 0).toInstant(ZoneOffset.UTC));
+            Timestamp end = Timestamp.from(LocalDateTime.of(year + 1, Month.JANUARY, 1, 0, 0).toInstant(ZoneOffset.UTC));
+            Postings p = Postings.all().grp("ARCHIVE").laterThan(begin).earlierThan(end).asGuest();
+            model.addAttribute("postings", postingManager.begAll(p));
+        }
 
         return "archive";
     }
@@ -147,14 +160,18 @@ public class ArchiveController {
         model.addAttribute("year", year);
         model.addAttribute("years", new IntegerRange(2007, 2000));
         model.addAttribute("month", month);
-        Timestamp begin = Timestamp.from(
-                LocalDateTime.of(year, month, 1, 0, 0, 0).toInstant(ZoneOffset.UTC));
-        int lastDayOfMonth = Month.of(month).length(year % 4 == 0);
-        Timestamp end = Timestamp.from(
-                LocalDateTime.of(year, month, lastDayOfMonth, 23, 59, 59).toInstant(ZoneOffset.UTC));
-        List<ChatMessage> messages = chatManager.getAll(begin, end);
-        model.addAttribute("messages", messages);
-        model.addAttribute("messagesTotal", ((List) messages).size());
+        CachedHtml chatArchiveCache = htmlCacheManager.of("chatArchive").of(year).of(month);
+        model.addAttribute("chatArchiveCache", chatArchiveCache);
+        if (chatArchiveCache.isInvalid()) {
+            Timestamp begin = Timestamp.from(
+                    LocalDateTime.of(year, month, 1, 0, 0, 0).toInstant(ZoneOffset.UTC));
+            int lastDayOfMonth = Month.of(month).length(year % 4 == 0);
+            Timestamp end = Timestamp.from(
+                    LocalDateTime.of(year, month, lastDayOfMonth, 23, 59, 59).toInstant(ZoneOffset.UTC));
+            List<ChatMessage> messages = chatManager.getAll(begin, end);
+            model.addAttribute("messages", messages);
+            model.addAttribute("messagesTotal", ((List) messages).size());
+        }
 
         return "chat-archive";
     }
