@@ -9,37 +9,39 @@
     <div class="center-column">
         <div class="center-column-content">
             {{subtitle}}
-            <div style="display: flex; margin-left: 4em">
-                {{#if picture}}
-                    {{#if picture.hasImage}}
-                        <div style="flex: none; width: 200px">
-                            {{postingImage posting=picture href=picture.href title=picture.parent.subject}}
-                        </div>
+            {{#cached eventsCache}}
+                <div style="display: flex; margin-left: 4em">
+                    {{#if picture}}
+                        {{#if picture.hasImage}}
+                            <div style="flex: none; width: 200px">
+                                {{postingImage posting=picture href=picture.href title=picture.parent.subject}}
+                            </div>
+                        {{/if}}
                     {{/if}}
-                {{/if}}
-                <div style="flex: auto; margin-left: 20px">
-                    <div class="textears-title">Последние события:</div>
-                    <ul class="ninept" style="padding-left: 1em; margin-top: 1ex;">
-                        {{#each lastEvents}}
-                            <li>
-                                <a href="{{href}}" title="{{bodyNormal}}">{{comment0}}</a>
-                            </li>
-                        {{/each}}
-                    </ul>
-                </div>
-            </div>
-            <div style="display: flex; flex-wrap: wrap">
-                {{#each eventGroups}}
-                    <div style="flex: none; width: 180px; margin-right: 20px; margin-bottom: 2ex">
-                        {{#topicsTable class="ninept" title=element.subject}}
-                            {{#each children}}
-                                {{topicsLine text=element.comment1 title=element.bodyNormal href=element.href
-                                             class="none"}}
+                    <div style="flex: auto; margin-left: 20px">
+                        <div class="textears-title">Последние события:</div>
+                        <ul class="ninept" style="padding-left: 1em; margin-top: 1ex;">
+                            {{#each lastEvents}}
+                                <li>
+                                    <a href="{{href}}" title="{{bodyNormal}}">{{comment0}}</a>
+                                </li>
                             {{/each}}
-                        {{/topicsTable}}
+                        </ul>
                     </div>
-                {{/each}}
-            </div>
+                </div>
+                <div style="display: flex; flex-wrap: wrap">
+                    {{#each eventGroups}}
+                        <div style="flex: none; width: 180px; margin-right: 20px; margin-bottom: 2ex">
+                            {{#topicsTable class="ninept" title=element.subject}}
+                                {{#each children}}
+                                    {{topicsLine text=element.comment1 title=element.bodyNormal href=element.href
+                                                 class="none"}}
+                                {{/each}}
+                            {{/topicsTable}}
+                        </div>
+                    {{/each}}
+                </div>
+            {{/cached}}
         </div>
     </div>
 </div>

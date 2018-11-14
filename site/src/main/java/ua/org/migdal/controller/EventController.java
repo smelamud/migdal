@@ -23,6 +23,8 @@ import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.util.TreeNode;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
+import ua.org.migdal.manager.CachedHtml;
+import ua.org.migdal.manager.HtmlCacheManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.Postings;
@@ -51,6 +53,9 @@ public class EventController {
     private PostingManager postingManager;
 
     @Inject
+    private HtmlCacheManager htmlCacheManager;
+
+    @Inject
     private MigdalController migdalController;
 
     @Inject
@@ -77,40 +82,45 @@ public class EventController {
 
         eventsLocationInfo(model);
 
-        Iterable<Topic> events = topicManager.begAll(eventsId, true, Sort.Direction.DESC, "index2", "index0");
+        CachedHtml eventsCache = htmlCacheManager.of("events").ofRandom(10).onTopics();
+        model.addAttribute("eventsCache", eventsCache);
+        if (eventsCache.isInvalid()) {
+            Iterable<Topic> events = topicManager.begAll(eventsId, true, Sort.Direction.DESC, "index2", "index0");
 
-        List<Topic> lastEvents = new ArrayList<>();
-        List<TreeNode<Topic>> eventGroups = new ArrayList<>();
-        Map<Long, TreeNode<Topic>> eventGroupMap = new HashMap<>();
+            List<Topic> lastEvents = new ArrayList<>();
+            List<TreeNode<Topic>> eventGroups = new ArrayList<>();
+            Map<Long, TreeNode<Topic>> eventGroupMap = new HashMap<>();
 
-        for (Topic topic : events) {
-            if (lastEvents.size() < 5) {
-                lastEvents.add(topic);
-            }
-            if (topic.getUpId() == eventsId) {
-                TreeNode<Topic> node = new TreeNode<>(topic.getId(), topic);
-                eventGroups.add(node);
-                eventGroupMap.put(topic.getId(), node);
-            }
-        }
-
-        model.addAttribute("lastEvents", lastEvents);
-
-        for (Topic topic : events) {
-            if (topic.getUpId() != eventsId) {
-                TreeNode<Topic> group = eventGroupMap.get(topic.getUpId());
-                if (group != null) {
-                    group.getChildren().add(new TreeNode<>(topic.getId(), topic));
+            for (Topic topic : events) {
+                if (lastEvents.size() < 5) {
+                    lastEvents.add(topic);
+                }
+                if (topic.getUpId() == eventsId) {
+                    TreeNode<Topic> node = new TreeNode<>(topic.getId(), topic);
+                    eventGroups.add(node);
+                    eventGroupMap.put(topic.getId(), node);
                 }
             }
-        }
-        eventGroups.sort(
-                (node1, node2) -> node1.getElement().getSubject().compareToIgnoreCase(node2.getElement().getSubject()));
-        model.addAttribute("eventGroups", eventGroups);
 
-        Postings p = Postings.all().grp("GRAPHICS").asGuest();
-        lastEvents.forEach(t -> p.topic(t.getId()));
-        model.addAttribute("picture", postingManager.begRandomOne(p));
+            model.addAttribute("lastEvents", lastEvents);
+
+            for (Topic topic : events) {
+                if (topic.getUpId() != eventsId) {
+                    TreeNode<Topic> group = eventGroupMap.get(topic.getUpId());
+                    if (group != null) {
+                        group.getChildren().add(new TreeNode<>(topic.getId(), topic));
+                    }
+                }
+            }
+            eventGroups.sort(
+                    (node1, node2) -> node1.getElement().getSubject()
+                            .compareToIgnoreCase(node2.getElement().getSubject()));
+            model.addAttribute("eventGroups", eventGroups);
+
+            Postings p = Postings.all().grp("GRAPHICS").asGuest();
+            lastEvents.forEach(t -> p.topic(t.getId()));
+            model.addAttribute("picture", postingManager.begRandomOne(p));
+        }
 
         return "events";
     }
@@ -127,8 +137,12 @@ public class EventController {
 
     @TopicsMapping("topics-events")
     protected void topicsEvents(Model model) {
-        model.addAttribute("events", topicManager.begAll(
-                identManager.idOrIdent("migdal.events"), true, Sort.Direction.DESC, "index2", "index0"));
+        CachedHtml topicsEventsCache = htmlCacheManager.of("topicsEvents").ofTopicsIndex(model).onTopics();
+        model.addAttribute("topicsEventsCache", topicsEventsCache);
+        if (topicsEventsCache.isInvalid()) {
+            model.addAttribute("events", topicManager.begAll(
+                    identManager.idOrIdent("migdal.events"), true, Sort.Direction.DESC, "index2", "index0"));
+        }
     }
 
     @GetMapping("/migdal/events/reorder")

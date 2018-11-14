@@ -3,6 +3,7 @@ package ua.org.migdal.manager;
 import java.time.temporal.TemporalAmount;
 
 import org.springframework.ui.Model;
+import ua.org.migdal.util.Utils;
 
 public class CachedHtml {
 
@@ -47,6 +48,10 @@ public class CachedHtml {
 
     public CachedHtml ofTopicsIndex(Model model) {
         return of((String) model.asMap().get("topicsIndex"));
+    }
+
+    public CachedHtml ofRandom(int n) {
+        return of(Utils.random(0, n));
     }
 
     public CachedHtml during(TemporalAmount period) {
