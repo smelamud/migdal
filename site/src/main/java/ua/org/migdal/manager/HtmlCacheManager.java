@@ -94,7 +94,7 @@ public class HtmlCacheManager {
     public void store(CachedHtml cachedHtml, CharSequence content) {
         HtmlCache htmlCache = new HtmlCache();
         htmlCache.setIdent(cachedHtml.getIdent());
-        htmlCache.setContent(content.toString());
+        htmlCache.setContent(content.toString().replaceAll("\\s+", " "));
         if (cachedHtml.getPeriod() != null) {
             htmlCache.setDeadline(Timestamp.from(Utils.now().toInstant().plus(cachedHtml.getPeriod())));
         }
