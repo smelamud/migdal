@@ -6,13 +6,15 @@
             <a href="{{event.href}}reorder?back={{ue rc.location}}" class="edit">Расставить статьи</a>
         </li>
     {{/postable}}
-    {{#if allArticles}}
-        {{#each allArticles}}
-            {{topicsLine text=heading href=grpDetailsHref index=id}}
+    {{#cached topicsDailyCache}}
+        {{#if allArticles}}
+            {{#each allArticles}}
+                {{topicsLine text=heading href=grpDetailsHref index=id}}
+            {{/each}}
+            {{topicsSplitter}}
+        {{/if}}
+        {{#each allDailyNews}}
+            {{topicsLine text=heading href=grpDetailsHref index=index1}}
         {{/each}}
-        {{topicsSplitter}}
-    {{/if}}
-    {{#each allDailyNews}}
-        {{topicsLine text=heading href=grpDetailsHref index=index1}}
-    {{/each}}
+    {{/cached}}
 {{/topicsTable}}

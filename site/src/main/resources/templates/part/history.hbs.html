@@ -1,12 +1,14 @@
 {{!params today}}
 
-{{#ifgt history.totalElements 1}}
-    {{#topicsTable title="Страницы истории"}}
-        {{#each history}}
-            {{#ifne ident today}}
-                {{#assign "itemText"}}{{cal "gregorian-ru-gen-lc" "d MMMM yyyy" date=sent}}{{/assign}}
-                {{topicsLine text=itemText href=href index=id class="topics-item ninept"}}
-            {{/ifne}}
-        {{/each}}
-    {{/topicsTable}}
-{{/ifgt}}
+{{#cached historyCache}}
+    {{#ifgt history.totalElements 1}}
+        {{#topicsTable title="Страницы истории"}}
+            {{#each history}}
+                {{#ifne ident today}}
+                    {{#assign "itemText"}}{{cal "gregorian-ru-gen-lc" "d MMMM yyyy" date=sent}}{{/assign}}
+                    {{topicsLine text=itemText href=href index=id class="topics-item ninept"}}
+                {{/ifne}}
+            {{/each}}
+        {{/topicsTable}}
+    {{/ifgt}}
+{{/cached}}

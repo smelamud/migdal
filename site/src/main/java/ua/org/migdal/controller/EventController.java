@@ -380,18 +380,25 @@ public class EventController {
     @TopicsMapping("topics-daily")
     protected void topicsDaily(Posting posting, Model model) {
         model.addAttribute("event", posting.getTopic());
-        Postings p = Postings.all()
-                             .topic(posting.getTopicId())
-                             .grp("ARTICLES")
-                             .asGuest()
-                             .sort(Sort.Direction.ASC, "index0");
-        model.addAttribute("allArticles", postingManager.begAll(p));
-        p = Postings.all()
-                    .topic(posting.getTopicId())
-                    .grp("DAILY_NEWS")
-                    .asGuest()
-                    .sort(Sort.Direction.ASC, "index1");
-        model.addAttribute("allDailyNews", postingManager.begAll(p));
+        CachedHtml topicsDailyCache = htmlCacheManager.of("topicsDaily")
+                                                      .of(posting.getTopicId())
+                                                      .ofTopicsIndex(model)
+                                                      .onPostings();
+        model.addAttribute("topicsDailyCache", topicsDailyCache);
+        if (topicsDailyCache.isInvalid()) {
+            Postings p = Postings.all()
+                                 .topic(posting.getTopicId())
+                                 .grp("ARTICLES")
+                                 .asGuest()
+                                 .sort(Sort.Direction.ASC, "index0");
+            model.addAttribute("allArticles", postingManager.begAll(p));
+            p = Postings.all()
+                        .topic(posting.getTopicId())
+                        .grp("DAILY_NEWS")
+                        .asGuest()
+                        .sort(Sort.Direction.ASC, "index1");
+            model.addAttribute("allDailyNews", postingManager.begAll(p));
+        }
     }
 
     @DetailsMapping("daily-news")

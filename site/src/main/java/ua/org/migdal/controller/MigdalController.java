@@ -326,8 +326,12 @@ public class MigdalController {
     }
 
     private void addHistory(long topicId, Model model) {
-        Postings p = Postings.all().grp("REVIEWS").topic(topicId).asGuest();
-        model.addAttribute("history", postingManager.begAll(p));
+        CachedHtml historyCache = htmlCacheManager.of("history").of(topicId).ofTopicsIndex(model).onPostings();
+        model.addAttribute("historyCache", historyCache);
+        if (historyCache.isInvalid()) {
+            Postings p = Postings.all().grp("REVIEWS").topic(topicId).asGuest();
+            model.addAttribute("history", postingManager.begAll(p));
+        }
     }
 
     private String historyDate(Timestamp timestamp) {
