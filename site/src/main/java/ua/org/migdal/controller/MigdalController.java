@@ -155,8 +155,14 @@ public class MigdalController {
     protected void topicsJcc(Model model) {
         long jccId = identManager.idOrIdent("migdal.jcc");
         model.addAttribute("jcc", topicManager.beg(jccId));
-        Postings p = Postings.all().grp("REVIEWS").topic(jccId).asGuest().sort(Sort.Direction.ASC, "index0");
-        model.addAttribute("jccReviews", postingManager.begAll(p));
+
+        CachedHtml topicsJccCache = htmlCacheManager.of("topicsJcc").ofTopicsIndex(model).onPostings();
+        model.addAttribute("topicsJccCache", topicsJccCache);
+        if (topicsJccCache.isInvalid()) {
+            Postings p = Postings.all().grp("REVIEWS").topic(jccId).asGuest().sort(Sort.Direction.ASC, "index0");
+            model.addAttribute("jccReviews", postingManager.begAll(p));
+        }
+
         addEvents("kaitanot", "kaitanotEvents", "migdal.events.kaitanot", model);
         addEvents("halom", "halomEvents", "migdal.events.halom", model);
     }

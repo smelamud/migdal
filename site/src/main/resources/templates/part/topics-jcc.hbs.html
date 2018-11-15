@@ -10,11 +10,13 @@
             <a href="/migdal/jcc/reorder/?back={{ue rc.location}}" class="edit">Расставить</a>
         </li>
     {{/postable}}
-    {{#each jccReviews}}
-        {{#ifne ident "post.migdal.jcc"}}
-            {{topicsLine text=subject href=href index=id class="topics-item eightpt"}}
-        {{/ifne}}
-    {{/each}}
+    {{#cached topicsJccCache}}
+        {{#each jccReviews}}
+            {{#ifne ident "post.migdal.jcc"}}
+                {{topicsLine text=subject href=href index=id class="topics-item eightpt"}}
+            {{/ifne}}
+        {{/each}}
+    {{/cached}}
     {{topicsLine text="Клуб Еврейского Студента" href="/migdal/jcc/student/" index="migdal.jcc.student"
                  class="topics-item eightpt"}}
 {{/topicsTable}}
