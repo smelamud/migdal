@@ -92,6 +92,10 @@ public class HtmlCacheManager {
     }
 
     public void store(CachedHtml cachedHtml, CharSequence content) {
+        if (!cachedHtml.isEnabled()) {
+            return;
+        }
+
         HtmlCache htmlCache = new HtmlCache();
         htmlCache.setIdent(cachedHtml.getIdent());
         htmlCache.setContent(content.toString().replaceAll("\\s+", " "));

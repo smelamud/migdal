@@ -29,10 +29,12 @@
         Номер
         &nbsp;
         <select id="select-issue">
-            {{#each allCovers}}
-                {{#assign "issueTitle"}}№{{issues}}&nbsp;{{comment0}}{{/assign}}
-                {{selectOption value=index1 selectedValue=issue title=issueTitle}}
-            {{/each}}
+            {{#cached timesSelectIssueCache}}
+                {{#each allCovers}}
+                    {{#assign "issueTitle"}}№{{issues}}&nbsp;{{comment0}}{{/assign}}
+                    {{selectOption value=index1 selectedValue=issue title=issueTitle}}
+                {{/each}}
+            {{/cached}}
         </select>
     </div>
 {{/inline}}
@@ -150,25 +152,27 @@
 {{/inline}}
 
 {{#*inline "navigator"}}
-    {{#each siblings}}
-        {{#if @first}}
-            {{#if siblings.moreBefore}}
-                {{> issue_further issue=index1 pic="/pics/upper.gif" title="Новые номера"}}
-            {{else}}
-                {{> sibling posting=.}}
-            {{/if}}
-        {{else}}
-            {{#if @last}}
-                {{#if siblings.moreAfter}}
-                    {{> issue_further issue=index1 pic="/pics/lower.gif" title="Старые номера"}}
+    {{#cached timesNavigatorCache}}
+        {{#each siblings}}
+            {{#if @first}}
+                {{#if siblings.moreBefore}}
+                    {{> issue_further issue=index1 pic="/pics/upper.gif" title="Новые номера"}}
                 {{else}}
                     {{> sibling posting=.}}
                 {{/if}}
             {{else}}
-                {{> sibling posting=.}}
+                {{#if @last}}
+                    {{#if siblings.moreAfter}}
+                        {{> issue_further issue=index1 pic="/pics/lower.gif" title="Старые номера"}}
+                    {{else}}
+                        {{> sibling posting=.}}
+                    {{/if}}
+                {{else}}
+                    {{> sibling posting=.}}
+                {{/if}}
             {{/if}}
-        {{/if}}
-    {{/each}}
+        {{/each}}
+    {{/cached}}
 {{/inline}}
 
 {{> part/preamble}}

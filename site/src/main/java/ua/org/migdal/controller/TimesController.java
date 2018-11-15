@@ -19,6 +19,8 @@ import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.util.Siblings;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
+import ua.org.migdal.manager.CachedHtml;
+import ua.org.migdal.manager.HtmlCacheManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.Postings;
@@ -38,6 +40,9 @@ public class TimesController {
 
     @Inject
     private PostingManager postingManager;
+
+    @Inject
+    private HtmlCacheManager htmlCacheManager;
 
     @Inject
     private IndexController indexController;
@@ -86,16 +91,30 @@ public class TimesController {
         postingViewController.addPostingComments(model, cover, offset, tid);
         model.addAttribute("issues", cover.getIssues());
         model.addAttribute("editor", times.isPostable());
+
+        CachedHtml timesSelectIssueCache = htmlCacheManager.of("timesSelectIssue")
+                                                           .of(issue)
+                                                           .onPostings()
+                                                           .only(!times.isPostable());
+        model.addAttribute("timesSelectIssueCache", timesSelectIssueCache);
+        CachedHtml timesNavigatorCache = htmlCacheManager.of("timesNavigator")
+                                                         .of(issue)
+                                                         .onPostings()
+                                                         .only(!times.isPostable());
+        model.addAttribute("timesNavigatorCache", timesNavigatorCache);
+        if (timesSelectIssueCache.isInvalid() || timesNavigatorCache.isInvalid()) {
+            Postings p = Postings.all()
+                                 .grp("TIMES_COVERS")
+                                 .sort(Sort.Direction.DESC, "index1");
+            Iterable<Posting> allCovers = postingManager.begAll(p);
+            model.addAttribute("allCovers", allCovers);
+            model.addAttribute("siblings", siblings(allCovers, 9, issue));
+        }
+
         Postings p = Postings.all()
-                             .grp("TIMES_COVERS")
-                             .sort(Sort.Direction.DESC, "index1");
-        Iterable<Posting> allCovers = postingManager.begAll(p);
-        model.addAttribute("allCovers", allCovers);
-        model.addAttribute("siblings", siblings(allCovers, 9, issue));
-        p = Postings.all()
-                    .grp("TIMES_ARTICLES")
-                    .index1(issue)
-                    .sort(Sort.Direction.ASC, "index0");
+                             .grp("TIMES_ARTICLES")
+                             .index1(issue)
+                             .sort(Sort.Direction.ASC, "index0");
         model.addAttribute("articles", postingManager.begAll(p));
         return "times";
     }
@@ -107,6 +126,14 @@ public class TimesController {
                 .withMenuMain("times")
                 .withPageTitle("Мигдаль Times №" + cover.getIssues())
                 .withPageTitleRelative("№" + cover.getIssues());
+    }
+
+    public LocationInfo timesIssueLocationInfo(long issue, Model model) {
+        try {
+            return timesIssueLocationInfo(begCover(issue), model);
+        } catch (PageNotFoundException e) {
+            return null;
+        }
     }
 
     private Siblings<Posting> siblings(Iterable<Posting> all, int max, long issue) {
@@ -151,17 +178,24 @@ public class TimesController {
 
     @TopicsMapping("topics-times")
     protected void topicsTimes(Posting posting, Model model) {
-        try {
-            Posting cover = begCover(posting.getIndex1());
-            model.addAttribute("cover", cover);
+        CachedHtml topicsTimesCache = htmlCacheManager.of("topicsTimes")
+                                                      .of(posting.getIndex1())
+                                                      .ofTopicsIndex(model)
+                                                      .onPostings();
+        model.addAttribute("topicsTimesCache", topicsTimesCache);
+        if (topicsTimesCache.isInvalid()) {
+            try {
+                Posting cover = begCover(posting.getIndex1());
+                model.addAttribute("cover", cover);
 
-            Postings p = Postings.all()
-                    .grp("TIMES_ARTICLES")
-                    .index1(posting.getIndex1())
-                    .sort(Sort.Direction.ASC, "index0");
-            model.addAttribute("allArticles", postingManager.begAll(p));
-        } catch (PageNotFoundException e) {
-            e.printStackTrace();
+                Postings p = Postings.all()
+                                     .grp("TIMES_ARTICLES")
+                                     .index1(posting.getIndex1())
+                                     .sort(Sort.Direction.ASC, "index0");
+                model.addAttribute("allArticles", postingManager.begAll(p));
+            } catch (PageNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 

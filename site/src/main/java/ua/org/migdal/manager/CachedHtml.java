@@ -14,6 +14,7 @@ public class CachedHtml {
     private boolean dependsOnPostings;
     private boolean dependsOnForums;
     private boolean dependsOnTopics;
+    private boolean enabled = true;
 
     CachedHtml(HtmlCacheManager htmlCacheManager, String objectName) {
         this.htmlCacheManager = htmlCacheManager;
@@ -21,7 +22,7 @@ public class CachedHtml {
     }
 
     public boolean isValid() {
-        return htmlCacheManager.isValid(this);
+        return enabled && htmlCacheManager.isValid(this);
     }
 
     public boolean isInvalid() {
@@ -82,6 +83,11 @@ public class CachedHtml {
         return this;
     }
 
+    public CachedHtml only(boolean enabled) {
+        this.enabled = enabled;
+        return this;
+    }
+
     String getIdent() {
         return ident.toString();
     }
@@ -100,6 +106,10 @@ public class CachedHtml {
 
     boolean isDependsOnTopics() {
         return dependsOnTopics;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
     }
 
 }

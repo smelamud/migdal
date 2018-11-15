@@ -64,6 +64,9 @@ public class DisambiguationController {
     @Inject
     private BookController bookController;
 
+    @Inject
+    private TimesController timesController;
+
     @GetMapping("/**/{smth:[^.]+$}") // $ in the regex is needed to match against the extension too
     public String disambiguate(
             @PathVariable String smth,
@@ -169,6 +172,9 @@ public class DisambiguationController {
         }
         if (posting.getCatalog().startsWith("migdal/")) {
             return migdalController.migdalNewsLocationInfo(model);
+        }
+        if (posting.getGrp() == grpEnum.grpValue("TIMES_ARTICLES")) {
+            return timesController.timesIssueLocationInfo(posting.getIndex1(), model);
         }
         if (posting.getGrp() == grpEnum.grpValue("FORUMS")) {
             return forumController.forumLocationInfo(model);
