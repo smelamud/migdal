@@ -1,13 +1,15 @@
 {{#*inline "methodics"}}
-    {{#if books}}
-        <div class="right-column" style="width: 180px">
-            {{#topicsTable title="Методические пособия"}}
-                {{#each books}}
-                    {{topicsLine href=grpDetailsHref text=heading class="ninept"}}
-                {{/each}}
-            {{/topicsTable}}
-        </div>
-    {{/if}}
+    {{#cached booksCache}}
+        {{#if books}}
+            <div class="right-column" style="width: 180px">
+                {{#topicsTable title="Методические пособия"}}
+                    {{#each books}}
+                        {{topicsLine href=grpDetailsHref text=heading class="ninept"}}
+                    {{/each}}
+                {{/topicsTable}}
+            </div>
+        {{/if}}
+    {{/cached}}
 {{/inline}}
 
 {{> part/preamble}}

@@ -18,6 +18,8 @@ import ua.org.migdal.data.Topic;
 import ua.org.migdal.helper.calendar.CalendarType;
 import ua.org.migdal.helper.calendar.Formatter;
 import ua.org.migdal.location.LocationInfo;
+import ua.org.migdal.manager.CachedHtml;
+import ua.org.migdal.manager.HtmlCacheManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.Postings;
@@ -38,6 +40,9 @@ public class MigdalController {
 
     @Inject
     private PostingManager postingManager;
+
+    @Inject
+    private HtmlCacheManager htmlCacheManager;
 
     @Inject
     private IndexController indexController;
@@ -432,12 +437,17 @@ public class MigdalController {
 
         postingViewController.addPostingView(model, posting, null, null);
         earController.addEars(model);
-        Postings p = Postings.all()
-                             .grp("PRINTINGS")
-                             .topic(identManager.idOrIdent("migdal.library"))
-                             .limit(10)
-                             .asGuest();
-        model.addAttribute("printings", postingManager.begAll(p));
+
+        CachedHtml printingsCache = htmlCacheManager.of("libraryNovelties").onPostings();
+        model.addAttribute("printingsCache", printingsCache);
+        if (printingsCache.isInvalid()) {
+            Postings p = Postings.all()
+                                 .grp("PRINTINGS")
+                                 .topic(identManager.idOrIdent("migdal.library"))
+                                 .limit(10)
+                                 .asGuest();
+            model.addAttribute("printings", postingManager.begAll(p));
+        }
 
         return "migdal-library";
     }
@@ -883,11 +893,16 @@ public class MigdalController {
         indexController.addSeeAlso(posting.getTopicId(), model);
         postingViewController.addPostingView(model, posting, null, null);
         earController.addEars(model);
-        Postings p = Postings.all()
-                .grp("BOOKS")
-                .topic(identManager.idOrIdent("migdal.methodology"))
-                .asGuest();
-        model.addAttribute("books", postingManager.begAll(p));
+
+        CachedHtml booksCache = htmlCacheManager.of("methodologyBooks").onPostings();
+        model.addAttribute("booksCache", booksCache);
+        if (booksCache.isInvalid()) {
+            Postings p = Postings.all()
+                                 .grp("BOOKS")
+                                 .topic(identManager.idOrIdent("migdal.methodology"))
+                                 .asGuest();
+            model.addAttribute("books", postingManager.begAll(p));
+        }
 
         return "methodic-center";
     }
