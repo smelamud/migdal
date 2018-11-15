@@ -1,5 +1,6 @@
 package ua.org.migdal.controller;
 
+import java.time.Duration;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -12,6 +13,8 @@ import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
 import ua.org.migdal.location.LocationInfo;
+import ua.org.migdal.manager.CachedHtml;
+import ua.org.migdal.manager.HtmlCacheManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.Postings;
@@ -36,6 +39,9 @@ public class PerUserController {
 
     @Inject
     private UserManager userManager;
+
+    @Inject
+    private HtmlCacheManager htmlCacheManager;
 
     @Inject
     private IndexController indexController;
@@ -95,7 +101,14 @@ public class PerUserController {
     protected String topicsTaglit(Model model) {
         Topic topic = topicManager.beg(identManager.idOrIdent("taglit"));
         model.addAttribute("topic", topic);
-        model.addAttribute("users", postingManager.getOwners(topic.getId()));
+        CachedHtml topicsPerUserCache = htmlCacheManager.of("topicsTaglit")
+                                                        .ofTopicsIndex(model)
+                                                        .during(Duration.ofHours(3))
+                                                        .onPostings();
+        model.addAttribute("topicsPerUserCache", topicsPerUserCache);
+        if (topicsPerUserCache.isInvalid()) {
+            model.addAttribute("users", postingManager.getOwners(topic.getId()));
+        }
 
         return "topics-per-user";
     }
@@ -151,7 +164,14 @@ public class PerUserController {
     protected String topicsVeterans(Model model) {
         Topic topic = topicManager.beg(identManager.idOrIdent("veterans"));
         model.addAttribute("topic", topic);
-        model.addAttribute("users", postingManager.getOwners(topic.getId()));
+        CachedHtml topicsPerUserCache = htmlCacheManager.of("topicsVeterans")
+                                                        .ofTopicsIndex(model)
+                                                        .during(Duration.ofHours(3))
+                                                        .onPostings();
+        model.addAttribute("topicsPerUserCache", topicsPerUserCache);
+        if (topicsPerUserCache.isInvalid()) {
+            model.addAttribute("users", postingManager.getOwners(topic.getId()));
+        }
 
         return "topics-per-user";
     }

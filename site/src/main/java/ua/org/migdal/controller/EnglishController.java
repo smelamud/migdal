@@ -15,6 +15,8 @@ import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
+import ua.org.migdal.manager.CachedHtml;
+import ua.org.migdal.manager.HtmlCacheManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.Postings;
@@ -45,6 +47,9 @@ public class EnglishController {
 
     @Inject
     private IdentManager identManager;
+
+    @Inject
+    private HtmlCacheManager htmlCacheManager;
 
     @Inject
     private IndexController indexController;
@@ -86,8 +91,16 @@ public class EnglishController {
     protected void topicsMigdalEnglish(Model model) {
         Topic topic = topicManager.beg(identManager.idOrIdent("migdal,e"));
         model.addAttribute("migdal", topic);
-        Postings p = Postings.all().topic(topic.getId()).grp("REVIEWS").sort(Sort.Direction.ASC, "index0").asGuest();
-        model.addAttribute("allReviews", postingManager.begAll(p));
+        CachedHtml topicsEnglishCache = htmlCacheManager.of("topicsMigdalEnglish").ofTopicsIndex(model).onPostings();
+        model.addAttribute("topicsEnglishCache", topicsEnglishCache);
+        if (topicsEnglishCache.isInvalid()) {
+            Postings p = Postings.all()
+                                 .topic(topic.getId())
+                                 .grp("REVIEWS")
+                                 .sort(Sort.Direction.ASC, "index0")
+                                 .asGuest();
+            model.addAttribute("allReviews", postingManager.begAll(p));
+        }
     }
 
     // @GetMapping("/migdal/{id:^\\d+$}")

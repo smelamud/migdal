@@ -204,6 +204,7 @@ public class LocationInfo {
         if (model != null) {
             String mappedTopics = TopicsService.getInstance().callMapping(topics, topicsPosting, model);
             topics = mappedTopics != null ? mappedTopics : topics;
+            addAttribute("topics", topics);
         }
         return this;
     }

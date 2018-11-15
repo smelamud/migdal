@@ -7,9 +7,11 @@
             <a href="/reorder-reviews?back={{ue rc.location}}" class="edit">Reorder</a>
         </li>
     {{/postable}}
-    {{#each allReviews}}
-        {{#ifne ident "post.migdal,e"}}
-            {{topicsLine text=subject href=grpDetailsHref index=id class="topics-item ninept"}}
-        {{/ifne}}
-    {{/each}}
+    {{#cached topicsEnglishCache}}
+        {{#each allReviews}}
+            {{#ifne ident "post.migdal,e"}}
+                {{topicsLine text=subject href=grpDetailsHref index=id class="topics-item ninept"}}
+            {{/ifne}}
+        {{/each}}
+    {{/cached}}
 {{/topicsTable}}

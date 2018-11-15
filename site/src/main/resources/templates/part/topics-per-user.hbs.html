@@ -1,8 +1,10 @@
 {{upperLevel title="На главную страницу" href="/"}}
 {{#topicsTable title=topic.subject}}
     {{topicsLine text="Все пользователи" href=topic.href index="0" class="ninept topics-item"}}
-    {{#each users}}
-        {{#assign "uhref"}}{{href}}{{folder}}{{/assign}}
-        {{topicsLine text=fullName href=uhref index=id class="eightpt topics-item"}}
-    {{/each}}
+    {{#cached topicsPerUserCache}}
+        {{#each users}}
+            {{#assign "uhref"}}{{href}}{{folder}}{{/assign}}
+            {{topicsLine text=fullName href=uhref index=id class="eightpt topics-item"}}
+        {{/each}}
+    {{/cached}}
 {{/topicsTable}}
