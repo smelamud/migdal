@@ -1,9 +1,11 @@
 package ua.org.migdal.manager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -55,6 +57,9 @@ public class TopicManager implements EntryManagerBase<Topic> {
 
     @Inject
     private UserManager userManager;
+
+    @Inject
+    private HtmlCacheManager htmlCacheManager;
 
     @Inject
     private GrpEnum grpEnum;
@@ -186,10 +191,21 @@ public class TopicManager implements EntryManagerBase<Topic> {
     }
 
     public List<IdNameProjection> begNames(long rootId, long grp, boolean onlyAppendable, boolean onlyPostable) {
+        CachedHtml namesCache = htmlCacheManager.of("topicNames")
+                                                .of(rootId)
+                                                .of(grp)
+                                                .of(onlyAppendable)
+                                                .of(onlyPostable)
+                                                .onTopics();
+        if (namesCache.isValid()) {
+            return deserializeNames(htmlCacheManager.get(namesCache));
+        }
+
         Tree<Topic> tree = new Tree<>(begAll());
         List<IdNameProjection> names = new ArrayList<>();
         extractNames(names, tree, null, rootId, grp, onlyAppendable, onlyPostable);
         names.sort((np1, np2) -> np1.getName().compareToIgnoreCase(np2.getName()));
+        htmlCacheManager.store(namesCache, serializeNames(names));
         return names;
     }
 
@@ -215,6 +231,24 @@ public class TopicManager implements EntryManagerBase<Topic> {
         for (TreeNode<Topic> child : subtree.getChildren()) {
             extractNames(names, child, prefix, rootId, grp, onlyAppendable, onlyPostable);
         }
+    }
+
+    private String serializeNames(List<IdNameProjection> namesList) {
+        StringBuilder buf = new StringBuilder();
+        namesList.forEach(item -> {
+            buf.append(item.getId());
+            buf.append('\u0001');
+            buf.append(item.getName());
+            buf.append('\u0003');
+        });
+        return buf.toString();
+    }
+
+    private List<IdNameProjection> deserializeNames(String input) {
+        return Arrays.stream(input.split("\u0003"))
+                     .map(s -> s.split("\u0001"))
+                     .map(parts -> new IdNameProjection(Long.parseLong(parts[0]), parts[1]))
+                     .collect(Collectors.toList());
     }
 
     public int getSubtopicsCount(long id) {
