@@ -1,12 +1,14 @@
-{{! params: topic, list, classLine }}
+{{! params: topic, list, cache, classLine }}
 
-{{#unless classLine}}
-    {{#assign "classLine"}}topics-item{{/assign}}
-{{/unless}}
-{{#if list}}
-    {{#topicsTable class="ninept" title=topic.subject}}
-        {{#each list}}
-            {{topicsLine text=comment1 title=bodyNormal href=href class=classLine}}
-        {{/each}}
-    {{/topicsTable}}
-{{/if}}
+{{#cached cache}}
+    {{#unless classLine}}
+        {{#assign "classLine"}}topics-item{{/assign}}
+    {{/unless}}
+    {{#if list}}
+        {{#topicsTable class="ninept" title=topic.subject}}
+            {{#each list}}
+                {{topicsLine text=comment1 title=bodyNormal href=href class=classLine}}
+            {{/each}}
+        {{/topicsTable}}
+    {{/if}}
+{{/cached}}

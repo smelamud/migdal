@@ -163,14 +163,19 @@ public class MigdalController {
             model.addAttribute("jccReviews", postingManager.begAll(p));
         }
 
-        addEvents("kaitanot", "kaitanotEvents", "migdal.events.kaitanot", model);
-        addEvents("halom", "halomEvents", "migdal.events.halom", model);
+        addEvents("kaitanot", "migdal.events.kaitanot", model);
+        addEvents("halom", "migdal.events.halom", model);
     }
 
-    private void addEvents(String topicVar, String listVar, String ident, Model model) {
+    private void addEvents(String varPrefix, String ident, Model model) {
         Topic topic = topicManager.beg(identManager.idOrIdent(ident));
-        model.addAttribute(topicVar, topic);
-        model.addAttribute(listVar, topicManager.begAll(topic.getId(), false, Sort.Direction.DESC, "index2", "index0"));
+        model.addAttribute(varPrefix, topic);
+        CachedHtml cache = htmlCacheManager.of("topicsCommonEvents").of(topic.getId()).onTopics();
+        model.addAttribute(varPrefix + "Cache", cache);
+        if (cache.isInvalid()) {
+            model.addAttribute(varPrefix + "Events",
+                    topicManager.begAll(topic.getId(), false, Sort.Direction.DESC, "index2", "index0"));
+        }
     }
 
     public LocationInfo jccLocationInfo(Posting posting, Model model) {
@@ -406,9 +411,9 @@ public class MigdalController {
 
     @TopicsMapping("topics-student")
     protected void topicsStudent(Model model) {
-        addEvents("confs", "confsEvents", "migdal.events.youth-confs", model);
-        addEvents("kvorim", "kvorimEvents", "migdal.events.kvorim", model);
-        addEvents("other", "otherEvents", "migdal.events.other", model);
+        addEvents("confs", "migdal.events.youth-confs", model);
+        addEvents("kvorim", "migdal.events.kvorim", model);
+        addEvents("other", "migdal.events.other", model);
     }
 
     @GetMapping("/migdal/jcc/{id}")
@@ -464,8 +469,8 @@ public class MigdalController {
 
     @TopicsMapping("topics-library")
     protected void topicsLibrary(Model model) {
-        addEvents("aboker", "abokerEvents", "migdal.events.ad-or-aboker", model);
-        addEvents("ofek", "ofekEvents", "migdal.events.ofek", model);
+        addEvents("aboker", "migdal.events.ad-or-aboker", model);
+        addEvents("ofek", "migdal.events.ofek", model);
     }
 
     public LocationInfo libraryLocationInfo(Posting posting, Model model) {
@@ -546,7 +551,7 @@ public class MigdalController {
     @TopicsMapping("topics-museum")
     protected void topicsMuseum(Model model) {
         long topicId = identManager.idOrIdent("migdal.museum");
-        addEvents("confs", "confsEvents", "migdal.events.science-confs", model);
+        addEvents("confs", "migdal.events.science-confs", model);
         addHistory(topicId, model);
     }
 
@@ -644,7 +649,7 @@ public class MigdalController {
 
     @TopicsMapping("topics-migdal-or")
     protected void topicsMigdalOr(Model model) {
-        addEvents("tours", "toursEvents", "migdal.events.migdal-or-tours", model);
+        addEvents("tours", "migdal.events.migdal-or-tours", model);
     }
 
     @GetMapping("/migdal/migdal-or/gallery")
@@ -709,7 +714,7 @@ public class MigdalController {
 
     @TopicsMapping("topics-mazltov")
     protected void topicsMazltov(Model model) {
-        addEvents("birth", "birthEvents", "migdal.events.mazltov-birth", model);
+        addEvents("birth", "migdal.events.mazltov-birth", model);
     }
 
     @GetMapping("/migdal/mazltov/news")
@@ -919,10 +924,10 @@ public class MigdalController {
 
     @TopicsMapping("topics-methodology")
     protected void topicsMethodology(Model model) {
-        addEvents("aboker", "abokerEvents", "migdal.events.ad-or-aboker", model);
-        addEvents("halom", "halomEvents", "migdal.events.halom", model);
-        addEvents("youth", "youthEvents", "migdal.events.youth-confs", model);
-        addEvents("science", "scienceEvents", "migdal.events.science-confs", model);
+        addEvents("aboker", "migdal.events.ad-or-aboker", model);
+        addEvents("halom", "migdal.events.halom", model);
+        addEvents("youth", "migdal.events.youth-confs", model);
+        addEvents("science", "migdal.events.science-confs", model);
     }
 
     public LocationInfo methodologyLocationInfo(Posting posting, Model model) {
