@@ -28,6 +28,7 @@ import ua.org.migdal.grp.ThumbnailTransformFlag;
 import ua.org.migdal.imageupload.ImageUploadException;
 import ua.org.migdal.imageupload.ImageUploadManager;
 import ua.org.migdal.location.LocationInfo;
+import ua.org.migdal.manager.HtmlCacheManager;
 import ua.org.migdal.manager.ImageFileManager;
 import ua.org.migdal.manager.ImageManager;
 import ua.org.migdal.manager.InnerImageManager;
@@ -61,6 +62,9 @@ public class InnerImageController {
 
     @Inject
     private ImageFileManager imageFileManager;
+
+    @Inject
+    private HtmlCacheManager htmlCacheManager;
 
     @Inject
     private PostingViewController postingViewController;
@@ -193,6 +197,7 @@ public class InnerImageController {
                     innerImageManager.save(innerImage);
                     postingManager.updateModbits(posting);
                     postingManager.save(posting);
+                    htmlCacheManager.postingsUpdated();
 
                     return null;
                 });
@@ -226,6 +231,7 @@ public class InnerImageController {
                     imageManager.delete(innerImage.getImage().getId());
                     postingManager.updateModbits(posting);
                     postingManager.save(posting);
+                    htmlCacheManager.postingsUpdated();
 
                     return null;
                 });

@@ -1,11 +1,14 @@
 package ua.org.migdal.manager;
 
 import java.sql.Timestamp;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+
 import ua.org.migdal.data.ContentVersion;
 import ua.org.migdal.data.ContentVersionRepository;
+import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.HtmlCache;
 import ua.org.migdal.data.HtmlCacheRepository;
 import ua.org.migdal.util.Utils;
@@ -22,6 +25,9 @@ public class HtmlCacheManager {
 
     @Inject
     private HtmlCacheRepository htmlCacheRepository;
+
+    @Inject
+    private EntryManager entryManager;
 
     private void fetchContentVersion() {
         if (contentVersion == null) {
@@ -52,6 +58,23 @@ public class HtmlCacheManager {
         synchronized (contentVersionLock) {
             contentVersion.setTopicsVersion(contentVersion.getTopicsVersion() + 1);
             contentVersionRepository.save(contentVersion);
+        }
+    }
+
+    public void entryChanged(EntryType entryType) {
+        switch (entryType) {
+            case POSTING:
+                postingsUpdated();
+                break;
+            case FORUM:
+                forumsUpdated();
+                break;
+            case TOPIC:
+                topicsUpdated();
+                break;
+            default:
+                /* do nothing */
+                break;
         }
     }
 

@@ -322,6 +322,10 @@ public class Entry implements TreeElement {
         this.ident = ident;
     }
 
+    public EntryType getEntryType() {
+        return entryType;
+    }
+
     public Entry getUp() {
         return up;
     }

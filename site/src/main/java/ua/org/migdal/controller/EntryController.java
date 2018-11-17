@@ -28,6 +28,7 @@ import ua.org.migdal.form.RenewForm;
 import ua.org.migdal.form.ReorderForm;
 import ua.org.migdal.manager.EntryManager;
 import ua.org.migdal.manager.EntryManagerBase;
+import ua.org.migdal.manager.HtmlCacheManager;
 import ua.org.migdal.manager.PermManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
@@ -58,6 +59,9 @@ public class EntryController {
 
     @Inject
     private PermManager permManager;
+
+    @Inject
+    private HtmlCacheManager htmlCacheManager;
 
     public String entryChmod(Topic topic, Model model) {
         model.asMap().computeIfAbsent("chmodForm", key -> new ChmodForm(topic));
@@ -180,6 +184,7 @@ public class EntryController {
                     entry.setHidden(hideForm.isHide());
                     entryManager.save(entry);
                     postingManager.updateAnswersDetails(entry.getParentId());
+                    htmlCacheManager.entryChanged(entry.getEntryType());
                     return null;
                 });
 
@@ -210,6 +215,7 @@ public class EntryController {
                     }
                     entryManager.updateDisabledById(moderateForm.getId(), moderateForm.isHide());
                     postingManager.updateAnswersDetails(entry.getParentId());
+                    htmlCacheManager.entryChanged(entry.getEntryType());
                     return null;
                 });
 
@@ -230,14 +236,17 @@ public class EntryController {
         new ControllerAction(EntryController.class, "actionRenew", errors)
                 .transactional(txManager)
                 .execute(() -> {
+                    Entry entry = entryManager.get(renewForm.getId());
+
+                    if (entry == null) {
+                        return "noEntry";
+                    }
                     if (!requestContext.isUserModerator()) {
                         return "notModerator";
                     }
-                    if (!entryManager.exists(renewForm.getId())) {
-                        return "noEntry";
-                    }
                     entryManager.renewById(renewForm.getId());
-                    // TODO for Forums update answers info in the parent Posting
+                    postingManager.updateAnswersDetails(entry.getParentId());
+                    htmlCacheManager.entryChanged(entry.getEntryType());
                     return null;
                 });
 
@@ -300,6 +309,7 @@ public class EntryController {
                         entry.setIndex0(n++);
                         manager.save(entry);
                     }
+                    htmlCacheManager.entryChanged(entryType);
 
                     return null;
                 });

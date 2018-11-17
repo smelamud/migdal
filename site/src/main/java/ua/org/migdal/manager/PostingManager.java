@@ -74,6 +74,9 @@ public class PostingManager implements EntryManagerBase<Posting> {
     private CrossEntryManager crossEntryManager;
 
     @Inject
+    private HtmlCacheManager htmlCacheManager;
+
+    @Inject
     private PostingRepository postingRepository;
 
     public int getPostingsCount(long topicId) {
@@ -341,6 +344,7 @@ public class PostingManager implements EntryManagerBase<Posting> {
         if (catalogChanged) {
             catalogManager.updateCatalogs(newTrack);
         }
+        htmlCacheManager.postingsUpdated();
         if (newPosting || topicChanged) {
             publishPosting(posting);
         }
@@ -378,6 +382,7 @@ public class PostingManager implements EntryManagerBase<Posting> {
         postingRepository.delete(posting);
         catalogManager.updateCatalogs(track);
         trackManager.replaceTracks(track, upTrack);
+        htmlCacheManager.postingsUpdated();
     }
 
     private void publishPosting(Posting posting) {
@@ -436,6 +441,7 @@ public class PostingManager implements EntryManagerBase<Posting> {
         posting.setAnswers(forumManager.countAnswers(postingId));
         posting.setLastAnswerDetails(forumManager.begLastAnswer(postingId));
         saveAndFlush(posting);
+        htmlCacheManager.forumsUpdated();
     }
 
 }

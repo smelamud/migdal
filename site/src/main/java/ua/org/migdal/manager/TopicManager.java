@@ -122,6 +122,7 @@ public class TopicManager implements EntryManagerBase<Topic> {
         if (catalogChanged) {
             catalogManager.updateCatalogs(newTrack);
         }
+        htmlCacheManager.topicsUpdated();
     }
 
     public Iterable<Topic> begAll() {
@@ -263,9 +264,11 @@ public class TopicManager implements EntryManagerBase<Topic> {
         }
         topicRepository.delete(topic);
         topicRepository.flush();
+        htmlCacheManager.topicsUpdated();
         if (destTopic != null) {
             catalogManager.updateCatalogs(oldTrack);
             trackManager.replaceTracks(oldTrack, destTopic.getTrack());
+            htmlCacheManager.postingsUpdated();
         }
     }
 

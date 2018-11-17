@@ -19,6 +19,9 @@ public interface EntryRepository extends JpaRepository<Entry, Long>, QuerydslPre
     @Query("select distinct e.perms from Entry e")
     List<Long> permsVariety();
 
+    @Query("select e.entryType from Entry e where id=?1")
+    EntryType findEntryTypeById(long id);
+
     @Modifying
     @Query("update Entry e set e.user=?3 where entryType=?1 and track like ?2")
     void updateUser(EntryType entryType, String searchWildcard, User user);

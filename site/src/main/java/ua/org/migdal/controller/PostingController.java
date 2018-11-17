@@ -26,6 +26,7 @@ import ua.org.migdal.form.AdminModeratorForm;
 import ua.org.migdal.form.AdminPostingsForm;
 import ua.org.migdal.form.ModbitForm;
 import ua.org.migdal.form.ModerateMassForm;
+import ua.org.migdal.manager.HtmlCacheManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.Postings;
 import ua.org.migdal.manager.TopicManager;
@@ -50,6 +51,9 @@ public class PostingController {
 
     @Inject
     private UserManager userManager;
+
+    @Inject
+    private HtmlCacheManager htmlCacheManager;
 
     @Inject
     private AdminController adminController;
@@ -190,6 +194,7 @@ public class PostingController {
 
                     modbitForm.toPosting(posting);
                     postingManager.save(posting);
+                    htmlCacheManager.postingsUpdated();
 
                     return null;
                 });

@@ -28,6 +28,9 @@ public class PermManager {
     @Inject
     private EntryRepository entryRepository;
 
+    @Inject
+    private HtmlCacheManager htmlCacheManager;
+
     private Predicate getMask(NumberPath<Long> field, long right) {
         right = PermUtils.limitGuests(right);
 
@@ -77,10 +80,12 @@ public class PermManager {
 
     public void updateUserRecursive(EntryType entryType, String track, User user) {
         entryRepository.updateUser(entryType, TrackManager.trackWildcard(track), user);
+        htmlCacheManager.entryChanged(entryType);
     }
 
     public void updateGroupRecursive(EntryType entryType, String track, User group) {
         entryRepository.updateGroup(entryType, TrackManager.trackWildcard(track), group);
+        htmlCacheManager.entryChanged(entryType);
     }
 
     public void updatePermsRecursive(EntryType entryType, String track, String permMask) {
@@ -89,6 +94,7 @@ public class PermManager {
         for (Long perms : permsVariety) {
             entryRepository.updatePerms(entryType, TrackManager.trackWildcard(track), perms, andOrMask.apply(perms));
         }
+        htmlCacheManager.entryChanged(entryType);
     }
 
 }

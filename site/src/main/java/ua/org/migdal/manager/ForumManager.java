@@ -41,6 +41,9 @@ public class ForumManager implements EntryManagerBase<Forum> {
     private PostingManager postingManager;
 
     @Inject
+    private HtmlCacheManager htmlCacheManager;
+
+    @Inject
     private ForumRepository forumRepository;
 
     public Forum get(long id) {
@@ -100,6 +103,7 @@ public class ForumManager implements EntryManagerBase<Forum> {
             catalogManager.updateCatalogs(newTrack);
         }
         postingManager.updateAnswersDetails(forum.getParentId());
+        htmlCacheManager.forumsUpdated();
     }
 
     public void drop(Forum forum) {
@@ -111,6 +115,7 @@ public class ForumManager implements EntryManagerBase<Forum> {
         catalogManager.updateCatalogs(track);
         trackManager.replaceTracks(track, upTrack);
         postingManager.updateAnswersDetails(parentId);
+        htmlCacheManager.forumsUpdated();
     }
 
     public Iterable<Forum> begAll(long parentId, int offset, int limit) {
