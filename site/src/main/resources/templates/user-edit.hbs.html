@@ -41,8 +41,6 @@
         {{formEditor title="Коротко о себе"
                      comment="Напишите несколько слов о себе: биография, работа, друзья, интересы..."
                      name="info" body=userForm.info}}
-        {{!-- help_link href='/help/formatting/'
-                        title='Список обозначений, используемых в тексте' --}}
         {{#editable user}}
             {{#assign "comment"}}Укажите ваш настоящий адрес, потому что на этот адрес будет выслано письмо для
                                  подтверждения вашей регистрации. Этот адрес также может понадобиться для связи с вами
@@ -63,20 +61,20 @@
                 </td></tr>
             {{/if}}
         {{/editable}}
-            {{#adminUsers}}
-                {{formCheckbox name="hasPersonal" checked=userForm.hasPersonal title="Имеет персональную страницу"}}
-                {{formSection title="Привилегии"}}
-                {{formCheckbox title="Администратор пользователей" name="rights" value=const.userRight.ADMIN_USERS
-                               checked=userForm.adminUsers style="box"}}
-                {{formCheckbox title="Администратор тем" name="rights" value=const.userRight.ADMIN_TOPICS
-                               checked=userForm.adminTopics style="box"}}
-                {{formCheckbox title="Модератор" name="rights" value=const.userRight.MODERATOR
-                               checked=userForm.moderator style="box"}}
-                {{formCheckbox title="Администратор субдоменов" name="rights" value=const.userRight.ADMIN_DOMAIN
-                               checked=userForm.adminDomain style="box"}}
-                {{formCheckbox name="hidden" checked=userForm.hidden title="Скрыть в списке пользователей" style="box"}}
-                {{formCheckbox name="noLogin" checked=userForm.noLogin title="Запретить вход" style="box"}}
-            {{/adminUsers}}
+        {{#adminUsers}}
+            {{formCheckbox name="hasPersonal" checked=userForm.hasPersonal title="Имеет персональную страницу"}}
+            {{formSection title="Привилегии"}}
+            {{formCheckbox title="Администратор пользователей" name="rights" value=const.userRight.ADMIN_USERS
+                           checked=userForm.adminUsers style="box"}}
+            {{formCheckbox title="Администратор тем" name="rights" value=const.userRight.ADMIN_TOPICS
+                           checked=userForm.adminTopics style="box"}}
+            {{formCheckbox title="Модератор" name="rights" value=const.userRight.MODERATOR
+                           checked=userForm.moderator style="box"}}
+            {{formCheckbox title="Администратор субдоменов" name="rights" value=const.userRight.ADMIN_DOMAIN
+                           checked=userForm.adminDomain style="box"}}
+            {{formCheckbox name="hidden" checked=userForm.hidden title="Скрыть в списке пользователей" style="box"}}
+            {{formCheckbox name="noLogin" checked=userForm.noLogin title="Запретить вход" style="box"}}
+        {{/adminUsers}}
         {{formButtons title="Изменить"}}
     </form>
 {{/formTable}}
