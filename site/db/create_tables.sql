@@ -591,6 +591,14 @@ ALTER TABLE ONLY public.inner_images
 
 
 --
+-- Name: old_ids old_ids_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY public.old_ids
+    ADD CONSTRAINT old_ids_pkey PRIMARY KEY (table_name, old_id);
+
+
+--
 -- Name: prisoners prisoners_pkey; Type: CONSTRAINT; Schema: public; Owner: migdal
 --
 
@@ -888,6 +896,20 @@ CREATE INDEX inner_images_par_idx ON public.inner_images USING btree (paragraph)
 --
 
 CREATE INDEX ip_idx ON public.votes USING btree (ip);
+
+
+--
+-- Name: old_ids_entry_id_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX old_ids_entry_id_idx ON public.old_ids USING btree (entry_id);
+
+
+--
+-- Name: old_ids_old_ident_idx; Type: INDEX; Schema: public; Owner: migdal
+--
+
+CREATE INDEX old_ids_old_ident_idx ON public.old_ids USING btree (old_ident);
 
 
 --
@@ -1204,6 +1226,14 @@ ALTER TABLE ONLY public.inner_images
 
 ALTER TABLE ONLY public.inner_images
     ADD CONSTRAINT inner_images_image_id_fkey FOREIGN KEY (image_id) REFERENCES public.entries(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: old_ids old_ids_entry_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+--
+
+ALTER TABLE ONLY public.old_ids
+    ADD CONSTRAINT old_ids_entry_id_fkey FOREIGN KEY (entry_id) REFERENCES public.entries(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --

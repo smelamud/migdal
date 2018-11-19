@@ -284,10 +284,22 @@ def convert_chat_messages(row):
         row['text_xml'],
     ]
 
+def convert_old_ids(row):
+    global entry_ids
+
+    if not row['entry_id'] in entry_ids:
+        return None
+    return [
+        row['table_name'],
+        row['old_id'],
+        row['old_ident'],
+        row['entry_id'],
+    ]
+
 csv.field_size_limit(300000)
 read_entry_grps()
 table_name = sys.argv[1]
-if table_name == 'inner_images':
+if table_name == 'inner_images' or table_name == 'old_ids':
     read_entry_ids()
 with open(table_name + '.csv', 'r') as infile:
     with open(table_name + '.converted.csv', 'w') as outfile:
