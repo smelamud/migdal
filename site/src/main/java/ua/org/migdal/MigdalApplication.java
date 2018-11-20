@@ -24,6 +24,7 @@ import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
 
 import ua.org.migdal.controller.SaveCookiesInterceptor;
 import ua.org.migdal.controller.SubdomainInterceptor;
+import ua.org.migdal.controller.TrapInterceptor;
 import ua.org.migdal.converter.MtextHttpMessageConverter;
 import ua.org.migdal.converter.SyndFeedHttpMessageConverter;
 import ua.org.migdal.helper.HelperSource;
@@ -41,6 +42,9 @@ public class MigdalApplication implements WebMvcConfigurer {
 
     @Inject
     private SubdomainInterceptor subdomainInterceptor;
+
+    @Inject
+    private TrapInterceptor trapInterceptor;
 
     @Inject
     private SaveCookiesInterceptor saveCookiesInterceptor;
@@ -75,6 +79,7 @@ public class MigdalApplication implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(subdomainInterceptor);
+        registry.addInterceptor(trapInterceptor);
         registry.addInterceptor(saveCookiesInterceptor);
     }
 
