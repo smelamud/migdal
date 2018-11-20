@@ -18,6 +18,14 @@ public class OldEntryId implements Serializable {
     @NotNull
     private long oldId;
 
+    public OldEntryId() {
+    }
+
+    public OldEntryId(String tableName, long oldId) {
+        this.tableName = tableName;
+        this.oldId = oldId;
+    }
+
     public String getTableName() {
         return tableName;
     }

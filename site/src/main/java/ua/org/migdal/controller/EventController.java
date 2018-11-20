@@ -121,6 +121,7 @@ public class EventController {
             lastEvents.forEach(t -> p.topic(t.getId()));
             model.addAttribute("picture", postingManager.begRandomOne(p));
         }
+        earController.addEars(model);
 
         return "events";
     }
@@ -140,8 +141,15 @@ public class EventController {
         CachedHtml topicsEventsCache = htmlCacheManager.of("topicsEvents").ofTopicsIndex(model).onTopics();
         model.addAttribute("topicsEventsCache", topicsEventsCache);
         if (topicsEventsCache.isInvalid()) {
-            model.addAttribute("events", topicManager.begAll(
-                    identManager.idOrIdent("migdal.events"), true, Sort.Direction.DESC, "index2", "index0"));
+            long eventsId = identManager.idOrIdent("migdal.events");
+            Iterable<Topic> allTopics = topicManager.begAll(eventsId, true, Sort.Direction.DESC, "index2", "index0");
+            List<Topic> events = new ArrayList<>();
+            for (Topic topic : allTopics) {
+                if (topic.getId() != eventsId && topic.getUpId() != eventsId) {
+                    events.add(topic);
+                }
+            }
+            model.addAttribute("events", events);
         }
     }
 

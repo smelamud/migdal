@@ -7,7 +7,15 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-public final class TrapHandler {
+import ua.org.migdal.data.Posting;
+import ua.org.migdal.data.Topic;
+import ua.org.migdal.data.User;
+import ua.org.migdal.manager.OldIdManager;
+import ua.org.migdal.manager.PostingManager;
+import ua.org.migdal.manager.TopicManager;
+import ua.org.migdal.manager.UserManager;
+
+public class TrapHandler {
 
     private static class TrapError extends RuntimeException {
     }
@@ -15,9 +23,30 @@ public final class TrapHandler {
     private UriComponentsBuilder builder;
     private UriComponents components;
 
-    private TrapHandler(UriComponentsBuilder builder) {
+    private OldIdManager oldIdManager;
+    private TopicManager topicManager;
+    private PostingManager postingManager;
+    private UserManager userManager;
+
+    public TrapHandler(UriComponentsBuilder builder) {
         this.builder = builder;
         components = builder.build();
+    }
+
+    public void setOldIdManager(OldIdManager oldIdManager) {
+        this.oldIdManager = oldIdManager;
+    }
+
+    public void setTopicManager(TopicManager topicManager) {
+        this.topicManager = topicManager;
+    }
+
+    public void setPostingManager(PostingManager postingManager) {
+        this.postingManager = postingManager;
+    }
+
+    public void setUserManager(UserManager userManager) {
+        this.userManager = userManager;
     }
 
     public String getUri() {
@@ -29,19 +58,18 @@ public final class TrapHandler {
         return path != null && path.contains(".php");
     }
 
-    public static String trap(UriComponentsBuilder builder) {
-        TrapHandler handler = new TrapHandler(builder.cloneBuilder());
+    public String trap() {
         try {
             String methodName = buildTrapMethodName(builder.build().getPath());
             Method method = TrapHandler.class.getDeclaredMethod(methodName);
             if (method == null) {
                 trapError();
             }
-            method.invoke(handler);
+            method.invoke(this);
         } catch (Exception e) {
             return null;
         }
-        return handler.getUri();
+        return getUri();
     }
 
     private static String buildTrapMethodName(String path) {
@@ -65,6 +93,75 @@ public final class TrapHandler {
         builder.replacePath(path);
     }
 
+    private String param(String name) {
+        String value = components.getQueryParams().getFirst(name);
+        if (value == null) {
+            trapError();
+        }
+        return value;
+    }
+
+    private String param(String name, String defaultValue) {
+        String value = components.getQueryParams().getFirst(name);
+        return value != null ? value : defaultValue;
+    }
+
+    private long intParam(String name) {
+        try {
+            return Long.parseLong(param(name));
+        } catch (NumberFormatException e) {
+            trapError();
+        }
+        return 0; // unreacheable indeed
+    }
+
+    private long intParam(String name, long defaultValue) {
+        try {
+            return Long.parseLong(param(name, Long.toString(defaultValue)));
+        } catch (NumberFormatException e) {
+            trapError();
+        }
+        return 0; // unreacheable indeed
+    }
+
+    private void delParam(String... names) {
+        for (String name : names) {
+            builder.replaceQueryParam(name);
+        }
+    }
+
+    private long newId(String tableName, long oldId) {
+        Long entryId = oldIdManager.getEntryId(tableName, oldId);
+        if (entryId == null) {
+            trapError();
+        }
+        return entryId;
+    }
+
+    private Posting getPosting(long id) {
+        Posting posting = postingManager.get(id);
+        if (posting == null) {
+            trapError();
+        }
+        return posting;
+    }
+
+    private Topic getTopic(long id) {
+        Topic topic = topicManager.get(id);
+        if (topic == null) {
+            trapError();
+        }
+        return topic;
+    }
+
+    private User getUser(long id) {
+        User user = userManager.get(id);
+        if (user == null) {
+            trapError();
+        }
+        return user;
+    }
+
     /* Trap methods */
 
     private void trapActionsUserconfirm() {
@@ -75,278 +172,171 @@ public final class TrapHandler {
         path("/archive/");
     }
 
+    private void trapArticle() {
+        path(getPosting(newId("postings", intParam("artid"))).getGrpDetailsHref());
+        delParam("artid");
+    }
+
+    private void trapArticleTimes() {
+        path(getPosting(newId("postings", intParam("artid"))).getGrpDetailsHref());
+        delParam("artid");
+    }
+
+    private void trapBookChapter() {
+        path(getPosting(newId("postings", intParam("chapid"))).getGrpDetailsHref());
+        delParam("chapid");
+    }
+
+    private void trapBookChapterSplit() {
+        path(getPosting(newId("postings", intParam("chapid"))).getGrpDetailsHref());
+        delParam("chapid");
+    }
+
+    private void trapBook() {
+        path(getPosting(newId("postings", intParam("bookid"))).getGrpDetailsHref());
+        delParam("bookid");
+    }
+
+    private void trapBookPrint() {
+        path(getPosting(newId("postings", intParam("bookid"))).getGrpDetailsHref() + "print/");
+        delParam("bookid");
+    }
+
+    private void trapBookSplit() {
+        path(getPosting(newId("postings", intParam("bookid"))).getGrpDetailsHref());
+        delParam("bookid");
+    }
+
+    private void trapBookStatic() {
+        path(getPosting(newId("postings", intParam("bookid"))).getGrpDetailsHref());
+        delParam("bookid");
+    }
+
+    private void trapChat() {
+        path("/chat-archive/");
+    }
+
+    private void trapChatboard() {
+        path("/chat-archive/");
+    }
+
+    private void trapChatconsole() {
+        path("/chat-archive/");
+    }
+
+    private void trapEvent() {
+        path(getTopic(newId("topics", intParam("topic_id"))).getHref());
+        delParam("topic_id");
+    }
+
+    private void trapEventsEnglish() {
+        path("/events/");
+    }
+
+    private void trapEvents() {
+        path("/migdal/events/");
+    }
+
+    private void trapForumcatalog() {
+        path("/forum/");
+        delParam("topic_id");
+    }
+
+    private void trapForum() {
+        path(String.format("/forum/%d/", getPosting(newId("postings", intParam("msgid"))).getId()));
+        delParam("msgid");
+    }
+
+    private void trapGallery() {
+        long topicId = intParam("topic_id", 0);
+        long userId = intParam("user_id", 0);
+        delParam("topic_id", "user_id", "general", "grp");
+        if (topicId == 143) { /* Галерея музея */
+            topicId = 175;
+        }
+        if (userId <= 0) {
+            if (topicId <= 0) {
+                path("/");
+            } else {
+                path(getTopic(newId("topics", topicId)).getHref() + "gallery/");
+            }
+        } else {
+            Topic topic = getTopic(newId("topics", topicId));
+            User user = getUser(userId);
+            path(topic.getHref() + user.getFolder() + "/");
+        }
+    }
+
+    private void trapHalomMain() {
+        path("/migdal/events/");
+    }
+
+    private void trapHalom() {
+        long postingId = intParam("postid", 0);
+        long topicId = intParam("topic_id", 0);
+        long day = intParam("day", 1);
+        delParam("postid", "topic_id", "day");
+        if (day <= 0) {
+            day = 1;
+        }
+        if (postingId > 0) {
+            path(getPosting(newId("postings", postingId)).getGrpDetailsHref());
+        } else {
+            path(String.format("%sday-%d/", getTopic(newId("topics", topicId)).getHref(), day));
+        }
+    }
+
+    private void trapHelp() {
+        path(getPosting(newId("postings", intParam("artid"))).getGrpDetailsHref());
+        delParam("artid");
+    }
+
+    private void trapIndex() {
+        long id = intParam("topic_id", 0);
+        delParam("topic_id");
+        if (id == 5) { /* Еврейский Интернет */
+            path("/links/");
+        } else if (id == 13) { /* КЕС */
+            path("/migdal/jcc/student/");
+        } else if (id == 24) { /* Ту би-Шват */
+            path("/judaism/");
+        } else if (id == 146) { /* Методический центр */
+            path("/migdal/methodology/books/");
+        } else if (id <= 0) {
+            path("/");
+        } else {
+            path(getTopic(newId("topics", id)).getHref());
+        }
+    }
+
+    private void trapJcc() {
+        path("/migdal/jcc/");
+    }
+
+    private void trapKaitanaMain() {
+        path("/migdal/events/");
+    }
+
+    private void trapKaitana() {
+        long postingId = intParam("postid", 0);
+        long topicId = intParam("topic_id", 0);
+        long day = intParam("day", 1);
+        delParam("postid", "topic_id", "day");
+        if (day <= 0) {
+            day = 1;
+        }
+        if (postingId > 0) {
+            path(getPosting(newId("postings", postingId)).getGrpDetailsHref());
+        } else {
+            if (topicId <= 0) {
+                path(String.format("/migdal/events/kaitanot/5762/summer/day-%d/", day));
+            } else {
+                path(String.format("%sday-%d/", getTopic(newId("topics", topicId)).getHref(), day));
+            }
+        }
+    }
+
     /*
-function trapArticle(array $args) {
-    $id = trapInteger($args, 'artid');
-    $posting = getPostingById(getNewId('postings', $id));
-    if ($posting->getId() > 0)
-        return remakeMakeURI($posting->getGrpDetailsHref(),
-                             $args,
-                             array('artid'));
-    else
-        return '';
-}
-
-function trapArticle_times(array $args) {
-    $id = trapInteger($args, 'artid');
-    $posting = getPostingById(getNewId('postings', $id));
-    if ($posting->getId() > 0)
-        return remakeMakeURI($posting->getGrpDetailsHref(),
-                             $args,
-                             array('artid'));
-    else
-        return '';
-}
-
-function trapBook_chapter(array $args) {
-    $id = trapInteger($args, 'chapid');
-    $posting = getPostingById(getNewId('postings', $id));
-    if ($posting->getId() > 0)
-        return remakeMakeURI($posting->getGrpDetailsHref(),
-                             $args,
-                             array('chapid'));
-    else
-        return '';
-}
-
-function trapBook_chapter_split(array $args) {
-    $id = trapInteger($args, 'chapid');
-    $posting = getPostingById(getNewId('postings', $id));
-    if ($posting->getId() > 0)
-        return remakeMakeURI($posting->getGrpDetailsHref(),
-                             $args,
-                             array('chapid'));
-    else
-        return '';
-}
-
-function trapBook(array $args) {
-    $id = trapInteger($args, 'bookid');
-    $posting = getPostingById(getNewId('postings', $id));
-    if ($posting->getId() > 0)
-        return remakeMakeURI($posting->getGrpDetailsHref(),
-                             $args,
-                             array('bookid'));
-    else
-        return '';
-}
-
-function trapBook_print(array $args) {
-    $id = trapInteger($args, 'bookid');
-    $posting = getPostingById(getNewId('postings', $id));
-    if ($posting->getId() > 0)
-        return remakeMakeURI($posting->getGrpDetailsHref().'print/',
-                             $args,
-                             array('bookid'));
-    else
-        return '';
-}
-
-function trapBook_split(array $args) {
-    $id = trapInteger($args, 'bookid');
-    $posting = getPostingById(getNewId('postings', $id));
-    if ($posting->getId() > 0)
-        return remakeMakeURI($posting->getGrpDetailsHref(),
-                             $args,
-                             array('bookid'));
-    else
-        return '';
-}
-
-function trapBook_static(array $args) {
-    $id = trapInteger($args, 'bookid');
-    $posting = getPostingById(getNewId('postings', $id));
-    if ($posting->getId() > 0)
-        return remakeMakeURI($posting->getGrpDetailsHref(),
-                             $args,
-                             array('bookid'));
-    else
-        return '';
-}
-
-function trapChat(array $args) {
-    return remakeMakeURI('/chat-archive/', $args);
-}
-
-function trapChatboard(array $args) {
-    return remakeMakeURI('/chat-archive/', $args);
-}
-
-function trapChatconsole(array $args) {
-    return remakeMakeURI('/chat-archive/', $args);
-}
-
-function trapEvent(array $args) {
-    $id = trapInteger($args, 'topic_id');
-    $topic = getTopicById(getNewId('topics', $id));
-    if ($topic->getId() > 0)
-        return remakeMakeURI('/'.$topic->getCatalog(),
-                             $args,
-                             array('topic_id'));
-    else
-        return '';
-}
-
-function trapEvents_english(array $args) {
-    return remakeMakeURI('/events/', $args);
-}
-
-function trapEvents(array $args) {
-    return remakeMakeURI('/migdal/events/', $args);
-}
-
-function trapForumcatalog(array $args) {
-    return remakeMakeURI('/forum/', $args, array('topic_id'));
-}
-
-function trapForum(array $args) {
-    $id = trapInteger($args, 'msgid');
-    $id = getNewId('postings', $id);
-    if (postingExists($id))
-        return remakeMakeURI("/forum/$id/",
-                             $args,
-                             array('msgid'));
-    else
-        return '';
-}
-
-function trapGallery(array $args) {
-    $topic_id = trapInteger($args, 'topic_id');
-    $user_id = trapInteger($args, 'user_id');
-    $general = trapInteger($args, 'general');
-    $rm = array('topic_id', 'user_id', 'general', 'grp');
-    if ($topic_id == 143) * Галерея музея *
-       $topic_id = 175;
-    if ($user_id <= 0)
-            if ($topic_id <= 0)
-            return remakeMakeURI('/', $args, $rm);
-        else {
-        $topic = getTopicById(getNewId('topics', $topic_id));
-        if ($topic->getId() > 0)
-            return remakeMakeURI('/'.$topic->getCatalog().'gallery/',
-                $args,
-                $rm);
-            else
-        return '';
-    }
-    else {
-        $topic = getTopicById(getNewId('topics', $topic_id));
-        if ($topic->getId() <= 0)
-            return '';
-        $user = getUserById($user_id);
-        if ($user->getId() <= 0)
-            return '';
-        return remakeMakeURI('/'.$topic->getCatalog().$user->getFolder().'/',
-                $args,
-                $rm);
-    }
-}
-
-    function trapHalom_main(array $args) {
-        return remakeMakeURI('/migdal/events/', $args);
-    }
-
-    function trapHalom(array $args) {
-        $postid = trapInteger($args, 'postid');
-        $topic_id = trapInteger($args, 'topic_id');
-        $day = trapInteger($args, 'day');
-        $rm = array('postid', 'topic_id', 'day');
-        if ($day <= 0)
-            $day = 1;
-        if($postid > 0) {
-            $posting = getPostingById(getNewId('postings', $postid));
-            if ($posting->getId() > 0)
-                return remakeMakeURI($posting->getGrpDetailsHref(),
-                        $args,
-                        $rm);
-            else
-                return '';
-        } else {
-            $topic = getTopicById(getNewId('topics', $topic_id));
-            if ($topic->getId() > 0)
-                return remakeMakeURI('/'.$topic->getCatalog()."day-$day/",
-                    $args,
-                    $rm);
-        else
-            return '';
-        }
-    }
-
-    function trapHelp(array $args) {
-        $id = trapInteger($args, 'artid');
-        $posting = getPostingById(getNewId('postings', $id));
-        if ($posting->getId() > 0)
-            return remakeMakeURI($posting->getGrpDetailsHref(),
-                    $args,
-                    array('artid'));
-        else
-            return '';
-    }
-
-    function trapIndex(array $args) {
-        $id = trapInteger($args, 'topic_id');
-        if ($id == 5) * Еврейский Интернет *
-            return remakeMakeURI('/links/',
-                    $args,
-                    array('topic_id'));
-        if ($id == 13) * КЕС *
-            return remakeMakeURI('/migdal/jcc/student/',
-                    $args,
-                    array('topic_id'));
-        if ($id == 24) * Ту би-Шват *
-            return remakeMakeURI('/judaism/',
-                    $args,
-                    array('topic_id'));
-        if ($id == 146) * Методический центр *
-            return remakeMakeURI('/migdal/methodology/books/',
-                    $args,
-                    array('topic_id'));
-        if ($id <= 0)
-            return remakeMakeURI('/', $args);
-        else
-            return remakeMakeURI('/'.catalogById(getNewId('topics', $id)),
-                    $args,
-                    array('topic_id'));
-    }
-
-    function trapJcc(array $args) {
-        return remakeMakeURI('/migdal/jcc/', $args);
-    }
-
-    function trapKaitana_main(array $args) {
-        return remakeMakeURI('/migdal/events/', $args);
-    }
-
-    function trapKaitana(array $args) {
-        $postid = trapInteger($args, 'postid');
-        $topic_id = trapInteger($args, 'topic_id');
-        $day = trapInteger($args, 'day');
-        $rm = array('postid', 'topic_id', 'day');
-        if ($day <= 0)
-            $day = 1;
-        if ($postid > 0) {
-            $posting = getPostingById(getNewId('postings', $postid));
-            if ($posting->getId() > 0)
-                return remakeMakeURI($posting->getGrpDetailsHref(),
-                        $args,
-                        $rm);
-            else
-                return '';
-        } else {
-            if ($topic_id <= 0)
-                return remakeMakeURI("/migdal/events/kaitanot/5762/summer/day-$day/",
-                        $args,
-                        $rm);;
-            $topic = getTopicById(getNewId('topics', $topic_id));
-            if ($topic->getId() > 0)
-                return remakeMakeURI('/'.$topic->getCatalog()."day-$day/",
-                    $args,
-                    $rm);
-        else
-            return '';
-        }
-    }
-
     function trapLib_earview(array $args) {
         $id = trapInteger($args, 'image_id');
         $image = getImageById(getNewId('images', $id));
@@ -371,7 +361,7 @@ function trapGallery(array $args) {
                 array('id', 'size'));
     }
 
-    function trapLinks(array $args) {
+    function trapLinks(array $args) { // Must redirect to /internet/
         $id = trapInteger($args, 'topic_id');
         if ($id <= 0)
             return remakeMakeURI('/links/',
