@@ -40,6 +40,9 @@ public class ArchiveController {
     @Inject
     private IndexController indexController;
 
+    @Inject
+    private EarController earController;
+
     @GetMapping("/archive")
     public String archiveLastYear(Model model) {
         archiveLastYearLocationInfo(model);
@@ -88,6 +91,8 @@ public class ArchiveController {
             Postings p = Postings.all().grp("ARCHIVE").laterThan(begin).earlierThan(end).asGuest();
             model.addAttribute("postings", postingManager.begAll(p));
         }
+
+        earController.addEars(model);
 
         return "archive";
     }
@@ -172,6 +177,8 @@ public class ArchiveController {
             model.addAttribute("messages", messages);
             model.addAttribute("messagesTotal", ((List) messages).size());
         }
+
+        earController.addEars(model);
 
         return "chat-archive";
     }
