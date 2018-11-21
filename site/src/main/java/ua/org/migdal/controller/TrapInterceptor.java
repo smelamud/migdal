@@ -9,6 +9,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
+import ua.org.migdal.manager.EntryManager;
 import ua.org.migdal.manager.OldIdManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
@@ -28,6 +29,9 @@ public class TrapInterceptor extends HandlerInterceptorAdapter {
     private PostingManager postingManager;
 
     @Inject
+    private EntryManager entryManager;
+
+    @Inject
     private UserManager userManager;
 
     @Override
@@ -40,6 +44,7 @@ public class TrapInterceptor extends HandlerInterceptorAdapter {
         trapHandler.setOldIdManager(oldIdManager);
         trapHandler.setTopicManager(topicManager);
         trapHandler.setPostingManager(postingManager);
+        trapHandler.setEntryManager(entryManager);
         trapHandler.setUserManager(userManager);
         String redirectTo = trapHandler.trap();
         if (redirectTo == null) {

@@ -79,7 +79,7 @@ public class MigdalApplication implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(subdomainInterceptor);
-        registry.addInterceptor(trapInterceptor);
+        registry.addInterceptor(trapInterceptor).order(100); // To be executed after Hibernate session is created
         registry.addInterceptor(saveCookiesInterceptor);
     }
 

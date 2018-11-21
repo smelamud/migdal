@@ -7,9 +7,11 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.data.User;
+import ua.org.migdal.manager.EntryManager;
 import ua.org.migdal.manager.OldIdManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
@@ -26,6 +28,7 @@ public class TrapHandler {
     private OldIdManager oldIdManager;
     private TopicManager topicManager;
     private PostingManager postingManager;
+    private EntryManager entryManager;
     private UserManager userManager;
 
     public TrapHandler(UriComponentsBuilder builder) {
@@ -43,6 +46,10 @@ public class TrapHandler {
 
     public void setPostingManager(PostingManager postingManager) {
         this.postingManager = postingManager;
+    }
+
+    public void setEntryManager(EntryManager entryManager) {
+        this.entryManager = entryManager;
     }
 
     public void setUserManager(UserManager userManager) {
@@ -152,6 +159,14 @@ public class TrapHandler {
             trapError();
         }
         return topic;
+    }
+
+    private Entry getEntry(long id) {
+        Entry entry = entryManager.get(id);
+        if (entry == null) {
+            trapError();
+        }
+        return entry;
     }
 
     private User getUser(long id) {
@@ -336,185 +351,139 @@ public class TrapHandler {
         }
     }
 
-    /*
-    function trapLib_earview(array $args) {
-        $id = trapInteger($args, 'image_id');
-        $image = getImageById(getNewId('images', $id));
-        if ($image->getId() <= 0)
-            return '';
-        return remakeMakeURI($image->getLargeImageURL(),
-                $args,
-                array('message_id', 'image_id'));
+    private void trapLibEarview() {
+        path(getPosting(newId("images", intParam("image_id"))).getLargeImageUrl());
+        delParam("message_id", "image_id");
     }
 
-    function trapLib_image(array $args) {
-        $id = trapInteger($args, 'id');
-        $size = trapString($args, 'size');
-        if ($size != 'small' && $size != 'large')
-            $size = 'small';
-        $image = getImageById(getNewId('images', $id));
-        if ($image->getId() <= 0)
-            return '';
-        return remakeMakeURI($size == 'small' ? $image->getSmallImageURL()
-                        : $image->getLargeImageURL(),
-                $args,
-                array('id', 'size'));
+    private void trapLibImage() {
+        long id = intParam("id");
+        String size = param("size", "small");
+        delParam("id", "size");
+        Entry entry = getEntry(newId("images", id));
+        if (size.equals("large")) {
+            path(entry.getLargeImageUrl());
+        } else {
+            path(entry.getSmallImageUrl());
+        }
     }
 
-    function trapLinks(array $args) { // Must redirect to /internet/
-        $id = trapInteger($args, 'topic_id');
-        if ($id <= 0)
-            return remakeMakeURI('/links/',
-                    $args);
-        else
-            return remakeMakeURI('/'.catalogById(getNewId('topics', $id)),
-                    $args,
-                    array('topic_id'));
+    private void trapLinks() {
+        path("/internet/");
     }
 
-    function trapMethodic_center(array $args) {
-        return remakeMakeURI('/migdal/methodology/', $args);
+    private void trapMethodicCenter() {
+        path("/migdal/methodology/");
     }
 
-    function trapMethodics(array $args) {
-        return remakeMakeURI('/migdal/methodology/books/', $args);
+    private void trapMethodics() {
+        path("/migdal/methodology/books/");
     }
 
-    function trapMigdal(array $args) {
-        $id = trapInteger($args, 'artid');
-        if ($id <= 0)
-            return remakeMakeURI('/migdal/', $args);
-        $posting = getPostingById(getNewId('postings', $id));
-        if ($posting->getId() > 0)
-            return remakeMakeURI($posting->getGrpDetailsHref(),
-                    $args,
-                    array('artid'));
-        else
-            return '';
+    private void trapMigdal() {
+        long id = intParam("artid", 0);
+        delParam("artid");
+        if (id <= 0) {
+            path("/migdal/");
+        } else {
+            path(getPosting(newId("postings", id)).getGrpDetailsHref());
+        }
     }
 
-    function trapMigdal_library_news(array $args) {
-        return remakeMakeURI('/migdal/library/novelties/', $args);
+    private void trapMigdalLibraryNews() {
+        path("/migdal/library/novelties/");
     }
 
-    function trapMigdal_library(array $args) {
-        return remakeMakeURI('/migdal/library/', $args);
+    private void trapMigdalLibrary() {
+        path("/migdal/library/");
     }
 
-    function trapMigdal_news(array $args) {
-        $dirs = array(177 => 'museum',
-                174 => 'mazltov',
-                259 => 'beitenu');
-        $id = trapInteger($args, 'topic_id');
-        if ($id <= 0)
-            return remakeMakeURI('/migdal/news/', $args, array('topic_id'));
-        else
-        if (isset($dirs[$id]))
-            return remakeMakeURI("/migdal/{$dirs[$id]}/news/",
-                    $args,
-                    array('topic_id'));
-        else
-            return '';
+    private void trapMigdalNews() {
+        long id = intParam("topic_id", 0);
+        delParam("topic_id");
+        if (id <= 0) {
+            path("/migdal/news/");
+        } else if (id == 177) {
+            path("/migdal/museum/news/");
+        } else if (id == 174) {
+            path("/migdal/mazltov/news/");
+        } else if (id == 259) {
+            path("/migdal/beitenu/news/");
+        } else {
+            trapError();
+        }
     }
 
-    function trapPosting(array $args) {
-        $id = trapInteger($args, 'postid');
-        $posting = getPostingById(getNewId('postings', $id));
-        if ($posting->getId() > 0)
-            return remakeMakeURI($posting->getGrpDetailsHref(),
-                    $args,
-                    array('postid'));
-        else
-            return '';
+    private void trapPosting() {
+        path(getPosting(newId("postings", intParam("postid"))).getGrpDetailsHref());
+        delParam("postid");
     }
 
-    function trapPrintings(array $args) {
-        return remakeMakeURI('/migdal/printings/', $args);
+    private void trapPrintings() {
+        path("/migdal/printings/");
     }
 
-    function trapRegister(array $args) {
-        return remakeMakeURI('/register/', $args);
+    private void trapRegister() {
+        path("/register/");
     }
 
-    function trapSearch(array $args) {
-        return remakeMakeURI('/search/', $args);
+    private void trapSearch() {
+        path("/search/");
     }
 
-    function trapTaglit($args) {
-        return remakeMakeURI('/taglit/', $args);
+    private void trapTaglit() {
+        path("/taglit/");
     }
 
-    function trapTaglit_user(array $args) {
-        $user_id = trapInteger($args, 'user_id');
-        $user = getUserById($user_id);
-        if ($user->getId() <= 0)
-            return '';
-        return remakeMakeURI('/taglit/'.$user->getFolder().'/',
-                $args,
-                array('user_id'));
+    private void trapTaglitUser() {
+        path(String.format("/taglit/%s/", getUser(intParam("user_id")).getFolder()));
+        delParam("user_id");
     }
 
-    function trapThumbnail(array $args) {
-        $id = trapInteger($args, 'id');
-        $image = getImageById(getNewId('images', $id));
-        if ($image->getId() <= 0)
-            return '';
-        return remakeMakeURI($image->getSmallImageURL(),
-                $args,
-                array('id', 'size'));
+    private void trapThumbnail() {
+        path(getEntry(newId("images", intParam("id"))).getSmallImageUrl());
+        delParam("id", "size");
     }
 
-    function trapTimes(array $args) {
-        $issue = trapInteger($args, 'issue');
-        if ($issue <= 0)
-            return remakeMakeURI('/times/', $args);
-        else
-            return remakeMakeURI("/times/$issue/",
-                    $args,
-                    array('issue'),
-                    array('issue' => $issue));
+    private void trapTimes() {
+        long issue = intParam("issue", 0);
+        delParam("issue");
+        if (issue <= 0) {
+            path("/times/");
+        } else {
+            path(String.format("/times/%d/", issue));
+        }
     }
 
-    function trapTips(array $args) {
-        return remakeMakeURI('/tips/', $args);
+    private void trapTips() {
+        path("/tips/");
     }
 
-    function trapUrls(array $args) {
-        return remakeMakeURI('/links/urls/', $args, array('offset'));
+    private void trapUrls() {
+        path("/internet/");
+        delParam("offset");
     }
 
-    function trapUserinfo(array $args) {
-        $id = trapInteger($args, 'id');
-        $user = getUserById($id);
-        if ($user->getLogin() != '')
-            return remakeMakeURI('/users/'.$user->getFolder().'/',
-                $args,
-                array('id'));
-    else
-        return '';
+    private void trapUserinfo() {
+        path(String.format("/user/%s/", getUser(intParam("id")).getFolder()));
+        delParam("id");
     }
 
-    function trapUserinfo_panel(array $args) {
-        return trapUserinfo($args);
+    private void trapUserinfoPanel() {
+        trapUserinfo();
     }
 
-    function trapUserlost(array $args) {
-        return remakeMakeURI('/remember-password/', $args);
+    private void trapUserlost() {
+        path("/remember-password/");
     }
 
-    function trapVeterans(array $args) {
-        return remakeMakeURI('/veterans/', $args);
+    private void trapVeterans() {
+        path("/veterans/");
     }
 
-    function trapVeterans_user(array $args) {
-        $user_id = trapInteger($args, 'user_id');
-        $user = getUserById($user_id);
-        if ($user->getId() <= 0)
-            return '';
-        return remakeMakeURI('/veterans/'.$user->getFolder().'/',
-                $args,
-                array('user_id'));
+    private void trapVeteransUser() {
+        path(String.format("/veterans/%s/", getUser(intParam("user_id")).getFolder()));
+        delParam("user_id");
     }
 
-     */
 }
