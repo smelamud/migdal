@@ -46,6 +46,8 @@ public class Config {
     private long rootTopicModbits;
     private long defaultPostingPerms;
     private long defaultForumPerms;
+    private String captchaPublicKey;
+    private String captchaSecretKey;
 
     @PostConstruct
     public void init() {
@@ -350,6 +352,22 @@ public class Config {
 
     public void setDefaultForumPerms(long defaultForumPerms) {
         this.defaultForumPerms = defaultForumPerms;
+    }
+
+    public String getCaptchaPublicKey() {
+        return captchaPublicKey;
+    }
+
+    public void setCaptchaPublicKey(String captchaPublicKey) {
+        this.captchaPublicKey = captchaPublicKey;
+    }
+
+    public String getCaptchaSecretKey() {
+        return captchaSecretKey;
+    }
+
+    public void setCaptchaSecretKey(String captchaSecretKey) {
+        this.captchaSecretKey = captchaSecretKey;
     }
 
 }

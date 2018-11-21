@@ -81,6 +81,8 @@ public class UserForm implements Serializable {
 
     private boolean hasPersonal;
 
+    private String captchaResponse;
+
     public UserForm() {
     }
 
@@ -300,6 +302,14 @@ public class UserForm implements Serializable {
 
     public void setHasPersonal(boolean hasPersonal) {
         this.hasPersonal = hasPersonal;
+    }
+
+    public String getCaptchaResponse() {
+        return captchaResponse;
+    }
+
+    public void setCaptchaResponse(String captchaResponse) {
+        this.captchaResponse = captchaResponse;
     }
 
     public void toUser(User user, boolean isAdmin, Config config) throws NoSuchAlgorithmException {

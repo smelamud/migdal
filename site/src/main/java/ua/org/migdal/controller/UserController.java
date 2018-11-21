@@ -28,6 +28,7 @@ import ua.org.migdal.mail.MailController;
 import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.session.RequestContext;
+import ua.org.migdal.util.Captcha;
 
 @Controller
 public class UserController {
@@ -49,6 +50,9 @@ public class UserController {
 
     @Inject
     private UserManager userManager;
+
+    @Inject
+    private Captcha captcha;
 
     @Inject
     private MailController mailController;
@@ -145,6 +149,9 @@ public class UserController {
                     String errorCode = validateRights(userForm);
                     if (errorCode != null) {
                         return errorCode;
+                    }
+                    if (!requestContext.isUserAdminUsers() && !captcha.valid(userForm.getCaptchaResponse())) {
+                        return "wrongCaptcha";
                     }
 
                     userForm.toUser(user, requestContext.isUserAdminUsers(), config);

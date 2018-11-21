@@ -9,4 +9,5 @@ conf/migdal.conf
 site.log
 site/db/data/*.csv
 !site/db/data/Makefile
+site/src/main/resources/application-dev.yml
 target/

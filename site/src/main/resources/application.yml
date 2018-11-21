@@ -128,3 +128,7 @@ migdal:
   defaultPostingPerms: 0x99FF
 
   defaultForumPerms: 0x5557
+
+  # Google reCaptcha keys
+  captchaPublicKey: <public key>
+  captchaSecretKey: <secret key>

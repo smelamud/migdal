@@ -1,19 +1,11 @@
 {{> part/preamble}}
 {{> part/top}}
 
-{{!-- TODO:
-        <error id='*EUM_CAPTCHA_ABSENT'
-               text='Пожалуйста, введите цифры и буквы, которые вы видите на
-картинке. Это необходимо нам для борьбы со спамом.'>
-            <error id='*EUM_CAPTCHA' text='Неверные цифры и буквы, попробуйте еще раз'>
---}}
-
 {{#formTable title="Введите информацию о себе"}}
     {{formErrors}}
     <form method="post" action="/actions/user/modify">
         {{hidden name="origin" value=rc.back}}
         {{starInfo}}
-        <form_captcha name='captcha'>
         {{formSection title="Информация для входа на сайт"}}
         {{#formLine title="Ник" name="newLogin" mandatory=true
                     comment="Ваш псевдоним, под которым вы будете появляться на сайте"}}
@@ -77,7 +69,7 @@
         {{#adminUsers}}
             {{formButtons title="Зарегистрировать"}}
         {{else}}
-            {{formButtons title="Зарегистрироваться"}}
+            {{formButtons title="Зарегистрироваться" captcha=true}}
         {{/adminUsers}}
     </form>
 {{/formTable}}

@@ -42,6 +42,7 @@ public class RegisterController {
     public String register(Model model) {
         registerLocationInfo(model);
 
+        model.addAttribute("captchaOnPage", !requestContext.isUserAdminUsers());
         model.asMap().computeIfAbsent("userForm", key -> new UserForm());
         return "register";
     }

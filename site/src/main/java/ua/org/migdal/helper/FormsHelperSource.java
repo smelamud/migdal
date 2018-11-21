@@ -10,11 +10,15 @@ import org.springframework.validation.Errors;
 import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
 
+import ua.org.migdal.Config;
 import ua.org.migdal.helper.exception.AmbiguousArgumentsException;
 import ua.org.migdal.helper.util.HelperUtils;
 
 @HelperSource
 public class FormsHelperSource {
+
+    @Inject
+    private Config config;
 
     @Inject
     private ImagesHelperSource imagesHelperSource;
@@ -424,12 +428,22 @@ public class FormsHelperSource {
     public CharSequence formButtons(Options options) {
         CharSequence title = options.hash("title", "Изменить");
         boolean clear = HelperUtils.boolArg(options.hash("clear", true));
+        boolean captcha = HelperUtils.boolArg(options.hash("captcha"));
 
         StringBuilder buf = new StringBuilder();
         buf.append("<tr><td colspan=\"2\" class=\"form-section\" style=\"text-align: center\">");
-        buf.append("<input type=\"submit\"");
-        HelperUtils.appendAttr(buf, "value", title);
-        buf.append('>');
+        if (!captcha) {
+            buf.append("<input type=\"submit\"");
+            HelperUtils.appendAttr(buf, "value", title);
+            buf.append('>');
+        } else {
+            buf.append(hidden("captchaResponse", null, null));
+            buf.append("<button class=\"g-recaptcha\"");
+            HelperUtils.appendAttr(buf, "data-sitekey", config.getCaptchaPublicKey());
+            buf.append(" data-callback=\"captchaSubmit\">");
+            HelperUtils.safeAppend(buf, title);
+            buf.append("</button>");
+        }
         if (clear) {
             buf.append("&nbsp;&nbsp;<input type=\"reset\" value=\"Очистить\">");
         }
