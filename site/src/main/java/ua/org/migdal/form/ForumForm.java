@@ -43,6 +43,8 @@ public class ForumForm implements Serializable {
 
     private boolean remember;
 
+    private String captchaResponse;
+
     public ForumForm() {
     }
 
@@ -143,6 +145,14 @@ public class ForumForm implements Serializable {
 
     public void setRemember(boolean remember) {
         this.remember = remember;
+    }
+
+    public String getCaptchaResponse() {
+        return captchaResponse;
+    }
+
+    public void setCaptchaResponse(String captchaResponse) {
+        this.captchaResponse = captchaResponse;
     }
 
     public boolean isSpam(SpamManager spamManager) {

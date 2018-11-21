@@ -26,6 +26,7 @@ import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.ReloginVariant;
 import ua.org.migdal.manager.SpamManager;
 import ua.org.migdal.session.RequestContext;
+import ua.org.migdal.util.Captcha;
 
 @Controller
 public class CommentController {
@@ -49,6 +50,9 @@ public class CommentController {
     private SpamManager spamManager;
 
     @Inject
+    private Captcha captcha;
+
+    @Inject
     private IndexController indexController;
 
     @GetMapping("/add-forum/{id}")
@@ -60,6 +64,7 @@ public class CommentController {
 
         forumAddLocationInfo(parent, model);
 
+        model.addAttribute("captchaOnPage", !requestContext.isLogged());
         model.addAttribute("posting", parent);
         model.addAttribute("xmlid", 0);
         model.asMap().computeIfAbsent("forumForm",
@@ -147,13 +152,9 @@ public class CommentController {
                     if (forumForm.isSpam(spamManager)) {
                         return "spam";
                     }
-                    /* TODO
-                    if ($posting->getId() <= 0 && $userId <= 0) {
-                        if ($captcha == '')
-                            return EP_CAPTCHA_ABSENT;
-                        if (!validateCaptcha($captcha))
-                            return EP_CAPTCHA;
-                    }*/
+                    if (!requestContext.isLogged() && !captcha.valid(forumForm.getCaptchaResponse())) {
+                        return "wrongCaptcha";
+                    }
 
                     forumManager.store(
                             forum,
@@ -175,7 +176,7 @@ public class CommentController {
             redirectAttributes.addFlashAttribute("forumForm", forumForm);
             String location;
             if (forumForm.getId() <= 0) {
-                location = "redirect:/add-forum/" + parent.getId();
+                location = "redirect:/add-forum/" + (parent != null ? parent.getId() : "");
             } else {
                 location = "redirect:/edit-forum/" + forumForm.getId();
             }

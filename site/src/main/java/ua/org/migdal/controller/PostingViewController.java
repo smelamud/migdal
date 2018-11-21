@@ -120,6 +120,7 @@ public class PostingViewController {
 
         offset = forumManager.jumpToComment(posting.getId(), tid, offset, 20);
 
+        model.addAttribute("captchaOnPage", !requestContext.isLogged());
         model.addAttribute("comments", forumManager.begAll(posting.getId(), offset, 20));
         model.addAttribute("forumForm", new ForumForm(posting, requestContext));
     }

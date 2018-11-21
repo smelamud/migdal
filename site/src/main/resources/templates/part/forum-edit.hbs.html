@@ -20,7 +20,6 @@
         {{#unless forumForm.id}}
             {{formRelogin relogin=forumForm.relogin noGuests=(not posting.guestPostable)
                           guestLogin=forumForm.guestLogin login=forumForm.login remember=forumForm.remember}}
-            {{!<form_captcha id='captcha' name='captcha'>}}
         {{/unless}}
         {{formEditor title="Текст" name="body" body=forumForm.body rows="12" mandatory=true xmlid=xmlid
                      id="comment-add"}}
@@ -45,10 +44,9 @@
             {{hidden name="disabled" value=forumForm.disabled}}
         {{/moderator}}
         {{#if forumForm.id}}
-            {{#assign "buttonTitle"}}Изменить{{/assign}}
+            {{formButtons title="Изменить"}}
         {{else}}
-            {{#assign "buttonTitle"}}Добавить{{/assign}}
+            {{formButtons title="Добавить" captcha=(not rc.logged)}}
         {{/if}}
-        {{formButtons title=buttonTitle}}
     {{/formTable}}
 </form>
