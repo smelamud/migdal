@@ -100,8 +100,7 @@ public class MailService {
     
     private String getDocument(User to, String templateName, Map<String, Object> model) throws MailServiceException {
         Template template = getTemplate(templateName);
-        Map<String, Object> fullModel = new HashMap<>();
-        fullModel.putAll(model);
+        Map<String, Object> fullModel = new HashMap<>(model);
         fullModel.put("to", to);
         fullModel.put("config", config);
         try {
