@@ -112,6 +112,8 @@ public class PostingForm implements Serializable {
 
     private boolean remember;
 
+    private String captchaResponse;
+
     public PostingForm() {
     }
 
@@ -428,6 +430,14 @@ public class PostingForm implements Serializable {
 
     public void setRemember(boolean remember) {
         this.remember = remember;
+    }
+
+    public String getCaptchaResponse() {
+        return captchaResponse;
+    }
+
+    public void setCaptchaResponse(String captchaResponse) {
+        this.captchaResponse = captchaResponse;
     }
 
     public void toPosting(Posting posting, Entry up, Topic parent, User person, ImageFileManager imageFileManager,

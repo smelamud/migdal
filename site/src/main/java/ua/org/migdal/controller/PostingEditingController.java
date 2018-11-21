@@ -42,6 +42,7 @@ import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.session.RequestContext;
+import ua.org.migdal.util.Captcha;
 import ua.org.migdal.util.Utils;
 
 @Controller
@@ -81,6 +82,9 @@ public class PostingEditingController {
     private LoginManager loginManager;
 
     @Inject
+    private Captcha captcha;
+
+    @Inject
     private IndexController indexController;
 
     @Inject
@@ -95,7 +99,14 @@ public class PostingEditingController {
             @RequestParam(required = false) boolean full,
             Model model) throws PageNotFoundException {
 
-        return postingAdd(grpPathName, full, model);
+        String grpName = Utils.toConstName(grpPathName);
+        if (!grpEnum.exists(grpName)) {
+            throw new PageNotFoundException();
+        }
+
+        postingAddLocationInfo(grpName, model);
+
+        return postingAdd(grpName, 0, null, full, model);
     }
 
     // @GetMapping("/**/add-{grpPathName}")
@@ -213,6 +224,7 @@ public class PostingEditingController {
             throw new PageNotFoundException();
         }
 
+        model.addAttribute("captchaOnPage", posting == null && !requestContext.isLogged());
         model.addAttribute("noGuests", true);
         model.addAttribute("xmlid", posting != null && full ? posting.getId() : 0);
         model.asMap().computeIfAbsent("postingForm", key -> {
@@ -224,6 +236,7 @@ public class PostingEditingController {
         long rootId = full || rootIdent == null ? 0 : identManager.idOrIdent(rootIdent);
         long grp = full ? -1 : grpEnum.grpValue(grpName);
         model.addAttribute("topicNames", topicManager.begNames(rootId, grp, false, !full));
+
         return "posting-edit";
     }
 
@@ -391,13 +404,9 @@ public class PostingEditingController {
                     if (postingForm.getPersonId() > 0 && (person == null || !person.isHasPersonal())) {
                         return "personId.noPerson";
                     }
-                    /* TODO
-                    if ($posting->getId() <= 0 && $userId <= 0) {
-                        if ($captcha == '')
-                            return EP_CAPTCHA_ABSENT;
-                        if (!validateCaptcha($captcha))
-                            return EP_CAPTCHA;
-                    }*/
+                    if (!requestContext.isLogged() && !captcha.valid(postingForm.getCaptchaResponse())) {
+                        return "wrongCaptcha";
+                    }
 
                     postingManager.store(
                             posting,

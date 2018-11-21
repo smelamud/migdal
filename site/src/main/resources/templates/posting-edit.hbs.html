@@ -243,11 +243,6 @@
         {{#unless postingForm.id}}
             {{formRelogin relogin=postingForm.relogin noGuests=noGuests guestLogin=postingForm.guestLogin
                           login=postingForm.login remember=postingForm.remember}}
-            <error id='*EP_CAPTCHA_ABSENT'
-                   text='Пожалуйста, введите цифры и буквы, которые вы видите на
-                         картинке. Это необходимо нам для борьбы со спамом.'>
-            <error id='*EP_CAPTCHA' text='Неверные цифры и буквы, попробуйте еще раз'>
-            <form_captcha id='captcha' name='captcha'>
         {{/unless}}
         {{#if postingForm.full}}
             {{formGrpSelect title="Группа" mandatory=true name="grp" value=postingForm.grp}}
@@ -297,7 +292,7 @@
         {{#if postingForm.id}}
             {{formButtons title="Изменить"}}
         {{else}}
-            {{formButtons title="Добавить"}}
+            {{formButtons title="Добавить" captcha=(not rc.logged)}}
         {{/if}}
     {{/formTable}}
 </form>

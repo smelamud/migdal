@@ -72,6 +72,8 @@ public class ReloginHelperSource {
             buf.append(formsHelperSource.radioButton("relogin", ReloginVariant.LOGIN.getValue(),
                                                      reloginVariant == ReloginVariant.LOGIN, null,
                                                      null));
+        } else {
+            buf.append(formsHelperSource.hidden("relogin", ReloginVariant.LOGIN.getValue(), null));
         }
         buf.append("&nbsp;Ник&nbsp;");
         buf.append(formsHelperSource.edit("login", login, "15", "30", null, null));
