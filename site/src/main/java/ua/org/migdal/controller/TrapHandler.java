@@ -62,12 +62,14 @@ public class TrapHandler {
 
     public static boolean fallsUnder(UriComponentsBuilder builder) {
         String path = builder.build().getPath();
-        return path != null && path.contains(".php");
+        return path != null
+                && (path.contains(".php")
+                    || path.equals("/") && builder.build().getQueryParams().containsKey("topic_id"));
     }
 
     public String trap() {
         try {
-            String methodName = buildTrapMethodName(builder.build().getPath());
+            String methodName = path().equals("/") ? "trapIndex" : buildTrapMethodName(path());
             Method method = TrapHandler.class.getDeclaredMethod(methodName);
             if (method == null) {
                 trapError();
@@ -94,6 +96,10 @@ public class TrapHandler {
 
     private static void trapError() {
         throw new TrapError();
+    }
+
+    private String path() {
+        return components.getPath();
     }
 
     private void path(String path) {
@@ -310,7 +316,7 @@ public class TrapHandler {
         long id = intParam("topic_id", 0);
         delParam("topic_id");
         if (id == 5) { /* Еврейский Интернет */
-            path("/links/");
+            path("/internet/");
         } else if (id == 13) { /* КЕС */
             path("/migdal/jcc/student/");
         } else if (id == 24) { /* Ту би-Шват */
