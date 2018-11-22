@@ -40,3 +40,10 @@
     {{embedded "client/user-info"}}
 </head>
 <body>
+    {{#if willBeModerated}}
+        <div class="alert alert-success" role="alert">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            <strong>Ваше сообщение успешно добавлено.</strong>
+            После одобрения модератором его увидят и другие пользователи сайта.
+        </div>
+    {{/if}}

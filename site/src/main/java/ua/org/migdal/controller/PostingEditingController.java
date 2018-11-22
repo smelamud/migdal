@@ -420,6 +420,9 @@ public class PostingEditingController {
                 });
 
         if (!errors.hasErrors()) {
+            if (postingForm.getId() <= 0 && posting.isDisabled()) {
+                redirectAttributes.addFlashAttribute("willBeModerated", true);
+            }
             return "redirect:" + requestContext.getOrigin();
         } else {
             redirectAttributes.addFlashAttribute("errors", errors);
