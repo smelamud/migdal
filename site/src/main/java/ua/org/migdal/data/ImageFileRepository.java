@@ -15,6 +15,6 @@ public interface ImageFileRepository extends JpaRepository<ImageFile, Long> {
     @Query("delete from ImageFile imf"
             + " where not exists(select e.id from Entry e where e.smallImage.id=imf.id)"
             + " and not exists(select e.id from Entry e where e.largeImage=imf.id)")
-    void deleteObsoleteImageFiles();
+    void deleteObsolete();
 
 }

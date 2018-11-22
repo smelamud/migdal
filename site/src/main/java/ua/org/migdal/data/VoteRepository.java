@@ -12,6 +12,6 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
 
     @Modifying
     @Query("delete from Vote v where v.expires < now()")
-    void deleteExpiredVotes();
+    void deleteExpired();
 
 }

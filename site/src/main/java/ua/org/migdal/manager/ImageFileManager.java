@@ -41,8 +41,8 @@ public class ImageFileManager {
     }
 
     @Daily
-    public void deleteObsoleteImageFiles() {
-        imageFileRepository.deleteObsoleteImageFiles();
+    public void deleteObsolete() {
+        imageFileRepository.deleteObsolete();
         Set<Long> ids = imageFileRepository.findAllIds();
         Path imageDir = FileSystems.getDefault().getPath(config.getImageDir());
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(imageDir)) {

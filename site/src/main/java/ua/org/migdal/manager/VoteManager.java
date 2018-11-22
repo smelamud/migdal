@@ -49,8 +49,8 @@ public class VoteManager {
     }
 
     @Hourly
-    public void deleteExpiredVotes() {
-        voteRepository.deleteExpiredVotes();
+    public void deleteExpired() {
+        voteRepository.deleteExpired();
     }
 
 }
