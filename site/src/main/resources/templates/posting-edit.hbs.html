@@ -98,7 +98,7 @@
         {{/if}}
     {{/ifeq}}
 
-    {{#ifeq editor.field "body_format"}}
+    {{#ifeq editor.field "bodyFormat"}}
         {{#if visible}}
             {{> formTextFormat title=editor.title comment=editor.comment name="bodyFormat"
                                  format=postingForm.bodyFormat mandatory=editor.mandatory}}
@@ -182,7 +182,7 @@
         {{/if}}
     {{/ifeq}}
 
-    {{#ifeq editor.field "large_body"}}
+    {{#ifeq editor.field "largeBody"}}
         {{#if visible}}
             {{formEditor title=editor.title comment=editor.comment name="largeBody" body=postingForm.largeBody rows="11"
                          mandatory=editor.mandatory xmlid=xmlid}}
@@ -191,7 +191,7 @@
         {{/if}}
     {{/ifeq}}
 
-    {{#ifeq editor.field "large_body_format"}}
+    {{#ifeq editor.field "largeBodyFormat"}}
         {{#if visible}}
             {{> formTextFormat title=editor.title comment=editor.comment name="largeBodyFormat"
                                  format=postingForm.largeBodyFormat mandatory=editor.mandatory}}

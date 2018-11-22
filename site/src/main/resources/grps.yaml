@@ -15,7 +15,7 @@
 
 - name: NONE  # Used for "full" mode of the posting editor
   editors:
-    - field: body_format
+    - field: bodyFormat
       title: "Формат небольших текстов"
       comment: ""
       mandatory: No
@@ -106,17 +106,12 @@
 
     - title: "Большой текст"
 
-    - field: large_body
+    - field: largeBody
       title: "Большой текст"
       comment: ""
       mandatory: No
 
-    - field: large_body_upload
-      title: "Большой текст из файла"
-      comment: ""
-      mandatory: No
-
-    - field: large_body_format
+    - field: largeBodyFormat
       title: "Формат большого текста"
       comment: ""
       mandatory: No
@@ -396,17 +391,12 @@
 
     - title: "Статья"
 
-    - field: large_body
+    - field: largeBody
       title: "Текст статьи"
       comment: "Полный текст статьи. Не нужно повторять здесь заголовок, аннотацию и т.п."
       mandatory: Yes
 
-    - field: large_body_upload
-      title: "Текст статьи из файла"
-      comment: ""
-      mandatory: No
-
-    - field: large_body_format
+    - field: largeBodyFormat
       title: "Формат текста"
       comment: ""
       mandatory: Yes
@@ -694,17 +684,12 @@
 
     - title: "Статья"
 
-    - field: large_body
+    - field: largeBody
       title: "Текст статьи"
       comment: "Полный текст статьи. Не нужно повторять здесь заголовок, аннотацию и т.п."
       mandatory: Yes
 
-    - field: large_body_upload
-      title: "Текст статьи из файла"
-      comment: ""
-      mandatory: No
-
-    - field: large_body_format
+    - field: largeBodyFormat
       title: "Формат текста"
       comment: ""
       mandatory: Yes
@@ -978,17 +963,12 @@
       comment: ""
       mandatory: No
 
-    - field: large_body
+    - field: largeBody
       title: "Текст главы"
       comment: "Полный текст главы. Не нужно повторять здесь заголовок и т.п."
       mandatory: Yes
 
-    - field: large_body_upload
-      title: "Текст главы из файла"
-      comment: ""
-      mandatory: No
-
-    - field: large_body_format
+    - field: largeBodyFormat
       title: "Формат текста"
       comment: ""
       mandatory: Yes
@@ -1030,17 +1010,12 @@
       comment: ""
       mandatory: Yes
 
-    - field: large_body
+    - field: largeBody
       title: "Текст статьи"
       comment: "Полный текст статьи. Не нужно повторять здесь заголовок и т.п."
       mandatory: Yes
 
-    - field: large_body_upload
-      title: "Текст статьи из файла"
-      comment: ""
-      mandatory: No
-
-    - field: large_body_format
+    - field: largeBodyFormat
       title: "Формат текста"
       comment: ""
       mandatory: Yes
