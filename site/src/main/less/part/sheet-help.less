@@ -1,0 +1,42 @@
+.help-text-content {
+    display: none;
+    font-size: 9pt;
+    margin-top: 1ex;
+
+    TABLE {
+    	border-collapse: collapse;
+    	width: 100%;
+
+        TH, TD {
+	        border: 1px solid @catalog_border;
+	        padding: 5px;
+        }
+
+        TH {
+	        background-color: @catalog_header;
+	        color: @catalog_header_text;
+	        vertical-align: middle;
+	        text-align: center;
+        }
+
+        TD {
+	        background-color: white;
+
+	        PRE {
+	            background-color: inherit;
+	            border: none;
+	        }
+        }
+
+        TR.odd TD {
+	        background-color: @catalog_odd;
+        }
+
+        TR.div TD {
+	        background-color: @catalog_div;
+	        color: @catalog_div_text;
+	        font-weight: bold;
+	        text-align: center;
+        }
+    }
+}

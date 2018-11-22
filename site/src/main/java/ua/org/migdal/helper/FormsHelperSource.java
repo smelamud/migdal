@@ -384,6 +384,8 @@ public class FormsHelperSource {
         buf.append('>');
         HelperUtils.safeAppend(buf, body);
         buf.append("</textarea>");
+        buf.append("<br>");
+        buf.append(helpText(name + "Help"));
         if (xmlid != 0) {
             buf.append("<br>");
             buf.append(xmlText(xmlid, name));
@@ -571,6 +573,23 @@ public class FormsHelperSource {
         buf.append(String.format("<a href=\"/xml/%d/%s/\">", id, HelperUtils.ue(name)));
         buf.append(imagesHelperSource.image("/pics/xml.gif"));
         buf.append("</a>");
+        return new SafeString(buf);
+    }
+
+    private CharSequence helpText(String id) {
+        StringBuilder buf = new StringBuilder();
+        buf.append(imagesHelperSource.image("/pics/help.gif"));
+        buf.append("&nbsp;");
+        buf.append("<a href=\"#\" class=\"help-text\"");
+        HelperUtils.appendAttr(buf, "data-id", id);
+        buf.append('>');
+        buf.append("Показать подсказку по форматированию текста");
+        buf.append("</a>");
+        buf.append("<div class=\"help-text-content\"");
+        HelperUtils.appendAttr(buf, "id", id);
+        buf.append('>');
+        buf.append(imagesHelperSource.image("/pics/form-loading.gif"));
+        buf.append("</div>");
         return new SafeString(buf);
     }
 
