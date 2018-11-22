@@ -18,58 +18,50 @@
 {{/inline}}
 
 {{#*inline "topicChoice"}} {{! params: title,n,id,recursive }}
-    <tr>
-        <td>{{{title}}}</td>
-        <td>{{topicSelect list=topicNames name="topicIds" value=id}}</td>
-    </tr>
-    <tr>
-        <td>&nbsp;</td>
-        <td>
-            {{checkbox title="С подтемами" name="recursive" value=n checked=recursive}}
-        </td>
-    </tr>
+    {{{title}}}
+    &nbsp;
+    {{topicSelect list=topicNames name="topicIds" value=id}}<br>
+    <div style="padding-left: 3em">
+        {{checkbox title="С подтемами" name="recursive" value=n checked=recursive}}
+    </div>
 {{/inline}}
 
 {{#*inline "post"}} {{! params: posting }}
-    <table class="posting" width="100%">
-        <tr><td>
-            {{#assign "topicLink"}}
-                <a href="{{location "topicIds" posting.topicId}}" class="posting-topic">
-                    {{#each posting.ancestors}}
-                        {{subject}}
-                        {{#unless @last}} :: {{/unless}}
-                    {{/each}}
-                </a>
-            {{/assign}}
-            {{asp topicLink}} // {{posting.grpTitle}}
-        </td></tr>
-        <tr><td>
-            <b><a href="{{posting.grpDetailsHref}}">{{posting.heading}}</a></b>
-            {{#if posting.ident}}
-                [{{posting.ident}}={{posting.id}}]
-            {{else}}
-                [{{posting.id}}]
-            {{/if}}
-        </td></tr>
+    <div class="posting">
+        {{#assign "topicLink"}}
+            <a href="{{location "topicIds" posting.topicId}}" class="posting-topic">
+                {{#each posting.ancestors}}
+                    {{subject}}
+                    {{#unless @last}} :: {{/unless}}
+                {{/each}}
+            </a>
+        {{/assign}}
+        {{asp topicLink}} // {{posting.grpTitle}}
+        <br>
+        <b><a href="{{posting.grpDetailsHref}}">{{posting.heading}}</a></b>
+        {{#if posting.ident}}
+            [{{posting.ident}}={{posting.id}}]
+        {{else}}
+            [{{posting.id}}]
+        {{/if}}
+        <br>
         {{#if posting.voteCount}}
-            <tr><td>
-                {{posting.ratingString}}
-                &nbsp;
-                ({{posting.voteCount}} {{plural posting.voteCount "голос,голоса,голосов"}})
-            </td></tr>
+            {{posting.ratingString}}
+            &nbsp;
+            ({{posting.voteCount}} {{plural posting.voteCount "голос,голоса,голосов"}})
+            <br>
         {{/if}}
         {{#if posting.hasImage}}
-            <tr><td>
-                <a href="{{posting.imageUrl}}" class="enlargeable">Картинка</a>
-                &nbsp;
-                {{posting.imageX}}x{{posting.imageY}}, {{posting.imageSizeKb}}KB
-            </td></tr>
+            <a href="{{posting.imageUrl}}" class="enlargeable">Картинка</a>
+            &nbsp;
+            {{posting.imageX}}x{{posting.imageY}}, {{posting.imageSizeKb}}KB
+            <br>
         {{/if}}
-        <tr><td class="sent">
+        <div class="sent">
             {{sentView date=posting.sent}}&nbsp;({{sentView date=posting.modified}})
             {{senderLink posting}}
-        </td></tr>
-        <tr><td class="posting-bottom">
+        </div>
+        <div class="posting-bottom">
             {{#if posting.hidden}}
                 <b>[X]</b>
                 &nbsp;
@@ -89,8 +81,8 @@
             <a href="/admin/postings/{{posting.id}}/chmod/?back={{ue rc.location}}">Права</a>
             &nbsp;
             <a href="/admin/postings/{{posting.id}}/modbits/?back={{ue rc.location}}">Флаги</a>
-        </td></tr>
-    </table>
+        </div>
+    </div>
     <p>
 {{/inline}}
 
@@ -98,8 +90,14 @@
 {{> part/top}}
 
 <style>
-    .padded TD {
+    .selector {
+        width: 50%;
         padding: 5px;
+    }
+    .selector INPUT[type=checkbox] {
+        position: relative;
+        top: 3px;
+        margin-right: 5px;
     }
 </style>
 <div class="page-layout">
@@ -108,42 +106,36 @@
     </div>
     <div style="flex: auto">
         <form method="get" action="/admin/postings">
-            <table class="ninept nframe padded">
-                <tr><td colspan="2">
-                    {{subtitle}}
-                </td></tr>
-                <tr><td align="left" colspan="2"><table>
-                    {{#assign "title"}}Тема{{/assign}}
-                    {{#each adminPostingsForm.topicChoices}}
-                        {{> topicChoice title=title n=n id=topicId recursive=recursive}}
-                        {{#assign "title"}}<i>Или</i>{{/assign}}
-                    {{/each}}
-                </table></td></tr>
-                <tr><td align="left" colspan="2">Тип сообщения</td></tr>
-                <tr valign="top">
-                    <td align="left">
+            <div class="ninept nframe selector" style="">
+                {{subtitle}}
+
+                {{#assign "title"}}Тема{{/assign}}
+                {{#each adminPostingsForm.topicChoices}}
+                    {{> topicChoice title=title n=n id=topicId recursive=recursive}}
+                    {{#assign "title"}}<i>Или</i>{{/assign}}
+                {{/each}}
+                <div style="display: flex; margin-left: 5px; margin-top: 1ex">
+                    <div style="flex: 1">
+                        Тип сообщения<br>
                         {{grpSelect name="grps" value=adminPostingsForm.grps size="6" multiple=true}}
-                    </td>
-                    <td align="left"><table>
-                        <tr>
-                            <td>{{checkboxButton name="useIndex1" checked=adminPostingsForm.useIndex1}}</td>
-                            <td>Номер </td>
-                            <td>{{edit name="index1" value=adminPostingsForm.index1 size="8" maxlength="8"}}</td>
-                        </tr>
-                    </table></td>
-                </tr>
-                <tr><td align="left" colspan="2">
-                    <table cellspacing="10"><tr>
-                        <td><input type="submit" value="Просмотр"></td>
-                        <td><input type="reset" value="Очистить"></td>
-                    </tr></table>
-                </td></tr>
-                <tr><td class="info" colspan="2">
+                    </div>
+                    <div style="flex: 1; align-self: flex-start">
+                        {{checkboxButton name="useIndex1" checked=adminPostingsForm.useIndex1}}
+                        Номер
+                        {{edit name="index1" value=adminPostingsForm.index1 size="8" maxlength="8"}}
+                    </div>
+                </div>
+                <div style="padding: 5px">
+                    <input type="submit" value="Просмотр">
+                    &nbsp;
+                    <input type="reset" value="Очистить">
+                </div>
+                <div class="info" style="padding: 5px">
                     Выбрано&nbsp;<em>{{postingsTotal}}</em>&nbsp;{{plural postingsTotal "сообщение,сообщения,сообщений"}}
-                </td></tr>
-            </table>
+                </div>
+            </div>
         </form>
-        <table class="ninept cframe" width="100%"><tr><td style="padding: 5px">
+        <div class="ninept cframe" style="width: 100%; padding: 5px">
             {{> errorLines}}
             {{> batcher list=postings}}
             {{#if postings}}
@@ -152,7 +144,7 @@
                 {{/each}}
                 {{> batcher list=postings}}
             {{/if}}
-        </td></tr></table>
+        </div>
     </div>
 </div>
 
