@@ -7,7 +7,7 @@
         {{hidden name="origin" value=rc.back}}
         {{starInfo}}
         {{formSection title="Информация для входа на сайт"}}
-        {{#formLine title="Ник" name="newLogin" mandatory=true
+        {{#formLine title="Ник" name="newLogin" mandatory=true autocomplete="username"
                     comment="Ваш псевдоним, под которым вы будете появляться на сайте"}}
             <table width="100%">
                 <tr valign="center">
@@ -23,7 +23,7 @@
                 </td></tr>
             </table>
         {{/formLine}}
-        {{formPassword title="Пароль" comment="Не менее 6 символов"
+        {{formPassword title="Пароль" comment="Не менее 6 символов" autocomplete="new-password"
                        name="newPassword" size="20" maxlength="40" mandatory=true}}
         {{formPassword title="Пароль (еще раз)"
                        comment="Повторите ввод пароля, чтобы убедиться, что вы не ошиблись при наборе"
@@ -40,14 +40,14 @@
             {{formOption title="Женский" value="1" selected=userForm.gender}}
         {{/formSelect}}
         {{#formLine title="Дата рождения" name="birthDay"}}
-            {{edit name="birthDay" size="2" maxlength="2" value=userForm.birthDay}}
+            {{edit name="birthDay" size="2" maxlength="2" value=userForm.birthDay autocomplete="bday-day"}}
             <select name="birthMonth">
                 {{selectOption value=0 title=(safe "&mdash;") selectedValue=userForm.birthMonth}}
                 {{#each const.gregorianMonthRuGenLcLong}}
                     {{selectOption value=value title=title selectedValue=userForm.birthMonth}}
                 {{/each}}
             </select>
-            {{edit name="birthYear" size="4" maxlength="4" value=userForm.birthYear}}
+            {{edit name="birthYear" size="4" maxlength="4" value=userForm.birthYear autocomplete="bday-year"}}
         {{/formLine}}
         {{#assign "comment"}}Вы посещаете &laquo;Мигдаль&raquo; или посещали его раньше? Или, может быть, вы чувствуете
                              себя мигдалевцем в душе?{{/assign}}
@@ -56,8 +56,8 @@
         {{#assign "comment"}}Укажите ваш настоящий адрес, потому что на этот адрес будет выслано письмо для
                              подтверждения вашей регистрации. Этот адрес также может понадобиться для связи с вами в
                              экстренных случаях (например, для восстановления забытого пароля){{/assign}}
-        {{formEdit title="E-mail" comment=comment value=userForm.email name="email"
-                   size="30" maxlength="70" mandatory=true}}
+        {{formEdit title="E-mail" comment=comment value=userForm.email name="email" size="30" maxlength="70"
+                   mandatory=true autocomplete="email"}}
         {{#assign "comment"}}Ответ <i>Да</i> означает, что никто из посетителей сайта (кроме администратора) не
                              увидит ваш адрес E-mail{{/assign}}
         {{formCheckbox title="Скрыть E-mail на сайте" comment=comment name="hideEmail" checked=userForm.hideEmail}}

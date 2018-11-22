@@ -8,31 +8,35 @@
         {{starInfo}}
         {{formSection title="Информация для входа на сайт"}}
         {{formEdit title="Ник" name="newLogin" mandatory=true value=userForm.newLogin size="20" maxlength="30"
-                   comment="Ваш псевдоним, под которым вы будете появляться на сайте. Вы можете сменить его в любой момент"}}
+                   comment="Ваш псевдоним, под которым вы будете появляться на сайте. Вы можете сменить его в любой момент"
+                   autocomplete="username"}}
         {{#assign "comment"}}Не менее 6 символов.<br>Заполните это поле, только если вы хотите сменить пароль{{/assign}}
-        {{formPassword title="Пароль" comment=comment name="newPassword" size="20" maxlength="40"}}
+        {{formPassword title="Пароль" comment=comment name="newPassword" size="20" maxlength="40"
+                       autocomplete="new-password"}}
         {{formPassword title="Пароль (еще раз)" name="dupPassword" size="20" maxlength="40"
                        comment="Повторите ввод пароля, чтобы убедиться, что вы не ошиблись при наборе"}}
         {{formSection title="Личная информация"}}
-        {{formEdit title="Имя" value=userForm.name name="name" size="30" maxlength="30" mandatory=true}}
+        {{formEdit title="Имя" value=userForm.name name="name" size="30" maxlength="30" mandatory=true
+                   autocomplete="given-name"}}
         {{#assign "comment"}}Заполните это поле, если у вас есть еврейское имя,
                              отличное от того, которое вы указали в графе <i>Имя</i>{{/assign}}
         {{formEdit title="Еврейское имя" comment=comment value=userForm.jewishName name="jewishName"
                    size="30" maxlength="30"}}
-        {{formEdit title="Фамилия" value=userForm.surname name="surname" size="30" maxlength="30" mandatory=true}}
+        {{formEdit title="Фамилия" value=userForm.surname name="surname" size="30" maxlength="30" mandatory=true
+                   autocomplete="family-name"}}
         {{#formSelect title="Пол" name="gender" style="box"}}
             {{formOption title="Мужской" value="0" selected=(not userForm.gender)}}
             {{formOption title="Женский" value="1" selected=userForm.gender}}
         {{/formSelect}}
         {{#formLine title="Дата рождения" name="birthDay"}}
-            {{edit name="birthDay" size="2" maxlength="2" value=userForm.birthDay}}
+            {{edit name="birthDay" size="2" maxlength="2" value=userForm.birthDay autocomplete="bday-day"}}
             <select name="birthMonth">
                 {{selectOption value=0 title=(safe "&mdash;") selectedValue=userForm.birthMonth}}
                 {{#each const.gregorianMonthRuGenLcLong}}
                     {{selectOption value=value title=title selectedValue=userForm.birthMonth}}
                 {{/each}}
             </select>
-            {{edit name="birthYear" size="4" maxlength="4" value=userForm.birthYear}}
+            {{edit name="birthYear" size="4" maxlength="4" value=userForm.birthYear autocomplete="bday-year"}}
         {{/formLine}}
         {{#assign "comment"}}Вы посещаете &laquo;Мигдаль&raquo; или посещали его раньше? Или, может быть, вы чувствуете
                              себя мигдалевцем в душе?{{/assign}}
@@ -42,11 +46,10 @@
                      comment="Напишите несколько слов о себе: биография, работа, друзья, интересы..."
                      name="info" body=userForm.info}}
         {{#editable user}}
-            {{#assign "comment"}}Укажите ваш настоящий адрес, потому что на этот адрес будет выслано письмо для
-                                 подтверждения вашей регистрации. Этот адрес также может понадобиться для связи с вами
+            {{#assign "comment"}}Укажите ваш настоящий адрес, потому что он может понадобиться для связи с вами
                                  в экстренных случаях (например, для восстановления забытого пароля){{/assign}}
-            {{formEdit title="E-mail" comment=comment value=userForm.email name="email"
-                       size="30" maxlength="70" mandatory=true}}
+            {{formEdit title="E-mail" comment=comment value=userForm.email name="email" size="30" maxlength="70"
+                       mandatory=true autocomplete="email"}}
             {{#assign "comment"}}Ответ <i>Да</i> означает, что никто из посетителей сайта (кроме администратора) не
                                  увидит ваш адрес E-mail{{/assign}}
             {{formCheckbox title="Скрыть E-mail на сайте" comment=comment name="hideEmail" checked=userForm.hideEmail}}

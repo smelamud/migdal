@@ -33,8 +33,8 @@
                     </p>
                 {{/formComment}}
             {{/ifieq}}
-            {{formEdit title="Ник" name="login" value=loginForm.login size="30" maxlength="30"}}
-            {{formPassword title="Пароль" name="password" size="30" maxlength="30"}}
+            {{formEdit title="Ник" name="login" value=loginForm.login size="30" maxlength="30" autocomplete="username"}}
+            {{formPassword title="Пароль" name="password" size="30" maxlength="30" autocomplete="current-password"}}
             {{#formSelect title="Чужой компьютер" name="myComputer" style="box"}}
                 {{formOption title="Я захожу со своего компьютера" value="1" selected=loginForm.myComputer}}
                 {{formOption title="Я захожу с чужого компьютера" value="0" selected=(not loginForm.myComputer)}}

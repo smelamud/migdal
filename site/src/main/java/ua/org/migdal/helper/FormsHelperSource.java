@@ -310,12 +310,13 @@ public class FormsHelperSource {
         CharSequence maxlength = options.hash("maxlength", "250");
         CharSequence id = options.hash("id");
         CharSequence klass = options.hash("class");
+        CharSequence autocomplete = options.hash("autocomplete");
 
-        return edit(name, value, size, maxlength, id, klass);
+        return edit(name, value, size, maxlength, id, klass, autocomplete);
     }
 
     CharSequence edit(CharSequence name, Object value, CharSequence size, CharSequence maxlength, CharSequence id,
-                      CharSequence klass) {
+                      CharSequence klass, CharSequence autocomplete) {
         StringBuilder buf = new StringBuilder();
         buf.append("<input type=\"text\"");
         HelperUtils.appendAttr(buf, "name", name);
@@ -324,6 +325,7 @@ public class FormsHelperSource {
         HelperUtils.appendAttr(buf, "maxlength", maxlength);
         HelperUtils.appendAttr(buf, "id", id);
         HelperUtils.appendAttr(buf, "class", klass);
+        HelperUtils.appendAttr(buf, "autocomplete", autocomplete);
         buf.append('>');
         return new SafeString(buf);
     }
@@ -336,11 +338,12 @@ public class FormsHelperSource {
         CharSequence value = HelperUtils.mandatoryHash("value", options);
         CharSequence size = options.hash("size", "40");
         CharSequence maxlength = options.hash("maxlength", "250");
+        CharSequence autocomplete = options.hash("autocomplete");
         long xmlid = HelperUtils.intArg("xmlid", options.hash("xmlid"));
 
         StringBuilder buf = new StringBuilder();
         buf.append(formLineBegin(title, name, mandatory, comment, "", options));
-        buf.append(edit(name, value, size, maxlength, null, null));
+        buf.append(edit(name, value, size, maxlength, null, null, autocomplete));
         if (xmlid != 0) {
             buf.append("<br>");
             buf.append(xmlText(xmlid, name));
@@ -356,11 +359,16 @@ public class FormsHelperSource {
         String name = HelperUtils.mandatoryHash("name", options);
         CharSequence size = options.hash("size", "40");
         CharSequence maxlength = options.hash("maxlength", "250");
+        CharSequence autocomplete = options.hash("autocomplete");
 
         StringBuilder buf = new StringBuilder();
         buf.append(formLineBegin(title, name, mandatory, comment, "", options));
-        buf.append(String.format("<input type='password' name=\"%s\" size=\"%s\" maxlength=\"%s\">",
-                                 HelperUtils.he(name), HelperUtils.he(size), HelperUtils.he(maxlength)));
+        buf.append("<input type=\"password\"");
+        HelperUtils.appendAttr(buf, "name", name);
+        HelperUtils.appendAttr(buf, "size", size);
+        HelperUtils.appendAttr(buf, "maxlength", maxlength);
+        HelperUtils.appendAttr(buf, "autocomplete", autocomplete);
+        buf.append('>');
         buf.append(formLineEnd());
         return new SafeString(buf);
     }
