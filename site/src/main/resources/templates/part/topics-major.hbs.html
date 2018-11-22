@@ -1,8 +1,8 @@
-{{#*inline "navi_main"}}
+{{#*inline "naviMain"}}
     {{topicsLine index="index" href="/" title="На главную страницу" text="Главная"}}
 {{/inline}}
 
-{{#*inline "navi_migdal"}}
+{{#*inline "naviMigdal"}}
     {{topicsLine index="migdal" href="/migdal/" text="Мигдаль"}}
 {{/inline}}
 
@@ -14,25 +14,25 @@
     {{/cached}}
 {{/inline}}
 
-{{#*inline "navi_forum"}}
+{{#*inline "naviForum"}}
     {{topicsLine index="forum" href="/forum/" text="Все обсуждения"}}
 {{/inline}}
 
-{{#*inline "navi_archive"}}
+{{#*inline "naviArchive"}}
     {{topicsLine index="archive" href="/archive/" text="Архив"}}
     {{topicsLine index="chat-archive" href="/chat-archive/" text="Архив чата"}}
 {{/inline}}
 
 {{#topicsTable title="Разделы"}}
-    {{> navi_main}}
-    {{> navi_migdal}}
+    {{> naviMain}}
+    {{> naviMigdal}}
     {{> part/topics-migdal}}
     {{> general}}
 {{/topicsTable}}
 <br>
 {{#topicsTable class="eightpt"}}
-    {{> navi_forum}}
-    {{> navi_archive}}
+    {{> naviForum}}
+    {{> naviArchive}}
     {{#adminTopics}}
         <li class="topics-nobullet">
             <a href="/major/">Изменить</a>

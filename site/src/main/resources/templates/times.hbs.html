@@ -127,7 +127,7 @@
     Вс-вышнему, благословен Он, для которого нет ничего невозможного.
 {{/inline}}
 
-{{#*inline "issue_further"}} {{! params: issue, pic, title }}
+{{#*inline "issueFurther"}} {{! params: issue, pic, title }}
     <div class="issue-further">
         {{image pic}}
         <div class="issue-further-title">
@@ -156,14 +156,14 @@
         {{#each siblings}}
             {{#if @first}}
                 {{#if siblings.moreBefore}}
-                    {{> issue_further issue=index1 pic="/pics/upper.gif" title="Новые номера"}}
+                    {{> issueFurther issue=index1 pic="/pics/upper.gif" title="Новые номера"}}
                 {{else}}
                     {{> sibling posting=.}}
                 {{/if}}
             {{else}}
                 {{#if @last}}
                     {{#if siblings.moreAfter}}
-                        {{> issue_further issue=index1 pic="/pics/lower.gif" title="Старые номера"}}
+                        {{> issueFurther issue=index1 pic="/pics/lower.gif" title="Старые номера"}}
                     {{else}}
                         {{> sibling posting=.}}
                     {{/if}}
