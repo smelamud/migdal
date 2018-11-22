@@ -13,7 +13,7 @@ public class ImageFileUtils {
         return String.format("migdal-%d.%s", fileId, MimeUtils.extension(format));
     }
 
-    public ImageFileInfo parseFilename(String filename) {
+    public static ImageFileInfo parseFilename(String filename) {
         Matcher m = FILENAME.matcher(filename);
         if (!m.matches()) {
             return null;

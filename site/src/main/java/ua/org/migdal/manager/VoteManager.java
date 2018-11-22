@@ -1,7 +1,6 @@
 package ua.org.migdal.manager;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
@@ -50,7 +49,6 @@ public class VoteManager {
     }
 
     @Hourly
-    @Transactional
     public void deleteExpiredVotes() {
         voteRepository.deleteExpiredVotes();
     }

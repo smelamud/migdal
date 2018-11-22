@@ -80,6 +80,7 @@ migdal:
   imageDir: /home/smelamud/migdal-images  # Image directory
   imageUrl: /images  # Base image URL
   maxImageSize: 2097152  # Maximal uploaded image size (in bytes)
+  imageFileTimeout: 6 # Maximal lifetime (in hours) of an image file not referred from the database
 
   # Inner image auto-resizing dimensions
   innerImageMaxWidth: 900

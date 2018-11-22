@@ -21,6 +21,7 @@ public class Config {
     private String imageDir;
     private String imageUrl;
     private long maxImageSize;
+    private int imageFileTimeout;
     private short innerImageMaxWidth;
     private short innerImageMaxHeight;
     private int tinySize;
@@ -152,6 +153,14 @@ public class Config {
 
     public void setMaxImageSize(long maxImageSize) {
         this.maxImageSize = maxImageSize;
+    }
+
+    public int getImageFileTimeout() {
+        return imageFileTimeout;
+    }
+
+    public void setImageFileTimeout(int imageFileTimeout) {
+        this.imageFileTimeout = imageFileTimeout;
     }
 
     public short getInnerImageMaxWidth() {

@@ -5,10 +5,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import javax.transaction.Transactional;
+
 import org.springframework.scheduling.annotation.Scheduled;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Scheduled(fixedDelayString = "PT1H")
+@Transactional
 public @interface Hourly {
 }
