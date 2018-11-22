@@ -34,20 +34,6 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: captcha_keys; Type: TABLE; Schema: public; Owner: migdal
---
-
-CREATE TABLE public.captcha_keys (
-    id bigint NOT NULL,
-    keystring character varying(6) DEFAULT ''::character varying NOT NULL,
-    sid character varying(32) DEFAULT ''::character varying NOT NULL,
-    created timestamp with time zone
-);
-
-
-ALTER TABLE public.captcha_keys OWNER TO migdal;
-
---
 -- Name: chat_messages; Type: TABLE; Schema: public; Owner: migdal
 --
 
@@ -76,37 +62,6 @@ CREATE TABLE public.content_versions (
 
 
 ALTER TABLE public.content_versions OWNER TO migdal;
-
---
--- Name: counters; Type: TABLE; Schema: public; Owner: migdal
---
-
-CREATE TABLE public.counters (
-    id bigint NOT NULL,
-    entry_id bigint DEFAULT '0'::bigint NOT NULL,
-    mode bigint DEFAULT '0'::bigint NOT NULL,
-    serial bigint DEFAULT '0'::bigint NOT NULL,
-    value bigint DEFAULT '0'::bigint NOT NULL,
-    started timestamp with time zone,
-    finished timestamp with time zone,
-    used smallint DEFAULT '0'::smallint NOT NULL
-);
-
-
-ALTER TABLE public.counters OWNER TO migdal;
-
---
--- Name: counters_ip; Type: TABLE; Schema: public; Owner: migdal
---
-
-CREATE TABLE public.counters_ip (
-    counter_id bigint DEFAULT '0'::bigint NOT NULL,
-    ip bigint DEFAULT '0'::bigint NOT NULL,
-    expires timestamp with time zone
-);
-
-
-ALTER TABLE public.counters_ip OWNER TO migdal;
 
 --
 -- Name: cross_entries; Type: TABLE; Schema: public; Owner: migdal
@@ -308,21 +263,6 @@ CREATE TABLE public.inner_images (
 ALTER TABLE public.inner_images OWNER TO migdal;
 
 --
--- Name: logs; Type: TABLE; Schema: public; Owner: migdal
---
-
-CREATE TABLE public.logs (
-    id bigint NOT NULL,
-    event character varying(30) DEFAULT ''::character varying NOT NULL,
-    sent timestamp with time zone DEFAULT now() NOT NULL,
-    ip bigint DEFAULT '0'::bigint NOT NULL,
-    body character varying(250) DEFAULT ''::character varying NOT NULL
-);
-
-
-ALTER TABLE public.logs OWNER TO migdal;
-
---
 -- Name: old_ids; Type: TABLE; Schema: public; Owner: migdal
 --
 
@@ -335,26 +275,6 @@ CREATE TABLE public.old_ids (
 
 
 ALTER TABLE public.old_ids OWNER TO migdal;
-
---
--- Name: packages; Type: TABLE; Schema: public; Owner: migdal
---
-
-CREATE TABLE public.packages (
-    id bigint NOT NULL,
-    entry_id bigint DEFAULT '0'::bigint NOT NULL,
-    type integer NOT NULL,
-    mime_type character varying(50) DEFAULT ''::character varying NOT NULL,
-    title character varying(250) DEFAULT ''::character varying NOT NULL,
-    body bytea NOT NULL,
-    size bigint DEFAULT '0'::bigint NOT NULL,
-    url character varying(250) DEFAULT ''::character varying NOT NULL,
-    created timestamp with time zone,
-    used smallint DEFAULT '0'::smallint NOT NULL
-);
-
-
-ALTER TABLE public.packages OWNER TO migdal;
 
 --
 -- Name: prisoners; Type: TABLE; Schema: public; Owner: migdal
@@ -375,40 +295,6 @@ CREATE TABLE public.prisoners (
 
 
 ALTER TABLE public.prisoners OWNER TO migdal;
-
---
--- Name: profiling; Type: TABLE; Schema: public; Owner: migdal
---
-
-CREATE TABLE public.profiling (
-    id bigint NOT NULL,
-    up bigint DEFAULT '0'::bigint NOT NULL,
-    track character varying(255) DEFAULT ''::character varying NOT NULL,
-    sent timestamp with time zone DEFAULT now() NOT NULL,
-    object smallint DEFAULT '0'::smallint NOT NULL,
-    name character varying(250) DEFAULT ''::character varying NOT NULL,
-    begin_time bigint DEFAULT '0'::bigint NOT NULL,
-    end_time bigint DEFAULT '0'::bigint NOT NULL,
-    comment character varying(250) DEFAULT ''::character varying NOT NULL
-);
-
-
-ALTER TABLE public.profiling OWNER TO migdal;
-
---
--- Name: redirs; Type: TABLE; Schema: public; Owner: migdal
---
-
-CREATE TABLE public.redirs (
-    id bigint NOT NULL,
-    up bigint DEFAULT '0'::bigint NOT NULL,
-    track character varying(255) DEFAULT ''::character varying,
-    uri text NOT NULL,
-    last_access timestamp with time zone DEFAULT now() NOT NULL
-);
-
-
-ALTER TABLE public.redirs OWNER TO migdal;
 
 --
 -- Name: spring_session; Type: TABLE; Schema: public; Owner: migdal
@@ -439,19 +325,6 @@ CREATE TABLE public.spring_session_attributes (
 
 
 ALTER TABLE public.spring_session_attributes OWNER TO migdal;
-
---
--- Name: tmp_texts; Type: TABLE; Schema: public; Owner: migdal
---
-
-CREATE TABLE public.tmp_texts (
-    id bigint NOT NULL,
-    value text NOT NULL,
-    last_access timestamp with time zone DEFAULT now() NOT NULL
-);
-
-
-ALTER TABLE public.tmp_texts OWNER TO migdal;
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: migdal
