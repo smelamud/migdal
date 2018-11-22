@@ -50,6 +50,7 @@ public class Config {
     private long defaultForumPerms;
     private String captchaPublicKey;
     private String captchaSecretKey;
+    private boolean htmlCache;
 
     @PostConstruct
     public void init() {
@@ -386,6 +387,14 @@ public class Config {
 
     public void setCaptchaSecretKey(String captchaSecretKey) {
         this.captchaSecretKey = captchaSecretKey;
+    }
+
+    public boolean isHtmlCache() {
+        return htmlCache;
+    }
+
+    public void setHtmlCache(boolean htmlCache) {
+        this.htmlCache = htmlCache;
     }
 
 }

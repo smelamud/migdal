@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import ua.org.migdal.Config;
 import ua.org.migdal.data.ContentVersion;
 import ua.org.migdal.data.ContentVersionRepository;
 import ua.org.migdal.data.EntryType;
@@ -19,6 +20,9 @@ public class HtmlCacheManager {
     private final Object contentVersionLock = new Object();
 
     private ContentVersion contentVersion;
+
+    @Inject
+    private Config config;
 
     @Inject
     private ContentVersionRepository contentVersionRepository;
@@ -115,7 +119,7 @@ public class HtmlCacheManager {
     }
 
     public void store(CachedHtml cachedHtml, CharSequence content) {
-        if (!cachedHtml.isEnabled()) {
+        if (!cachedHtml.isEnabled() || !config.isHtmlCache()) {
             return;
         }
 
