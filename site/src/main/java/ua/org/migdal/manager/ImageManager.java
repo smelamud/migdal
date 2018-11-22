@@ -1,10 +1,14 @@
 package ua.org.migdal.manager;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.function.Consumer;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import ua.org.migdal.Config;
 import ua.org.migdal.data.EntryType;
 import ua.org.migdal.data.Image;
 import ua.org.migdal.data.ImageRepository;
@@ -15,6 +19,9 @@ import ua.org.migdal.util.Utils;
 
 @Service
 public class ImageManager implements EntryManagerBase<Image> {
+
+    @Inject
+    private Config config;
 
     @Inject
     private RequestContext requestContext;
@@ -87,6 +94,12 @@ public class ImageManager implements EntryManagerBase<Image> {
 
     public void delete(long id) {
         imageRepository.deleteById(id);
+    }
+
+    @Daily
+    public void deleteObsolete() {
+        imageRepository.deleteObsolete(
+                Timestamp.from(Instant.now().minus(config.getInnerImageTimeout(), ChronoUnit.DAYS)));
     }
 
 }

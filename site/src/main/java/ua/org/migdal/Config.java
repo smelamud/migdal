@@ -24,6 +24,7 @@ public class Config {
     private int imageFileTimeout;
     private short innerImageMaxWidth;
     private short innerImageMaxHeight;
+    private int innerImageTimeout;
     private int tinySize;
     private int tinySizeMinus;
     private int tinySizePlus;
@@ -177,6 +178,14 @@ public class Config {
 
     public void setInnerImageMaxHeight(short innerImageMaxHeight) {
         this.innerImageMaxHeight = innerImageMaxHeight;
+    }
+
+    public int getInnerImageTimeout() {
+        return innerImageTimeout;
+    }
+
+    public void setInnerImageTimeout(int innerImageTimeout) {
+        this.innerImageTimeout = innerImageTimeout;
     }
 
     public int getTinySize() {

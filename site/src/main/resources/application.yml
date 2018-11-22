@@ -86,6 +86,8 @@ migdal:
   innerImageMaxWidth: 900
   innerImageMaxHeight: 900
 
+  innerImageTimeout: 7 # Maximal lifetime (in days) of an inner image not placed in the article
+
   # Text cropping parameters for "tiny size"
   tinySize: 64
   tinySizeMinus: 32
