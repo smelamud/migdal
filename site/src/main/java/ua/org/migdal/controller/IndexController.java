@@ -364,4 +364,9 @@ public class IndexController {
         }
     }
 
+    @GetMapping("/api/help/text")
+    public String helpText() {
+        return "help-text";
+    }
+
 }
