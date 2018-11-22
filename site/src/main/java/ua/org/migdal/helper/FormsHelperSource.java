@@ -481,8 +481,6 @@ public class FormsHelperSource {
                 HelperUtils.appendAttr(buf, "multiple", true);
             }
             buf.append('>');
-        } else if (style.equals("box")) {
-            buf.append("<table border=\"0\" cellspacing=\"0\" cellpadding=\"3\" width=\"100%\">");
         }
         options.data("FormSelectName", name);
         options.data("FormSelectStyle", style);
@@ -494,8 +492,6 @@ public class FormsHelperSource {
         StringBuilder buf = new StringBuilder();
         if (style.equals("list")) {
             buf.append("</select>");
-        } else if (style.equals("box")) {
-            buf.append("</table>");
         }
         buf.append(formLineEnd());
         return new SafeString(buf);
@@ -537,8 +533,6 @@ public class FormsHelperSource {
         } else if (style.equals("box")) {
             CharSequence id = new SafeString((String) options.get("FormSelectName") + HelperUtils.he(value));
             String type = options.get("FormSelectMultiple") ? "checkbox" : "radio";
-            buf.append("<tr>");
-            buf.append("<td width=\"1\">");
             buf.append("<input");
             HelperUtils.appendAttr(buf, "id", id);
             HelperUtils.appendAttr(buf, "type", type);
@@ -550,13 +544,11 @@ public class FormsHelperSource {
                 HelperUtils.appendAttr(buf, "checked", selected);
             }
             buf.append('>');
-            buf.append("</td>");
-            buf.append("<td><label");
+            buf.append("<label style=\"position: relative; top: -0.4ex; padding-left: 3px\"");
             HelperUtils.appendAttr(buf, "for", id);
             buf.append('>');
             HelperUtils.safeAppend(buf, title);
-            buf.append("</label></td>");
-            buf.append("</tr>");
+            buf.append("</label><br>");
         }
         return new SafeString(buf);
     }
