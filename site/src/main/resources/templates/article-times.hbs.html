@@ -20,7 +20,7 @@
             {{votePanel align="right" id=posting.id rating=posting.rating}}
             <h1>
                 {{> timesMark }}
-                {{topicLink posting}}<br>
+                <div class="visible-print-block">{{topicLink posting}}</div>
                 {{posting.subject}}
                 {{#if posting.author}}
                     <div class="author">{{mtext posting.authorMtext}}</div>
