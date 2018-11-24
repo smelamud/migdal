@@ -136,26 +136,8 @@
                             <executable>lessc</executable>
                             <arguments>
                                 <argument>-x</argument>
-                                <argument>--global-var=flavour=default</argument>
                                 <argument>main.less</argument>
-                                <argument>${project.build.outputDirectory}/static/css/main-default.css</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>LESS compile print style</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <workingDirectory>${basedir}/src/main/less</workingDirectory>
-                            <executable>lessc</executable>
-                            <arguments>
-                                <argument>-x</argument>
-                                <argument>--global-var=flavour=print</argument>
-                                <argument>main.less</argument>
-                                <argument>${project.build.outputDirectory}/static/css/main-print.css</argument>
+                                <argument>${project.build.outputDirectory}/static/css/main.css</argument>
                             </arguments>
                         </configuration>
                     </execution>

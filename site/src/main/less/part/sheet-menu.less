@@ -1,7 +1,6 @@
 .menu {
 	padding-top: 1ex;
 	clear: both;
-	.not-print ();
 
     &-tabs {
         display: flex;
@@ -15,5 +14,11 @@
         color: @menu_date;
         font: bold 12pt @times;
         text-align: right;
+    }
+}
+
+@media only print {
+    .menu {
+        display: none;
     }
 }

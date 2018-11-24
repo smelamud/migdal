@@ -1,7 +1,12 @@
 #top {
 	width: 100%;
 	text-align: right;
-	.not-print ();
+}
+
+@media only print {
+    #top {
+        display: none;
+    }
 }
 
 #logo {

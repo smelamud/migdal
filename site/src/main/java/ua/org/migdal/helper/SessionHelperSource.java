@@ -19,7 +19,7 @@ public class SessionHelperSource {
 
     public CharSequence notPrint(Options options) throws IOException {
         StringBuilder buf = new StringBuilder();
-        buf.append("<div class=\"not-print\">");
+        buf.append("<div class=\"hidden-print\">");
         buf.append(options.apply(options.fn));
         buf.append("</div>");
         return buf;

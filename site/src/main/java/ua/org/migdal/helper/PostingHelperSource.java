@@ -162,8 +162,8 @@ public class PostingHelperSource {
             buf.append(discussLink(posting));
             buf.append("</div>");
         }
-        buf.append("<div class=\"clear-floats\"></div>");
         buf.append("</div>");
+        buf.append("<div class=\"clear-floats\"></div>");
         return new SafeString(buf);
     }
 
@@ -400,7 +400,7 @@ public class PostingHelperSource {
     }
 
     public CharSequence postingShare() {
-        return new SafeString("<div class=\"addthis_inline_share_toolbox not-print\"></div>");
+        return new SafeString("<div class=\"addthis_inline_share_toolbox hidden-print\"></div>");
     }
 
     public CharSequence postingPartial(Posting posting, Options options) throws IOException {

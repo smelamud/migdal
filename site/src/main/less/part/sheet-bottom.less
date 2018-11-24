@@ -4,7 +4,6 @@
 	padding-right: 1ex;
 	color: @bottom;
 	font-size: 8pt;
-    .not-print ();
 
     IMG {
         vertical-align: top;
@@ -30,5 +29,11 @@
         border-width: 0;
         border-top: 2px solid @bottom;
         width: 100%;
+    }
+}
+
+@media only print {
+    #bottom {
+        display: none;
     }
 }

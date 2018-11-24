@@ -3,7 +3,6 @@
     width: 100%;
     margin-top: 1ex;
     margin-bottom: 1ex;
-	.not-print ();
 
     .adder {
         float: left;
@@ -21,6 +20,12 @@
     .sorter {
         float: right;
         font-size: 8pt;
+    }
+}
+
+@media only print {
+    .batcher {
+        display: none;
     }
 }
 

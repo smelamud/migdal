@@ -2,7 +2,6 @@
     width: 64px;
     height: 12px;
     margin-bottom: 1ex;
-    .not-print ();
 
     .vote-button {
         display: inline-block;
@@ -19,6 +18,12 @@
     DIV.rating-minus, DIV.rating-zero, DIV.rating-plus {
         display: inline-block;
         width: 40px;
+    }
+}
+
+@media only print {
+    .vote-panel {
+        display: none;
     }
 }
 

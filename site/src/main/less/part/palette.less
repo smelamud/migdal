@@ -1,10 +1,8 @@
 @error_back: red;
 @error: white;
 
-.body-back () when (@flavour = default) {
-	background-color: @r_b;
-	background-image: url("/pics/b-back.gif");
-}
+@body_back: @r_b;
+@body_back_pic: "/pics/b-back.gif";
 
 @body_404_back: white;
 
@@ -30,22 +28,34 @@
 @nframe_back: @r_lm;
 @nframe_border: @mrd;
 
-.cframe when (@flavour = default) {
-	background-color: @cframe_back;
-	background-image: url(@cframe_back_pic);
-	border: solid 1px @cframe_border;
+.cframe-colors {
+    background-color: @cframe_back;
+    background-image: url(@cframe_back_pic);
+    border: solid 1px @cframe_border;
 }
 
-.eframe when (@flavour = default) {
-	background-color: @eframe_back;
-	background-image: url(@eframe_back_pic);
-	border: solid 2px @eframe_border;
+@media only screen {
+    .cframe {
+        .cframe-colors();
+    }
 }
 
-.nframe when (@flavour = default) {
-	background-color: @nframe_back;
-	border: solid 1px @nframe_border;
-	margin-bottom: 0.5ex;
+.eframe-colors {
+    background-color: @eframe_back;
+    background-image: url(@eframe_back_pic);
+    border: solid 2px @eframe_border;
+}
+
+.nframe-colors {
+    background-color: @nframe_back;
+    border: solid 1px @nframe_border;
+    margin-bottom: 0.5ex;
+}
+
+@media only screen {
+    .nframe {
+        .nframe-colors();
+    }
 }
 
 @glass_pic: "/pics/glass.png";
@@ -160,9 +170,8 @@
 @rating_zero: @gr;
 @rating_plus: @gn;
 
-.not-print when (@flavour = default) {
-}
-
-.not-print when (@flavour = print) {
-    display: none;
+@media only screen {
+    .flex-only-screen {
+        display: flex;
+    }
 }

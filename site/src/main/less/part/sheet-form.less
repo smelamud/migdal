@@ -1,7 +1,6 @@
 .form {
 	background-color: @form_title_back;
 	margin-top: 10px;
-	.not-print ();
 
     & > TBODY > TR > TD {
         padding: 1px;
@@ -77,5 +76,11 @@
         INPUT[type="text"] {
             margin: 3px;
         }
+    }
+}
+
+@media only print {
+    .form {
+        display: none;
     }
 }

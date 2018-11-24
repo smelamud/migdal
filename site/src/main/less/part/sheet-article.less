@@ -2,7 +2,6 @@
 	font-size: 9pt;
 
     .controls-line {
-        .not-print ();
 
         .controls {
             border-bottom: 1px solid @article_split;
@@ -20,6 +19,12 @@
                     text-decoration: underline;
                 }
             }
+        }
+    }
+
+    @media only print {
+        .controls-line {
+            display: none;
         }
     }
 

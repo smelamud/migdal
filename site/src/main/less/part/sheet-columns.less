@@ -1,25 +1,28 @@
-.page-layout when (@flavour = default) {
-    width: 100%;
-    display: flex;
-    align-items: start;
-    padding: 2px;
+@media only screen {
+    .page-layout {
+        width: 100%;
+        display: flex;
+        align-items: start;
+        padding: 2px;
+    }
 }
 
 .left-column {
-    .eframe();
+    .eframe-colors();
     flex: none;
     box-sizing: content-box;
     width: 150px;
     margin-right: 2px;
     padding: 5px;
-    .not-print ();
 }
 
-.center-column when (@flavour = default) {
-    .cframe ();
-    flex: auto;
-    display: flex;
-    align-items: start;
+@media only screen {
+    .center-column {
+        .cframe-colors();
+        flex: auto;
+        display: flex;
+        align-items: start;
+    }
 }
 
 .center-column-content {
@@ -31,10 +34,15 @@
 }
 
 .right-column {
-    .nframe ();
+    .nframe-colors();
     flex: none;
     width: 140px;
     margin: 5px;
     padding: 5px;
-    .not-print ();
+}
+
+@media only print {
+    .left-column, .right-column {
+        display: none;
+    }
 }

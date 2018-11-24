@@ -39,7 +39,6 @@
     width: 100px;
     text-align: center;
     padding-left: 10px;
-    .not-print ();
 
     .issue-further {
         display: flex;
@@ -66,8 +65,13 @@
     }
 }
 
+@media only print {
+    .mtimes-navigator {
+        display: none;
+    }
+}
+
 .timesnfo {
-    .nframe ();
 	padding: .5em;
 	margin: .5em;
     float: right;
@@ -86,6 +90,12 @@
             color: @timesnfo_hover;
             text-decoration: underline;
         }
+    }
+}
+
+@media only screen {
+    .timesnfo {
+        .nframe-colors ();
     }
 }
 

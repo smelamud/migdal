@@ -12,7 +12,6 @@
 }
 
 BODY {
-	.body-back ();
 	margin: 0;
 	font-size: 10pt;
 	font-family: @verdana;
@@ -21,6 +20,13 @@ BODY {
         background-color: @body_404_back;
         background-image: none;
         padding: 10px;
+    }
+}
+
+@media only screen {
+    BODY {
+        background-color: @body_back;
+        background-image: url(@body_back_pic);
     }
 }
 

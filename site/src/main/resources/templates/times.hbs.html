@@ -25,7 +25,7 @@
 {{/inline}}
 
 {{#*inline "selectIssue"}}
-    <div class="ninept not-print">
+    <div class="ninept hidden-print">
         Номер
         &nbsp;
         <select id="select-issue">
@@ -192,7 +192,7 @@
             <div class="nframe" style="padding: 5px; margin-top: 3ex">
                 {{> announce}}
             </div>
-            <div style="display: flex">
+            <div class="flex-only-screen">
                 <div class="nframe ninept" style="width: 170px; padding: 5px; align-self: start">
                     {{> timesInfo}}
                 </div>
