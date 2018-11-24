@@ -23,7 +23,7 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 
 import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
 
-import ua.org.migdal.controller.NoPrintInterceptor;
+import ua.org.migdal.controller.GlobalUriChangesInterceptor;
 import ua.org.migdal.controller.SaveCookiesInterceptor;
 import ua.org.migdal.controller.SubdomainInterceptor;
 import ua.org.migdal.controller.TrapInterceptor;
@@ -50,7 +50,7 @@ public class MigdalApplication implements WebMvcConfigurer {
     private TrapInterceptor trapInterceptor;
 
     @Inject
-    private NoPrintInterceptor noPrintInterceptor;
+    private GlobalUriChangesInterceptor globalUriChangesInterceptor;
 
     @Inject
     private SaveCookiesInterceptor saveCookiesInterceptor;
@@ -86,7 +86,7 @@ public class MigdalApplication implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(subdomainInterceptor);
         registry.addInterceptor(trapInterceptor).order(100); // To be executed after Hibernate session is created
-        registry.addInterceptor(noPrintInterceptor);
+        registry.addInterceptor(globalUriChangesInterceptor);
         registry.addInterceptor(saveCookiesInterceptor);
     }
 
