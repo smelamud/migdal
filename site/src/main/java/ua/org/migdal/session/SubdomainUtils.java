@@ -3,10 +3,8 @@ package ua.org.migdal.session;
 import java.util.Arrays;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Component;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import ua.org.migdal.Config;
 
@@ -52,18 +50,6 @@ public class SubdomainUtils {
         } else {
             return new SubdomainInfo(subdomain, String.join(".", subdomain, config.getSiteDomain()));
         }
-    }
-
-    public static UriComponentsBuilder createBuilderFromRequest(HttpServletRequest request) {
-        return UriComponentsBuilder
-                .fromHttpUrl(request.getRequestURL().toString())
-                .query(request.getQueryString());
-    }
-
-    public static UriComponentsBuilder createLocalBuilderFromRequest(HttpServletRequest request) {
-        return UriComponentsBuilder
-                .fromPath(request.getRequestURI())
-                .query(request.getQueryString());
     }
 
 }

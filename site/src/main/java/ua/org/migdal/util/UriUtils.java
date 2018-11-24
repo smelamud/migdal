@@ -1,5 +1,7 @@
 package ua.org.migdal.util;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.util.StringUtils;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -45,6 +47,18 @@ public class UriUtils {
         } catch (Exception e) {
             return "";
         }
+    }
+
+    public static UriComponentsBuilder createBuilderFromRequest(HttpServletRequest request) {
+        return UriComponentsBuilder
+                .fromHttpUrl(request.getRequestURL().toString())
+                .query(request.getQueryString());
+    }
+
+    public static UriComponentsBuilder createLocalBuilderFromRequest(HttpServletRequest request) {
+        return UriComponentsBuilder
+                .fromPath(request.getRequestURI())
+                .query(request.getQueryString());
     }
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import ua.org.migdal.Config;
 import ua.org.migdal.session.SubdomainUtils;
 import ua.org.migdal.session.SubdomainUtils.SubdomainInfo;
+import ua.org.migdal.util.UriUtils;
 
 @Component
 public class SubdomainInterceptor extends HandlerInterceptorAdapter {
@@ -47,7 +48,7 @@ public class SubdomainInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        UriComponentsBuilder builder = SubdomainUtils.createBuilderFromRequest(request);
+        UriComponentsBuilder builder = UriUtils.createBuilderFromRequest(request);
         UriComponents uriComponents = builder.build();
         SubdomainInfo subdomainInfo =
                 validatePath(subdomainUtils.validateSubdomain(uriComponents.getHost()), uriComponents.getPath());

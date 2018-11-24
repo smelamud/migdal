@@ -24,6 +24,7 @@ import ua.org.migdal.data.User;
 import ua.org.migdal.data.UserRight;
 import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.util.CatalogUtils;
+import ua.org.migdal.util.UriUtils;
 import ua.org.migdal.util.Utils;
 
 @RequestScope(proxyMode = ScopedProxyMode.INTERFACES)
@@ -151,9 +152,9 @@ public class RequestContextImpl implements RequestContext {
         }
         requestProcessed = true;
 
-        location = SubdomainUtils.createLocalBuilderFromRequest(request).build(true).toUriString();
+        location = UriUtils.createLocalBuilderFromRequest(request).build(true).toUriString();
         catalog = CatalogUtils.normalize(request.getRequestURI());
-        UriComponents uriComponents = SubdomainUtils.createBuilderFromRequest(request).build();
+        UriComponents uriComponents = UriUtils.createBuilderFromRequest(request).build();
         subdomain = subdomainUtils.validateSubdomain(uriComponents.getHost()).getSubdomain();
         port = uriComponents.getPort();
         ip = request.getRemoteAddr();

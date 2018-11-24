@@ -14,7 +14,7 @@ import ua.org.migdal.manager.OldIdManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.manager.UserManager;
-import ua.org.migdal.session.SubdomainUtils;
+import ua.org.migdal.util.UriUtils;
 
 @Component
 public class TrapInterceptor extends HandlerInterceptorAdapter {
@@ -36,7 +36,7 @@ public class TrapInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        UriComponentsBuilder builder = SubdomainUtils.createLocalBuilderFromRequest(request);
+        UriComponentsBuilder builder = UriUtils.createLocalBuilderFromRequest(request);
         if (!TrapHandler.fallsUnder(builder)) {
             return true;
         }
