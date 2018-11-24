@@ -162,6 +162,7 @@ public class PostingHelperSource {
             buf.append(discussLink(posting));
             buf.append("</div>");
         }
+        buf.append("<div class=\"clear-floats\"></div>");
         buf.append("</div>");
         buf.append("<div class=\"clear-floats\"></div>");
         return new SafeString(buf);
