@@ -33,10 +33,6 @@ public class UriUtils {
         return path;
     }
 
-    public static String normalizePath(String path) {
-        return normalizePath(path, false, Slash.ANY, Slash.ANY);
-    }
-
     public static String getUrlDomain(String url) {
         try {
             String host = UriComponentsBuilder.fromUriString(url).build().getHost().toLowerCase();
