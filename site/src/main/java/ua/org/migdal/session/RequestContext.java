@@ -15,6 +15,8 @@ public interface RequestContext {
 
     String getCatalog(int start, int length);
 
+    String getCatalog(int start);
+
     String getCatalogElement(int n);
 
     int getCatalogLength();

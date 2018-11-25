@@ -189,6 +189,11 @@ public class RequestContextImpl implements RequestContext {
     }
 
     @Override
+    public String getCatalog(int start) {
+        return CatalogUtils.sub(getCatalog(), start, getCatalogLength() - start);
+    }
+
+    @Override
     public String getCatalogElement(int n) {
         return CatalogUtils.element(getCatalog(), n);
     }

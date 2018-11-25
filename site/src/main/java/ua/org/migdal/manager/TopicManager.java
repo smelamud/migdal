@@ -74,6 +74,10 @@ public class TopicManager implements EntryManagerBase<Topic> {
         return topic;
     }
 
+    public boolean exists(long id) {
+        return topicRepository.existsById(id);
+    }
+
     public Topic get(long id) {
         return topicRepository.findById(id).orElse(null);
     }
