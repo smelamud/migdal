@@ -83,6 +83,10 @@ public class PostingManager implements EntryManagerBase<Posting> {
         return postingRepository.countByParentId(topicId);
     }
 
+    public boolean exists(long id) {
+        return postingRepository.existsById(id);
+    }
+
     public Posting get(long id) {
         return postingRepository.findById(id).orElse(null);
     }

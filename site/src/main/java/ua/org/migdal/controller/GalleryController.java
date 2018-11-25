@@ -10,7 +10,7 @@ import ua.org.migdal.manager.TopicManager;
 import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.session.RequestContext;
 
-/* This controller is used only for redirection from old URLs */
+/* This controller is used only for redirections from old URLs */
 
 @Controller
 public class GalleryController {
