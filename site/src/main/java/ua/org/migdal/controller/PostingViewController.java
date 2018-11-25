@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Image;
 import ua.org.migdal.data.InnerImage;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.form.ForumForm;
+import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.CrossEntryManager;
 import ua.org.migdal.manager.ForumManager;
@@ -30,6 +32,9 @@ import ua.org.migdal.session.RequestContext;
 
 @Controller
 public class PostingViewController {
+
+    @Inject
+    private GrpEnum grpEnum;
 
     @Inject
     private RequestContext requestContext;
@@ -70,6 +75,9 @@ public class PostingViewController {
         long id = identManager.postingIdFromRequestPath();
         Posting posting = postingManager.beg(id);
         if (posting != null) {
+            if (requestContext.getCatalog().startsWith("forum/") && posting.getGrp() != grpEnum.grpValue("FORUMS")) {
+                return redirectToPosting(posting);
+            }
             return generalPostingView(posting, model, offset, tid);
         }
         posting = eventController.begDailyNewsPosting(requestContext.getCatalog());
@@ -78,6 +86,13 @@ public class PostingViewController {
         }
 
         throw new PageNotFoundException();
+    }
+
+    private String redirectToPosting(Posting posting) {
+        return UriComponentsBuilder.fromUriString(requestContext.getLocation())
+                                   .replacePath("redirect:" + posting.getGrpDetailsHref())
+                                   .build(true)
+                                   .toUriString();
     }
 
     private String generalPostingView(
