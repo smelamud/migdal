@@ -316,6 +316,7 @@ public class EventController {
 
         indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
         earController.addEars(model);
+        indexController.addSeeAlso(topic.getId(), model);
 
         return "gallery";
     }

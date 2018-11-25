@@ -394,6 +394,7 @@ public class MigdalController {
 
         indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
         earController.addEars(model);
+        indexController.addSeeAlso(topic.getId(), model);
 
         return "gallery";
     }
@@ -500,6 +501,7 @@ public class MigdalController {
 
         libraryNoveltiesLocationInfo(model);
 
+        indexController.addSeeAlso(topic.getId(), model);
         earController.addEars(model);
         indexController.addPostings("PRINTINGS", topic, null, new String[] {"PRINTINGS"}, topic.isPostable(),
                                     offset, 20, model);
@@ -601,6 +603,7 @@ public class MigdalController {
 
         indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
         earController.addEars(model);
+        indexController.addSeeAlso(topic.getId(), model);
 
         return "gallery";
     }
@@ -667,6 +670,7 @@ public class MigdalController {
 
         indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
         earController.addEars(model);
+        indexController.addSeeAlso(topic.getId(), model);
 
         return "gallery";
     }
@@ -764,6 +768,7 @@ public class MigdalController {
 
         indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
         earController.addEars(model);
+        indexController.addSeeAlso(topic.getId(), model);
 
         return "gallery";
     }
@@ -881,6 +886,7 @@ public class MigdalController {
 
         indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
         earController.addEars(model);
+        indexController.addSeeAlso(topic.getId(), model);
 
         return "gallery";
     }
@@ -948,7 +954,6 @@ public class MigdalController {
 
     @GetMapping("/migdal/methodology/books")
     public String methodologyBooks(Model model) throws PageNotFoundException {
-
         Topic topic = topicManager.beg(identManager.idOrIdent("migdal.methodology"));
         if (topic == null) {
             throw new PageNotFoundException();
@@ -957,6 +962,7 @@ public class MigdalController {
         methodologyBooksLocationInfo(model);
 
         model.addAttribute("topic", topic);
+        indexController.addSeeAlso(topic.getId(), model);
         earController.addEars(model);
         indexController.addPostings("BOOKS", topic, null, new String[] {"BOOKS"}, topic.isPostable(),
                 0, Integer.MAX_VALUE, model);
