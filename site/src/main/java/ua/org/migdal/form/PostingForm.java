@@ -48,51 +48,60 @@ public class PostingForm implements Serializable {
 
     private long grp;
 
+    @Size(max = 5)
     private String priority = "0";
 
     private long parentId;
 
-    @Size(max=75)
+    @Size(max = 75)
     private String ident = ""; // empty is null
 
-    @Size(max=250)
+    @Size(max = 250)
     private String subject = "";
 
-    @Size(max=250)
+    @Size(max = 250)
     private String author = "";
 
-    @Size(max=250)
+    @Size(max = 250)
     private String source = "";
 
-    @Size(max=250)
+    @Size(max = 250)
     private String comment0 = "";
 
+    @Size(max = 4096)
     private String body = "";
 
     private int bodyFormat = TextFormat.PLAIN.getValue();
 
+    @Size(max = 5)
     private String index1 = "0";
 
+    @Size(max = 5)
     private String index2 = "0";
 
-    @Size(max=7)
+    @Size(max = 7)
     private String lang = "";
 
-    @Size(max=250)
+    @Size(max = 250)
     private String url = "";
 
+    @Size(max = 250)
     private String title = "";
 
+    @Size(max = 1024 * 1024)
     private String largeBody = "";
 
     private int largeBodyFormat = TextFormat.PLAIN.getValue();
 
+    @Size(max = 40)
     private String imageUuid = "";
 
     @NotBlank
+    @Size(max = 16)
     private String sentDate = DATE_FORMATTER.format(Utils.now().toLocalDateTime());
 
     @NotBlank
+    @Size(max = 16)
     private String sentTime = TIME_FORMATTER.format(Utils.now().toLocalDateTime());
 
     private boolean hidden;
@@ -101,17 +110,18 @@ public class PostingForm implements Serializable {
 
     private short relogin;
 
-    @Size(max=30)
+    @Size(max = 30)
     private String guestLogin = "";
 
-    @Size(max=30)
+    @Size(max = 30)
     private String login = "";
 
-    @Size(max=40)
+    @Size(max = 40)
     private String password = "";
 
     private boolean remember;
 
+    @Size(max = 512)
     private String captchaResponse;
 
     public PostingForm() {

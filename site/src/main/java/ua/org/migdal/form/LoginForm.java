@@ -9,11 +9,11 @@ public class LoginForm implements Serializable{
     private static final long serialVersionUID = 23343297276290154L;
 
     @NotBlank
-    @Size(max=30)
+    @Size(max = 30)
     private String login = "";
 
     @NotBlank
-    @Size(max=40)
+    @Size(max = 40)
     private String password = "";
 
     private boolean myComputer = true;

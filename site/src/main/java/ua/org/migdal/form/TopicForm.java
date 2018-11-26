@@ -30,35 +30,35 @@ public class TopicForm implements Serializable {
 
     private long upId;
 
-    @Size(max=75)
+    @Size(max = 75)
     private String ident = "";
 
     @NotBlank
-    @Size(max=70)
+    @Size(max = 70)
     private String subject = "";
 
-    @Size(max=70)
+    @Size(max = 70)
     private String comment0 = "";
 
-    @Size(max=70)
+    @Size(max = 70)
     private String comment1 = "";
 
-    @Size(max=6)
+    @Size(max = 6)
     private String year = "";
 
-    @Size(max=4096)
+    @Size(max = 4096)
     private String body = "";
 
     @NotBlank
-    @Size(max=30)
+    @Size(max = 30)
     private String userName = "";
 
     @NotBlank
-    @Size(max=30)
+    @Size(max = 30)
     private String groupName = "";
 
     @NotBlank
-    @Size(max=17)
+    @Size(max = 17)
     private String permString = "";
 
     private long[] grps = new long[0];

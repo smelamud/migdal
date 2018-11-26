@@ -53,7 +53,7 @@ public class AdminPostingsForm implements Serializable {
 
     private long[] topicIds = new long[0];
     private int[] recursive = new int[0];
-    private long[] grps = new long[0];
+    private long[] grps;
     private boolean useIndex1;
     private long index1;
 

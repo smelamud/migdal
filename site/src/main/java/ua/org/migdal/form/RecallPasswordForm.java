@@ -9,7 +9,7 @@ public class RecallPasswordForm implements Serializable {
     private static final long serialVersionUID = 7193305452391657545L;
 
     @NotBlank
-    @Size(max=30)
+    @Size(max = 30)
     private String login = "";
 
     public RecallPasswordForm() {

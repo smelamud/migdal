@@ -30,45 +30,47 @@ public class UserForm implements Serializable {
     private long id;
 
     @NotBlank
-    @Size(max=30)
-    @Pattern(regexp=".*[^0-9].*")
+    @Size(max = 30)
+    @Pattern(regexp = ".*[^0-9].*")
     private String newLogin = "";
 
-    @Size(max=40)
+    @Size(max = 40)
     private String newPassword = "";
 
-    @Size(max=40)
+    @Size(max = 40)
     private String dupPassword = "";
 
     @NotBlank
-    @Size(max=30)
+    @Size(max = 30)
     private String name = "";
 
-    @Size(max=30)
+    @Size(max = 30)
     private String jewishName = "";
 
     @NotBlank
-    @Size(max=30)
+    @Size(max = 30)
     private String surname = "";
 
     private boolean gender;
 
-    @Size(max=4096)
+    @Size(max = 4096)
     private String info = "";
 
     private long[] rights;
 
     @NotBlank
     @Email
-    @Size(max=70)
+    @Size(max = 70)
     private String email = "";
 
     private boolean hideEmail;
 
+    @Size(max = 6)
     private String birthYear = "";
 
     private int birthMonth;
 
+    @Size(max = 4)
     private String birthDay = "";
 
     private boolean emailEnabled = true;
@@ -81,6 +83,7 @@ public class UserForm implements Serializable {
 
     private boolean hasPersonal;
 
+    @Size(max = 512)
     private String captchaResponse;
 
     public UserForm() {

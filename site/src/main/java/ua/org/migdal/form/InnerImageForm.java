@@ -3,6 +3,8 @@ package ua.org.migdal.form;
 import java.beans.Transient;
 import java.io.Serializable;
 
+import javax.validation.constraints.Size;
+
 import ua.org.migdal.Config;
 import ua.org.migdal.data.Image;
 import ua.org.migdal.data.ImagePlacement;
@@ -30,16 +32,20 @@ public class InnerImageForm implements Serializable {
 
     private short placement = ImagePlacement.BOTTOMLEFT;
 
+    @Size(max = 40)
     private String imageUuid = "";
 
+    @Size(max = 250)
     private String title = "";
 
     private boolean noResize;
 
     private boolean thumbnail;
 
+    @Size(max = 5)
     private String thumbnailX = "";
 
+    @Size(max = 5)
     private String thumbnailY = "";
 
     public InnerImageForm() {

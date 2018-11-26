@@ -9,11 +9,11 @@ public class GroupAddForm implements Serializable {
     private static final long serialVersionUID = 9104492377890243778L;
 
     @NotBlank
-    @Size(max=30)
+    @Size(max = 30)
     private String groupName = "";
 
     @NotBlank
-    @Size(max=30)
+    @Size(max = 30)
     private String userName = "";
 
     public GroupAddForm() {

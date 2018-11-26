@@ -23,7 +23,7 @@ public class ForumForm implements Serializable {
     private long parentId;
 
     @NotBlank
-    @Size(max=4096)
+    @Size(max = 4096)
     private String body = "";
 
     private boolean hidden;
@@ -32,17 +32,18 @@ public class ForumForm implements Serializable {
 
     private short relogin;
 
-    @Size(max=30)
+    @Size(max = 30)
     private String guestLogin = "";
 
-    @Size(max=30)
+    @Size(max = 30)
     private String login = "";
 
-    @Size(max=40)
+    @Size(max = 40)
     private String password = "";
 
     private boolean remember;
 
+    @Size(max = 512)
     private String captchaResponse;
 
     public ForumForm() {

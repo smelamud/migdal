@@ -20,13 +20,13 @@ public class ChmodForm implements Serializable {
 
     private int entryType;
 
-    @Size(max=30)
+    @Size(max = 30)
     private String userName = "";
 
-    @Size(max=30)
+    @Size(max = 30)
     private String groupName = "";
 
-    @Size(max=17)
+    @Size(max = 17)
     private String permString = "";
 
     private boolean recursive;
