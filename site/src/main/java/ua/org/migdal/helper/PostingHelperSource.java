@@ -174,7 +174,7 @@ public class PostingHelperSource {
         boolean noClear = HelperUtils.boolArg(options.hash("noClear"));
         boolean noMargin = HelperUtils.boolArg(options.hash("noMargin"));
         Object imageTitle = options.hash("imageTitle");
-        CharSequence rel = options.hash("rel");
+        CharSequence galleryId = options.hash("galleryId");
         Object title = options.hash("title");
         CharSequence titleLargeId = options.hash("titleLargeId");
         CharSequence titleLarge = options.hash("titleLarge");
@@ -187,7 +187,7 @@ public class PostingHelperSource {
         boolean controls = HelperUtils.boolArg(options.hash("controls"));
         boolean hollow = HelperUtils.boolArg(options.hash("hollow"));
 
-        return entryImage(posting, align, noClear, noMargin, imageTitle, rel, title, titleLargeId, titleLarge,
+        return entryImage(posting, align, noClear, noMargin, imageTitle, galleryId, title, titleLargeId, titleLarge,
                 fixedWidth, fixedHeight, enlargeAlways, href, editHref, rmHref, controls, hollow);
     }
 
@@ -196,7 +196,7 @@ public class PostingHelperSource {
         CharSequence align = options.hash("align");
         boolean noClear = HelperUtils.boolArg(options.hash("noClear"));
         boolean noMargin = HelperUtils.boolArg(options.hash("noMargin"));
-        CharSequence rel = options.hash("rel");
+        CharSequence galleryId = options.hash("galleryId");
         Object title = options.hash("title");
         String titleLargeId = String.format("picture-controls-%d", posting.getId());
         long fixedWidth = HelperUtils.intArg("fixedWidth", options.hash("fixedWidth"));
@@ -205,7 +205,7 @@ public class PostingHelperSource {
         boolean hollow = HelperUtils.boolArg(options.hash("hollow"));
 
         StringBuilder buf = new StringBuilder();
-        buf.append(entryImage(posting, align, noClear, noMargin, null, rel, title, titleLargeId, null,
+        buf.append(entryImage(posting, align, noClear, noMargin, null, galleryId, title, titleLargeId, null,
                 fixedWidth, fixedHeight, true, null, editHref, null, true, hollow));
         buf.append(String.format("<div id=\"picture-controls-%d\" class=\"picture-controls\">", posting.getId()));
         buf.append(voteHelperSource.votePanel(posting.getId(), (long) posting.getRating(), "right"));
@@ -242,7 +242,7 @@ public class PostingHelperSource {
             boolean noClear,
             boolean noMargin,
             Object imageTitle,
-            CharSequence rel,
+            CharSequence galleryId,
             Object title,
             CharSequence titleLargeId,
             CharSequence titleLarge,
@@ -272,7 +272,7 @@ public class PostingHelperSource {
                 } else if (!StringUtils.isEmpty(titleLarge)) {
                     HelperUtils.appendAttr(buf, "data-title-large", titleLarge);
                 }
-                HelperUtils.appendAttr(buf, "data-fancybox", rel);
+                HelperUtils.appendAttr(buf, "data-fancybox", galleryId);
                 buf.append('>');
             } else {
                 buf.append("<a");

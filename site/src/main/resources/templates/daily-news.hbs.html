@@ -69,8 +69,8 @@
                             {{#if @even}}
                                 <p>
                                     {{#assign "pictureTitle"}}{{mtext titleMtext}}{{/assign}}
-                                    {{#assign "rel"}}gallery-{{event.id}}{{/assign}}
-                                    {{picture posting=this title=pictureTitle rel=rel}}
+                                    {{#assign "galleryId"}}gallery-{{event.id}}{{/assign}}
+                                    {{picture posting=this title=pictureTitle galleryId=galleryId}}
                                 </p>
                             {{/if}}
                         {{/each}}
@@ -105,8 +105,8 @@
                             {{#if @odd}}
                                 <p>
                                     {{#assign "pictureTitle"}}{{mtext titleMtext}}{{/assign}}
-                                    {{#assign "rel"}}gallery-{{event.id}}{{/assign}}
-                                    {{picture posting=this title=pictureTitle rel=rel}}
+                                    {{#assign "galleryId"}}gallery-{{event.id}}{{/assign}}
+                                    {{picture posting=this title=pictureTitle galleryId=galleryId}}
                                 </p>
                             {{/if}}
                         {{/each}}
