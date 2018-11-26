@@ -1,5 +1,5 @@
 function voteClick(event) {
-    id = $(this).attr("data-id");
+    id = $(this).data("id");
     idClass = "rating-" + id;
     href = "/api/posting/" + id + "/vote/";
 
@@ -11,7 +11,7 @@ function voteClick(event) {
 
     $.post(href,
         {
-            vote: $(this).attr("data-value")
+            vote: $(this).data("value")
         },
         function(data) {
             if (data.rating === 0) {

@@ -11,11 +11,11 @@ function enlargeInit() {
         },
 
         caption: function() {
-            var title_id = $(this).attr('data-title-large-id');
-            if (title_id) {
-                return $("#" + title_id).html();
+            var titleId = $(this).data("title-large-id");
+            if (titleId) {
+                return $("#" + titleId).html();
             } else {
-                return $(this).attr('data-title-large');
+                return $(this).data("title-large");
             }
         },
 

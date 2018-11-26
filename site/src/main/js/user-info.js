@@ -12,7 +12,7 @@ function userInfoInit(root) {
     $(elements).qtip({
         content: {
             text: function(event, api) {
-                var id = $(this).attr("data-id");
+                var id = $(this).data("id");
                 if (!window.userInfo) {
                     window.userInfo = {};
                 }
