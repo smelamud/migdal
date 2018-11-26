@@ -68,7 +68,7 @@ public class ImageManager implements EntryManagerBase<Image> {
     public void store(
             Image image,
             Consumer<Image> applyChanges,
-            boolean newForum,
+            boolean newImage,
             boolean trackChanged,
             boolean catalogChanged) {
 
@@ -79,9 +79,9 @@ public class ImageManager implements EntryManagerBase<Image> {
         saveAndFlush(image); /* We need to have the record in DB to know ID after this point */
 
         String newTrack = TrackUtils.track(image.getId(), image.getUp().getTrack());
-        if (newForum) {
+        if (newImage) {
             trackManager.setTrackById(image.getId(), newTrack);
-            String newCatalog = CatalogUtils.catalog(EntryType.FORUM, image.getId(), "", 0, image.getUp().getCatalog());
+            String newCatalog = CatalogUtils.catalog(EntryType.COMMENT, image.getId(), "", 0, image.getUp().getCatalog());
             catalogManager.setCatalogById(image.getId(), newCatalog);
         }
         if (trackChanged) {

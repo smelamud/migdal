@@ -8,10 +8,10 @@
     </div>
     <div class="center-column">
         <div class="center-column-content">
-            {{> (postingPartial posting) posting=posting showTopic=true showDiscuss=false}}
+            {{> (postingPartial posting) posting=posting showTopic=true showComment=false}}
             {{#notEnglish}}
                 <br>
-                {{> part/forums forums=comments posting=posting}}
+                {{> part/comments comments=comments posting=posting}}
             {{/notEnglish}}
         </div>
     </div>

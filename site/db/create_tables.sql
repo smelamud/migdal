@@ -55,7 +55,7 @@ ALTER TABLE public.chat_messages OWNER TO migdal;
 
 CREATE TABLE public.content_versions (
     postings_version integer NOT NULL,
-    forums_version integer NOT NULL,
+    comments_version integer NOT NULL,
     topics_version integer NOT NULL,
     id bigint NOT NULL
 );
@@ -145,11 +145,11 @@ CREATE TABLE public.entries (
     creator_id bigint,
     modifier_id bigint,
     modbits bigint DEFAULT '0'::bigint NOT NULL,
-    answers integer DEFAULT 0 NOT NULL,
-    last_answer timestamp with time zone,
-    last_answer_id bigint,
-    last_answer_user_id bigint,
-    last_answer_guest_login character varying(30) NOT NULL,
+    comments integer DEFAULT 0 NOT NULL,
+    last_comment timestamp with time zone,
+    last_comment_id bigint,
+    last_comment_user_id bigint,
+    last_comment_guest_login character varying(30) NOT NULL,
     small_image bigint,
     small_image_x smallint DEFAULT '0'::smallint NOT NULL,
     small_image_y smallint DEFAULT '0'::smallint NOT NULL,
@@ -205,7 +205,7 @@ CREATE TABLE public.html_cache (
     content text NOT NULL,
     deadline timestamp with time zone,
     postings_version integer,
-    forums_version integer,
+    comments_version integer,
     topics_version integer
 );
 
@@ -534,10 +534,10 @@ CREATE INDEX chat_messages_sent_idx ON public.chat_messages USING btree (sent);
 
 
 --
--- Name: entries_answers_idx; Type: INDEX; Schema: public; Owner: migdal
+-- Name: entries_comments_idx; Type: INDEX; Schema: public; Owner: migdal
 --
 
-CREATE INDEX entries_answers_idx ON public.entries USING btree (answers);
+CREATE INDEX entries_comments_idx ON public.entries USING btree (comments);
 
 
 --
@@ -597,10 +597,10 @@ CREATE INDEX entries_large_image_idx ON public.entries USING btree (large_image)
 
 
 --
--- Name: entries_last_answer_idx; Type: INDEX; Schema: public; Owner: migdal
+-- Name: entries_last_comment_idx; Type: INDEX; Schema: public; Owner: migdal
 --
 
-CREATE INDEX entries_last_answer_idx ON public.entries USING btree (last_answer);
+CREATE INDEX entries_last_comment_idx ON public.entries USING btree (last_comment);
 
 
 --
@@ -982,19 +982,19 @@ ALTER TABLE ONLY public.entries
 
 
 --
--- Name: entries entries_last_answer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: entries entries_last_comment_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY public.entries
-    ADD CONSTRAINT entries_last_answer_id_fkey FOREIGN KEY (last_answer_id) REFERENCES public.entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT entries_last_comment_id_fkey FOREIGN KEY (last_comment_id) REFERENCES public.entries(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
--- Name: entries entries_last_answer_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
+-- Name: entries entries_last_comment_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: migdal
 --
 
 ALTER TABLE ONLY public.entries
-    ADD CONSTRAINT entries_last_answer_user_id_fkey FOREIGN KEY (last_answer_user_id) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT entries_last_comment_user_id_fkey FOREIGN KEY (last_comment_user_id) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --

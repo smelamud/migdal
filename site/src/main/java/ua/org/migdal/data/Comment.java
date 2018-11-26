@@ -11,18 +11,18 @@ import ua.org.migdal.util.Utils;
 
 @Entity
 @DiscriminatorValue("2")
-public class Forum extends Entry {
+public class Comment extends Entry {
 
-    public Forum() {
+    public Comment() {
     }
 
-    public Forum(Posting posting, RequestContext requestContext) {
+    public Comment(Posting posting, RequestContext requestContext) {
         setParent(posting);
         setUp(posting);
         setUser(requestContext.isLogged() ? requestContext.getUser() : requestContext.getRealUser());
         if (posting != null) {
             setGroup(posting.getGroup());
-            setPerms(Config.getInstance().getDefaultForumPerms());
+            setPerms(Config.getInstance().getDefaultCommentPerms());
         }
         setSent(Utils.now());
     }
@@ -43,7 +43,7 @@ public class Forum extends Entry {
             return "hierarchyNoParent";
         }
         if (Hibernate.getClass(parent) != Posting.class
-                || parent.getId() != up.getId() && Hibernate.getClass(up) != Forum.class) {
+                || parent.getId() != up.getId() && Hibernate.getClass(up) != Comment.class) {
             return "hierarchyIncorrect";
         }
         return null;

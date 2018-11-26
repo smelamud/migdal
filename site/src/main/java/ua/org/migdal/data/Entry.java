@@ -252,20 +252,20 @@ public class Entry implements TreeElement {
     private long modbits;
 
     @NotNull
-    private long answers;
+    private long comments;
 
-    @Column(name="last_answer")
-    private Timestamp lastAnswerTimestamp;
-
-    @ManyToOne(fetch=FetchType.LAZY)
-    private Entry lastAnswer;
+    @Column(name="last_comment")
+    private Timestamp lastCommentTimestamp;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    private User lastAnswerUser;
+    private Entry lastComment;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    private User lastCommentUser;
 
     @NotNull
     @Size(max=30)
-    private String lastAnswerGuestLogin = "";
+    private String lastCommentGuestLogin = "";
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="small_image")
@@ -1054,44 +1054,44 @@ public class Entry implements TreeElement {
         setModbits(getModbits() | modbit.getValue());
     }
 
-    public long getAnswers() {
-        return answers;
+    public long getComments() {
+        return comments;
     }
 
-    public void setAnswers(long answers) {
-        this.answers = answers;
+    public void setComments(long comments) {
+        this.comments = comments;
     }
 
-    public Timestamp getLastAnswerTimestamp() {
-        return lastAnswerTimestamp;
+    public Timestamp getLastCommentTimestamp() {
+        return lastCommentTimestamp;
     }
 
-    public void setLastAnswerTimestamp(Timestamp lastAnswerTimestamp) {
-        this.lastAnswerTimestamp = lastAnswerTimestamp;
+    public void setLastCommentTimestamp(Timestamp lastCommentTimestamp) {
+        this.lastCommentTimestamp = lastCommentTimestamp;
     }
 
-    public Entry getLastAnswer() {
-        return lastAnswer;
+    public Entry getLastComment() {
+        return lastComment;
     }
 
-    public void setLastAnswer(Entry lastAnswer) {
-        this.lastAnswer = lastAnswer;
+    public void setLastComment(Entry lastComment) {
+        this.lastComment = lastComment;
     }
 
-    public User getLastAnswerUser() {
-        return lastAnswerUser;
+    public User getLastCommentUser() {
+        return lastCommentUser;
     }
 
-    public void setLastAnswerUser(User lastAnswerUser) {
-        this.lastAnswerUser = lastAnswerUser;
+    public void setLastCommentUser(User lastCommentUser) {
+        this.lastCommentUser = lastCommentUser;
     }
 
-    public String getLastAnswerGuestLogin() {
-        return lastAnswerGuestLogin;
+    public String getLastCommentGuestLogin() {
+        return lastCommentGuestLogin;
     }
 
-    public void setLastAnswerGuestLogin(String lastAnswerGuestLogin) {
-        this.lastAnswerGuestLogin = lastAnswerGuestLogin;
+    public void setLastCommentGuestLogin(String lastCommentGuestLogin) {
+        this.lastCommentGuestLogin = lastCommentGuestLogin;
     }
 
     public ImageFile getSmallImage() {
@@ -1239,9 +1239,9 @@ public class Entry implements TreeElement {
     @PreRemove
     public void preRemove() {
         if (getParent() != null
-                && getParent().getLastAnswer() != null
-                && getParent().getLastAnswer().getId() == getId()) {
-            getParent().setLastAnswer(null);
+                && getParent().getLastComment() != null
+                && getParent().getLastComment().getId() == getId()) {
+            getParent().setLastComment(null);
         }
     }
 

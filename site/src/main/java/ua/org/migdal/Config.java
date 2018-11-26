@@ -47,7 +47,7 @@ public class Config {
     private long rootTopicPerms;
     private long rootTopicModbits;
     private long defaultPostingPerms;
-    private long defaultForumPerms;
+    private long defaultCommentPerms;
     private String captchaPublicKey;
     private String captchaSecretKey;
     private boolean htmlCache;
@@ -365,12 +365,12 @@ public class Config {
         this.defaultPostingPerms = defaultPostingPerms;
     }
 
-    public long getDefaultForumPerms() {
-        return defaultForumPerms;
+    public long getDefaultCommentPerms() {
+        return defaultCommentPerms;
     }
 
-    public void setDefaultForumPerms(long defaultForumPerms) {
-        this.defaultForumPerms = defaultForumPerms;
+    public void setDefaultCommentPerms(long defaultCommentPerms) {
+        this.defaultCommentPerms = defaultCommentPerms;
     }
 
     public String getCaptchaPublicKey() {

@@ -57,7 +57,7 @@
             <div style="flex: auto">
                 {{votePanel align="right" id=cover.id rating=cover.rating}}
                 {{mtext cover.bodyMtext}}
-                {{postingControls posting=cover showDiscuss=true}}
+                {{postingControls posting=cover showComment=true}}
             </div>
         </div>
     {{/if}}
@@ -209,7 +209,7 @@
                                 </div>
                             {{/if}}
                         {{/ifne}}
-                        {{> part/posting-times posting=. showTopic=false showDiscuss=true}}
+                        {{> part/posting-times posting=. showTopic=false showComment=true}}
                     {{/each}}
                     {{#if articles}}
                         {{> batcher}}
@@ -217,7 +217,7 @@
                 </div>
             </div>
             <div id="comments-section">
-                {{> part/forums forums=comments posting=cover}}
+                {{> part/comments comments=comments posting=cover}}
             </div>
         </div>
     </div>

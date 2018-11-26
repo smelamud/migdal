@@ -49,10 +49,10 @@ public class HtmlCacheManager {
         }
     }
 
-    public void forumsUpdated() {
+    public void commentsUpdated() {
         fetchContentVersion();
         synchronized (contentVersionLock) {
-            contentVersion.setForumsVersion(contentVersion.getForumsVersion() + 1);
+            contentVersion.setCommentsVersion(contentVersion.getCommentsVersion() + 1);
             contentVersionRepository.save(contentVersion);
         }
     }
@@ -70,8 +70,8 @@ public class HtmlCacheManager {
             case POSTING:
                 postingsUpdated();
                 break;
-            case FORUM:
-                forumsUpdated();
+            case COMMENT:
+                commentsUpdated();
                 break;
             case TOPIC:
                 topicsUpdated();
@@ -105,9 +105,9 @@ public class HtmlCacheManager {
                     || htmlCache.getPostingsVersion() != contentVersion.getPostingsVersion())) {
             return null;
         }
-        if (cachedHtml.isDependsOnForums()
-                && (htmlCache.getForumsVersion() == null
-                || htmlCache.getForumsVersion() != contentVersion.getForumsVersion())) {
+        if (cachedHtml.isDependsOnComments()
+                && (htmlCache.getCommentsVersion() == null
+                || htmlCache.getCommentsVersion() != contentVersion.getCommentsVersion())) {
             return null;
         }
         if (cachedHtml.isDependsOnTopics()
@@ -132,8 +132,8 @@ public class HtmlCacheManager {
         if (cachedHtml.isDependsOnPostings()) {
             htmlCache.setPostingsVersion(contentVersion.getPostingsVersion());
         }
-        if (cachedHtml.isDependsOnForums()) {
-            htmlCache.setForumsVersion(contentVersion.getForumsVersion());
+        if (cachedHtml.isDependsOnComments()) {
+            htmlCache.setCommentsVersion(contentVersion.getCommentsVersion());
         }
         if (cachedHtml.isDependsOnTopics()) {
             htmlCache.setTopicsVersion(contentVersion.getTopicsVersion());

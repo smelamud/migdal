@@ -1,0 +1,31 @@
+<a name="t{{comment.id}}"></a>
+<div class="comment">
+    <div class="header">
+        {{senderLink comment}}<br>
+        <span class="sent">{{sentView date=comment.sent}}</span>
+        <a href="{{posting.grpDetailsHref}}?tid={{comment.id}}#t{{comment.id}}">{{image "/pics/self.gif"}}</a>
+    </div>
+    <div class="content">
+        <div class="body">
+            {{mtext comment.bodyMtext}}
+        </div>
+        <div class="controls">
+            &nbsp;
+            <a href="#comment-add" class="comment-reply" title="Ответить с цитированием">Ответить</a>
+            {{#writable comment}}
+                &nbsp;
+                <a href="/edit-comment/{{comment.id}}?back={{ue rc.location}}">Изменить</a>
+                {{#moderator}}
+                    &nbsp;
+                    {{#if comment.disabled}}
+                        <a href="/actions/entry/moderate?id={{comment.id}}&amp;hide=0&amp;back={{ue rc.location}}">Разрешить показ</a>
+                    {{else}}
+                        <a href="/actions/entry/moderate?id={{comment.id}}&amp;hide=1&amp;back={{ue rc.location}}">Запретить показ</a>
+                    {{/if}}
+                    &nbsp;
+                    <a href="/actions/comment/delete?id={{comment.id}}&amp;back={{ue rc.location}}">Удалить</a>
+                {{/moderator}}
+            {{/writable}}
+        </div>
+    </div>
+</div>

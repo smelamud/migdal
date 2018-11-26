@@ -44,9 +44,9 @@
                                 {{else}}
                                     <a href="{{grpDetailsHref}}" class="ninept">{{heading}}</a>
                                 {{/iflt}}
-                                {{#if answersPages}}
+                                {{#if commentsPages}}
                                     (Страницы:
-                                    {{#each answersPages}}
+                                    {{#each commentsPages}}
                                         {{#unless skip}}
                                             <a href="{{grpDetailsHref}}?offset={{offset}}#comments" class="ninept">{{page}}</a>
                                         {{else}}
@@ -62,16 +62,16 @@
                             </td>
                             <td class="{{class}}" align="center">{{senderLink this}}</td>
                             <td class="{{class}}" align="center">
-                                <a href="{{grpDetailsHref}}#comments" class="ninept">{{answers}}</a>
+                                <a href="{{grpDetailsHref}}#comments" class="ninept">{{comments}}</a>
                             </td>
-                            {{#unless answers}}
+                            {{#unless comments}}
                                 <td class="{{class}}" align="center">&mdash;</td>
                             {{else}}
                                 <td class="{{class}} ninept">
-                                    {{sentView date=lastAnswerTimestamp}}<br>
-                                    Автор: {{senderLink lastAnswer}}&nbsp;
-                                    <a href="{{grpDetailsHref}}?tid={{lastAnswer.id}}#t{{lastAnswer.id}}"
-                                       title="К последнему ответу">{{image "/pics/further-far.gif"}}</a>
+                                    {{sentView date=lastCommentTimestamp}}<br>
+                                    Автор: {{senderLink lastComment}}&nbsp;
+                                    <a href="{{grpDetailsHref}}?tid={{lastComment.id}}#t{{lastComment.id}}"
+                                       title="К последнему комментарию">{{image "/pics/further-far.gif"}}</a>
                                 </td>
                             {{/unless}}
                         </tr>

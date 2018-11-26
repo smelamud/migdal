@@ -19,11 +19,11 @@ import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.Image;
 import ua.org.migdal.data.InnerImage;
 import ua.org.migdal.data.Posting;
-import ua.org.migdal.form.ForumForm;
+import ua.org.migdal.form.CommentForm;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.CrossEntryManager;
-import ua.org.migdal.manager.ForumManager;
+import ua.org.migdal.manager.CommentManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.manager.InnerImageManager;
 import ua.org.migdal.manager.PostingManager;
@@ -49,7 +49,7 @@ public class PostingViewController {
     private InnerImageManager innerImageManager;
 
     @Inject
-    private ForumManager forumManager;
+    private CommentManager commentManager;
 
     @Inject
     private CrossEntryManager crossEntryManager;
@@ -133,11 +133,11 @@ public class PostingViewController {
             return;
         }
 
-        offset = forumManager.jumpToComment(posting.getId(), tid, offset, 20);
+        offset = commentManager.jumpTo(posting.getId(), tid, offset, 20);
 
         model.addAttribute("captchaOnPage", !requestContext.isLogged());
-        model.addAttribute("comments", forumManager.begAll(posting.getId(), offset, 20));
-        model.addAttribute("forumForm", new ForumForm(posting, requestContext));
+        model.addAttribute("comments", commentManager.begAll(posting.getId(), offset, 20));
+        model.addAttribute("commentForm", new CommentForm(posting, requestContext));
     }
 
     public LocationInfo generalPostingViewLocationInfo(Posting posting, Model model) {

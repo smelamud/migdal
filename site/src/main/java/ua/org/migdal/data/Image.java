@@ -26,7 +26,7 @@ public class Image extends Entry {
         }
         if (up != null) {
             Class upClass = Hibernate.getClass(up);
-            if (upClass != Posting.class && upClass != Forum.class && upClass != Topic.class) {
+            if (upClass != Posting.class && upClass != Comment.class && upClass != Topic.class) {
                 return "hierarchyIncorrect";
             }
         }

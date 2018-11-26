@@ -20,7 +20,7 @@ public class HtmlCache {
 
     private Integer postingsVersion;
 
-    private Integer forumsVersion;
+    private Integer commentsVersion;
 
     private Integer topicsVersion;
 
@@ -56,12 +56,12 @@ public class HtmlCache {
         this.postingsVersion = postingsVersion;
     }
 
-    public Integer getForumsVersion() {
-        return forumsVersion;
+    public Integer getCommentsVersion() {
+        return commentsVersion;
     }
 
-    public void setForumsVersion(Integer forumsVersion) {
-        this.forumsVersion = forumsVersion;
+    public void setCommentsVersion(Integer commentsVersion) {
+        this.commentsVersion = commentsVersion;
     }
 
     public Integer getTopicsVersion() {

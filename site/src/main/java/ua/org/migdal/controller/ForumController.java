@@ -50,7 +50,7 @@ public class ForumController {
                                                  .of(offset)
                                                  .during(Duration.ofHours(3))
                                                  .onPostings()
-                                                 .onForums();
+                                                 .onComments();
         model.addAttribute("forumsCache", forumsCache);
         if (forumsCache.isInvalid()) {
             model.addAttribute("discussions",

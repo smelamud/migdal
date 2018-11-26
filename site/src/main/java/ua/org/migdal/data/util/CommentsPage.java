@@ -1,17 +1,17 @@
 package ua.org.migdal.data.util;
 
-public class AnswersPage {
+public class CommentsPage {
 
     private int page;
     private int offset;
     private boolean skip;
 
-    public AnswersPage(int page, int offset) {
+    public CommentsPage(int page, int offset) {
         this.page = page;
         this.offset = offset;
     }
 
-    public AnswersPage(boolean skip) {
+    public CommentsPage(boolean skip) {
         this.skip = skip;
     }
 

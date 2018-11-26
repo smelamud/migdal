@@ -219,7 +219,7 @@ public class InnerImageController {
             RedirectAttributes redirectAttributes) {
         InnerImage innerImage = innerImageManager.get(innerImageDeleteForm.getId());
         Posting posting = innerImage != null ? postingManager.beg(innerImage.getEntry().getId()) : null;
-        new ControllerAction(EntryController.class, "actionForumDelete", errors)
+        new ControllerAction(EntryController.class, "actionInnerImageDelete", errors)
                 .transactional(txManager)
                 .execute(() -> {
                     if (innerImage == null) {

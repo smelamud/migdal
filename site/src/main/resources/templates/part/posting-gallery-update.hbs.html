@@ -12,7 +12,7 @@
                 {{/if}}
                 {{#assign "galleryId"}}gallery-{{posting.topicId}}-{{posting.id}}{{/assign}}
                 {{assignDivisive "lineBreak" @index 5}}
-                {{picture posting=this showDiscuss=true galleryId=galleryId
+                {{picture posting=this showComment=true galleryId=galleryId
                           listIndex=@index listSize=posting.publishedEntries.size
                           hollow=hollow align="left" noClear=(not lineBreak) noMargin=true
                           fixedWidth=150 fixedHeight=150}}
@@ -37,5 +37,5 @@
             {{sentView date=posting.sent}}&nbsp;
             {{senderLink posting}}
         </div>
-        {{postingControls posting=posting showDiscuss=showDiscuss showEdit=false}}
+        {{postingControls posting=posting showComment=showComment showEdit=false}}
 </dl>

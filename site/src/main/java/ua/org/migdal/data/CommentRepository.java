@@ -5,10 +5,10 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
-public interface ForumRepository extends JpaRepository<Forum, Long>, QuerydslPredicateExecutor<Forum> {
+public interface CommentRepository extends JpaRepository<Comment, Long>, QuerydslPredicateExecutor<Comment> {
 
     @Modifying
-    @Query("update Forum f set f.up.id=?2 where f.up.id=?1")
+    @Query("update Comment c set c.up.id=?2 where c.up.id=?1")
     void updateUpId(long oldUpId, long newUpId);
 
 }

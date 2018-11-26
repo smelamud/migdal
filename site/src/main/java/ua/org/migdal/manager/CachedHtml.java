@@ -12,7 +12,7 @@ public class CachedHtml {
     private StringBuilder ident;
     private TemporalAmount period;
     private boolean dependsOnPostings;
-    private boolean dependsOnForums;
+    private boolean dependsOnComments;
     private boolean dependsOnTopics;
     private boolean enabled = true;
 
@@ -73,8 +73,8 @@ public class CachedHtml {
         return this;
     }
 
-    public CachedHtml onForums() {
-        dependsOnForums = true;
+    public CachedHtml onComments() {
+        dependsOnComments = true;
         return this;
     }
 
@@ -100,8 +100,8 @@ public class CachedHtml {
         return dependsOnPostings;
     }
 
-    boolean isDependsOnForums() {
-        return dependsOnForums;
+    boolean isDependsOnComments() {
+        return dependsOnComments;
     }
 
     boolean isDependsOnTopics() {

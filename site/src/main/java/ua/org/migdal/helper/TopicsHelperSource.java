@@ -92,7 +92,7 @@ public class TopicsHelperSource {
         buf.append('>');
         HelperUtils.safeAppend(buf, text);
         if (count != null) {
-            buf.append("&nbsp;<span class=\"topics-answers\">(");
+            buf.append("&nbsp;<span class=\"topics-comments\">(");
             buf.append(count);
             buf.append(")</span>");
         }

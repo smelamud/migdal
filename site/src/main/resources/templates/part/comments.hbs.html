@@ -14,23 +14,23 @@
 {{#*inline "errorLines"}}
     {{#if errors}}
         <table class="form" width="100%">
-            {{formErrors exceptForm="forumForm"}}
+            {{formErrors exceptForm="commentForm"}}
         </table>
     {{/if}}
 {{/inline}}
 
 {{> errorLines}}
-{{> batcher list=forums showAdder=true}}
+{{> batcher list=comments showAdder=true}}
 <a name="comments"></a>
-<div class="forums">
-    {{#each forums}}
-        {{> part/forum forum=this posting=posting}}
+<div class="comments">
+    {{#each comments}}
+        {{> part/comment comment=this posting=posting}}
     {{/each}}
 </div>
-{{#if forums}}
-    {{> batcher list=forums showAdder=false}}
+{{#if comments}}
+    {{> batcher list=comments showAdder=false}}
 {{/if}}
 {{#postable posting}}
     <a name="comment-add"></a>
-    {{> part/forum-edit forumForm=forumForm posting=posting xmlid=0}}
+    {{> part/comment-edit commentForm=commentForm posting=posting xmlid=0}}
 {{/postable}}

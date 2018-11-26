@@ -6,7 +6,7 @@ public enum EntryType {
 
     NULL,
     POSTING,
-    FORUM,
+    COMMENT,
     TOPIC,
     IMAGE,
     COMPLAIN, // DEPRECATED

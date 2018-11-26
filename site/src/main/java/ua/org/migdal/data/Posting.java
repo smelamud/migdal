@@ -15,7 +15,7 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.util.StringUtils;
 
 import ua.org.migdal.Config;
-import ua.org.migdal.data.util.AnswersPage;
+import ua.org.migdal.data.util.CommentsPage;
 import ua.org.migdal.data.util.Selected;
 import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEnum;
@@ -214,22 +214,22 @@ public class Posting extends Entry {
     }
 
     @Transient
-    public void setLastAnswerDetails(Forum forum) {
-        setLastAnswer(forum);
-        if (forum != null) {
-            setLastAnswerTimestamp(forum.getSent());
-            setLastAnswerUser(forum.getUser());
-            setLastAnswerGuestLogin(forum.getGuestLogin());
+    public void setLastCommentDetails(Comment comment) {
+        setLastComment(comment);
+        if (comment != null) {
+            setLastCommentTimestamp(comment.getSent());
+            setLastCommentUser(comment.getUser());
+            setLastCommentGuestLogin(comment.getGuestLogin());
         } else {
-            setLastAnswerTimestamp(getSent());
-            setLastAnswerUser(null);
-            setLastAnswerGuestLogin("");
+            setLastCommentTimestamp(getSent());
+            setLastCommentUser(null);
+            setLastCommentGuestLogin("");
         }
     }
 
-    private List<AnswersPage> getAnswersPages(int limit) {
-        List<AnswersPage> pages = new ArrayList<>();
-        int total = (int) getAnswers();
+    private List<CommentsPage> getCommentsPages(int limit) {
+        List<CommentsPage> pages = new ArrayList<>();
+        int total = (int) getComments();
         int n = total / limit;
         if (total % limit > 0) {
             n++;
@@ -237,15 +237,15 @@ public class Posting extends Entry {
         if (n > 1) {
             if (n > 6) {
                 for (int offset = 0; offset < 3 * limit; offset += limit) {
-                    pages.add(new AnswersPage(offset / limit + 1, offset));
+                    pages.add(new CommentsPage(offset / limit + 1, offset));
                 }
-                pages.add(new AnswersPage(true));
+                pages.add(new CommentsPage(true));
                 for (int offset = (n - 3) * limit; offset < total; offset += limit) {
-                    pages.add(new AnswersPage(offset / limit + 1, offset));
+                    pages.add(new CommentsPage(offset / limit + 1, offset));
                 }
             } else {
                 for (int offset = 0; offset < total; offset += limit) {
-                    pages.add(new AnswersPage(offset / limit + 1, offset));
+                    pages.add(new CommentsPage(offset / limit + 1, offset));
                 }
             }
         }
@@ -253,8 +253,8 @@ public class Posting extends Entry {
     }
 
     @Transient
-    public List<AnswersPage> getAnswersPages() {
-        return getAnswersPages(20);
+    public List<CommentsPage> getCommentsPages() {
+        return getCommentsPages(20);
     }
 
     public static String validateHierarchy(Entry parent, Entry up, long id) {

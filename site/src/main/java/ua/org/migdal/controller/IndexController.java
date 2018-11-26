@@ -238,7 +238,7 @@ public class IndexController {
         CachedHtml discussionsCache = htmlCacheManager.of("discussions")
                                                       .during(Duration.ofDays(1))
                                                       .onPostings()
-                                                      .onForums();
+                                                      .onComments();
         model.addAttribute("discussionsCache", discussionsCache);
         if (discussionsCache.isInvalid()) {
             model.addAttribute("discussions",

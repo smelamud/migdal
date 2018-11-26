@@ -183,7 +183,7 @@ public class EntryController {
 
                     entry.setHidden(hideForm.isHide());
                     entryManager.save(entry);
-                    postingManager.updateAnswersDetails(entry.getParentId());
+                    postingManager.updateCommentsDetails(entry.getParentId());
                     htmlCacheManager.entryChanged(entry.getEntryType());
                     return null;
                 });
@@ -214,7 +214,7 @@ public class EntryController {
                         return "notModerator";
                     }
                     entryManager.updateDisabledById(moderateForm.getId(), moderateForm.isHide());
-                    postingManager.updateAnswersDetails(entry.getParentId());
+                    postingManager.updateCommentsDetails(entry.getParentId());
                     htmlCacheManager.entryChanged(entry.getEntryType());
                     return null;
                 });
@@ -245,7 +245,7 @@ public class EntryController {
                         return "notModerator";
                     }
                     entryManager.renewById(renewForm.getId());
-                    postingManager.updateAnswersDetails(entry.getParentId());
+                    postingManager.updateCommentsDetails(entry.getParentId());
                     htmlCacheManager.entryChanged(entry.getEntryType());
                     return null;
                 });

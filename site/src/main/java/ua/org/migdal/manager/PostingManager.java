@@ -56,7 +56,7 @@ public class PostingManager implements EntryManagerBase<Posting> {
     private TopicManager topicManager;
 
     @Inject
-    private ForumManager forumManager;
+    private CommentManager commentManager;
 
     @Inject
     private PermManager permManager;
@@ -125,16 +125,16 @@ public class PostingManager implements EntryManagerBase<Posting> {
                                                 int offset, int limit) {
         QPosting posting = QPosting.posting;
         BooleanBuilder where = new BooleanBuilder();
-        where.or(getWhere(posting, Postings.all().grp(grps).asGuest().withAnswers()));
+        where.or(getWhere(posting, Postings.all().grp(grps).asGuest().withComments()));
         where.or(getWhere(posting, Postings.all().grp(additionalGrps).asGuest()));
         Sort sort;
         if (prioritize) {
             sort = Sort.by(
                        Sort.Order.asc("priority"),
-                       Sort.Order.desc("lastAnswerTimestamp")
+                       Sort.Order.desc("lastCommentTimestamp")
                    );
         } else {
-            sort = Sort.by(Sort.Direction.DESC, "lastAnswerTimestamp");
+            sort = Sort.by(Sort.Direction.DESC, "lastCommentTimestamp");
         }
         return postingRepository.findAll(where, PageRequest.of(offset / limit, limit, sort));
     }
@@ -244,8 +244,8 @@ public class PostingManager implements EntryManagerBase<Posting> {
         if (p.laterThan != null) {
             where.and(posting.sent.after(p.laterThan));
         }
-        if (p.withAnswers) {
-            where.and(posting.answers.gt(0));
+        if (p.withComments) {
+            where.and(posting.comments.gt(0));
         }
         where.and(getPermFilter(posting, Perm.READ, p.asGuest));
         return where;
@@ -328,10 +328,10 @@ public class PostingManager implements EntryManagerBase<Posting> {
         }
         updateModbits(posting);
         if (!newPosting) {
-            posting.setAnswers(forumManager.countAnswers(posting.getId()));
-            posting.setLastAnswerDetails(forumManager.begLastAnswer(posting.getId()));
+            posting.setComments(commentManager.count(posting.getId()));
+            posting.setLastCommentDetails(commentManager.begLast(posting.getId()));
         } else {
-            posting.setLastAnswerDetails(null);
+            posting.setLastCommentDetails(null);
         }
         saveAndFlush(posting); /* We need to have the record in DB to know ID after this point */
 
@@ -437,15 +437,15 @@ public class PostingManager implements EntryManagerBase<Posting> {
     }
 
     @Transactional
-    public void updateAnswersDetails(long postingId) {
+    public void updateCommentsDetails(long postingId) {
         Posting posting = get(postingId);
         if (posting == null) {
             return;
         }
-        posting.setAnswers(forumManager.countAnswers(postingId));
-        posting.setLastAnswerDetails(forumManager.begLastAnswer(postingId));
+        posting.setComments(commentManager.count(postingId));
+        posting.setLastCommentDetails(commentManager.begLast(postingId));
         saveAndFlush(posting);
-        htmlCacheManager.forumsUpdated();
+        htmlCacheManager.commentsUpdated();
     }
 
 }

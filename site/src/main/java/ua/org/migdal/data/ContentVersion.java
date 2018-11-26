@@ -16,7 +16,7 @@ public class ContentVersion {
     private int postingsVersion;
 
     @NotNull
-    private int forumsVersion;
+    private int commentsVersion;
 
     @NotNull
     private int topicsVersion;
@@ -37,12 +37,12 @@ public class ContentVersion {
         this.postingsVersion = postingsVersion;
     }
 
-    public int getForumsVersion() {
-        return forumsVersion;
+    public int getCommentsVersion() {
+        return commentsVersion;
     }
 
-    public void setForumsVersion(int forumsVersion) {
-        this.forumsVersion = forumsVersion;
+    public void setCommentsVersion(int commentsVersion) {
+        this.commentsVersion = commentsVersion;
     }
 
     public int getTopicsVersion() {

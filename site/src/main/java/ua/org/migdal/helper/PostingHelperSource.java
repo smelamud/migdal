@@ -108,21 +108,21 @@ public class PostingHelperSource {
         return new SafeString(buf);
     }
 
-    public CharSequence discussLink(Posting posting) {
+    public CharSequence commentLink(Posting posting) {
         if (requestContext.isEnglish()) {
             return "";
         }
 
         StringBuilder buf = new StringBuilder();
         buf.append("<span>");
-        if (posting.getAnswers() > 0) {
+        if (posting.getComments() > 0) {
             buf.append("<a");
             String href = String.format("%s#comments", posting.getGrpDetailsHref());
             HelperUtils.appendAttr(buf, "href", href);
             buf.append('>');
-            buf.append(posting.getAnswers());
+            buf.append(posting.getComments());
             buf.append(' ');
-            buf.append(Utils.plural(posting.getAnswers(), new String[]{"комментарий", "комментария", "комментариев"}));
+            buf.append(Utils.plural(posting.getComments(), new String[]{"комментарий", "комментария", "комментариев"}));
         } else {
             buf.append("<a");
             String href = String.format("%s#comment-add", posting.getGrpDetailsHref());
@@ -141,9 +141,9 @@ public class PostingHelperSource {
         Posting posting = HelperUtils.mandatoryHash("posting", options);
         boolean showSelf = HelperUtils.boolArg(options.hash("showSelf"));
         boolean showEdit = HelperUtils.boolArg(options.hash("showEdit", "true")) && posting.isWritable();
-        boolean showDiscuss = HelperUtils.boolArg(options.hash("showDiscuss"));
+        boolean showComment = HelperUtils.boolArg(options.hash("showComment"));
 
-        if (!showSelf && !showEdit && !showDiscuss) {
+        if (!showSelf && !showEdit && !showComment) {
             return "";
         }
 
@@ -157,9 +157,9 @@ public class PostingHelperSource {
             buf.append(editLink(posting));
             buf.append("&nbsp;&nbsp;&nbsp;");
         }
-        if (showDiscuss) {
+        if (showComment) {
             buf.append("<div class=\"right\">");
-            buf.append(discussLink(posting));
+            buf.append(commentLink(posting));
             buf.append("</div>");
         }
         buf.append("<div class=\"clear-floats\"></div>");
@@ -229,7 +229,7 @@ public class PostingHelperSource {
         }
         if (posting.isPostable()) {
             buf.append(" &nbsp; ");
-            buf.append(discussLink(posting));
+            buf.append(commentLink(posting));
         }
         buf.append("</div>");
         buf.append("</div>");

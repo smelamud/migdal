@@ -1,32 +1,32 @@
-{{! params: forumForm, posting, xmlid }}
+{{! params: commentForm, posting, xmlid }}
 
-{{#if forumForm.id}}
+{{#if commentForm.id}}
     {{#assign "formTitle"}}Редактирование комментария{{/assign}}
 {{else}}
     {{#assign "formTitle"}}Добавление комментария{{/assign}}
 {{/if}}
 
-<form method="post" enctype="multipart/form-data" action="/actions/forum/modify">
+<form method="post" enctype="multipart/form-data" action="/actions/comment/modify">
     {{#formTable title=formTitle}}
-        {{formErrors form="forumForm"}}
+        {{formErrors form="commentForm"}}
         {{#if back}}
             {{hidden name="origin" value=back}}
         {{else}}
             {{hidden name="origin" value=rc.location}}
         {{/if}}
-        {{hidden name="id" value=forumForm.id}}
-        {{hidden name="parentId" value=forumForm.parentId}}
+        {{hidden name="id" value=commentForm.id}}
+        {{hidden name="parentId" value=commentForm.parentId}}
         {{starInfo}}
-        {{#unless forumForm.id}}
-            {{formRelogin relogin=forumForm.relogin noGuests=(not posting.guestPostable)
-                          guestLogin=forumForm.guestLogin login=forumForm.login remember=forumForm.remember}}
+        {{#unless commentForm.id}}
+            {{formRelogin relogin=commentForm.relogin noGuests=(not posting.guestPostable)
+                          guestLogin=commentForm.guestLogin login=commentForm.login remember=commentForm.remember}}
         {{/unless}}
-        {{formEditor title="Текст" name="body" body=forumForm.body rows="12" mandatory=true xmlid=xmlid
+        {{formEditor title="Текст" name="body" body=commentForm.body rows="12" mandatory=true xmlid=xmlid
                      id="comment-add"}}
         {{#logged}}
             {{#formSelect title="Видимость" name="hidden" style="box"}}
-                {{formOption title="Сообщение видно всем пользователям" value="0" selected=(not forumForm.hidden)}}
-                {{formOption title="Сообщение видно только автору и модераторам" value="1" selected=forumForm.hidden}}
+                {{formOption title="Комментарий виден всем пользователям" value="0" selected=(not commentForm.hidden)}}
+                {{formOption title="Комментарий виден только автору и модераторам" value="1" selected=commentForm.hidden}}
             {{/formSelect}}
         {{else}}
             {{hidden name="hidden" value="0"}}
@@ -36,14 +36,14 @@
                           comment="Модераторский запрет на показ сообщения. Пользователь не может снять этот запрет."
                           name="disabled" style="box"}}
                 {{formOption title="Нет запрета на показ всем пользователям" value="0"
-                             selected=(not forumForm.disabled)}}
+                             selected=(not commentForm.disabled)}}
                 {{formOption title="Разрешено показывать только автору и модераторам" value="1"
-                             selected=forumForm.disabled}}
+                             selected=commentForm.disabled}}
             {{/formSelect}}
         {{else}}
-            {{hidden name="disabled" value=forumForm.disabled}}
+            {{hidden name="disabled" value=commentForm.disabled}}
         {{/moderator}}
-        {{#if forumForm.id}}
+        {{#if commentForm.id}}
             {{formButtons title="Изменить"}}
         {{else}}
             {{formButtons title="Добавить" captcha=(not rc.logged)}}

@@ -36,7 +36,7 @@
 {{> batcher list=postings}}
 {{#if postings}}
     {{#each postings}}
-        {{> (postingPartial this) posting=this showTopic=postingsShowTopic shorten=true showDiscuss=true}}
+        {{> (postingPartial this) posting=this showTopic=postingsShowTopic shorten=true showComment=true}}
     {{/each}}
     {{> batcher list=postings}}
 {{/if}}

@@ -3,13 +3,13 @@
     {{#cached discussionsCache}}
         {{#each discussions}}
             <div class="item">
-                {{#if answers}}
+                {{#if comments}}
                     <div class="content">
-                        {{senderLink lastAnswer}} <span class="quote">
-                            <a href="{{grpDetailsHref}}?tid={{lastAnswer.id}}#t{{lastAnswer.id}}">{{lastAnswer.bodyTiny}}</a>
+                        {{senderLink lastComment}} <span class="quote">
+                            <a href="{{grpDetailsHref}}?tid={{lastComment.id}}#t{{lastComment.id}}">{{lastComment.bodyTiny}}</a>
                         </span>
                     </div>
-                    <span class="time fuzzy-time" data-time="{{lastAnswerTimestamp.time}}"></span>
+                    <span class="time fuzzy-time" data-time="{{lastCommentTimestamp.time}}"></span>
                 {{else}}
                     <div class="content">
                         {{senderLink this}} <span class="quote">

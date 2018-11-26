@@ -6,7 +6,7 @@ function userLink(userName, guestName) {
 }
 
 function replyInit() {
-    $("a.forum-reply").click(function(event) {
+    $("a.comment-reply").click(function(event) {
         var comment = $(this).parent().parent().parent();
         var userName = comment.find(".header .name").html();
         var guestName = comment.find(".header .guest-name").html();

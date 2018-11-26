@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.springframework.util.StringUtils;
-import ua.org.migdal.data.Forum;
+import ua.org.migdal.data.Comment;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.manager.SpamManager;
 import ua.org.migdal.mtext.MtextFormat;
@@ -14,7 +14,7 @@ import ua.org.migdal.text.Text;
 import ua.org.migdal.text.TextFormat;
 import ua.org.migdal.util.Perm;
 
-public class ForumForm implements Serializable {
+public class CommentForm implements Serializable {
 
     private static final long serialVersionUID = -163740823595098849L;
 
@@ -46,25 +46,25 @@ public class ForumForm implements Serializable {
     @Size(max = 512)
     private String captchaResponse;
 
-    public ForumForm() {
+    public CommentForm() {
     }
 
-    public ForumForm(Posting posting, RequestContext requestContext) {
-        this(new Forum(posting, requestContext), requestContext);
+    public CommentForm(Posting posting, RequestContext requestContext) {
+        this(new Comment(posting, requestContext), requestContext);
     }
 
-    public ForumForm(Forum forum, RequestContext requestContext) {
-        if (forum == null) {
+    public CommentForm(Comment comment, RequestContext requestContext) {
+        if (comment == null) {
             return;
         }
 
-        id = forum.getId();
-        parentId = forum.getParentId();
-        body = forum.getBody();
-        hidden = forum.isHidden();
-        disabled = forum.isDisabled();
-        guestLogin = !StringUtils.isEmpty(forum.getGuestLogin())
-                ? forum.getGuestLogin()
+        id = comment.getId();
+        parentId = comment.getParentId();
+        body = comment.getBody();
+        hidden = comment.isHidden();
+        disabled = comment.isDisabled();
+        guestLogin = !StringUtils.isEmpty(comment.getGuestLogin())
+                ? comment.getGuestLogin()
                 : requestContext.getUserGuestLoginHint();
     }
 
@@ -160,27 +160,27 @@ public class ForumForm implements Serializable {
         return spamManager.isSpam(getBody());
     }
 
-    public void toForum(Forum forum, Posting parent, RequestContext requestContext) {
-        forum.setParent(parent);
-        forum.setBody(Text.convertLigatures(getBody()));
-        forum.setBodyXml(Text.convert(forum.getBody(), TextFormat.MAIL, MtextFormat.SHORT));
-        forum.setGuestLogin(getGuestLogin());
+    public void toComment(Comment comment, Posting parent, RequestContext requestContext) {
+        comment.setParent(parent);
+        comment.setBody(Text.convertLigatures(getBody()));
+        comment.setBodyXml(Text.convert(comment.getBody(), TextFormat.MAIL, MtextFormat.SHORT));
+        comment.setGuestLogin(getGuestLogin());
         if (isHidden()) {
-            forum.setPerms(forum.getPerms() & ~(Perm.OR | Perm.ER));
+            comment.setPerms(comment.getPerms() & ~(Perm.OR | Perm.ER));
         } else {
-            forum.setPerms(forum.getPerms() | Perm.OR | Perm.ER);
+            comment.setPerms(comment.getPerms() | Perm.OR | Perm.ER);
         }
         if (requestContext.isUserModerator()) {
-            forum.setDisabled(isDisabled());
+            comment.setDisabled(isDisabled());
         }
     }
 
-    public boolean isTrackChanged(Forum forum) {
-        return getId() > 0 && getParentId() != forum.getParentId();
+    public boolean isTrackChanged(Comment comment) {
+        return getId() > 0 && getParentId() != comment.getParentId();
     }
 
-    public boolean isCatalogChanged(Forum forum) {
-        return getId() > 0 && getParentId() != forum.getParentId();
+    public boolean isCatalogChanged(Comment comment) {
+        return getId() > 0 && getParentId() != comment.getParentId();
     }
 
 }

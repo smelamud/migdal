@@ -26,7 +26,7 @@ public class Postings {
     boolean asGuest;
     Timestamp earlierThan;
     Timestamp laterThan;
-    boolean withAnswers;
+    boolean withComments;
     int offset;
     int limit = Integer.MAX_VALUE;
     Sort.Direction sortDirection = Sort.Direction.DESC;
@@ -154,15 +154,15 @@ public class Postings {
         return this;
     }
 
-    public Postings withAnswers(Boolean withAnswers) {
-        if (withAnswers != null) {
-            this.withAnswers = withAnswers;
+    public Postings withComments(Boolean withComments) {
+        if (withComments != null) {
+            this.withComments = withComments;
         }
         return this;
     }
 
-    public Postings withAnswers() {
-        return withAnswers(true);
+    public Postings withComments() {
+        return withComments(true);
     }
 
     public Postings offset(Integer offset) {

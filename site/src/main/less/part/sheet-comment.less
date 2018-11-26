@@ -3,13 +3,13 @@
     margin-top: 2ex;
 }
 
-.forums {
+.comments {
     margin-top: 1px;
 }
 
-.forum {
-    background-color: @forum_body_back;
-    border: solid 1px @forum_border;
+.comment {
+    background-color: @comment_body_back;
+    border: solid 1px @comment_border;
     margin-top: 3px;
     display: flex;
 
@@ -18,12 +18,12 @@
         padding-left: .5em;
         width: 150px;
         text-align: left;
-        background-color: @forum_header_back;
+        background-color: @comment_header_back;
     }
 
     .content {
         flex: auto;
-        background-color: @forum_body_back;
+        background-color: @comment_body_back;
     }
 
     .body {
@@ -49,11 +49,11 @@
 
         A {
             font-size: 8pt;
-            color: @forum_controls;
+            color: @comment_controls;
             text-decoration: none;
 
             &:hover {
-                color: @forum_controls_hover;
+                color: @comment_controls_hover;
                 text-decoration: underline;
             }
         }
@@ -65,7 +65,7 @@
 
     .quote {
         font-size: 8pt;
-        border-left: solid 1px @forum_quote;
+        border-left: solid 1px @comment_quote;
         padding-left: 5px;
     }
 }
