@@ -22,6 +22,7 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 
 import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
 
+import ua.org.migdal.interceptor.CacheControlInterceptor;
 import ua.org.migdal.interceptor.GlobalUriChangesInterceptor;
 import ua.org.migdal.interceptor.SaveCookiesInterceptor;
 import ua.org.migdal.interceptor.SubdomainInterceptor;
@@ -52,6 +53,9 @@ public class MigdalApplication implements WebMvcConfigurer {
 
     @Inject
     private SaveCookiesInterceptor saveCookiesInterceptor;
+
+    @Inject
+    private CacheControlInterceptor cacheControlInterceptor;
 
     @Inject
     private Config config;
@@ -86,6 +90,7 @@ public class MigdalApplication implements WebMvcConfigurer {
         registry.addInterceptor(trapInterceptor).order(100); // To be executed after Hibernate session is created
         registry.addInterceptor(globalUriChangesInterceptor);
         registry.addInterceptor(saveCookiesInterceptor);
+        registry.addInterceptor(cacheControlInterceptor);
     }
 
     @Override
