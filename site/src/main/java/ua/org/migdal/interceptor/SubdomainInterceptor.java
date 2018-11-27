@@ -1,4 +1,4 @@
-package ua.org.migdal.controller;
+package ua.org.migdal.interceptor;
 
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;

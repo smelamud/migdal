@@ -1,4 +1,4 @@
-package ua.org.migdal.controller;
+package ua.org.migdal.interceptor;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;

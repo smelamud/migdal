@@ -22,10 +22,10 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 
 import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
 
-import ua.org.migdal.controller.GlobalUriChangesInterceptor;
-import ua.org.migdal.controller.SaveCookiesInterceptor;
-import ua.org.migdal.controller.SubdomainInterceptor;
-import ua.org.migdal.controller.TrapInterceptor;
+import ua.org.migdal.interceptor.GlobalUriChangesInterceptor;
+import ua.org.migdal.interceptor.SaveCookiesInterceptor;
+import ua.org.migdal.interceptor.SubdomainInterceptor;
+import ua.org.migdal.interceptor.TrapInterceptor;
 import ua.org.migdal.converter.MtextHttpMessageConverter;
 import ua.org.migdal.converter.SyndFeedHttpMessageConverter;
 import ua.org.migdal.helper.HelperSource;

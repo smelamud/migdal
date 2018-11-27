@@ -1,4 +1,4 @@
-package ua.org.migdal.controller;
+package ua.org.migdal.interceptor;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
