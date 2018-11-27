@@ -52,13 +52,13 @@ public class EnglishController {
     private HtmlCacheManager htmlCacheManager;
 
     @Inject
-    private IndexController indexController;
-
-    @Inject
     private PostingViewController postingViewController;
 
     @Inject
     private PostingEditingController postingEditingController;
+
+    @Inject
+    private PostingListController postingListController;
 
     @Inject
     private EntryController entryController;
@@ -194,8 +194,8 @@ public class EnglishController {
 
         eventsLocationInfo(model);
 
-        indexController.addPostings("TAPE", topic, null, new String[] {"NEWS", "ARTICLES", "BOOKS"},
-                requestContext.isUserModerator(), offset, 20, model);
+        postingListController.addPostings("TAPE", topic, null, new String[] {"NEWS", "ARTICLES", "BOOKS"},
+                                          requestContext.isUserModerator(), offset, 20, model);
 
         return "events-english";
     }

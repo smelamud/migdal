@@ -62,9 +62,6 @@ public class EventController {
     private EntryController entryController;
 
     @Inject
-    private IndexController indexController;
-
-    @Inject
     private EarController earController;
 
     @Inject
@@ -72,6 +69,9 @@ public class EventController {
 
     @Inject
     private PostingEditingController postingEditingController;
+
+    @Inject
+    private PostingListController postingListController;
 
     @GetMapping("/migdal/events")
     public String events(Model model) throws PageNotFoundException {
@@ -286,9 +286,9 @@ public class EventController {
         regularEventLocationInfo(topic, model);
 
         model.addAttribute("topic", topic);
-        indexController.addPostings("EVENT", topic, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"},
-                topic.isPostable(), false, offset, 20, model);
-        indexController.addSeeAlso(topic.getId(), model);
+        postingListController.addPostings("EVENT", topic, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"},
+                                          topic.isPostable(), false, offset, 20, model);
+        postingListController.addSeeAlso(topic.getId(), model);
         earController.addEars(model);
 
         return "migdal-news";
@@ -314,9 +314,9 @@ public class EventController {
 
         regularEventGalleryLocationInfo(topic, model);
 
-        indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
+        postingListController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
         earController.addEars(model);
-        indexController.addSeeAlso(topic.getId(), model);
+        postingListController.addSeeAlso(topic.getId(), model);
 
         return "gallery";
     }

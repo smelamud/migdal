@@ -4,14 +4,10 @@ import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,13 +15,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ua.org.migdal.Config;
 import ua.org.migdal.controller.exception.PageNotFoundException;
 import ua.org.migdal.data.CrossEntry;
 import ua.org.migdal.data.LinkType;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
-import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEnum;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.manager.CachedHtml;
@@ -39,9 +33,6 @@ import ua.org.migdal.session.RequestContext;
 
 @Controller
 public class IndexController {
-
-    @Inject
-    private Config config;
 
     @Inject
     private RequestContext requestContext;
@@ -65,6 +56,9 @@ public class IndexController {
     private HtmlCacheManager htmlCacheManager;
 
     @Inject
+    private PostingListController postingListController;
+
+    @Inject
     private EarController earController;
 
     @Inject
@@ -84,7 +78,8 @@ public class IndexController {
         earController.addEars(model);
         addTextEars(model);
         addDailyAnnounce("migdal.events.kaitanot.5762.summer", model);
-        addPostings("TAPE", null, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, true, offset, 20, model);
+        postingListController.addPostings("TAPE", null, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"},
+                                          true, offset, 20, model);
         addHitParade(null, model);
         addDiscussions(model);
         return "index-www";
@@ -123,8 +118,9 @@ public class IndexController {
 
         model.addAttribute("topic", topic);
         earController.addEars(model);
-        addSeeAlso(topic.getId(), model);
-        addPostings("TAPE", topic, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"}, true, offset, 20, model);
+        postingListController.addSeeAlso(topic.getId(), model);
+        postingListController.addPostings("TAPE", topic, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"},
+                                          true, offset, 20, model);
         addHitParade(topic.getId(), model);
 
         return "index-www";
@@ -160,63 +156,12 @@ public class IndexController {
         model.addAttribute("topic", posting.getTopic());
     }
 
-    void addSeeAlso(long id, Model model) {
-        List<CrossEntry> links = crossEntryManager.getAll(LinkType.SEE_ALSO, id);
-        model.addAttribute("seeAlsoVisible", links.size() > 0 || requestContext.isUserModerator());
-        model.addAttribute("seeAlsoSourceId", id);
-        model.addAttribute("seeAlsoLinks", links);
-
-    }
-
     private void addTextEars(Model model) {
         CachedHtml textEarsCache = htmlCacheManager.of("textEars").onPostings();
         model.addAttribute("textEarsCache", textEarsCache);
         if (textEarsCache.isInvalid()) {
             model.addAttribute("textears", postingManager.begAll(Postings.all().grp("TEXTEARS").asGuest().limit(3)));
         }
-    }
-
-    void addPostings(String groupName, Topic topic, Long userId, String[] addGrpNames, boolean addVisible,
-                     int offset, int limit, Model model) {
-        boolean showTopic = topic == null;
-        addPostings(groupName, topic, userId, addGrpNames, addVisible, showTopic, offset, limit, model);
-    }
-
-    void addPostings(String groupName, Topic topic, Long userId, String[] addGrpNames, boolean addVisible,
-                     boolean showTopic, int offset, int limit, Model model) {
-        model.addAttribute("postingsShowTopic", showTopic);
-        model.addAttribute("postingsAddVisible", addVisible);
-        model.addAttribute("postingsAddCatalog", topic != null ? topic.getCatalog() : "");
-        Postings p = Postings.all()
-                             .topic(topic != null ? topic.getId() : null, true)
-                             .grp(groupName)
-                             .user(userId)
-                             .page(offset, limit)
-                             .sort(Sort.Direction.DESC, "priority", "sent");
-        Iterable<Posting> postings = postingManager.begAll(p);
-        for (Posting posting : postings) {
-            if (posting.isGrpPublisher()) {
-                posting.setPublishedEntries(
-                        crossEntryManager.getAll(LinkType.PUBLISH, posting.getId()).stream()
-                            .map(CrossEntry::getPeer)
-                            .collect(Collectors.toList()));
-            }
-        }
-        model.addAttribute("postings", postings);
-        List<GrpDescriptor> addGrps = new ArrayList<>();
-        if (addGrpNames != null) {
-            for (String addGrpName : addGrpNames) {
-                GrpDescriptor desc = grpEnum.grp(addGrpName);
-                if (desc == null) {
-                    continue;
-                }
-                if (topic != null && !topic.accepts(addGrpName)) {
-                    continue;
-                }
-                addGrps.add(desc);
-            }
-        }
-        model.addAttribute("postingsAddGrps", addGrps);
     }
 
     private void addHitParade(Long topicId, Model model) {
@@ -288,41 +233,10 @@ public class IndexController {
 
         model.addAttribute("topic", topic);
         earController.addEars(model);
-        addSeeAlso(topic.getId(), model);
-        addGallery("GALLERY", topic, null, offset, 20, sort, model);
+        postingListController.addSeeAlso(topic.getId(), model);
+        postingListController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
 
         return "gallery";
-    }
-
-    void addGallery(String grpName, Topic topic, Long userId, int offset, int limit, String sort, Model model) {
-        boolean addVisible = topic.accepts(grpName)
-                && (requestContext.isLogged() || config.isAllowGuests() && topic.isGuestPostable())
-                && (userId == null || requestContext.getUserId() == userId || requestContext.isUserModerator());
-        model.addAttribute("galleryAddVisible", addVisible);
-        model.addAttribute("galleryAddCatalog", topic.getCatalog());
-        model.addAttribute("gallerySort", sort);
-
-        if (!sort.equals("sent") && !sort.equals("rating")) { // The value comes from client, needs validation
-            sort = "sent";
-        }
-        Postings p = Postings.all()
-                             .topic(topic.getId(), true)
-                             .grp(grpName)
-                             .user(userId)
-                             .sort(Sort.Direction.DESC, sort);
-        List<Posting> postings = postingManager.begAllAsList(p);
-
-        int galleryBegin = offset < 0 ? 0 : offset / limit * limit;
-        int galleryEnd = offset + limit;
-        galleryEnd = galleryEnd > postings.size() ? postings.size() : galleryEnd;
-        model.addAttribute("galleryBegin", galleryBegin);
-        model.addAttribute("galleryEnd", galleryEnd);
-        model.addAttribute("gallery", postings);
-        model.addAttribute("galleryPage",
-                new PageImpl<>(
-                        postings.subList(galleryBegin, galleryEnd),
-                        PageRequest.of(galleryBegin / limit, limit),
-                        postings.size()));
     }
 
     public LocationInfo majorGalleryLocationInfo(Topic topic, Model model) {

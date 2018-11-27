@@ -47,6 +47,9 @@ public class PerUserController {
     private IndexController indexController;
 
     @Inject
+    private PostingListController postingListController;
+
+    @Inject
     private EarController earController;
 
     @GetMapping("/taglit")
@@ -191,7 +194,7 @@ public class PerUserController {
     private String perUserUser(Topic topic, User user, Integer offset, String sort, Model model) {
         model.addAttribute("topic", topic);
         model.addAttribute("user", user);
-        indexController.addPostings(
+        postingListController.addPostings(
                 "PERUSER_FORUMS",
                 topic,
                 user.getId(),
@@ -200,7 +203,7 @@ public class PerUserController {
                 0,
                 Integer.MAX_VALUE,
                 model);
-        indexController.addGallery("GALLERY", topic, user.getId(), offset, 20, sort, model);
+        postingListController.addGallery("GALLERY", topic, user.getId(), offset, 20, sort, model);
         earController.addEars(model);
         return "per-user-user";
     }

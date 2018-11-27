@@ -51,6 +51,9 @@ public class MigdalController {
     private PostingViewController postingViewController;
 
     @Inject
+    private PostingListController postingListController;
+
+    @Inject
     private EarController earController;
 
     @Inject
@@ -129,9 +132,9 @@ public class MigdalController {
 
     private String migdalNews(Topic topic, Integer offset, Model model) {
         model.addAttribute("topic", topic);
-        indexController.addPostings("TAPE", topic, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"},
-                topic.isPostable(), topic.getIdent().equals("migdal"), offset, 20, model);
-        indexController.addSeeAlso(topic.getId(), model);
+        postingListController.addPostings("TAPE", topic, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"},
+                                          topic.isPostable(), topic.getIdent().equals("migdal"), offset, 20, model);
+        postingListController.addSeeAlso(topic.getId(), model);
 
         return "migdal-news";
     }
@@ -392,9 +395,9 @@ public class MigdalController {
 
         studentGalleryLocationInfo(topic, model);
 
-        indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
+        postingListController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
         earController.addEars(model);
-        indexController.addSeeAlso(topic.getId(), model);
+        postingListController.addSeeAlso(topic.getId(), model);
 
         return "gallery";
     }
@@ -501,10 +504,10 @@ public class MigdalController {
 
         libraryNoveltiesLocationInfo(model);
 
-        indexController.addSeeAlso(topic.getId(), model);
+        postingListController.addSeeAlso(topic.getId(), model);
         earController.addEars(model);
-        indexController.addPostings("PRINTINGS", topic, null, new String[] {"PRINTINGS"}, topic.isPostable(),
-                                    offset, 20, model);
+        postingListController.addPostings("PRINTINGS", topic, null, new String[] {"PRINTINGS"}, topic.isPostable(),
+                                          offset, 20, model);
 
         return "migdal-library-novelties";
     }
@@ -601,9 +604,9 @@ public class MigdalController {
 
         museumGalleryLocationInfo(topic, model);
 
-        indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
+        postingListController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
         earController.addEars(model);
-        indexController.addSeeAlso(topic.getId(), model);
+        postingListController.addSeeAlso(topic.getId(), model);
 
         return "gallery";
     }
@@ -668,9 +671,9 @@ public class MigdalController {
 
         migdalOrGalleryLocationInfo(topic, model);
 
-        indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
+        postingListController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
         earController.addEars(model);
-        indexController.addSeeAlso(topic.getId(), model);
+        postingListController.addSeeAlso(topic.getId(), model);
 
         return "gallery";
     }
@@ -766,9 +769,9 @@ public class MigdalController {
 
         mazltovGalleryLocationInfo(topic, model);
 
-        indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
+        postingListController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
         earController.addEars(model);
-        indexController.addSeeAlso(topic.getId(), model);
+        postingListController.addSeeAlso(topic.getId(), model);
 
         return "gallery";
     }
@@ -884,9 +887,9 @@ public class MigdalController {
 
         beitenuGalleryLocationInfo(topic, model);
 
-        indexController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
+        postingListController.addGallery("GALLERY", topic, null, offset, 20, sort, model);
         earController.addEars(model);
-        indexController.addSeeAlso(topic.getId(), model);
+        postingListController.addSeeAlso(topic.getId(), model);
 
         return "gallery";
     }
@@ -911,7 +914,7 @@ public class MigdalController {
 
         methodologyLocationInfo(posting, model);
 
-        indexController.addSeeAlso(posting.getTopicId(), model);
+        postingListController.addSeeAlso(posting.getTopicId(), model);
         postingViewController.addPostingView(model, posting, null, null);
         earController.addEars(model);
 
@@ -962,10 +965,10 @@ public class MigdalController {
         methodologyBooksLocationInfo(model);
 
         model.addAttribute("topic", topic);
-        indexController.addSeeAlso(topic.getId(), model);
+        postingListController.addSeeAlso(topic.getId(), model);
         earController.addEars(model);
-        indexController.addPostings("BOOKS", topic, null, new String[] {"BOOKS"}, topic.isPostable(),
-                0, Integer.MAX_VALUE, model);
+        postingListController.addPostings("BOOKS", topic, null, new String[] {"BOOKS"}, topic.isPostable(),
+                                          0, Integer.MAX_VALUE, model);
 
         return "migdal-news";
     }
@@ -991,7 +994,7 @@ public class MigdalController {
 
         model.addAttribute("printings", topic);
         earController.addEars(model);
-        indexController.addSeeAlso(topic.getId(), model);
+        postingListController.addSeeAlso(topic.getId(), model);
         Postings p = Postings.all()
                 .topic(topic.getId(), true)
                 .grp("PRINTINGS")
