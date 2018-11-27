@@ -26,11 +26,6 @@ spring:
     caffeine:
       spec: maximumSize=500
 
-  http:
-    multipart:
-      max-file-size: 5MB
-      max-request-size: 5MB
-
   jpa:
     show-sql: true  # Show or not log for each sql query
     hibernate:
@@ -55,6 +50,11 @@ spring:
           auth: true
           starttls:
             enable: true
+
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
 
 migdal:
   siteDomain: localhost.localdomain  # Site domain

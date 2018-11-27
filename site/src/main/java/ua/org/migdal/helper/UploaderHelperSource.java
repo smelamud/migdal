@@ -36,16 +36,17 @@ public class UploaderHelperSource {
             buf.append(" value=\"Удалить\">&nbsp;<i>");
             buf.append(loaded);
             buf.append("</i>");
-            if (!StringUtils.isEmpty(largeUrl)) {
+            if (!StringUtils.isEmpty(smallUrl)) {
                 buf.append("&nbsp;&nbsp;<b>(</b>&nbsp;");
-                if (!StringUtils.isEmpty(smallUrl)) {
-                    buf.append("<a href=\"");
-                    buf.append(HelperUtils.he(smallUrl));
-                    buf.append("\">маленькая</a>,&nbsp;");
-                }
                 buf.append("<a href=\"");
-                buf.append(HelperUtils.he(largeUrl));
-                buf.append("\">большая</a>&nbsp;<b>)</b>");
+                buf.append(HelperUtils.he(smallUrl));
+                buf.append("\">маленькая</a>");
+                if (!StringUtils.isEmpty(largeUrl) && !largeUrl.equals(smallUrl)) {
+                    buf.append(",&nbsp;<a href=\"");
+                    buf.append(HelperUtils.he(largeUrl));
+                    buf.append("\">большая</a>");
+                }
+                buf.append("&nbsp;<b>)</b>");
             }
             buf.append("</span>");
         }
