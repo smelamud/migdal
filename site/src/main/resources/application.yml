@@ -1,8 +1,5 @@
 server:
   port: 8081  # Server port
-  servlet:
-    session:
-      timeout: 2400h  # Session timeout
 
 spring:
   # DataSource settings
@@ -55,6 +52,10 @@ spring:
     multipart:
       max-file-size: 5MB
       max-request-size: 5MB
+
+  session:
+    store-type: jdbc
+    timeout: 2400h  # Session timeout
 
 migdal:
   siteDomain: localhost.localdomain  # Site domain

@@ -12,7 +12,6 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
 import org.springframework.session.web.http.CookieSerializer;
 import org.springframework.session.web.http.DefaultCookieSerializer;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -33,7 +32,6 @@ import ua.org.migdal.helper.HelperSource;
 
 @SpringBootApplication
 @EnableConfigurationProperties(Config.class)
-@EnableJdbcHttpSession
 @EnableCaching
 @EnableScheduling
 public class MigdalApplication implements WebMvcConfigurer {
