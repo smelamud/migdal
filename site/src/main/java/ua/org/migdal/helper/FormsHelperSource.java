@@ -578,7 +578,7 @@ public class FormsHelperSource {
 
     private CharSequence helpText(String id) {
         StringBuilder buf = new StringBuilder();
-        buf.append(imagesHelperSource.image("/pics/help.gif"));
+        buf.append(imagesHelperSource.image("/pics/help.png"));
         buf.append("&nbsp;");
         buf.append("<a href=\"#\" class=\"help-text\"");
         HelperUtils.appendAttr(buf, "data-id", id);
