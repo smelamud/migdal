@@ -902,7 +902,11 @@
       title: "Мигдаль :: ${parent.subject}"
     - title: "${parent.subject}"
   detailsHref:
-    - href: "/${catalog}"
+    - subtree: taglit
+      href: "/${getCatalog(0,-1)}${userFolder}"
+    - subtree: veterans
+      href: "/${getCatalog(0,-1)}${userFolder}"
+    - href: "/${getCatalog(0,-1)}gallery"
 
   partial: posting-gallery-update
 
