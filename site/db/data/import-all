@@ -1,0 +1,13 @@
+#!/bin/bash
+
+./import \
+    chat_messages \
+    prisoners \
+    users \
+    groups \
+    image_files \
+    image_file_transforms \
+    entries \
+    inner_images \
+    cross_entries \
+    old_ids
