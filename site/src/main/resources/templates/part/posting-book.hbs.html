@@ -16,23 +16,27 @@
         {{/if}}
     </dt>
     <dd>
-        {{#if posting.hasImage}}
-            {{#assign "imageTitle"}}{{mtext posting.titleMtext}}{{/assign}}
-            {{#assign "imageTitleLarge"}}{{mtext posting.titleLineMtext}}{{/assign}}
-            {{postingImage posting=posting title=imageTitle titleLarge=imageTitleLarge align="left"}}
+        {{#if posting.shadow}}
+            {{> further posting=posting.orig}}
+        {{else}}
+            {{#if posting.hasImage}}
+                {{#assign "imageTitle"}}{{mtext posting.titleMtext}}{{/assign}}
+                {{#assign "imageTitleLarge"}}{{mtext posting.titleLineMtext}}{{/assign}}
+                {{postingImage posting=posting title=imageTitle titleLarge=imageTitleLarge align="left"}}
+            {{/if}}
+            {{mtext posting.bodyMtext}}
+            {{> further posting=posting}}
+            {{! <iterate_packages posting_id="$posting.Id">
+            <for>
+                <br><image src="pics/package.gif">&sp;
+                <if what="$.Type==*PT_BOOK_ONEFILE">
+                    <assign name="title" value="Вся книга одним файлом в архиве">
+                <else>
+                    <assign name="title" value="Вся книга по главам в архиве">
+                </if>
+                <a href="$.Href">$title</a>&sp;<i>(ZIP, ${.SizeKB}KB)</i>
+            </for> }}
         {{/if}}
-        {{mtext posting.bodyMtext}}
-        {{> further posting=posting}}
-        {{! <iterate_packages posting_id="$posting.Id">
-        <for>
-            <br><image src="pics/package.gif">&sp;
-            <if what="$.Type==*PT_BOOK_ONEFILE">
-                <assign name="title" value="Вся книга одним файлом в архиве">
-            <else>
-                <assign name="title" value="Вся книга по главам в архиве">
-            </if>
-            <a href="$.Href">$title</a>&sp;<i>(ZIP, ${.SizeKB}KB)</i>
-        </for> }}
         <div class="sent" style="clear: left">
             {{sentView date=posting.sent}}&nbsp;
             {{senderLink posting}}

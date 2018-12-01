@@ -12,19 +12,23 @@
         {{votePanel align="right" id=posting.id rating=posting.rating}}
     </dt>
     <dd>
-        {{#if posting.hasImage}}
-            {{#assign "imageTitle"}}{{mtext posting.titleMtext}}{{/assign}}
-            {{#assign "imageTitleLarge"}}{{mtext posting.titleLineMtext}}{{/assign}}
-            {{postingImage posting=posting title=imageTitle titleLarge=imageTitleLarge align="left"}}
-        {{/if}}
-        {{#if shorten}}
-            {{mtext posting.bodyMediumMtext}}
-            {{#unless posting.bodyShorterThanMedium}}
-                {{#notEnglish var="furtherTitle"}}Читать дальше{{else}}Read more{{/notEnglish}}
-                {{> further posting=posting title=furtherTitle}}
-            {{/unless}}
+        {{#if posting.shadow}}
+            {{> further posting=posting.orig}}
         {{else}}
-            {{mtext posting.bodyMtext}}
+            {{#if posting.hasImage}}
+                {{#assign "imageTitle"}}{{mtext posting.titleMtext}}{{/assign}}
+                {{#assign "imageTitleLarge"}}{{mtext posting.titleLineMtext}}{{/assign}}
+                {{postingImage posting=posting title=imageTitle titleLarge=imageTitleLarge align="left"}}
+            {{/if}}
+            {{#if shorten}}
+                {{mtext posting.bodyMediumMtext}}
+                {{#unless posting.bodyShorterThanMedium}}
+                    {{#notEnglish var="furtherTitle"}}Читать дальше{{else}}Read more{{/notEnglish}}
+                    {{> further posting=posting title=furtherTitle}}
+                {{/unless}}
+            {{else}}
+                {{mtext posting.bodyMtext}}
+            {{/if}}
         {{/if}}
         <div class="sent" style="clear: left">
             {{sentView date=posting.sent}}&nbsp;

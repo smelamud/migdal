@@ -28,35 +28,40 @@
         {{/if}}
     </dt>
     <dd>
-        {{#if posting.hasImage}}
-            {{#assign "imageTitle"}}{{mtext posting.titleMtext}}{{/assign}}
-            {{#assign "imageTitleLarge"}}{{mtext posting.titleLineMtext}}{{/assign}}
-            {{postingImage posting=posting title=imageTitle titleLarge=imageTitleLarge align="left"}}
-        {{/if}}
-        {{#if (and shorten (not posting.hasLargeBody))}}
-            {{mtext posting.bodyMediumMtext}}
-            {{#unless posting.bodyShorterThanMedium}}
-                {{#notEnglish var="furtherTitle"}}Читать дальше{{else}}Read more{{/notEnglish}}
-                {{> further posting=posting title=furtherTitle}}
-            {{else}}
-                {{> source posting=posting}}
-            {{/unless}}
+        {{#if posting.shadow}}
+            {{#assign "shadowTitle"}}Читать {{posting.grpWhat}}{{/assign}}
+            {{> further posting=posting.orig title=shadowTitle}}
         {{else}}
-            {{mtext posting.bodyMtext}}
-            {{#unless posting.hasLargeBody}}
-                {{> source posting=posting}}
+            {{#if posting.hasImage}}
+                {{#assign "imageTitle"}}{{mtext posting.titleMtext}}{{/assign}}
+                {{#assign "imageTitleLarge"}}{{mtext posting.titleLineMtext}}{{/assign}}
+                {{postingImage posting=posting title=imageTitle titleLarge=imageTitleLarge align="left"}}
+            {{/if}}
+            {{#if (and shorten (not posting.hasLargeBody))}}
+                {{mtext posting.bodyMediumMtext}}
+                {{#unless posting.bodyShorterThanMedium}}
+                    {{#notEnglish var="furtherTitle"}}Читать дальше{{else}}Read more{{/notEnglish}}
+                    {{> further posting=posting title=furtherTitle}}
+                {{else}}
+                    {{> source posting=posting}}
+                {{/unless}}
+            {{else}}
+                {{mtext posting.bodyMtext}}
+                {{#unless posting.hasLargeBody}}
+                    {{> source posting=posting}}
+                {{/unless}}
+            {{/if}}
+            {{#if posting.hasLargeBody}}
+                {{#notEnglish var="furtherTitle"}}Читать {{posting.grpWhat}}{{else}}Read {{posting.grpEnWhat}}{{/notEnglish}}
+                {{> further posting=posting title=furtherTitle}}
+            {{/if}}
+            {{#if posting.url}}
+                {{> furtherUrl posting=posting}}
+            {{/if}}
+            {{#unless shorten}}
+                {{postingShare}}
             {{/unless}}
         {{/if}}
-        {{#if posting.hasLargeBody}}
-            {{#notEnglish var="furtherTitle"}}Читать {{posting.grpWhat}}{{else}}Read {{posting.grpEnWhat}}{{/notEnglish}}
-            {{> further posting=posting title=furtherTitle}}
-        {{/if}}
-        {{#if posting.url}}
-            {{> furtherUrl posting=posting}}
-        {{/if}}
-        {{#unless shorten}}
-            {{postingShare}}
-        {{/unless}}
         <div class="sent" style="clear: left">
             {{sentView date=posting.sent}}&nbsp;
             {{senderLink posting}}

@@ -5,6 +5,7 @@ import csv
 
 entry_grps = {}
 entry_ids = {}
+entries = {}
 
 def read_entry_grps():
     global entry_grps
@@ -26,6 +27,14 @@ def read_entry_ids():
         reader = csv.DictReader(infile)
         for row in reader:
             entry_ids[row['id']] = True
+
+def read_entries():
+    global entries
+
+    with open('entries.csv', 'r') as infile:
+        reader = csv.DictReader(infile)
+        for row in reader:
+            entries[row['id']] = row
 
 def null_time(time):
     if time == '0000-00-00 00:00:00':
@@ -112,7 +121,7 @@ def convert_users(row):
 convert_users.used_logins = {}
 
 def convert_entries(row):
-    global entry_grps
+    global entry_grps, entries
 
     if row['group_id'] == '172':
         row['group_id'] = row['user_id']
@@ -126,6 +135,17 @@ def convert_entries(row):
         row['grp'] = str(entry_grps[row['id']])
     if row['entry'] == '1' and row['answers'] == '0':
         row['last_answer'] = row['sent']
+    if row['entry'] == '1' and row['id'] != row['orig_id']:
+        orig = entries[row['orig_id']]
+        row['subject'] = orig['subject']
+        row['author'] = orig['author']
+        row['author_xml'] = orig['author_xml']
+        row['title'] = orig['title']
+        row['title_xml'] = orig['title_xml']
+        row['comment0'] = orig['comment0']
+        row['comment0_xml'] = orig['comment0_xml']
+        row['index0'] = orig['index0']
+        row['index1'] = orig['index1']
     return [
         row['id'],
         row['ident'],
@@ -301,6 +321,8 @@ read_entry_grps()
 table_name = sys.argv[1]
 if table_name == 'inner_images' or table_name == 'old_ids':
     read_entry_ids()
+if table_name == 'entries':
+    read_entries()
 with open(table_name + '.csv', 'r') as infile:
     with open(table_name + '.converted.csv', 'w') as outfile:
         reader = csv.DictReader(infile)

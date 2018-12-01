@@ -399,6 +399,16 @@ public class Entry implements TreeElement {
         this.orig = orig;
     }
 
+    @Transient
+    public long getOrigId() {
+        return getOrig() != null ? getOrig().getId() : 0;
+    }
+
+    @Transient
+    public boolean isShadow() {
+        return getId() != getOrigId();
+    }
+
     public Entry getCurrent() {
         return current;
     }

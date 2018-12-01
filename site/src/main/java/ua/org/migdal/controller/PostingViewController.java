@@ -106,6 +106,9 @@ public class PostingViewController {
         addPostingView(model, posting, offset, tid);
         earController.addEars(model);
 
+        if (posting.isShadow()) {
+            return "posting";
+        }
         String mappedTemplate = detailsService.callMapping(posting.getGrpDetailsTemplate(), posting, model);
         return mappedTemplate != null ? mappedTemplate : posting.getGrpDetailsTemplate();
     }

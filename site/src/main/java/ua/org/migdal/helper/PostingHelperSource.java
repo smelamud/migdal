@@ -140,11 +140,12 @@ public class PostingHelperSource {
     public CharSequence postingControls(Options options) {
         Posting posting = HelperUtils.mandatoryHash("posting", options);
         boolean showSelf = HelperUtils.boolArg(options.hash("showSelf"));
-        boolean showEdit = HelperUtils.boolArg(options.hash("showEdit", "true")) && posting.isWritable();
+        boolean showEdit = HelperUtils.boolArg(options.hash("showEdit", "true"));
+        boolean editable = posting.isWritable() && !posting.isShadow();
         boolean showComment = HelperUtils.boolArg(options.hash("showComment"));
 
-        if (!showSelf && !showEdit && !showComment) {
-            return "";
+        if (!showSelf && !(showEdit && editable) && !showComment) {
+            return new SafeString("<div class=\"clear-floats\"></div>");
         }
 
         StringBuilder buf = new StringBuilder();
@@ -153,7 +154,7 @@ public class PostingHelperSource {
             buf.append(selfLink(posting));
             buf.append("&nbsp;&nbsp;&nbsp;");
         }
-        if (showEdit) {
+        if (showEdit && editable) {
             buf.append(editLink(posting));
             buf.append("&nbsp;&nbsp;&nbsp;");
         }
