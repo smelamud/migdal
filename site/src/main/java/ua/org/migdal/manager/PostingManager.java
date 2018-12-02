@@ -352,8 +352,6 @@ public class PostingManager implements EntryManagerBase<Posting> {
         if (newPosting || topicChanged) {
             publishPosting(posting);
         }
-        /*    if ($original->getId() == 0) TODO
-        createCounters($posting->getId(), $posting->getGrp());*/
     }
 
     public void updateModbits(Posting posting) {
