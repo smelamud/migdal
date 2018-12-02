@@ -22,6 +22,8 @@ public class MtextTags {
         tags.put("b",           MtextFormat.LINE);
         tags.put("i",           MtextFormat.LINE);
         tags.put("u",           MtextFormat.LINE);
+        tags.put("strong",      MtextFormat.LINE);
+        tags.put("em",          MtextFormat.LINE);
         tags.put("s",           MtextFormat.LINE);
         tags.put("strike",      MtextFormat.LINE);
         tags.put("tt",          MtextFormat.LINE);

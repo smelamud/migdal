@@ -20,7 +20,7 @@ class MtextToLine extends DefaultHandler {
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        switch (qName) {
+        switch (qName.toLowerCase()) {
             case "p":
             case "li":
             case "center":

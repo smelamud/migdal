@@ -174,10 +174,11 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        if (!MtextTags.isAllowed(qName) || MtextTags.getLevel(qName).greaterThan(format)) {
+        String qiName = qName.toLowerCase();
+        if (!MtextTags.isAllowed(qiName) || MtextTags.getLevel(qiName).greaterThan(format)) {
             if (!ignoreWrongFormat) {
                 html.append("<b>** &lt;");
-                html.append(qName);
+                html.append(qiName);
                 html.append("&gt; **</b>");
             } else {
                 html.append(' ');
@@ -185,9 +186,9 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
             return;
         }
         if (inFootnote) {
-            xmlFootnote.append(XmlUtils.makeTag(qName, attributes));
+            xmlFootnote.append(XmlUtils.makeTag(qiName, attributes));
         }
-        switch (qName) {
+        switch (qiName) {
             case "mtext-line":
             case "mtext-short":
             case "mtext-long":
@@ -200,7 +201,7 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
                 }
                 String href = verifyUrl(attributes.getValue("href"));
                 // Attribute "LOCAL" may be present, but ignored for now
-                html.append(XmlUtils.makeTag(qName, Collections.singletonMap("href", href)));
+                html.append(XmlUtils.makeTag(qiName, Collections.singletonMap("href", href)));
                 break;
             }
 
@@ -230,13 +231,13 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
             case "h2":
             case "h3":
             case "h4":
-                html.append(XmlUtils.makeTag(qName, attributes));
+                html.append(XmlUtils.makeTag(qiName, attributes));
                 inHx = true;
                 brInHx = false;
                 break;
 
             case "br":
-                html.append(XmlUtils.makeTag(qName, attributes, true));
+                html.append(XmlUtils.makeTag(qiName, attributes, true));
                 if (inHx && !brInHx) {
                     brInHx = true;
                     html.append(XmlUtils.makeTag("span", Collections.singletonMap("class", "subheading")));
@@ -247,9 +248,9 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
                 putImageBlock();
                 String clear = attributes.getIndex("clear") >= 0 ? attributes.getValue("clear") : getParagraphClear();
                 if (clear.equals("none")) {
-                    html.append(XmlUtils.makeTag(qName));
+                    html.append(XmlUtils.makeTag(qiName));
                 } else {
-                    html.append(XmlUtils.makeTag(qName, Collections.singletonMap("style", "clear: " + clear)));
+                    html.append(XmlUtils.makeTag(qiName, Collections.singletonMap("style", "clear: " + clear)));
                 }
                 break;
             }
@@ -260,7 +261,7 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
                     break;
                 }
                 if (listStyles.peek() != 'd') {
-                    html.append(XmlUtils.makeTag(qName));
+                    html.append(XmlUtils.makeTag(qiName));
                 }
                 if (attributes.getIndex("title") >= 0) {
                     if (listStyles.peek() != 'd') {
@@ -284,20 +285,20 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
             case "ul":
                 listStyles.push('u');
                 listStyles.push('i');
-                html.append(XmlUtils.makeTag(qName, attributes));
+                html.append(XmlUtils.makeTag(qiName, attributes));
                 break;
 
             case "ol":
                 listStyles.push('o');
                 listStyles.push('i');
-                html.append(XmlUtils.makeTag(qName, attributes));
+                html.append(XmlUtils.makeTag(qiName, attributes));
                 break;
 
             case "dl": {
                 listStyles.push('d');
                 String font = attributes.getValue("font");
                 listStyles.push(StringUtils.isEmpty(font) ? 'b' : font.charAt(0));
-                html.append(XmlUtils.makeTag(qName, attributes));
+                html.append(XmlUtils.makeTag(qiName, attributes));
                 break;
             }
 
@@ -337,23 +338,24 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
             }
 
             default:
-                html.append(XmlUtils.makeTag(qName, attributes));
+                html.append(XmlUtils.makeTag(qiName, attributes));
         }
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        if (!MtextTags.isAllowed(qName) || MtextTags.getLevel(qName).greaterThan(format)) {
+        String qiName = qName.toLowerCase();
+        if (!MtextTags.isAllowed(qiName) || MtextTags.getLevel(qiName).greaterThan(format)) {
             if (!ignoreWrongFormat) {
                 html.append("<b>** &lt;/");
-                html.append(qName);
+                html.append(qiName);
                 html.append("&gt; **</b>");
             } else {
                 html.append(' ');
             }
             return;
         }
-        switch (qName) {
+        switch (qiName) {
             case "mtext-line":
             case "mtext-short":
             case "mtext-long":
@@ -368,7 +370,7 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
                 }
                 inHx = false;
                 brInHx = false;
-                html.append(XmlUtils.makeTag("/" + qName));
+                html.append(XmlUtils.makeTag("/" + qiName));
                 break;
 
             case "li":
@@ -377,7 +379,7 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
                     break;
                 }
                 if (listStyles.peek() != 'd') {
-                    html.append(XmlUtils.makeTag("/" + qName));
+                    html.append(XmlUtils.makeTag("/" + qiName));
                 } else {
                     html.append(XmlUtils.makeTag("/dd"));
                 }
@@ -388,12 +390,12 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
             case "dl":
                 if (listStyles.empty()) {
                     html.append("<b>&lt;/");
-                    html.append(qName.toUpperCase());
+                    html.append(qiName.toUpperCase());
                     html.append("?&gt;</b>");
                     break;
                 }
                 listStyles.pop();
-                html.append(XmlUtils.makeTag("/" + qName));
+                html.append(XmlUtils.makeTag("/" + qiName));
                 break;
 
             case "quote":
@@ -432,10 +434,10 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
                 break;
 
             default:
-                html.append(XmlUtils.makeTag("/" + qName));
+                html.append(XmlUtils.makeTag("/" + qiName));
         }
         if (inFootnote) {
-            xmlFootnote.append(XmlUtils.makeTag("/" + qName));
+            xmlFootnote.append(XmlUtils.makeTag("/" + qiName));
         }
     }
 

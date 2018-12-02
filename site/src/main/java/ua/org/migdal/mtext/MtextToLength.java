@@ -44,8 +44,9 @@ class MtextToLength extends DefaultHandler {
         if (stop) {
             return;
         }
-        
-        switch (qName) {
+
+        String qiName = qName.toLowerCase();
+        switch (qiName) {
             case "mtext-line":
             case "mtext-short":
             case "mtext-long":
@@ -54,21 +55,22 @@ class MtextToLength extends DefaultHandler {
             case "email":
             case "br":
                 if (!clearTags) {
-                    shortened.append(XmlUtils.makeTag(qName, attributes, true));
+                    shortened.append(XmlUtils.makeTag(qiName, attributes, true));
                 }
                 break;
 
             default:
                 if (!clearTags) {
-                    shortened.append(XmlUtils.makeTag(qName, attributes));
+                    shortened.append(XmlUtils.makeTag(qiName, attributes));
                 }
-                open.push(qName);
+                open.push(qiName);
         }
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        switch (qName) {
+        String qiName = qName.toLowerCase();
+        switch (qiName) {
             case "mtext-line":
             case "mtext-short":
             case "mtext-long":
@@ -84,7 +86,7 @@ class MtextToLength extends DefaultHandler {
             return;
         }
 
-        switch (qName) {
+        switch (qiName) {
             case "email":
             case "br":
                 break;
@@ -100,7 +102,7 @@ class MtextToLength extends DefaultHandler {
                 /* fall through */
             default:
                 if (!clearTags) {
-                    shortened.append(XmlUtils.makeTag("/" + qName));
+                    shortened.append(XmlUtils.makeTag("/" + qiName));
                 }
                 open.pop();
         }
