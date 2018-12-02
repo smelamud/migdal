@@ -486,7 +486,7 @@ public class PostingForm implements Serializable {
         }
         posting.setLang(getLang());
         if (!StringUtils.isEmpty(getUrl()) && !getUrl().contains("://") && !getUrl().startsWith("/")) {
-            posting.setUrl(String.format("http://%s", getUrl())); // FIXME maybe https?
+            posting.setUrl(String.format("http://%s", getUrl()));
         } else {
             posting.setUrl(getUrl());
         }

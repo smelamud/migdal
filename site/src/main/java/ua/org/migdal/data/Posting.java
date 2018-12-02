@@ -62,7 +62,7 @@ public class Posting extends Entry {
     }
 
     private GrpDescriptor getGrpDescriptor() {
-        return GrpEnum.getInstance().grp(getGrp()); // FIXME not null-safe
+        return GrpEnum.getInstance().grp(getGrp()); // Not null-safe - NPE signals early about error
     }
 
     @Transient
