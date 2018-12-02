@@ -52,7 +52,7 @@ public class PageHelperSource {
         }
         for (int i = 1; i <= 8; i++) {
             if (isSameDay(today, holiday)) {
-                return imagesHelperSource.image(String.format("pics/hk-%d.gif", i), null, null, null, null, null, null,
+                return imagesHelperSource.image(String.format("/pics/hk-%d.gif", i), null, null, null, null, null, null,
                                                 "hannukah");
             }
             holiday.add(Calendar.DAY_OF_MONTH, 1);
