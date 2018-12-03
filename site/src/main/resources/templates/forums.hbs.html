@@ -70,7 +70,7 @@
                                 <td class="{{class}} ninept">
                                     {{sentView date=lastCommentTimestamp}}<br>
                                     Автор: {{senderLink lastComment}}&nbsp;
-                                    <a href="{{grpDetailsHref}}?tid={{lastComment.id}}#t{{lastComment.id}}"
+                                    <a href="{{grpDetailsHref}}{{lastComment.query}}"
                                        title="К последнему комментарию">{{image "/pics/further-far.gif"}}</a>
                                 </td>
                             {{/unless}}

@@ -3,7 +3,7 @@
     <div class="header">
         {{senderLink comment}}<br>
         <span class="sent">{{sentView date=comment.sent}}</span>
-        <a href="{{posting.grpDetailsHref}}?tid={{comment.id}}#t{{comment.id}}">{{image "/pics/self.gif"}}</a>
+        <a href="{{posting.grpDetailsHref}}{{comment.query}}">{{image "/pics/self.gif"}}</a>
     </div>
     <div class="content">
         <div class="body">

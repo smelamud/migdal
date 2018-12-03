@@ -6,7 +6,7 @@
                 {{#if comments}}
                     <div class="content">
                         {{senderLink lastComment}} <span class="quote">
-                            <a href="{{grpDetailsHref}}?tid={{lastComment.id}}#t{{lastComment.id}}">{{lastComment.bodyTiny}}</a>
+                            <a href="{{grpDetailsHref}}{{lastComment.query}}">{{lastComment.bodyTiny}}</a>
                         </span>
                     </div>
                     <span class="time fuzzy-time" data-time="{{lastCommentTimestamp.time}}"></span>

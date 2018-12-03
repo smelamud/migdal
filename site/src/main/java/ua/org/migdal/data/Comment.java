@@ -2,6 +2,7 @@ package ua.org.migdal.data;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import org.hibernate.Hibernate;
 import ua.org.migdal.Config;
@@ -32,6 +33,11 @@ public class Comment extends Entry {
         RequestContext rc = RequestContextImpl.getInstance();
         return rc.isUserModerator()
                || (!isDisabled() || getUser().getId() == rc.getUserId()) && super.isPermitted(right);
+    }
+
+    @Transient
+    public String getQuery() {
+        return String.format("?tid=%d#t%d", getId(), getId());
     }
 
     public static String validateHierarchy(Entry parent, Entry up, long id) {
