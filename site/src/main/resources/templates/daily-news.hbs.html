@@ -79,7 +79,7 @@
                 <div class="article" style="flex: auto">
                     {{#if posting.id}}
                         <div class="sent">
-                            {{sentView date=posting.sent}}<br>
+                            {{sentView posting=posting}}<br>
                             {{senderLink posting}}
                         </div>
                         {{> dailyRing}}

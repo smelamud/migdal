@@ -19,7 +19,7 @@
         {{mtext posting.titleMtext}}
         {{> source posting=posting}}
         <div class="sent" style="clear: left">
-            {{sentView date=posting.sent}}&nbsp;
+            {{sentView posting=posting}}&nbsp;
             {{senderLink posting}}
         </div>
         {{postingControls posting=posting showComment=showComment}}

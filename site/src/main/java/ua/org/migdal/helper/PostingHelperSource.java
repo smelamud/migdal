@@ -11,6 +11,7 @@ import com.github.jknack.handlebars.Handlebars.SafeString;
 import com.github.jknack.handlebars.Options;
 
 import ua.org.migdal.data.ChatMessage;
+import ua.org.migdal.data.Comment;
 import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.Posting;
 import ua.org.migdal.helper.calendar.CalendarType;
@@ -40,8 +41,38 @@ public class PostingHelperSource {
 
     public CharSequence sentView(Options options) {
         LocalDateTime timestamp = HelperUtils.timestampArg("date", options.hash("date"));
+        Posting posting = options.hash("posting");
+        Comment comment = options.hash("comment");
 
-        return sentView(timestamp);
+        if (comment != null) {
+            return sentView(posting, comment);
+        } else if (posting != null) {
+            return sentView(posting);
+        } else {
+            return sentView(timestamp);
+        }
+    }
+
+    CharSequence sentView(Posting posting) {
+        StringBuilder buf = new StringBuilder();
+        buf.append("<a");
+        HelperUtils.appendAttr(buf, "href", posting.getGrpDetailsHref());
+        HelperUtils.appendAttr(buf, "title", "Ссылка на " + posting.getGrpWhat());
+        buf.append('>');
+        buf.append(sentView(posting.getSent().toLocalDateTime()));
+        buf.append("</a>");
+        return new SafeString(buf);
+    }
+
+    CharSequence sentView(Posting posting, Comment comment) {
+        StringBuilder buf = new StringBuilder();
+        buf.append("<a");
+        HelperUtils.appendAttr(buf, "href", posting.getGrpDetailsHref() + comment.getQuery());
+        HelperUtils.appendAttr(buf, "title", "Ссылка на комментарий");
+        buf.append('>');
+        buf.append(sentView(comment.getSent().toLocalDateTime()));
+        buf.append("</a>");
+        return new SafeString(buf);
     }
 
     CharSequence sentView(LocalDateTime timestamp) {
@@ -218,7 +249,7 @@ public class PostingHelperSource {
         }
         buf.append("<br />");
         buf.append("<div class=\"sent\" style=\"clear: left\">");
-        buf.append(sentView(posting.getSent().toLocalDateTime()));
+        buf.append(sentView(posting));
         buf.append(" &nbsp; ");
         buf.append(senderLink(posting));
         buf.append("</div>");
