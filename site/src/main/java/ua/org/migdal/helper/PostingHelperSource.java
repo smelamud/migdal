@@ -111,18 +111,6 @@ public class PostingHelperSource {
         return new SafeString(buf);
     }
 
-    public CharSequence selfLink(Posting posting) {
-        StringBuilder buf = new StringBuilder();
-        buf.append(imagesHelperSource.image("/pics/self.gif"));
-        buf.append("&nbsp;");
-        buf.append("<a ");
-        HelperUtils.appendAttr(buf, "href", posting.getGrpDetailsHref());
-        buf.append('>');
-        buf.append(!requestContext.isEnglish() ? "Ссылка" : "Link");
-        buf.append("</a>");
-        return new SafeString(buf);
-    }
-
     public CharSequence editLink(Posting posting) {
         StringBuilder buf = new StringBuilder();
         buf.append("<a");
@@ -170,21 +158,16 @@ public class PostingHelperSource {
 
     public CharSequence postingControls(Options options) {
         Posting posting = HelperUtils.mandatoryHash("posting", options);
-        boolean showSelf = HelperUtils.boolArg(options.hash("showSelf"));
         boolean showEdit = HelperUtils.boolArg(options.hash("showEdit", "true"));
         boolean editable = posting.isWritable() && !posting.isShadow();
         boolean showComment = HelperUtils.boolArg(options.hash("showComment"));
 
-        if (!showSelf && !(showEdit && editable) && !showComment) {
+        if (!(showEdit && editable) && !showComment) {
             return new SafeString("<div class=\"clear-floats\"></div>");
         }
 
         StringBuilder buf = new StringBuilder();
         buf.append("<div class=\"posting-bottom\">");
-        if (showSelf) {
-            buf.append(selfLink(posting));
-            buf.append("&nbsp;&nbsp;&nbsp;");
-        }
         if (showEdit && editable) {
             buf.append(editLink(posting));
             buf.append("&nbsp;&nbsp;&nbsp;");
@@ -253,17 +236,17 @@ public class PostingHelperSource {
         buf.append(" &nbsp; ");
         buf.append(senderLink(posting));
         buf.append("</div>");
-        buf.append("<div class=\"picture-bottom\">");
-        buf.append(selfLink(posting));
-        if (posting.isWritable()) {
-            buf.append(" &nbsp; ");
-            buf.append(editLink(posting));
+        if (posting.isWritable() || posting.isPostable()) {
+            buf.append("<div class=\"picture-bottom\">");
+            if (posting.isWritable()) {
+                buf.append(editLink(posting));
+            }
+            if (posting.isPostable()) {
+                buf.append(" &nbsp; ");
+                buf.append(commentLink(posting));
+            }
+            buf.append("</div>");
         }
-        if (posting.isPostable()) {
-            buf.append(" &nbsp; ");
-            buf.append(commentLink(posting));
-        }
-        buf.append("</div>");
         buf.append("</div>");
         return new SafeString(buf);
     }
