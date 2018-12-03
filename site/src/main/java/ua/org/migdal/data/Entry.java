@@ -258,7 +258,7 @@ public class Entry implements TreeElement {
     private Timestamp lastCommentTimestamp;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    private Entry lastComment;
+    private Comment lastComment;
 
     @ManyToOne(fetch=FetchType.LAZY)
     private User lastCommentUser;
@@ -1080,11 +1080,11 @@ public class Entry implements TreeElement {
         this.lastCommentTimestamp = lastCommentTimestamp;
     }
 
-    public Entry getLastComment() {
+    public Comment getLastComment() {
         return lastComment;
     }
 
-    public void setLastComment(Entry lastComment) {
+    public void setLastComment(Comment lastComment) {
         this.lastComment = lastComment;
     }
 
