@@ -45,4 +45,8 @@ public interface UserRepository extends JpaRepository<User, Long>, QuerydslPredi
     @Query("select distinct g.id, g.login, u.id, u.login from User g inner join g.users u order by g.login, u.login")
     List<Object[]> findGroupsAndUsersOrderByLogin();
 
+    @Modifying
+    @Query("delete from User u where u.confirmDeadline is not null and u.confirmDeadline < now()")
+    void deleteUnconfirmedUsers();
+
 }

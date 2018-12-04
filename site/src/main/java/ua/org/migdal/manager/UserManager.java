@@ -163,4 +163,9 @@ public class UserManager {
                 PageRequest.of(offset / limit, limit, Sort.Direction.ASC, sortField));
     }
 
+    @Daily
+    public void deleteUnconfirmedUsers() {
+        userRepository.deleteUnconfirmedUsers();
+    }
+
 }
