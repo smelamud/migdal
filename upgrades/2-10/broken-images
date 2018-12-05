@@ -1,3 +1,0 @@
-#!/bin/bash
-
-ls -1 ../migdal-images/|while read s; do if [ -h ../migdal-images/$s -a ! -r ../migdal-images/$s ]; then echo $s; fi; done
