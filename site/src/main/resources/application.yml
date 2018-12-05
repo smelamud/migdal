@@ -23,6 +23,12 @@ spring:
     caffeine:
       spec: maximumSize=500
 
+  flyway:
+    user: migdal
+    password: migdal
+    table: schema_history
+    baseline-on-migrate: true
+
   jpa:
     show-sql: true  # Show or not log for each sql query
     hibernate:
