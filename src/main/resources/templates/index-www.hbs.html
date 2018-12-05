@@ -12,33 +12,35 @@
 {{/inline}}
 
 {{#*inline "dailyAnnounce"}}
-    {{#cached dailyNewsCache}}
-        {{#if dailyNews}}
-            <div class="textears-title">{{dailyNewsTopic.comment0}}:</div>
-            <div style="display: flex; max-width: 700px; margin-bottom: 3ex">
-                {{#if dailyPicture}}
-                    {{#if dailyPicture.hasImage}}
-                        <div style="flex: none; align-self: center; max-width: 200px">
-                            {{postingImage posting=dailyPicture href=dailyPicture.href}}
-                        </div>
+    {{#if dailyNewsCache}}
+        {{#cached dailyNewsCache}}
+            {{#if dailyNews}}
+                <div class="textears-title">{{dailyNewsTopic.comment0}}:</div>
+                <div style="display: flex; max-width: 700px; margin-bottom: 3ex">
+                    {{#if dailyPicture}}
+                        {{#if dailyPicture.hasImage}}
+                            <div style="flex: none; align-self: center; max-width: 200px">
+                                {{postingImage posting=dailyPicture href=dailyPicture.href}}
+                            </div>
+                        {{/if}}
                     {{/if}}
-                {{/if}}
-                <div style="flex: auto">
-                    <ul class="ninept" style="margin-bottom: 0">
-                        {{#each dailyNews}}
-                            <li>
-                                <b>{{subject}}.</b>
-                                <a href="{{grpDetailsHref}}">{{mtext comment0Mtext}}</a>
-                            </li>
-                        {{/each}}
-                    </ul>
-                    <div style="padding-left: 3em">
-                        <a href="{{dailyNewsTopic.href}}" class="eightpt"><b>Все дни</b></a>
+                    <div style="flex: auto">
+                        <ul class="ninept" style="margin-bottom: 0">
+                            {{#each dailyNews}}
+                                <li>
+                                    <b>{{subject}}.</b>
+                                    <a href="{{grpDetailsHref}}">{{mtext comment0Mtext}}</a>
+                                </li>
+                            {{/each}}
+                        </ul>
+                        <div style="padding-left: 3em">
+                            <a href="{{dailyNewsTopic.href}}" class="eightpt"><b>Все дни</b></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {{/if}}
-    {{/cached}}
+            {{/if}}
+        {{/cached}}
+    {{/if}}
 {{/inline}}
 
 {{> part/preamble}}

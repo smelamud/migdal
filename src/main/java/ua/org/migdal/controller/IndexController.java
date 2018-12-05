@@ -77,7 +77,7 @@ public class IndexController {
 
         earController.addEars(model);
         addTextEars(model);
-        addDailyAnnounce("migdal.events.kaitanot.5762.summer", model);
+        //addDailyAnnounce("migdal.events.kaitanot.5762.summer", model);
         postingListController.addPostings("TAPE", null, null, new String[] {"NEWS", "ARTICLES", "GALLERY", "BOOKS"},
                                           true, offset, 20, model);
         addHitParade(null, model);
