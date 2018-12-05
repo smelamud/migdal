@@ -1,7 +1,0 @@
-<< @(#) $Id$ >>
-
-<element name='subtitle'>
-<ifne what='$title'>
- <div class='page-title'>$=title</div>
-</ifne>
-</element>
