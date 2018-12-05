@@ -24,9 +24,6 @@
 сайта (при этом вы не сможете распространять модифицированные тексты ядра под
 этой лицензией).
 
-Руководство по установке находится в файле INSTALL. Там же находятся
-требования к остальному программному обеспечению.
-
 Автором сайта является Шмуэль-Лейб Меламуд <balu@migdal.org.ua>.
 
 Все замечания, сообщения об ошибках и предложения по дальнейшему
@@ -44,5 +41,3 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-@(#) $Id$
