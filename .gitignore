@@ -1,13 +1,8 @@
 *.iml
 .*.swp
-.build/
 .idea/
-Makefile
-conf/grpentry-body.php
-conf/kcaptcha.conf
-conf/migdal.conf
 site.log
-site/db/data/*.csv
-!site/db/data/Makefile
-site/src/main/resources/application-dev.yml
+db/data/*.csv
+!db/data/Makefile
+src/main/resources/application-dev.yml
 target/
