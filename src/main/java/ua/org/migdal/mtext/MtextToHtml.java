@@ -43,7 +43,6 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
     private Config config;
     private ArticleHelperSource articleHelperSource;
     private UsersHelperSource usersHelperSource;
-    private IncutCallback incutCallback;
 
     public MtextToHtml(MtextFormat format, boolean ignoreWrongFormat, long id,
                        Map<Integer, InnerImageBlock> imageBlocks) {
@@ -87,22 +86,6 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
 
     public void setUsersHelperSource(UsersHelperSource usersHelperSource) {
         this.usersHelperSource = usersHelperSource;
-    }
-
-    public IncutCallback getIncutCallback() {
-        return incutCallback;
-    }
-
-    public void setIncutCallback(IncutCallback incutCallback) {
-        this.incutCallback = incutCallback;
-    }
-
-    private CharSequence invokeIncutOpenCallback(String align, String width) {
-        return incutCallback != null ? incutCallback.formatOpen(align, width) : "";
-    }
-
-    private CharSequence invokeIncutCloseCallback() {
-        return incutCallback != null ? incutCallback.formatClose() : "";
     }
 
     @Override
@@ -331,9 +314,12 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
             case "incut": {
                 String align = attributes.getValue("align");
                 String width = attributes.getValue("width");
-                html.append(invokeIncutOpenCallback(
-                        align != null ? align : "right",
-                        width != null ? width : "50%"));
+                align = align != null ? align : "right";
+                width = width != null ? width : "50%";
+                Map<String, String> attrs = new HashMap<>();
+                attrs.put("class", "incut-" + align);
+                attrs.put("style", "width: " + width);
+                html.append(XmlUtils.makeTag("div", attrs));
                 break;
             }
 
@@ -430,7 +416,7 @@ public class MtextToHtml extends DefaultHandler implements MtextConverted {
                 break;
 
             case "incut":
-                html.append(invokeIncutCloseCallback());
+                html.append(XmlUtils.makeTag("/div"));
                 break;
 
             default:
