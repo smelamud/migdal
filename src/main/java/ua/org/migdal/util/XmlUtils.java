@@ -64,8 +64,12 @@ public class XmlUtils {
         buf.append(name.toLowerCase());
         if (attributes != null) {
             for (int i = 0; i < attributes.getLength(); i++) {
+                String localName = attributes.getLocalName(i).toLowerCase();
+                if (localName.startsWith("on")) { // filtering out event handlers that may be present in user input
+                    continue;
+                }
                 buf.append(' ');
-                buf.append(attributes.getLocalName(i));
+                buf.append(localName);
                 buf.append("=\"");
                 buf.append(delicateSpecialChars(attributes.getValue(i)));
                 buf.append('"');
