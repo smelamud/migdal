@@ -126,7 +126,6 @@ CREATE TABLE public.entries (
     large_body text NOT NULL,
     large_body_xml text NOT NULL,
     large_body_format bigint DEFAULT '0'::bigint NOT NULL,
-    large_body_filename character varying(70) DEFAULT ''::character varying NOT NULL,
     priority smallint DEFAULT '0'::smallint NOT NULL,
     index0 bigint DEFAULT '0'::bigint NOT NULL,
     index1 bigint DEFAULT '0'::bigint NOT NULL,
