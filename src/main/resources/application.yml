@@ -1,5 +1,7 @@
 server:
   port: 8081  # Server port
+  session:
+    timeout: 2400h  # Session maximum inactivity interval
 
 spring:
   # DataSource settings
