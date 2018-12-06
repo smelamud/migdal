@@ -17,6 +17,7 @@ public class Text {
                 .replace(">>", "\u00bb")
                 .replace("---", "\u2014")
                 .replace("``", "\u201c")
+                .replace("''", "\u201d")
                 .replace("(c)", "\u00a9")
                 .replace("(C)", "\u00a9")
                 .replace("(r)", "\u00ae")
