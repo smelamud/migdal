@@ -181,10 +181,6 @@ public class Entry implements TreeElement {
     private TextFormat largeBodyFormat = TextFormat.PLAIN;
 
     @NotNull
-    @Size(max=70)
-    private String largeBodyFilename = "";
-
-    @NotNull
     private short priority;
 
     @NotNull
@@ -852,14 +848,6 @@ public class Entry implements TreeElement {
     @Transient
     public Mtext getLargeBodyMtext() {
         return new Mtext(getLargeBodyXml(), MtextFormat.LONG, getId());
-    }
-
-    public String getLargeBodyFilename() {
-        return largeBodyFilename;
-    }
-
-    public void setLargeBodyFilename(String largeBodyFilename) {
-        this.largeBodyFilename = largeBodyFilename;
     }
 
     public short getPriority() {
