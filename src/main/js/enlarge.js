@@ -1,7 +1,15 @@
 function enlargeInit() {
     $(".enlargeable").fancybox({
-        animationEffect: "elastic",
-        transitionEffect: "fade",
+        closeExisting: true,
+        buttons: [
+            "zoom",
+            "slideShow",
+            "fullScreen",
+            "download",
+            "thumbs",
+            "close"
+        ],
+        idleTime: 0,
         padding: 0,
 
         helpers: {
@@ -22,7 +30,10 @@ function enlargeInit() {
         afterShow: function() {
             userInfoInit(".fancybox-caption");
             voteInit(".fancybox-caption");
-        }
+        },
+
+        clickContent: "nextOrClose",
+        dblclickContent: "zoom"
     });
 }
 
