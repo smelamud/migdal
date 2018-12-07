@@ -10,11 +10,13 @@ public interface CrossEntryRepository extends JpaRepository<CrossEntry, Long> {
     CrossEntry findByLinkTypeAndPeerId(LinkType linkType, long peerId);
 
     // We need @Query here to force join
-    @Query("from CrossEntry ce left join ce.peer where ce.linkType=?1 and ce.sourceName=?2 order by ce.peer.subject")
+    @Query("select ce from CrossEntry ce left join ce.peer where ce.linkType=?1 and ce.sourceName=?2"
+            + " order by ce.peer.subject")
     List<CrossEntry> findAllByLinkTypeAndSourceNameOrderByPeerSubject(LinkType linkType, String sourceName);
 
     // We need @Query here to force join
-    @Query("from CrossEntry ce left join ce.peer where ce.linkType=?1 and ce.source.id=?2 order by ce.peer.subject")
+    @Query("select ce from CrossEntry ce left join ce.peer where ce.linkType=?1 and ce.source.id=?2"
+            + " order by ce.peer.subject")
     List<CrossEntry> findAllByLinkTypeAndSourceIdOrderByPeerSubject(LinkType linkType, long sourceId);
 
 }
