@@ -96,6 +96,10 @@ public class HtmlCacheManager {
     }
 
     public String get(CachedHtml cachedHtml) {
+        if (!config.isHtmlCache()) {
+            return null;
+        }
+
         fetchContentVersion();
         HtmlCache htmlCache = htmlCacheRepository.findById(cachedHtml.getIdent()).orElse(null);
         if (htmlCache == null) {
