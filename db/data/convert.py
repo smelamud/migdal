@@ -186,7 +186,6 @@ def convert_entries(row):
         html_entities(row['large_body']),
         row['large_body_xml'],
         row['large_body_format'],
-        row['large_body_filename'],
         row['priority'],
         row['index0'],
         row['index1'],

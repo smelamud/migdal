@@ -1,5 +1,5 @@
 server:
-  port: 8081  # Server port
+  port: 8080  # Server port
   session:
     timeout: 2400h  # Session maximum inactivity interval
 
@@ -32,7 +32,7 @@ spring:
     baseline-on-migrate: true
 
   jpa:
-    show-sql: true  # Show or not log for each sql query
+    show-sql: false  # Show or not log for each sql query
     hibernate:
       ddl-auto: none  # Hibernate DDL auto (create, create-drop, update)
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy  # Naming strategy
@@ -85,7 +85,7 @@ migdal:
   disableRegister: false  # Disable users' self-registration, allow creation of users by admin only
   regConfirmTimeout: 3  # Timeout (in days) of user e-mail confirmation
 
-  imageDir: /home/smelamud/migdal-images  # Image directory
+  imageDir: <images directory> # Image directory
   imageUrl: /images  # Base image URL
   maxImageSize: 2097152  # Maximal uploaded image size (in bytes)
   imageFileTimeout: 6 # Maximal lifetime (in hours) of an image file not referred from the database
