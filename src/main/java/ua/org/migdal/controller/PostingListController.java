@@ -18,7 +18,9 @@ import ua.org.migdal.data.Posting;
 import ua.org.migdal.data.Topic;
 import ua.org.migdal.grp.GrpDescriptor;
 import ua.org.migdal.grp.GrpEnum;
+import ua.org.migdal.manager.CachedHtml;
 import ua.org.migdal.manager.CrossEntryManager;
+import ua.org.migdal.manager.HtmlCacheManager;
 import ua.org.migdal.manager.PostingManager;
 import ua.org.migdal.manager.Postings;
 import ua.org.migdal.session.RequestContext;
@@ -40,6 +42,9 @@ public class PostingListController {
 
     @Inject
     private CrossEntryManager crossEntryManager;
+
+    @Inject
+    private HtmlCacheManager htmlCacheManager;
 
     void addPostings(String groupName, Topic topic, Long userId, String[] addGrpNames, boolean addVisible,
                      int offset, int limit, Model model) {
@@ -116,11 +121,17 @@ public class PostingListController {
     }
 
     void addSeeAlso(long id, Model model) {
-        List<CrossEntry> links = crossEntryManager.getAll(LinkType.SEE_ALSO, id);
-        model.addAttribute("seeAlsoVisible", links.size() > 0 || requestContext.isUserModerator());
-        model.addAttribute("seeAlsoSourceId", id);
-        model.addAttribute("seeAlsoLinks", links);
-
+        CachedHtml seeAlsoCache = htmlCacheManager.of("seeAlso")
+                                                  .of(id)
+                                                  .of(requestContext.isUserModerator())
+                                                  .onCrossEntries();
+        model.addAttribute("seeAlsoCache", seeAlsoCache);
+        if (seeAlsoCache.isInvalid()) {
+            List<CrossEntry> links = crossEntryManager.getAll(LinkType.SEE_ALSO, id);
+            model.addAttribute("seeAlsoVisible", links.size() > 0 || requestContext.isUserModerator());
+            model.addAttribute("seeAlsoSourceId", id);
+            model.addAttribute("seeAlsoLinks", links);
+        }
     }
 
 }

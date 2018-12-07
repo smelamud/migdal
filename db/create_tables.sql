@@ -57,7 +57,8 @@ CREATE TABLE public.content_versions (
     postings_version integer NOT NULL,
     comments_version integer NOT NULL,
     topics_version integer NOT NULL,
-    id bigint NOT NULL
+    id bigint NOT NULL,
+    cross_entries_version integer DEFAULT 0 NOT NULL
 );
 
 
@@ -205,7 +206,8 @@ CREATE TABLE public.html_cache (
     deadline timestamp with time zone,
     postings_version integer,
     comments_version integer,
-    topics_version integer
+    topics_version integer,
+    cross_entries_version integer
 );
 
 
@@ -1184,6 +1186,7 @@ SET row_security = off;
 COPY public.schema_history (installed_rank, version, description, type, script, checksum, installed_by, installed_on, execution_time, success) FROM stdin;
 1	1	<< Flyway Baseline >>	BASELINE	<< Flyway Baseline >>	\N	migdal	2018-12-05 21:36:32.731025	0	t
 2	2	drop large body filename	SQL	V2__drop_large_body_filename.sql	319816289	migdal	2018-12-06 19:53:49.196017	8	t
+3	3	cross entries version	SQL	V3__cross_entries_version.sql	-296022946	migdal	2018-12-07 11:02:58.056953	372	t
 \.
 
 

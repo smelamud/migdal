@@ -30,9 +30,6 @@ public class HtmlCacheManager {
     @Inject
     private HtmlCacheRepository htmlCacheRepository;
 
-    @Inject
-    private EntryManager entryManager;
-
     private void fetchContentVersion() {
         if (contentVersion == null) {
             synchronized (contentVersionLock) {
@@ -61,6 +58,14 @@ public class HtmlCacheManager {
         fetchContentVersion();
         synchronized (contentVersionLock) {
             contentVersion.setTopicsVersion(contentVersion.getTopicsVersion() + 1);
+            contentVersionRepository.save(contentVersion);
+        }
+    }
+
+    public void crossEntriesUpdated() {
+        fetchContentVersion();
+        synchronized (contentVersionLock) {
+            contentVersion.setCrossEntriesVersion(contentVersion.getCrossEntriesVersion() + 1);
             contentVersionRepository.save(contentVersion);
         }
     }
@@ -115,6 +120,11 @@ public class HtmlCacheManager {
                 || htmlCache.getTopicsVersion() != contentVersion.getTopicsVersion())) {
             return null;
         }
+        if (cachedHtml.isDependsOnCrossEntries()
+                && (htmlCache.getCrossEntriesVersion() == null
+                || htmlCache.getCrossEntriesVersion() != contentVersion.getCrossEntriesVersion())) {
+            return null;
+        }
         return htmlCache.getContent();
     }
 
@@ -137,6 +147,9 @@ public class HtmlCacheManager {
         }
         if (cachedHtml.isDependsOnTopics()) {
             htmlCache.setTopicsVersion(contentVersion.getTopicsVersion());
+        }
+        if (cachedHtml.isDependsOnCrossEntries()) {
+            htmlCache.setCrossEntriesVersion(contentVersion.getCrossEntriesVersion());
         }
         htmlCacheRepository.save(htmlCache);
     }

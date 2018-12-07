@@ -21,6 +21,9 @@ public class ContentVersion {
     @NotNull
     private int topicsVersion;
 
+    @NotNull
+    private int crossEntriesVersion;
+
     public Long getId() {
         return id;
     }
@@ -51,6 +54,14 @@ public class ContentVersion {
 
     public void setTopicsVersion(int topicsVersion) {
         this.topicsVersion = topicsVersion;
+    }
+
+    public int getCrossEntriesVersion() {
+        return crossEntriesVersion;
+    }
+
+    public void setCrossEntriesVersion(int crossEntriesVersion) {
+        this.crossEntriesVersion = crossEntriesVersion;
     }
 
 }

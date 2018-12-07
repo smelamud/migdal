@@ -24,6 +24,8 @@ public class HtmlCache {
 
     private Integer topicsVersion;
 
+    private Integer crossEntriesVersion;
+
     public String getIdent() {
         return ident;
     }
@@ -70,6 +72,14 @@ public class HtmlCache {
 
     public void setTopicsVersion(Integer topicsVersion) {
         this.topicsVersion = topicsVersion;
+    }
+
+    public Integer getCrossEntriesVersion() {
+        return crossEntriesVersion;
+    }
+
+    public void setCrossEntriesVersion(Integer crossEntriesVersion) {
+        this.crossEntriesVersion = crossEntriesVersion;
     }
 
 }

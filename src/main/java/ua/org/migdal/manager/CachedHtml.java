@@ -14,6 +14,7 @@ public class CachedHtml {
     private boolean dependsOnPostings;
     private boolean dependsOnComments;
     private boolean dependsOnTopics;
+    private boolean dependsOnCrossEntries;
     private boolean enabled = true;
 
     CachedHtml(HtmlCacheManager htmlCacheManager, String objectName) {
@@ -83,6 +84,11 @@ public class CachedHtml {
         return this;
     }
 
+    public CachedHtml onCrossEntries() {
+        dependsOnCrossEntries = true;
+        return this;
+    }
+
     public CachedHtml only(boolean enabled) {
         this.enabled = enabled;
         return this;
@@ -106,6 +112,10 @@ public class CachedHtml {
 
     boolean isDependsOnTopics() {
         return dependsOnTopics;
+    }
+
+    boolean isDependsOnCrossEntries() {
+        return dependsOnCrossEntries;
     }
 
     public boolean isEnabled() {

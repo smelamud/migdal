@@ -21,6 +21,7 @@ import ua.org.migdal.form.CrossEntryAddForm;
 import ua.org.migdal.form.CrossEntryDeleteForm;
 import ua.org.migdal.manager.CrossEntryManager;
 import ua.org.migdal.manager.EntryManager;
+import ua.org.migdal.manager.HtmlCacheManager;
 import ua.org.migdal.manager.IdentManager;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.session.RequestContext;
@@ -42,6 +43,9 @@ public class CrossEntryController {
 
     @Inject
     private CrossEntryManager crossEntryManager;
+
+    @Inject
+    private HtmlCacheManager htmlCacheManager;
 
     @Inject
     private IndexController indexController;
@@ -98,6 +102,7 @@ public class CrossEntryController {
                     CrossEntry crossEntry = new CrossEntry();
                     crossEntryAddForm.toCrossEntry(crossEntry, source, peer);
                     crossEntryManager.save(crossEntry);
+                    htmlCacheManager.crossEntriesUpdated();
 
                     return null;
                 });
@@ -128,6 +133,8 @@ public class CrossEntryController {
                         return "noCross";
                     }
                     crossEntryManager.delete(crossEntry);
+                    htmlCacheManager.crossEntriesUpdated();
+
                     return null;
                 });
 
