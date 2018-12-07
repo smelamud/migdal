@@ -1,10 +1,10 @@
 #!/bin/bash
 
 ./import \
-    chat_messages \
     prisoners \
     users \
     groups \
+    chat_messages \
     image_files \
     image_file_transforms \
     entries \
