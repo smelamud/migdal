@@ -1,3 +1,4 @@
 #!/bin/sh
 
 pg_dump -sx -d migdal -U migdal -W > create_tables.sql
+pg_dump -a -t schema_history -d migdal -U migdal -W >> create_tables.sql
