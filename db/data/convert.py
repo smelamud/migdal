@@ -2,6 +2,7 @@
 
 import sys
 import csv
+import re
 
 entry_grps = {}
 entry_ids = {}
@@ -84,6 +85,9 @@ def convert_users(row):
         jewish_name = row['jewish_name']
     else:
         jewish_name = ''
+    if re.match(r'^\d+$', row['login']) and not (row['id'] in ['81', '336', '3594']):
+        print('Excluding numeric login: ', row['login'])
+        return None
     if row['login'] in convert_users.used_logins:
         print('Reused login: ', row['id'], ':', row['login'])
         return None
