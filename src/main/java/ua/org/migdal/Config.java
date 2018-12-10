@@ -51,6 +51,7 @@ public class Config {
     private String captchaPublicKey;
     private String captchaSecretKey;
     private boolean htmlCache;
+    private boolean pendingUpgrade;
 
     @PostConstruct
     public void init() {
@@ -395,6 +396,14 @@ public class Config {
 
     public void setHtmlCache(boolean htmlCache) {
         this.htmlCache = htmlCache;
+    }
+
+    public boolean isPendingUpgrade() {
+        return pendingUpgrade;
+    }
+
+    public void setPendingUpgrade(boolean pendingUpgrade) {
+        this.pendingUpgrade = pendingUpgrade;
     }
 
 }

@@ -147,3 +147,6 @@ migdal:
 
   # Enable HTML caching
   htmlCache: true
+
+  # Temporarily block the site for upgrade
+  pendingUpgrade: false

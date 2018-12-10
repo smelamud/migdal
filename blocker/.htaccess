@@ -1,8 +1,0 @@
-AddDefaultCharset UTF-8
-
-DirectoryIndex /blocker.html
-RewriteEngine on
-RewriteBase /
-RewriteCond %{REQUEST_URI} !blocker.html
-RewriteCond %{REQUEST_URI} !bw-tower.gif
-RewriteRule ^.*$ /blocker.html

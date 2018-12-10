@@ -24,6 +24,7 @@ import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
 
 import ua.org.migdal.interceptor.CacheControlInterceptor;
 import ua.org.migdal.interceptor.GlobalUriChangesInterceptor;
+import ua.org.migdal.interceptor.PendingUpgradeInterceptor;
 import ua.org.migdal.interceptor.SaveCookiesInterceptor;
 import ua.org.migdal.interceptor.SubdomainInterceptor;
 import ua.org.migdal.interceptor.TrapInterceptor;
@@ -58,6 +59,9 @@ public class MigdalApplication implements WebMvcConfigurer {
     private CacheControlInterceptor cacheControlInterceptor;
 
     @Inject
+    private PendingUpgradeInterceptor pendingUpgradeInterceptor;
+
+    @Inject
     private Config config;
 
     @Bean
@@ -87,6 +91,7 @@ public class MigdalApplication implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(subdomainInterceptor);
+        registry.addInterceptor(pendingUpgradeInterceptor);
         registry.addInterceptor(trapInterceptor).order(100); // To be executed after Hibernate session is created
         registry.addInterceptor(globalUriChangesInterceptor);
         registry.addInterceptor(saveCookiesInterceptor);

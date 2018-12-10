@@ -1,0 +1,56 @@
+{{#notEnglish var="comment"}}Идет обновление{{else}}Pending upgrade{{/notEnglish}}
+
+<html>
+    <head>
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <title>{{status}} - {{comment}} | Мигдаль</title>
+        <style>
+            #content {
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: center;
+            }
+            .column {
+                width: 400px;
+                margin: 25px;
+            }
+            #status {
+                font-size: 40pt;
+                font-weight: bold;
+                position: relative;
+                top: -6pt;
+                margin-left: 0.5em;
+            }
+            #comment {
+                font-size: 24pt;
+                font-style: italic;
+            }
+            HEADER {
+                font-weight: bold;
+                font-size: larger;
+            }
+            .column P {
+                font-size: larger;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="content">
+            <div class="column">
+                {{image "/pics/bw-tower.gif"}}
+                <span id="status">{{status}}</span><br>
+                <span id="comment">{{comment}}</span>
+            </div>
+            <div class="column">
+                {{#notEnglish}}
+                    <header>Сайт обновляется</header>
+                    <p>Приносим извинения за временные неудобства.</p>
+                {{else}}
+                    <header>The website is being upgraded</header>
+                    <p>Sorry for inconvenience.</p>
+                {{/notEnglish}}
+            </div>
+        </div>
+    </body>
+</html>

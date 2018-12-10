@@ -31,6 +31,7 @@ public class SubdomainInterceptor extends HandlerInterceptorAdapter {
             "/add-review/",
             "/reorder-reviews/",
             "/events/",
+            "/error/",
             Pattern.compile("^/events/\\d+/$"),
             Pattern.compile("^/events/add-[a-z]+/$"),
             Pattern.compile("^/css/.*$"),
