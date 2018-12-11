@@ -39,17 +39,26 @@ public class SubdomainUtils {
         if (pos < 0) {
             return new SubdomainInfo(null, config.getSiteDomain());
         }
+        String defaultSubdomain = config.getSubdomains()[0];
         String subdomain = hostname.substring(0, pos);
         String domain = hostname.substring(pos + 1);
         if (domain.equals(config.getSiteDomain())) {
-            if (Arrays.asList(config.getSubdomains()).contains(subdomain)) {
+            if (isValidSubdomain(subdomain)) {
                 return new SubdomainInfo(subdomain, null);
             } else {
-                return new SubdomainInfo(subdomain, String.join(".", config.getSubdomains()[0], domain));
+                return new SubdomainInfo(subdomain, String.join(".", defaultSubdomain, domain));
             }
         } else {
-            return new SubdomainInfo(subdomain, String.join(".", subdomain, config.getSiteDomain()));
+            if (isValidSubdomain(subdomain)) {
+                return new SubdomainInfo(subdomain, String.join(".", subdomain, config.getSiteDomain()));
+            } else {
+                return new SubdomainInfo(subdomain, String.join(".", defaultSubdomain, config.getSiteDomain()));
+            }
         }
+    }
+
+    private boolean isValidSubdomain(String subdomain) {
+        return Arrays.asList(config.getSubdomains()).contains(subdomain);
     }
 
 }
