@@ -21,18 +21,29 @@ public class GlobalUriChangesInterceptor extends HandlerInterceptorAdapter {
         UriComponentsBuilder builder = UriUtils.createLocalBuilderFromRequest(request);
         UriComponents components = builder.build();
 
-        if (components.getQueryParams().containsKey("print")) {
-            response.sendRedirect(builder.replaceQueryParam("print").build(true).toUriString());
+        if (dropParam("print", components, builder, response)
+            || dropParam("redirid", components, builder, response)
+            || dropParam("reload", components, builder, response)) {
             return false;
         }
 
         String path = CatalogUtils.normalize(components.getPath());
         if (redirect("discuss/", "comments", path, builder, response)
-            || redirect("discuss/reply/", "comment-add", path, builder, response)) {
+            || redirect("discuss/reply/", "comment-add", path, builder, response)
+            || redirect("discuss/add/", "comment-add", path, builder, response)) {
             return false;
         }
 
         return true;
+    }
+
+    private boolean dropParam(String paramName, UriComponents components,
+                              UriComponentsBuilder builder, HttpServletResponse response) throws IOException {
+        if (components.getQueryParams().containsKey(paramName)) {
+            response.sendRedirect(builder.replaceQueryParam(paramName).build(true).toUriString());
+            return true;
+        }
+        return false;
     }
 
     private boolean redirect(String suffix, String replacement, String path,
