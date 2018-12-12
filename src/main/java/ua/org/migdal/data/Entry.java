@@ -402,7 +402,7 @@ public class Entry implements TreeElement {
 
     @Transient
     public boolean isShadow() {
-        return getId() != getOrigId();
+        return getOrigId() != 0 && getId() != getOrigId();
     }
 
     public Entry getCurrent() {
