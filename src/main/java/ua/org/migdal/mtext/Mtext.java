@@ -49,6 +49,10 @@ public class Mtext {
         return ignoreWrongFormat;
     }
 
+    public void setIgnoreWrongFormat(boolean ignoreWrongFormat) {
+        this.ignoreWrongFormat = ignoreWrongFormat;
+    }
+
     public long getId() {
         return id;
     }

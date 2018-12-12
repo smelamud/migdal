@@ -638,7 +638,9 @@ public class Entry implements TreeElement {
 
     @Transient
     public Mtext getTitleLineMtext() {
-        return new Mtext(getTitleXml(), MtextFormat.LINE, getId());
+        Mtext mtext = new Mtext(getTitleXml(), MtextFormat.LINE, getId());
+        mtext.setIgnoreWrongFormat(true); // May contain tags higher than MtextFormat.LINE
+        return mtext;
     }
 
     @Transient
