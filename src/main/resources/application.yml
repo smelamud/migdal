@@ -45,17 +45,17 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQL82Dialect  # The SQL dialect makes Hibernate generate better SQL for the chosen database
 
   # Mail hub properties
-  mail:
-    host: smtp.gmail.com
-    port: 587
+  #mail:
+    #host: smtp.gmail.com
+    #port: 587
     #username:
     #password:
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
+    #properties:
+      #mail:
+        #smtp:
+          #auth: true
+          #starttls:
+            #enable: true
 
   servlet:
     multipart:
