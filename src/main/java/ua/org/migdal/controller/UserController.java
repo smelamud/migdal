@@ -29,6 +29,7 @@ import ua.org.migdal.manager.UserManager;
 import ua.org.migdal.location.LocationInfo;
 import ua.org.migdal.session.RequestContext;
 import ua.org.migdal.util.Captcha;
+import ua.org.migdal.util.Utils;
 
 @Controller
 public class UserController {
@@ -145,6 +146,9 @@ public class UserController {
 
                     if (!user.isEditable(requestContext)) {
                         return "notEditable";
+                    }
+                    if (Utils.isNumber(userForm.getNewLogin())) {
+                        return "newLogin.number";
                     }
                     String errorCode = validateRights(userForm);
                     if (errorCode != null) {
