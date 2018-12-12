@@ -2,6 +2,7 @@ package ua.org.migdal.manager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 
+import org.springframework.util.StringUtils;
 import ua.org.migdal.Config;
 import ua.org.migdal.data.Entry;
 import ua.org.migdal.data.EntryRepository;
@@ -250,6 +252,9 @@ public class TopicManager implements EntryManagerBase<Topic> {
     }
 
     private List<IdNameProjection> deserializeNames(String input) {
+        if (StringUtils.isEmpty(input)) {
+            return Collections.emptyList();
+        }
         return Arrays.stream(input.split("\u0003"))
                      .map(s -> s.split("\u0001"))
                      .map(parts -> new IdNameProjection(Long.parseLong(parts[0]), parts[1]))
