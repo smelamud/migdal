@@ -497,8 +497,9 @@ public class Entry implements TreeElement {
     }
 
     protected boolean isPermitted(long right) {
-        return PermUtils.perm(getUser().getId(), getGroup().getId(), getPerms(), right,
-                RequestContextImpl.getInstance());
+        long userId = getUser() != null ? getUser().getId() : 0;
+        long groupId = getGroup() != null ? getGroup().getId() : 0;
+        return PermUtils.perm(userId, groupId, getPerms(), right, RequestContextImpl.getInstance());
     }
 
     @Transient
