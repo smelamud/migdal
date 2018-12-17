@@ -78,7 +78,8 @@ public class WikiText {
                         || s.charAt(n + 1) == '&'
                         || s.charAt(n + 1) == '=' || s.charAt(n + 1) == '~'
                         || s.charAt(n + 1) == '-' || s.charAt(n + 1) == '<'
-                        || s.charAt(n + 1) == '(' || s.charAt(n + 1) == '[')
+                        || s.charAt(n + 1) == '(' || s.charAt(n + 1) == '['
+                        || Character.getType(s.charAt(n + 1)) == Character.INITIAL_QUOTE_PUNCTUATION)
                     /* word may start by entity or font
                      * style markup or by dash or by tag
                      * or by parenthesis or by bracket
