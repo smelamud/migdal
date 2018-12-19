@@ -461,7 +461,7 @@ public class PostingForm implements Serializable {
             posting.setHasLargeBody(true);
             posting.setLargeBody(Text.convertLigatures(getLargeBody()));
             posting.setLargeBodyXml(
-                    Text.convert(posting.getLargeBody(), posting.getLargeBodyFormat(), MtextFormat.SHORT));
+                    Text.convert(posting.getLargeBody(), posting.getLargeBodyFormat(), MtextFormat.LONG));
         }
         if (getImage() != null) {
             getImage().toEntry(posting, imageFileManager);

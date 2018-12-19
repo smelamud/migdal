@@ -64,7 +64,6 @@ public class MtextTags {
 
         Set<String> chapterTags = new HashSet<>();
         chapterTags.add("quote");
-        chapterTags.add("footnote");
         chapterTags.add("table");
         chapterTags.add("tr");
         chapterTags.add("td");
