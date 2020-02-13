@@ -49,7 +49,7 @@ class WikiUrlReplacer {
     private void goFurther(State targetState) {
         if (end > start) {
             out.append(Utils.replaceAll(text.substring(start, end), URL_DELIMITED,
-                    (m) -> m.group(1) + getUrlTag(m.group(2), m.group(2), m.group(3), m.group(2))));
+                    m -> m.group(1) + getUrlTag(m.group(2), m.group(2), m.group(3), m.group(2))));
             start = end;
         }
         state = targetState;

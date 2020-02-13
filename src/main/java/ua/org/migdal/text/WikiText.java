@@ -236,7 +236,7 @@ public class WikiText {
     }
 
     private static String replaceFootnotes(String s) {
-        return Utils.replaceAll(s, FOOTNOTE, (m) -> {
+        return Utils.replaceAll(s, FOOTNOTE, m -> {
             if (StringUtils.isEmpty(m.group(1))) {
                 return String.format("<footnote>%s</footnote>", m.group(2));
             } else {
